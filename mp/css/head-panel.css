@@ -1,0 +1,133 @@
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+.btn-group-sm > .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.btn-group-xs > .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.dl-horizontal dd:before,
+.dl-horizontal dd:after,
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after,
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after,
+.btn-toolbar:before,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:before,
+.btn-group-vertical > .btn-group:after,
+.nav:before,
+.nav:after,
+.navbar:before,
+.navbar:after,
+.navbar-header:before,
+.navbar-header:after,
+.navbar-collapse:before,
+.navbar-collapse:after,
+.pager:before,
+.pager:after,
+.panel-body:before,
+.panel-body:after,
+.modal-footer:before,
+.modal-footer:after {
+  content: " ";
+  display: table;
+}
+.dl-horizontal dd:after,
+.container:after,
+.container-fluid:after,
+.row:after,
+.form-horizontal .form-group:after,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:after,
+.nav:after,
+.navbar:after,
+.navbar-header:after,
+.navbar-collapse:after,
+.pager:after,
+.panel-body:after,
+.modal-footer:after {
+  clear: both;
+}
+.mp-panel {
+  box-shadow: 0 0 3px 0 #777777;
+  border: none;
+}
+.mp-panel .title {
+  margin: 0;
+}
+.mp-panel .avt {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mp-panel .media-body {
+  position: relative;
+}
+.mp-panel .media-body .actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.mp-panel .media-body .actions .btn {
+  margin: 0 5px;
+}
+.mp-panel .media-body .description {
+  color: #777777;
+}
+.mp-panel .panel-footer {
+  padding: 0;
+}
+.mp-panel .panel-footer .item {
+  display: block;
+  float: left;
+  padding: 10px 15px;
+}
+.mp-panel .panel-footer .item.active {
+  background: white;
+}
+.mp-panel .panel-footer .item.border-left {
+  border-left: 1px solid #dddddd;
+}
+.mp-panel .panel-footer .item.border-right {
+  border-right: 1px solid #dddddd;
+}
+.mp-panel .panel-footer .user {
+  display: block;
+  height: 30px;
+  margin-top: 5px;
+  margin-left: 15px;
+  float: left;
+}
+.mp-panel .panel-footer .user .avt-sm {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 0 1px 0 #777777;
+  margin-right: 5px;
+}

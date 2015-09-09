@@ -1,0 +1,55 @@
+﻿@import (reference) "tools.less";
+
+.mp-header {
+    @height: 44px;
+    @item-height: @line-height-small-compute+@padding-small-vertical*2;
+
+    background-color: white;
+    border-bottom: 1px solid @gray-lighter;
+    box-shadow: 0 0 1px 0 @gray-light;
+
+    .mp-link {
+        line-height: @item-height;
+        padding: floor( ((@height)-@item-height)/2) @padding-small-horizontal;
+        color: @gray-dark;
+    }
+
+    .mp-search {
+        @width: 280px;
+        border: 1px solid @input-border;
+        border-radius: @border-radius-small;
+        margin: floor( ((@height)-@item-height)/2) @padding-small-horizontal;
+        color: @gray-light;
+
+        input {
+            line-height: @line-height-small-compute;
+            padding: @padding-small-vertical @padding-small-horizontal;
+            border: none;
+            background-color: transparent;
+            width: (@width) -@item-height;
+        }
+
+        .icon {
+            display: block;
+            float: right;
+            .size(@item-height,@item-height);
+            line-height: @item-height;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+
+            &:hover {
+                color: @gray-darker;
+            }
+        }
+    }
+
+    .mp-btn {
+        margin: floor( ((@height)-(@item-height)-2)/2) @padding-small-horizontal;
+    }
+
+    .mp-link, .mp-search, .mp-btn {
+        display: block;
+        float: left;
+    }
+}

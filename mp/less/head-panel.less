@@ -1,0 +1,74 @@
+﻿@import (reference) "tools.less";
+
+.mp-panel {
+    box-shadow: 0 0 3px 0 @gray-light;
+    border: none;
+
+    .title {
+        margin: 0;
+    }
+
+    .avt {
+        .size(120px,120px);
+        border: 1px solid @gray-lighter;
+        border-radius: @border-radius-base;
+        overflow: hidden;
+    }
+
+
+    .media-body {
+        position: relative;
+
+        .actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            .btn {
+                margin: 0 5px;
+            }
+        }
+
+        .description {
+            color: @gray-light;
+        }
+    }
+
+    .panel-footer {
+        padding: 0;
+
+        .item {
+            display: block;
+            float:left;
+            padding: @panel-footer-padding;
+
+            &.active {
+                background: white;
+            }
+
+            &.border-left {
+                border-left: 1px solid @panel-inner-border;
+            }
+
+            &.border-right {
+                border-right: 1px solid @panel-inner-border;
+            }
+        }
+
+        .user {
+            display: block;
+            height: 30px;
+            margin-top: 5px;
+            margin-left: 15px;
+            float: left;
+
+            .avt-sm {
+                .size(30px,30px);
+                overflow: hidden;
+                border-radius: @border-radius-small;
+                box-shadow: 0 0 1px 0 @gray-light;
+                margin-right: 5px;
+            }
+        }
+    }
+}

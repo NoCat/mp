@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/Layout.pc.cshtml.cshtml";
+}
+<div class="mp-header">
+    <div class="container clearfix">
+        <div class="pull-left clearfix">
+            <a href="/" class="mp-link">首页</a>
+            <div class="mp-search">
+                <input type="text" placeholder="请输入" />
+                <span class="glyphicon glyphicon-search icon"></span>
+            </div>
+        </div>
+        <div class="pull-right clearfix">
+            <div class="btn btn-primary btn-sm mp-btn">登录</div>
+            <div class="btn btn-default btn-sm mp-btn">注册</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel panel-default mp-panel mp-piece">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object avt" src="~/sq236.jpg" />
+                </div>
+                <div class="media-body">
+                    <div class="actions">
+                        <div class="btn btn-primary btn-sm">关注</div>
+                    </div>
+                    <h3 class="media-heading">这个是图包标题</h3>
+                    <div class="description">写一些自我介绍什么的</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">            
+            <div class="item border-right">item1</div>
+            <div class="item border-right active">item1</div>
+            <div class="item border-right">item1</div>
+            <div class="item border-right">item1</div>
+        </div>
+    </div>
+
+    <div class="btn-group btn-group-sm">
+        <div class="btn btn-default active"><span class="glyphicon glyphicon-th"></span> 图包</div>
+        <div class="btn btn-default"><span class="glyphicon glyphicon-user"></span> 用户</div>
+    </div>
+
+    <div class="panel panel-default mp-panel mp-piece">
+        <div class="panel-body clearfix">
+            <h3 class="title pull-left">图包标题</h3>
+            <div class="actions pull-right">
+                <div class="btn btn-primary btn-sm">关注</div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <a class="user">
+                <img class="avt-sm" src="~/75.jpg" />
+                <span class="name">用户名</span>
+            </a>
+            <div class="pull-right clearfix">
+                <div class="item border-left">item1</div>
+                <div class="item border-left active">item1</div>
+                <div class="item border-left">item1</div>
+                <div class="item border-left">item1</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="waterfall mp-piece">
+        <div class="waterfall-item-236">
+            <a class="img">
+                <img width="236" height="400" src="~/img.jpg" />
+                <div class="cover"></div>
+                <div class="actions clearfix">
+                    <div class="pull-left">
+                        <div class="btn btn-primary btn-sm">转存</div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-heart"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="description"><a>hyper link</a>normal text</div>
+            <div class="info media">
+                <div class="media-left">
+                    <a>
+                        <img src="~/75.jpg" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class="line">
+                        <a>不叫的喵</a>收集到
+                    </div>
+                    <div class="line"><a>个人精选集</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="waterfall-item-236">
+            <a class="img">
+                <img src="~/sq236.jpg" />
+                <div class="cover"></div>
+            </a>
+            <div class="title">
+                这个是图包的标题
+            </div>
+            <div class="attr">
+                <div class="line">1123张图片  23人关注</div>
+                <div class="line">by<a>xxxx</a></div>
+            </div>
+        </div>
+
+        <div class="waterfall-item-236">
+            <a class="avt">
+                <img src="~/75.jpg" />
+            </a>
+            <div class="title text-center">
+                用户名
+            </div>
+            <div class="attr text-center">
+                1123张图片  23人关注
+            </div>
+        </div>
+    </div>
+</div>

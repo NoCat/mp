@@ -1,0 +1,88 @@
+﻿@import (reference) "tools.less";
+
+.waterfall-item-236 {
+    display: block;
+    width: 236px;
+    background: white;
+    border-radius: @border-radius-base;
+    box-shadow: 0 0 3px @gray-light;
+    position: relative;
+    overflow: hidden;
+
+    .actions {
+        position: absolute;
+        display: none;
+        left: 15px;
+        right: 15px;
+        top: 15px;
+    }
+
+    .img {
+        display: block;
+        position: relative;
+
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        &:hover {
+            .cover {
+                background-color: rgba(255,255,255,0.1);
+            }
+
+            .actions {
+                display: block;
+            }
+        }
+    }
+
+    .avt{
+        .size(160px,160px);
+        display:block;
+        border-radius:80px;
+        border:5px solid white;
+        box-shadow:0 0 3px 0 @gray-light;
+        margin:30px auto 10px;
+        overflow:hidden;
+
+        img{
+            .size(150px,150px);
+        }
+    }
+
+
+    .description, .info, .title, .attr {
+        margin-top: 0;
+        padding: 8px 10px;
+
+        a {
+            margin: 0 3px;
+        }
+    }
+
+    .attr{
+        font-size:@font-size-small;
+        color:@gray-light;
+        line-height:@line-height-small-compute;
+    }
+
+    .title{
+        color:@gray-dark;
+        line-height:@line-height-large-compute;
+        font-weight:700;
+        display:block;
+    }
+
+    .info {
+        background-color: #f9f9f9;
+        border-top: 1px solid @gray-lighter;
+
+        img {
+            .size(40px,40px);
+        }
+    }
+}

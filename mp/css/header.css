@@ -1,0 +1,118 @@
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+.btn-group-sm > .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.btn-group-xs > .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.dl-horizontal dd:before,
+.dl-horizontal dd:after,
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after,
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after,
+.btn-toolbar:before,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:before,
+.btn-group-vertical > .btn-group:after,
+.nav:before,
+.nav:after,
+.navbar:before,
+.navbar:after,
+.navbar-header:before,
+.navbar-header:after,
+.navbar-collapse:before,
+.navbar-collapse:after,
+.pager:before,
+.pager:after,
+.panel-body:before,
+.panel-body:after,
+.modal-footer:before,
+.modal-footer:after {
+  content: " ";
+  display: table;
+}
+.dl-horizontal dd:after,
+.container:after,
+.container-fluid:after,
+.row:after,
+.form-horizontal .form-group:after,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:after,
+.nav:after,
+.navbar:after,
+.navbar-header:after,
+.navbar-collapse:after,
+.pager:after,
+.panel-body:after,
+.modal-footer:after {
+  clear: both;
+}
+.mp-header {
+  background-color: white;
+  border-bottom: 1px solid #eeeeee;
+  box-shadow: 0 0 1px 0 #777777;
+}
+.mp-header .mp-link {
+  line-height: 28px;
+  padding: 8px 10px;
+  color: #333333;
+}
+.mp-header .mp-search {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin: 8px 10px;
+  color: #777777;
+}
+.mp-header .mp-search input {
+  line-height: 18px;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  width: 280px -28px;
+}
+.mp-header .mp-search .icon {
+  display: block;
+  float: right;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+.mp-header .mp-search .icon:hover {
+  color: #222222;
+}
+.mp-header .mp-btn {
+  margin: 7px 10px;
+}
+.mp-header .mp-link,
+.mp-header .mp-search,
+.mp-header .mp-btn {
+  display: block;
+  float: left;
+}

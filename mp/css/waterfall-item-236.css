@@ -1,0 +1,152 @@
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+.btn-group-sm > .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.btn-group-xs > .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.dl-horizontal dd:before,
+.dl-horizontal dd:after,
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after,
+.form-horizontal .form-group:before,
+.form-horizontal .form-group:after,
+.btn-toolbar:before,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:before,
+.btn-group-vertical > .btn-group:after,
+.nav:before,
+.nav:after,
+.navbar:before,
+.navbar:after,
+.navbar-header:before,
+.navbar-header:after,
+.navbar-collapse:before,
+.navbar-collapse:after,
+.pager:before,
+.pager:after,
+.panel-body:before,
+.panel-body:after,
+.modal-footer:before,
+.modal-footer:after {
+  content: " ";
+  display: table;
+}
+.dl-horizontal dd:after,
+.container:after,
+.container-fluid:after,
+.row:after,
+.form-horizontal .form-group:after,
+.btn-toolbar:after,
+.btn-group-vertical > .btn-group:after,
+.nav:after,
+.navbar:after,
+.navbar-header:after,
+.navbar-collapse:after,
+.pager:after,
+.panel-body:after,
+.modal-footer:after {
+  clear: both;
+}
+.waterfall-item-236 {
+  display: block;
+  width: 236px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 3px #777777;
+  position: relative;
+  overflow: hidden;
+}
+.waterfall-item-236 .actions {
+  position: absolute;
+  display: none;
+  left: 15px;
+  right: 15px;
+  top: 15px;
+}
+.waterfall-item-236 .img {
+  display: block;
+  position: relative;
+}
+.waterfall-item-236 .img .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.waterfall-item-236 .img:hover .cover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.waterfall-item-236 .img:hover .actions {
+  display: block;
+}
+.waterfall-item-236 .avt {
+  width: 160px;
+  height: 160px;
+  display: block;
+  border-radius: 80px;
+  border: 5px solid white;
+  box-shadow: 0 0 3px 0 #777777;
+  margin: 30px auto 10px;
+  overflow: hidden;
+}
+.waterfall-item-236 .avt img {
+  width: 150px;
+  height: 150px;
+}
+.waterfall-item-236 .description,
+.waterfall-item-236 .info,
+.waterfall-item-236 .title,
+.waterfall-item-236 .attr {
+  margin-top: 0;
+  padding: 8px 10px;
+}
+.waterfall-item-236 .description a,
+.waterfall-item-236 .info a,
+.waterfall-item-236 .title a,
+.waterfall-item-236 .attr a {
+  margin: 0 3px;
+}
+.waterfall-item-236 .attr {
+  font-size: 12px;
+  color: #777777;
+  line-height: 18px;
+}
+.waterfall-item-236 .title {
+  color: #333333;
+  line-height: 23px;
+  font-weight: 700;
+  display: block;
+}
+.waterfall-item-236 .info {
+  background-color: #f9f9f9;
+  border-top: 1px solid #eeeeee;
+}
+.waterfall-item-236 .info img {
+  width: 40px;
+  height: 40px;
+}
