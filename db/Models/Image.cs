@@ -23,5 +23,10 @@ namespace db.Models
         public int Via { get; set; }
         [MaxLength(100)]
         public string Host { get; set; }
+
+        public Image()
+        {
+            CreatedTime = DateTime.Now;
+        }
     }
 }

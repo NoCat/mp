@@ -11,7 +11,7 @@ namespace db.Models
         public int SenderID { get; set; }
         virtual public User Sender { get; set; }
         public int RecieverID { get; set; }
-        virtual public User RecieverID { get; set; }
+        virtual public User Reciever { get; set; }
         public int Target { get; set; }
         public int Addition { get; set; }
         public ActivityTypes Type { get; set; }

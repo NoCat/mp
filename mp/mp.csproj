@@ -143,6 +143,7 @@
     <Compile Include="Utility\ByteArrayExtend.cs" />
     <Compile Include="Utility\Downloader.cs" />
     <Compile Include="Utility\OssFile.cs" />
+    <Compile Include="Utility\StreamExtend.cs" />
     <Compile Include="Utility\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -297,7 +298,7 @@
     <Content Include="Views\Shared\BootstrapLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Layout.pc.cshtml.cshtml" />
+    <Content Include="Views\Shared\Layout.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.pc.cshtml" />
@@ -322,6 +323,12 @@
       <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
       <Name>db</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\header.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.pc2.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
