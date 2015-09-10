@@ -13,7 +13,7 @@ namespace mp.Controllers
 
         public ActionResult Index()
         {
-            return View("index.pc2");
+            return View("index.pc");
         }
 
     }

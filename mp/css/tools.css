@@ -72,5 +72,14 @@
   clear: both;
 }
 .mp-piece {
-  margin-top: 20px;
+  margin: 20px 0;
+}
+.mp-piece .header h2 {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: 18px;
+}
+.separator {
+  margin: 40px 0 0 0;
+  border-bottom: 1px solid #ccc;
 }

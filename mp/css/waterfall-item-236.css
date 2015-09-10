@@ -138,7 +138,7 @@
 }
 .waterfall-item-236 .title {
   color: #333333;
-  line-height: 23px;
+  line-height: 20px;
   font-weight: 700;
   display: block;
 }
@@ -149,4 +149,39 @@
 .waterfall-item-236 .info img {
   width: 40px;
   height: 40px;
+}
+.waterfall-item-236 .thumbs {
+  position: relative;
+  width: 216px;
+  height: 289px;
+  margin: 10px;
+}
+.waterfall-item-236 .thumbs .thumb1,
+.waterfall-item-236 .thumbs .thumb2,
+.waterfall-item-236 .thumbs .thumb3,
+.waterfall-item-236 .thumbs .thumb4 {
+  position: absolute;
+  border: 1px solid #eeeeee;
+}
+.waterfall-item-236 .thumbs .thumb2,
+.waterfall-item-236 .thumbs .thumb3,
+.waterfall-item-236 .thumbs .thumb4 {
+  top: 219px;
+  width: 70px;
+  height: 70px;
+}
+.waterfall-item-236 .thumbs .thumb1 {
+  width: 216px;
+  height: 216px;
+  left: 0;
+  top: 0;
+}
+.waterfall-item-236 .thumbs .thumb2 {
+  left: 0;
+}
+.waterfall-item-236 .thumbs .thumb3 {
+  left: 73px;
+}
+.waterfall-item-236 .thumbs .thumb4 {
+  left: 146px;
 }

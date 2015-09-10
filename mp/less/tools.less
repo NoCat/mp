@@ -1,12 +1,25 @@
 ﻿@import (reference) "./bootstrap/bootstrap.less";
 
-@line-height-small-compute : floor(@font-size-small*@line-height-small);
+@line-height-small-compute: floor(@font-size-small*@line-height-small);
 @line-height-large-compute: floor(@font-size-large*@line-height-large);
 
-.mp-piece{
-    margin-top:20px;
+.mp-piece {
+    margin: 20px 0;
+
+    .header {
+        h2 {
+            margin: 0;
+            padding-bottom: 20px;
+            font-size: @font-size-large;
+        }
+    }
 }
 
-.mp-shadow(){
-    box-shadow:0 0 3px 0 @gray-light;
+.mp-shadow() {
+    box-shadow: 0 0 3px 0 @gray-light;
+}
+
+.separator {
+    margin: 40px 0 0 0;
+    border-bottom: 1px solid #ccc;
 }
