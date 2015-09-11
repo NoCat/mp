@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.Models
 {
@@ -21,12 +22,62 @@ namespace db.Models
         [MaxLength(200)]
         public string Description { get; set; }
         public int Via { get; set; }
-        [MaxLength(100)]
-        public string Host { get; set; }
 
+        
+        private string _imageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
+        [NotMapped]
+        public string OriginUrl
+        {
+            get
+            {
+                return _imageHost + File.MD5 + ".jpg";
+            }
+        }
+        [NotMapped]
+        public string Fw236Url
+        {
+            get
+            {
+                return _imageHost + File.MD5 + "_fw236.jpg";
+            }
+        }
+        [NotMapped]
+        public string Fw658Url
+        {
+            get
+            {
+                return _imageHost + File.MD5 + "_fw658.jpg";
+            }
+        }
+        [NotMapped]
+        public string Fw78Url
+        {
+            get
+            {
+                return _imageHost + File.MD5 + "_fw78.jpg";
+            }
+        }
+        [NotMapped]
+        public string Sq236Url
+        {
+            get
+            {
+                return _imageHost + File.MD5 + "_sq236.jpg";
+            }
+        }
+        [NotMapped]
+        public string Sq75Url
+        {
+            get
+            {
+                return _imageHost + File.MD5 + "_sq75.jpg";
+            }
+        }
         public Image()
         {
             CreatedTime = DateTime.Now;
         }
+
+
     }
 }

@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,6 +73,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageTypes.cs" />
     <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\PackageCover.cs" />
     <Compile Include="Models\Pick.cs" />
     <Compile Include="Models\Praise.cs" />
     <Compile Include="Models\Tag.cs" />

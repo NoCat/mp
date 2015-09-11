@@ -16,7 +16,5 @@ namespace db.Models
         public string Title { get; set; }
         [MaxLength(200)]
         public string Description { get; set; }
-        public int CoverID { get; set; }
-        virtual public Image Cover { get; set; }
     }
 }

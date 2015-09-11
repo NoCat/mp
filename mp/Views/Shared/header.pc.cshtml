@@ -1,4 +1,6 @@
-﻿@model db.Models.User
+﻿@{
+    var user = new db.DAL.MiaopassContext().Users.Find(Session["userid"]);
+}
 
 <div class="mp-header">
     <div class="container clearfix">
