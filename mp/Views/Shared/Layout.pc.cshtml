@@ -7,10 +7,13 @@
     <link href="~/css/tools.css" rel="stylesheet" />
     <link href="~/css/head-panel.css" rel="stylesheet" />
     <link href="~/css/waterfall-item-236.css" rel="stylesheet" />
+
+    @RenderSection("style", false)
 }
 
 @section script{
-
+    <script src="~/js/masonry.pkgd.min.js"></script>
+    @RenderSection("script", false)
 }
 
 @RenderBody()

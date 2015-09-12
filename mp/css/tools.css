@@ -79,6 +79,24 @@
   padding-bottom: 20px;
   font-size: 18px;
 }
+.mp-container {
+  margin: 0 auto;
+}
+@media (min-width: 1270px) {
+  .mp-container {
+    width: 1240px;
+  }
+}
+@media (min-width: 1518px) {
+  .mp-container {
+    width: 1488px;
+  }
+}
+@media (max-width: 1022px) {
+  .mp-container {
+    width: 992px;
+  }
+}
 .separator {
   margin: 40px 0 0 0;
   border-bottom: 1px solid #ccc;

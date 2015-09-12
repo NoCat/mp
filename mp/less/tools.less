@@ -3,11 +3,14 @@
 @line-height-small-compute: floor(@font-size-small*@line-height-small);
 @line-height-large-compute: floor(@font-size-large*@line-height-large);
 
-.mp-piece {
+.mp-piece
+{
     margin: 20px 0;
 
-    .header {
-        h2 {
+    .header
+    {
+        h2
+        {
             margin: 0;
             padding-bottom: 20px;
             font-size: @font-size-large;
@@ -15,11 +18,33 @@
     }
 }
 
-.mp-shadow() {
+.mp-shadow()
+{
     box-shadow: 0 0 3px 0 @gray-light;
 }
 
-.separator {
+.mp-container
+{
+    margin: 0 auto;
+
+    @media (min-width: 1270px)
+    {
+        width: 1240px;
+    }
+
+    @media (min-width: 1518px)
+    {
+        width: 1488px;
+    }
+
+    @media (max-width: 1022px)
+    {
+        width: 992px;
+    }
+}
+
+.separator
+{
     margin: 40px 0 0 0;
     border-bottom: 1px solid #ccc;
 }

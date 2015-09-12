@@ -197,6 +197,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="img.jpg" />
+    <Content Include="js\masonry.pkgd.min.js" />
     <Content Include="sq236.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -301,7 +302,7 @@
     <Content Include="Views\Shared\Layout.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.pc.cshtml" />
+    <Content Include="Views\Home\Index.pc.test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="less\tools.less" />
@@ -328,7 +329,7 @@
     <Content Include="Views\Shared\header.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.pc2.cshtml" />
+    <Content Include="Views\Home\Index.pc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

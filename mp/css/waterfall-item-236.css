@@ -72,6 +72,8 @@
   clear: both;
 }
 .waterfall-item-236 {
+  float: left;
+  margin: 6px;
   display: block;
   width: 236px;
   background: white;
