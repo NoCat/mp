@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -199,6 +199,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="img.jpg" />
+    <Content Include="js\clientArea.js" />
+    <Content Include="js\home.js" />
     <Content Include="js\masonry.pkgd.min.js" />
     <Content Include="sq236.jpg" />
     <Content Include="Web.config">
@@ -334,8 +336,10 @@
     <Content Include="Views\Home\Index.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ts\masonry.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="ts\window.ts" />
+    <TypeScriptCompile Include="ts\home.ts" />
+    <TypeScriptCompile Include="ts\clientArea.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
