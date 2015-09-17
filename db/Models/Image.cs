@@ -24,13 +24,13 @@ namespace db.Models
         public int Via { get; set; }
 
         
-        private string _imageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
+        public string ImageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
         [NotMapped]
         public string OriginUrl
         {
             get
             {
-                return _imageHost + File.MD5 + ".jpg";
+                return ImageHost + File.MD5 + ".jpg";
             }
         }
         [NotMapped]
@@ -38,7 +38,7 @@ namespace db.Models
         {
             get
             {
-                return _imageHost + File.MD5 + "_fw236.jpg";
+                return ImageHost + File.MD5 + "_fw236.jpg";
             }
         }
         [NotMapped]
@@ -46,7 +46,7 @@ namespace db.Models
         {
             get
             {
-                return _imageHost + File.MD5 + "_fw658.jpg";
+                return ImageHost + File.MD5 + "_fw658.jpg";
             }
         }
         [NotMapped]
@@ -54,7 +54,7 @@ namespace db.Models
         {
             get
             {
-                return _imageHost + File.MD5 + "_fw78.jpg";
+                return ImageHost + File.MD5 + "_fw78.jpg";
             }
         }
         [NotMapped]
@@ -62,7 +62,7 @@ namespace db.Models
         {
             get
             {
-                return _imageHost + File.MD5 + "_sq236.jpg";
+                return ImageHost + File.MD5 + "_sq236.jpg";
             }
         }
         [NotMapped]
@@ -70,7 +70,7 @@ namespace db.Models
         {
             get
             {
-                return _imageHost + File.MD5 + "_sq75.jpg";
+                return ImageHost + File.MD5 + "_sq75.jpg";
             }
         }
         public Image()

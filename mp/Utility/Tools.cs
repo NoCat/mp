@@ -15,6 +15,7 @@ namespace mp.Utility
 {
     static public class Tools
     {
+        static public string ImageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
         static public db.Models.File CreateFile(MiaopassContext db, Stream s,string md5)
         {
             var file = db.Files.Where(i => i.MD5 == md5).FirstOrDefault();
@@ -108,5 +109,6 @@ namespace mp.Utility
             s.Position = 0;
             return MD5.Create().ComputeHash(s).ToHexString();
         }
+        
     }
 }

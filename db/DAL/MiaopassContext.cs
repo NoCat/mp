@@ -30,5 +30,35 @@ namespace db.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        /// <summary>
+        /// 插入实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体</param>
+        /// <param name="save">是否马上保存,默认马上保存</param>
+        public void Insert<T>(T entity,bool save=true) where T:class
+        {
+            Set<T>().Add(entity);
+            if(save)
+            {
+                SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 插入一组实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体数组</param>
+        /// <param name="save">是否马上保存,默认马上保存</param>
+        public void InsertRange<T>(IEnumerable<T> entities,bool save=true) where T:class
+        {
+            Set<T>().AddRange(entities);
+            if (save)
+            {
+                SaveChanges();
+            }
+        }
     }
 }

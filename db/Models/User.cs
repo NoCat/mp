@@ -15,10 +15,16 @@ namespace db.Models
         public string Password { get; set; }
         [MaxLength(255)]
         public string Email { get; set; }
-        public bool UseDefaultHead { get; set; }    
+        [MaxLength(50)]
+        public string Head { get; set; }    
         [MaxLength(255)]
         public string Description { get; set; }
         public DateTime LastGetActivityTime { get; set; }
-        public DateTime LastGetMessageTime { get; set; }
+        public DateTime LastGetMessageTime { get; set; }        
+
+        public User()
+        {
+            Head = "default";
+        }
     }
 }
