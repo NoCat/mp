@@ -30,5 +30,17 @@ namespace db.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public void Insert<T>(T entity) where T:class
+        {
+            Set<T>().Add(entity);
+            SaveChanges();
+        }
+
+        public void Insert<T>(IEnumerable<T> entities) where T:class
+        {
+            Set<T>().AddRange(entities);
+            SaveChanges();
+        }
     }
 }

@@ -8,6 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.Models
 {
+    public class Thumb
+    {
+        public string Url { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public Thumb(File file, string imageHost,string type,int width)
+        {
+            Url = imageHost + "_" + type + file.MD5 + ".jpg";
+            Width = width;
+            if(type=="fw")
+            {                
+                Height = Width / file.Width * file.Heigth;
+            }
+            else
+            {
+                Height = Width;
+            }            
+        }
+    }
+
     public class Image
     {
         public int ID { get; set; }
@@ -77,7 +97,5 @@ namespace db.Models
         {
             CreatedTime = DateTime.Now;
         }
-
-
     }
 }
