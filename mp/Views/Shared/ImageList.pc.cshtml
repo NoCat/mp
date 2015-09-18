@@ -1,0 +1,38 @@
+﻿@model IEnumerable<db.Models.Image>
+
+@foreach (var image in Model)
+{
+    var width=236;
+    var height=width*image.File.Heigth/image.File.Width;
+    <div class="waterfall-item-236">
+        <a class="img">
+            <img width="@width" height="@height" src="@(mp.Utility.Tools.ImageHost+image.File.MD5+"_fw236.jpg")" />
+            <div class="cover"></div>
+            <div class="actions clearfix">
+                <div class="pull-left">
+                    <div class="btn btn-primary btn-sm">转存</div>
+                </div>
+                <div class="pull-right">
+                    <div class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <div class="description">@image.Description</div>
+        <div class="info media">
+            <div class="media-left">
+                <a>
+                    <img src="@(mp.Utility.Tools.ImageHost+"avt/"+image.User.Head+".jpg")" />
+                </a>
+            </div>
+            <div class="media-body">
+                <div class="line">
+                    <a href="~/user/@image.UserID">@image.User.Name</a>收集到
+                </div>
+                <div class="line"><a href="~/package/@image.PackageID">@image.Package.Title</a></div>
+            </div>
+        </div>
+    </div>
+
+}
