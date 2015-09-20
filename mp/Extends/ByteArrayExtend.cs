@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Text;
 
-namespace mp.Utility
+namespace mp.Extends
 {
     static public class ByteArrayExtend
     {

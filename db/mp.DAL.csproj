@@ -7,7 +7,7 @@
     <ProjectGuid>{E4CD5070-086D-410A-862D-2BBADC5337F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>db</RootNamespace>
+    <RootNamespace>mp</RootNamespace>
     <AssemblyName>db</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -58,26 +58,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\MiaopassContext.cs" />
-    <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\ActivityTypes.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\Download.cs" />
-    <Compile Include="Models\DownloadStates.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Following.cs" />
-    <Compile Include="Models\FollowingTypes.cs" />
-    <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\ImageTag.cs" />
-    <Compile Include="Models\LoginCookie.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\MessageTypes.cs" />
-    <Compile Include="Models\Package.cs" />
-    <Compile Include="Models\PackageCover.cs" />
-    <Compile Include="Models\Pick.cs" />
-    <Compile Include="Models\Praise.cs" />
-    <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="MiaopassContext.cs" />
+    <Compile Include="StoredProcedure.cs" />
+    <Compile Include="Activity.cs" />
+    <Compile Include="ActivityTypes.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Download.cs" />
+    <Compile Include="DownloadStates.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="Following.cs" />
+    <Compile Include="FollowingTypes.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImageTag.cs" />
+    <Compile Include="LoginCookie.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageTypes.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PackageCover.cs" />
+    <Compile Include="Pick.cs" />
+    <Compile Include="Praise.cs" />
+    <Compile Include="Tag.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

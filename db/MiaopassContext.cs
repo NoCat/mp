@@ -4,14 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using db.Models;
+using mp.DAL;
 
-namespace db.DAL
+namespace mp.DAL
 {
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class MiaopassContext : DbContext
     {
-        public MiaopassContext() : base("name=db") { }
+        public StoredProcedure StoredProcedure { get; private set; }
+        public MiaopassContext()
+            : base("name=db")
+        {
+            StoredProcedure = new StoredProcedure(this);
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Image> Images { get; set; }
@@ -37,10 +42,10 @@ namespace db.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">实体</param>
         /// <param name="save">是否马上保存,默认马上保存</param>
-        public void Insert<T>(T entity,bool save=true) where T:class
+        public void Insert<T>(T entity, bool save = true) where T : class
         {
             Set<T>().Add(entity);
-            if(save)
+            if (save)
             {
                 SaveChanges();
             }
@@ -52,7 +57,7 @@ namespace db.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">实体数组</param>
         /// <param name="save">是否马上保存,默认马上保存</param>
-        public void InsertRange<T>(IEnumerable<T> entities,bool save=true) where T:class
+        public void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
             Set<T>().AddRange(entities);
             if (save)
@@ -60,5 +65,7 @@ namespace db.DAL
                 SaveChanges();
             }
         }
+
+
     }
 }

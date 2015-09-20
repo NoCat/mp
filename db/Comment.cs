@@ -5,14 +5,16 @@ using System.Text;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace db.Models
+namespace mp.DAL
 {
-    public class LoginCookie
+    public class Comment
     {
-        [Key,MaxLength(40)]
-        public string Value { get; set; }
-        public DateTime Expire { get; set; }
+        public int ID { get; set; }
+        public int ImageID { get; set; }
+        virtual public Image Image { get; set; }
         public int UserID { get; set; }
         virtual public User User { get; set; }
+        public string Content { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

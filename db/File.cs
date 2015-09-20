@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace db.Models
+namespace mp.DAL
 {
     public class File
     {

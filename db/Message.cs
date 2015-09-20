@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 
-namespace db.Models
+namespace mp.DAL
 {
-    public class Activity
+    public class Message
     {
         public int ID { get; set; }
         public int SenderID { get; set; }
@@ -14,7 +16,7 @@ namespace db.Models
         virtual public User Reciever { get; set; }
         public int Target { get; set; }
         public int Addition { get; set; }
-        public ActivityTypes Type { get; set; }
+        public MessageTypes Type { get; set; }
         public DateTime CreatedTime { get; set; }
     }
 }

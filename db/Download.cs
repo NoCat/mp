@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using Nito.KitchenSink.CRC;
 
-namespace db.Models
+namespace mp.DAL
 {
     public class Download
     {

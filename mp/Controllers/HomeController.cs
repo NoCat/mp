@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using db.DAL;
-using db.Models;
+using mp.DAL;
 
 namespace mp.Controllers
 {

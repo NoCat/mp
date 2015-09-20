@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp", "mp\mp.csproj", "{5EA82478-40BF-4F8B-B8BE-F8E0A319505F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db", "db\db.csproj", "{E4CD5070-086D-410A-862D-2BBADC5337F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.DAL", "db\mp.DAL.csproj", "{E4CD5070-086D-410A-862D-2BBADC5337F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

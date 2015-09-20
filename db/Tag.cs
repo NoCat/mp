@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
-namespace db.Models
+namespace mp.DAL
 {
     public class Tag
     {

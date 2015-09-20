@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace mp.Utility
+namespace mp.Extends
 {
     static public class BitmapExtend
     {
