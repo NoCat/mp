@@ -137,8 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\FileManager.cs" />
+    <Compile Include="BLL\ImageInfo.cs" />
     <Compile Include="BLL\ImageManager.cs" />
+    <Compile Include="BLL\PackageInfo.cs" />
     <Compile Include="BLL\PackageManager.cs" />
+    <Compile Include="BLL\UserInfo.cs" />
     <Compile Include="BLL\UserManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -329,12 +332,6 @@
     <Content Include="less\head-panel.less" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\db\mp.DAL.csproj">
-      <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
-      <Name>mp.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\header.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +345,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\ImageList.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\PackageList.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\UserList.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\db\mp.DAL.csproj">
+      <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
+      <Name>mp.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

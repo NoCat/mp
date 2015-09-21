@@ -8,14 +8,11 @@ namespace mp.BLL
 {
     public class PackageManager
     {
+        MiaopassContext _db = null;
 
-        public class PackageInfo
+        public PackageManager(MiaopassContext db)
         {
-            Package _package=null;
-            public PackageInfo(Package package)
-            {
-                _package = package;
-            }
+            _db = db;
         }
     }
 }

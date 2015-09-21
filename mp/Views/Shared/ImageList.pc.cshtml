@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<mp.DAL.Image>
 
-@foreach (var image in Model)
+@foreach (var item in Model)
 {
-    var imageInfo= mp.BLL.ImageManager.GetImageInfo(image);
-    var userInfo = mp.BLL.UserManager.GetUserInfo(image.User);
+    var image=  new mp.BLL.ImageInfo(item);
     <div class="waterfall-item-236">
         <a class="img">
-            <img width="@imageInfo.ThumbFW236.Width" height="@imageInfo.ThumbFW236.Height" src="@imageInfo.ThumbFW236.Url" />
+            <img width="@image.ThumbFW236.Width" height="@image.ThumbFW236.Height" src="@image.ThumbFW236.Url" />
             <div class="cover"></div>
             <div class="actions clearfix">
                 <div class="pull-left">
@@ -19,18 +18,18 @@
                 </div>
             </div>
         </a>
-        <div class="description">@imageInfo.Description</div>
+        <div class="description">@image.Description</div>
         <div class="info media">
             <div class="media-left">
                 <a>
-                    <img src="@userInfo.Head.NormalSize" />
+                    <img src="@image.User.Head" />
                 </a>
             </div>
             <div class="media-body">
                 <div class="line">
-                    <a href="~/user/@image.UserID">@image.User.Name</a>收集到
+                    <a href="@image.User.HomePage">@image.User.Name</a>收集到
                 </div>
-                <div class="line"><a href="~/package/@image.PackageID">@image.Package.Title</a></div>
+                <div class="line"><a href="@image.Package.HomePage">@image.Package.Title</a></div>
             </div>
         </div>
     </div>

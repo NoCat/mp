@@ -1,0 +1,20 @@
+﻿@model IEnumerable<mp.DAL.Package>
+
+@foreach (var item in Model)
+{
+    var packageInfo = new mp.BLL.PackageInfo(item);
+    
+    <div class="waterfall-item-236">
+        <a class="img">
+            <img src="@packageInfo.Cover.ThumbSQ236" />
+            <div class="cover"></div>
+        </a>
+        <div class="title">
+            @packageInfo.Title
+        </div>
+        <div class="attr">
+            <div class="line">(@packageInfo.ImageCount)张图片  (@packageInfo.FollowerCount)人关注</div>
+            <div class="line">by<a href="@packageInfo.User.HomePage">@packageInfo.User.Name</a></div>
+        </div>
+    </div>
+}

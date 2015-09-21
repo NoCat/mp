@@ -29,7 +29,6 @@ namespace mp.DAL
         public DbSet<ImageTag> ImageTags { get; set; }
         public DbSet<Download> Downloads { get; set; }
         public DbSet<Pick> Picks { get; set; }
-        public DbSet<PackageCover> PackageCovers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

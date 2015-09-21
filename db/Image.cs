@@ -19,7 +19,7 @@ namespace mp.DAL
             Width = width;
             if(type=="fw")
             {                
-                Height = Width / file.Width * file.Heigth;
+                Height = Width / file.Width * file.Height;
             }
             else
             {

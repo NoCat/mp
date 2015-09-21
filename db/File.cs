@@ -11,7 +11,7 @@ namespace mp.DAL
     {
         public int ID { get; set; }
         public int Width { get; set; }
-        public int Heigth { get; set; }
+        public int Height { get; set; }
         [MaxLength(32)]
         public string MD5 { get; set; }
     }

@@ -17,7 +17,7 @@ namespace mp.BLL
             _db = db;
         }
 
-        public mp.DAL.File CreateFile(Stream s, string md5)
+        public mp.DAL.File Create(Stream s, string md5)
         {
             var file = _db.Files.Where(i => i.MD5 == md5).FirstOrDefault();
             if (file == null)
@@ -84,7 +84,7 @@ namespace mp.BLL
                         }
 
                         //写入数据库
-                        file = new mp.DAL.File() { MD5 = md5, Heigth = height, Width = width };
+                        file = new mp.DAL.File() { MD5 = md5, Height = height, Width = width };
                         _db.Insert(file);
                     }
                 }

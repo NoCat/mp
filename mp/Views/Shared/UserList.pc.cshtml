@@ -1,0 +1,17 @@
+﻿@model IEnumerable<mp.DAL.User>
+
+@foreach (var item in Model)
+{
+   var user=new mp.BLL.UserInfo(item);
+    <div class="waterfall-item-236">
+        <a class="avt">
+            <img src="@user.BigHead" />
+        </a>
+        <div class="title text-center">
+            @user.Name
+        </div>
+        <div class="attr text-center">
+            (@user.ImageCount)张图片  (@user.FollowerCount)人关注
+        </div>
+    </div>
+}

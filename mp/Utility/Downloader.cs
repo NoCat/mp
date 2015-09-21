@@ -128,7 +128,7 @@ public static class Downloader
             using (var filestream = System.IO.File.OpenRead(filePath1))
             {
                 var manager = new mp.BLL.FileManager(_db);
-                manager.CreateFile(filestream, hash1);
+                manager.Create(filestream, hash1);
             }
 
             //将下载任务标记为已完成
