@@ -12,7 +12,7 @@ namespace mp.Controllers
         // GET: /Account/
 
         [HttpPost]
-        public ActionResult Login(string email,string password)
+        public ActionResult Login(string email,string password,bool remember)
         {
             var result = new ResultJSON();
             email = email.Trim();
@@ -22,8 +22,22 @@ namespace mp.Controllers
                 result.Code = 1;
                 result.Message = "邮箱或密码错误";
             }
+            else
+            {
+                var timeout = 0;
+                if (remember)
+                    timeout = 15;
+                Security.Login(user,timeout);
+            }
             return Json(result);
         }
 
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            var result = new ResultJSON();
+            Security.Logout();
+            return Json(result);
+        }
     }
 }

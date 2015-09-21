@@ -212,7 +212,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="img.jpg" />
-    <Content Include="js\clientArea.js" />
+    <Content Include="js\client.js" />
     <Content Include="js\home.js" />
     <Content Include="js\masonry.pkgd.min.js" />
     <Content Include="sq236.jpg" />
@@ -346,7 +346,8 @@
     <TypeScriptCompile Include="ts\masonry.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="ts\home.ts" />
-    <TypeScriptCompile Include="ts\clientArea.ts" />
+    <TypeScriptCompile Include="ts\client.ts" />
+    <TypeScriptCompile Include="ts\modal.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\ImageList.pc.cshtml" />
@@ -368,6 +369,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="less\footer.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\LoginModal.pc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

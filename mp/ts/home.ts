@@ -1,4 +1,4 @@
-﻿/// <reference path="clientArea.ts" />
+﻿/// <reference path="client.ts" />
 module mp.home
 {
     $(function ()
