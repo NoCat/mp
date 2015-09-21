@@ -2,7 +2,7 @@
 /// <reference path="masonry.ts" />
 module mp
 {
-    export class clientArea
+    export class client
     {
         static columnCount = 0;
         static onColumnCountChange: () => void;
@@ -24,7 +24,7 @@ module mp
 
     function calculateWidth()
     {
-        var width = $(clientArea).width();
+        var width = $(window).width();
         var container = $(".mp-container");
         var count = 0;
 
@@ -44,12 +44,12 @@ module mp
             container.css({ 'width': columnWidth * 4 });
         }
 
-        if (count != clientArea.columnCount)
+        if (count != client.columnCount)
         {
-            clientArea.columnCount = count;
-            if (clientArea.onColumnCountChange != null)
+            client.columnCount = count;
+            if (client.onColumnCountChange != null)
             {
-                clientArea.onColumnCountChange();
+                client.onColumnCountChange();
             }
         }
     }

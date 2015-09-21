@@ -143,10 +143,13 @@
     <Compile Include="BLL\PackageManager.cs" />
     <Compile Include="BLL\UserInfo.cs" />
     <Compile Include="BLL\UserManager.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Utility\ResultJSON.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extends\BitmapExtend.cs" />
     <Compile Include="Extends\ByteArrayExtend.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Utility\Downloader.cs" />
     <Compile Include="Utility\OssFile.cs" />
     <Compile Include="Extends\StreamExtend.cs" />
+    <Compile Include="Utility\Security.cs" />
     <Compile Include="Utility\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +204,7 @@
     <Content Include="css\bootstrap\responsive-embed.css" />
     <Content Include="css\bootstrap\theme.css" />
     <Content Include="css\bootstrap\variables.css" />
+    <Content Include="css\footer.css" />
     <Content Include="css\head-panel.css" />
     <Content Include="css\header.css" />
     <Content Include="css\tools.css" />
@@ -357,6 +362,12 @@
       <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
       <Name>mp.DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Footer.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="less\footer.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

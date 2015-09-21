@@ -4,12 +4,12 @@ var mp;
     (function (home) {
         $(function () {
             calculate();
-            mp.clientArea.onColumnCountChange = calculate;
+            mp.client.onColumnCountChange = calculate;
         });
         function calculate() {
             var waterfalls = $('.display-row');
             waterfalls.find('.waterfall-item-236').each(function (index, elem) {
-                if (index < mp.clientArea.columnCount)
+                if (index < mp.client.columnCount)
                     $(elem).show();
                 else
                     $(elem).hide();

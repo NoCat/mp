@@ -1,19 +1,17 @@
-﻿@model IEnumerable<mp.DAL.Package>
+﻿@model IEnumerable<mp.BLL.PackageInfo>
 
-@foreach (var item in Model)
+@foreach (var packageInfo in Model)
 {
-    var packageInfo = new mp.BLL.PackageInfo(item);
-    
     <div class="waterfall-item-236">
         <a class="img">
-            <img src="@packageInfo.Cover.ThumbSQ236" />
+            <img src="@(packageInfo.Cover==null?"":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
             <div class="cover"></div>
         </a>
-        <div class="title">
+        <a class="title" href="@packageInfo.HomePage" title="@packageInfo.Title">
             @packageInfo.Title
-        </div>
+        </a>
         <div class="attr">
-            <div class="line">(@packageInfo.ImageCount)张图片  (@packageInfo.FollowerCount)人关注</div>
+            <div class="line"><span>@packageInfo.ImageCount</span>张图片  <span>@packageInfo.FollowerCount</span>人关注</div>
             <div class="line">by<a href="@packageInfo.User.HomePage">@packageInfo.User.Name</a></div>
         </div>
     </div>

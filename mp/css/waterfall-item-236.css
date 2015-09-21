@@ -143,6 +143,9 @@
   line-height: 20px;
   font-weight: 700;
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .waterfall-item-236 .info {
   background-color: #f9f9f9;

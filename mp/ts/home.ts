@@ -4,7 +4,7 @@ module mp.home
     $(function ()
     {
         calculate();
-        clientArea.onColumnCountChange = calculate;
+        client.onColumnCountChange = calculate;
     });
 
     function calculate()
@@ -12,7 +12,7 @@ module mp.home
         var waterfalls = $('.display-row');
         waterfalls.find('.waterfall-item-236').each(function (index, elem)
         {
-            if (index < clientArea.columnCount)
+            if (index < client.columnCount)
                 $(elem).show();
             else
                 $(elem).hide();

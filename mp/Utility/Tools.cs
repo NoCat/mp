@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using mp.DAL;
-using mp.Extends;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;

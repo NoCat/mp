@@ -1,12 +1,12 @@
 var mp;
 (function (mp) {
-    var clientArea = (function () {
-        function clientArea() {
+    var client = (function () {
+        function client() {
         }
-        clientArea.columnCount = 0;
-        return clientArea;
+        client.columnCount = 0;
+        return client;
     })();
-    mp.clientArea = clientArea;
+    mp.client = client;
     var columnWidth = 248;
     var padding = 100;
     $(function () {
@@ -18,7 +18,7 @@ var mp;
         });
     });
     function calculateWidth() {
-        var width = $(clientArea).width();
+        var width = $(window).width();
         var container = $(".mp-container");
         var count = 0;
         if (width > columnWidth * 6 + padding) {
@@ -33,10 +33,10 @@ var mp;
             count = 4;
             container.css({ 'width': columnWidth * 4 });
         }
-        if (count != clientArea.columnCount) {
-            clientArea.columnCount = count;
-            if (clientArea.onColumnCountChange != null) {
-                clientArea.onColumnCountChange();
+        if (count != client.columnCount) {
+            client.columnCount = count;
+            if (client.onColumnCountChange != null) {
+                client.onColumnCountChange();
             }
         }
     }

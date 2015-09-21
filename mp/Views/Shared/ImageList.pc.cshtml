@@ -1,8 +1,7 @@
-﻿@model IEnumerable<mp.DAL.Image>
+﻿@model IEnumerable<mp.BLL.ImageInfo>
 
-@foreach (var item in Model)
+@foreach (var image in Model)
 {
-    var image=  new mp.BLL.ImageInfo(item);
     <div class="waterfall-item-236">
         <a class="img">
             <img width="@image.ThumbFW236.Width" height="@image.ThumbFW236.Height" src="@image.ThumbFW236.Url" />

@@ -65,6 +65,13 @@ namespace mp.DAL
             }
         }
 
-
+        public void Update(object entity,bool save=true)
+        {
+            Entry(entity).State = EntityState.Modified;
+            if (save)
+            {
+                SaveChanges();
+            }
+        }
     }
 }

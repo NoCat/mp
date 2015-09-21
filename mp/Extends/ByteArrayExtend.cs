@@ -4,18 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Text;
 
-namespace mp.Extends
+static public class ByteArrayExtend
 {
-    static public class ByteArrayExtend
+    static public string ToHexString(this byte[] array)
     {
-        static public string ToHexString(this byte[] array)
+        StringBuilder strB = new StringBuilder();
+        foreach (var b in array)
         {
-            StringBuilder strB = new StringBuilder();
-            foreach (var b in array)
-            {
-                strB.AppendFormat("x2", b);
-            }
-            return strB.ToString();
+            strB.AppendFormat("x2", b);
         }
+        return strB.ToString();
     }
 }
