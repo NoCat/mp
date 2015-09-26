@@ -26,8 +26,7 @@ public class Security
             if (ticket == null || ticket.Expired == true)
                 return false;
 
-            var userData = User.ID.ToString();
-            HttpContext.Current.Session[SessionKey] = User.ID;
+            HttpContext.Current.Session[SessionKey] = Convert.ToInt32(ticket.UserData);
             return true;
         }
     }
@@ -114,39 +113,29 @@ public class Security
     //    }
     //}
 
-    static public void Login(User user, int timeout = 15)
+    static public void Login(int userID, bool remember)
     {
-        var now = DateTime.Now;
-        var expire = now.AddDays(timeout);
-        var userData = new UserData { ID = user.ID };
-        var ticket = new FormsAuthenticationTicket(1, user.ID.ToString(), now, expire, true, userData.ToString());
+        if (remember)
+        {
+            var now = DateTime.Now;
+            var timeout = 15;
+            var expire = now.AddDays(timeout);
+            var ticket = new FormsAuthenticationTicket(1, userID.ToString(), now, expire, true, userID.ToString());
 
-        var cookie = new HttpCookie(CookieKey);
-        cookie.Value = FormsAuthentication.Encrypt(ticket);
-        cookie.HttpOnly = true;
-        cookie.Expires = expire;
+            var cookie = new HttpCookie(CookieKey);
+            cookie.Value = FormsAuthentication.Encrypt(ticket);
+            cookie.HttpOnly = true;
+            cookie.Expires = expire;
 
-        HttpContext.Current.Response.Cookies.Add(cookie);
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        HttpContext.Current.Session[SessionKey] = userID;
     }
 
     static public void Logout()
     {
         HttpContext.Current.Response.Cookies.Add(new HttpCookie(CookieKey) { Expires = DateTime.Now.AddDays(-1) });
         HttpContext.Current.Session.Remove(SessionKey);
-    }
-
-    public class UserData
-    {
-        public int ID { get; set; }
-
-        public override string ToString()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        static public UserData Parse(string str)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<UserData>(str);
-        }
     }
 }

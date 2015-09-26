@@ -5,7 +5,6 @@ using System.Web;
 using System.IO;
 using mp.DAL;
 using System.Drawing.Imaging;
-using mp.Extends;
 
 namespace mp.BLL
 {

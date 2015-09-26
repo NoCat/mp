@@ -12,22 +12,20 @@ namespace mp.Controllers
         // GET: /Account/
 
         [HttpPost]
-        public ActionResult Login(string email,string password,bool remember)
+        public ActionResult Login(string email,string password,bool remember=false)
         {
-            var result = new ResultJSON();
+            var result = new AjaxResult();
             email = email.Trim();
             var user = DB.Users.Where(u => u.Email == email).FirstOrDefault();
-            if(user==null||user.Password!=Tools.Md5(password).ToHexString())
+            var pwd = Tools.Md5(password).ToHexString();
+            if(user==null||user.Password!=pwd)
             {
-                result.Code = 1;
+                result.Success = false;
                 result.Message = "邮箱或密码错误";
             }
             else
             {
-                var timeout = 0;
-                if (remember)
-                    timeout = 15;
-                Security.Login(user,timeout);
+                Security.Login(user.ID,remember);
             }
             return Json(result);
         }
@@ -35,7 +33,7 @@ namespace mp.Controllers
         [HttpPost]
         public ActionResult Logout()
         {
-            var result = new ResultJSON();
+            var result = new AjaxResult();
             Security.Logout();
             return Json(result);
         }

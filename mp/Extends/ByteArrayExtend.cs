@@ -11,7 +11,7 @@ static public class ByteArrayExtend
         StringBuilder strB = new StringBuilder();
         foreach (var b in array)
         {
-            strB.AppendFormat("x2", b);
+            strB.AppendFormat("{0:x2}", b);
         }
         return strB.ToString();
     }

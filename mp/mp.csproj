@@ -149,7 +149,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Utility\ResultJSON.cs" />
+    <Compile Include="Utility\AjaxResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extends\BitmapExtend.cs" />
     <Compile Include="Extends\ByteArrayExtend.cs" />
@@ -343,6 +343,7 @@
     <Content Include="Views\Home\Index.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="ts\masonry.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="ts\home.ts" />

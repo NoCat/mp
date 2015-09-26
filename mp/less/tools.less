@@ -50,12 +50,27 @@
 }
 
 
-#login-modal{
-    input{
-        margin:10px 0;
+#login-modal
+{
+
+    .signup
+    {
+        margin: 10px;
+        text-align: center;
     }
-    .signup{
-        margin:10px;
-        text-align:center;
+}
+
+.modal-dialog
+{
+    .bg-warning
+    {
+        display: none;
+        margin: -@modal-inner-padding -@modal-inner-padding 0 -@modal-inner-padding;
+        line-height: 2.5;
+    }
+
+    .submit,input
+    {
+        margin: 10px 0;
     }
 }

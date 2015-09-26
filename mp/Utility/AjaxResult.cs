@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-public class ResultJSON
+public class AjaxResult
 {
-    public int Code { get; set; }
+    public bool Success { get; set; }
     public string Message { get; set; }
     public object Data { get; set; }
 
-    public ResultJSON()
+    public AjaxResult()
     {
-        Code = 0;
+        Success = true;
         Message = "OK";
         Data = null;
     }
