@@ -12,12 +12,9 @@ namespace mp
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.MapRoute(name: "Home", url: "", defaults: new { controller = "home", action = "index" });
+            routes.MapRoute(name: "package", url: "package/{id}", defaults: new { controller = "package", action = "Index" });
+            routes.MapRoute(name: "package-page", url: "package/{id}/page/{max}", defaults: new { controller = "package", action = "page" });
         }
     }
 }

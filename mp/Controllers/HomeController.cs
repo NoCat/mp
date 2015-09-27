@@ -17,18 +17,18 @@ namespace mp.Controllers
         {
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
-            DB.Images.Take(40).ToList().ForEach(i =>
+            DB.Images.OrderByDescending(i => i.ID).Take(40).ToList().ForEach(i =>
             {
                 imageList.Add(new ImageInfo(i));
             });
-            DB.Packages.Take(6).ToList().ForEach(p =>
+            DB.Packages.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
             {
                 packageList.Add(new PackageInfo(p));
             });
 
             ViewBag.PackageList = packageList;
-            ViewBag.ImageList = imageList;           
-            
+            ViewBag.ImageList = imageList;
+
             return View("index.pc");
         }
 

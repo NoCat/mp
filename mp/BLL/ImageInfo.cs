@@ -6,13 +6,16 @@ using mp.DAL;
 
 namespace mp.BLL
 {
+   
     public class ImageInfo
     {
+        public int ID { get; set; }
         Image _image = null;
         public ImageInfo(Image image)
         {
             _image = image;
-            Description = _image.Description;
+            Description = image.Description;
+            ID = image.ID;
         }
         UserInfo _user = null;
         public UserInfo User

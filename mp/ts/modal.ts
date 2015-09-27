@@ -54,7 +54,7 @@ module mp.modal
                 }
                 else
                 {
-                    $('#login-modal .bg-warning').text(result.Message).show();
+                    $('#login-modal .bg-warning').text(result.Message).slideDown();
                 }
             }, 'json');
         });

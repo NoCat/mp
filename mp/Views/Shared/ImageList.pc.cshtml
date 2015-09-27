@@ -2,7 +2,7 @@
 
 @foreach (var image in Model)
 {
-    <div class="waterfall-item-236">
+    <div class="waterfall-item-236" data-id="@image.ID">
         <a class="img">
             <img width="@image.ThumbFW236.Width" height="@image.ThumbFW236.Height" src="@image.ThumbFW236.Url" />
             <div class="cover"></div>
@@ -32,5 +32,5 @@
             </div>
         </div>
     </div>
-
 }
+<div class="waterfall-item-236 more"></div>

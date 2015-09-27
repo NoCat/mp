@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.pc.cshtml";
+
+    var packageInfo = ViewBag.packageInfo as mp.BLL.PackageInfo;
+}
+
+<div class="mp-container">
+    <div class="panel panel-default mp-panel mp-piece">
+        <div class="panel-body clearfix">
+            <h3 class="title pull-left">@packageInfo.Title</h3>
+            <div class="actions pull-right">
+                <div class="btn btn-primary btn-sm">关注</div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <a class="user" href="@packageInfo.User.HomePage">
+                <img class="avt-sm" src="@packageInfo.User.Head" />
+                <span class="name">@packageInfo.User.Name</span>
+            </a>
+            <div class="pull-right clearfix">
+                <div class="item border-left">@packageInfo.ImageCount 图片</div>
+                <div class="item border-left">@packageInfo.FollowerCount 关注</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="waterfall-236" data-url="/package/@packageInfo.ID/page/">
+        @Html.Action("Page", new { max = 0, package = packageInfo.ID })
+    </div>
+
+</div>

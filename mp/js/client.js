@@ -16,6 +16,27 @@ var mp;
             columnWidth: 248,
             itemSelector: '.waterfall-item-236'
         });
+        $(window).scroll(function (e) {
+            var waterfall = $('.waterfall-236');
+            if (waterfall.length == 0)
+                return;
+            var more = waterfall.find('.waterfall-item-236.more');
+            if (more.length == 0)
+                return;
+            var w = $(window);
+            var top = w.scrollTop();
+            var bottom = top + w.height();
+            var moreTop = more.offset().top;
+            if (top <= moreTop && moreTop <= bottom) {
+                waterfall.masonry('remove', more);
+                var url = waterfall.data('url');
+                var max = waterfall.find('.waterfall-item-236:last').data('id');
+                url += max;
+                $.get(url, function (data) {
+                    waterfall.masonry('appended', data);
+                });
+            }
+        });
     });
     function calculateWidth() {
         var width = $(window).width();
