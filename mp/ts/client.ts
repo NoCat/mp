@@ -31,19 +31,25 @@ module mp
                 return;
 
             var w = $(window);
-            var top = w.scrollTop();
-            var bottom = top + w.height();
+            var bottom = w.scrollTop() + w.height();
 
             var moreTop = more.offset().top;
-            if (top <= moreTop && moreTop <= bottom)
+            if (moreTop <= bottom)
             {
+                more.remove();
                 waterfall.masonry('remove', more);
-                var url = waterfall.data('url');                
+                var url = waterfall.data('url');
+                if (url == null)
+                    return;
+
                 var max = waterfall.find('.waterfall-item-236:last').data('id');
                 url += max;
                 $.get(url,(data) =>
                 {
-                    waterfall.masonry('appended', data);
+                    var div = $('<div></div>');
+                    div.append(data);
+                    var children = div.children();
+                    waterfall.append(children).masonry('appended', children);
                 });
             }
         });

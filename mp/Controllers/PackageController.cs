@@ -21,13 +21,13 @@ namespace mp.Controllers
             return View();
         }
 
-        public ActionResult Page(int package = 0, int max = 0)
+        public ActionResult Page(int packageId = 0, int max = 0)
         {
             if (max == 0)
                 max = int.MaxValue;
 
             var list = new List<BLL.ImageInfo>();
-            DB.Images.Where(i => i.PackageID == package && i.ID < max).Take(20).ToList().ForEach(i =>
+            DB.Images.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i=>i.ID).Take(20).ToList().ForEach(i =>
             {
                 list.Add(new BLL.ImageInfo(i));
             });
