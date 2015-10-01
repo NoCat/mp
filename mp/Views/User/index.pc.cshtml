@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index.pc";
+    Layout = "~/Views/Shared/Layout.pc.cshtml";
+    var subPage =(mp.Controllers.UserSubPages)ViewBag.SubPage;
+    var userInfo = ViewBag.UserInfo as mp.BLL.UserInfo;
+}
+
+<div class="mp-container">
+    <div class="panel panel-default mp-panel mp-piece">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object avt" src="@userInfo.BigHead" />
+                </div>
+                <div class="media-body">
+                    <div class="actions">
+                        <div class="btn btn-primary btn-sm">关注</div>
+                    </div>
+                    <h3 class="media-heading">@userInfo.Name</h3>
+                    <div class="description">@userInfo.Description</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Packages?"active":"")" href="/user/@userInfo.ID/packages">@userInfo.PackageCount 图包</a>
+            <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Images?"active":"")" href="/user/@userInfo.ID/images">@userInfo.ImageCount 图片</a>
+            <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Praises?"active":"")" href="/user/@userInfo.ID/praises">@userInfo.PraiseCount 赞</a>
+            <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Followers?"active":"")" href="/user/@userInfo.ID/followers">@userInfo.FollowerCount 粉丝</a>
+            <a class="item border-right @(subPage == mp.Controllers.UserSubPages.FollowingPackages || subPage == mp.Controllers.UserSubPages.FollowingUsers ? "active" : "")" href="/user/@userInfo.ID/followingusers">@userInfo.FollowerCount 关注</a>
+        </div>
+    </div>
+
+    <div class="waterfall-236" data-url="/user/@userInfo.ID/@subPage.ToString().ToLower()/">
+        @Html.Action("index", new { subPage = subPage, userId = userInfo.ID, max = int.MaxValue })
+    </div>
+
+</div>

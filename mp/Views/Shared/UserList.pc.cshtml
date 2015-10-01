@@ -1,9 +1,8 @@
-﻿@model IEnumerable<mp.DAL.User>
+﻿@model IEnumerable<mp.BLL.UserInfo>
 
-@foreach (var item in Model)
+@foreach (var user in Model)
 {
-   var user=new mp.BLL.UserInfo(item);
-    <div class="waterfall-item-236">
+    <div class="waterfall-item-236" data-id="@user.ID">
         <a class="avt">
             <img src="@user.BigHead" />
         </a>
@@ -14,4 +13,9 @@
             (@user.ImageCount)张图片  (@user.FollowerCount)人关注
         </div>
     </div>
+}
+
+@if (Model.Count() != 0)
+{
+    <div class="waterfall-item-236 more"></div>
 }

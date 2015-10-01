@@ -2,9 +2,9 @@
 
 @foreach (var packageInfo in Model)
 {
-    <div class="waterfall-item-236">
+    <div class="waterfall-item-236" data-id="@packageInfo.ID">
         <a class="img">
-            <img src="@(packageInfo.Cover==null?"":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
+            <img width="236" height="236" src="@(packageInfo.Cover==null?"":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
             <div class="cover"></div>
         </a>
         <a class="title" href="@packageInfo.HomePage" title="@packageInfo.Title">
@@ -15,4 +15,8 @@
             <div class="line">by<a href="@packageInfo.User.HomePage">@packageInfo.User.Name</a></div>
         </div>
     </div>
+}
+@if (Model.Count() != 0)
+{
+    <div class="waterfall-item-236 more"></div>
 }

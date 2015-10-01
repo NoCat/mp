@@ -8,12 +8,12 @@ namespace mp.Controllers
 {
     public class PackageController : ControllerBase
     {
-        public ActionResult Index(int id = 0)
+        public ActionResult Index(int packageId = 0)
         {
-            if (id == 0)
+            if (packageId == 0)
                 return Redirect("/");
 
-            var package = DB.Packages.Find(id);
+            var package = DB.Packages.Find(packageId);
             if (package == null)
                 return Redirect("/");
 
@@ -21,7 +21,7 @@ namespace mp.Controllers
             return View();
         }
 
-        public ActionResult Page(int packageId = 0, int max = 0)
+        public ActionResult Images(int packageId = 0, int max = 0)
         {
             if (max == 0)
                 max = int.MaxValue;
