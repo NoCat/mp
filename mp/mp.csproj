@@ -146,6 +146,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -355,7 +356,7 @@
     <TypeScriptCompile Include="ts\modal.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\ImageList.pc.cshtml" />
+    <Content Include="Views\Shared\ImageListFw236.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\PackageList.pc.cshtml" />
@@ -383,6 +384,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\index.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Image\index.pc.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\ImageListFw78.pc.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

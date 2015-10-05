@@ -10,7 +10,7 @@ module mp.home
     function calculate()
     {
         var waterfalls = $('.display-row');
-        waterfalls.find('.waterfall-item-236').each(function (index, elem)
+        waterfalls.find('.waterfall-item').each(function (index, elem)
         {
             if (index < client.columnCount)
                 $(elem).show();

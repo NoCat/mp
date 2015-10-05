@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index.pc";
     Layout = "~/Views/Shared/Layout.pc.cshtml";
-    var subPage =(mp.Controllers.UserSubPages)ViewBag.SubPage;
+    var subPage = (mp.Controllers.UserSubPages)ViewBag.SubPage;
     var userInfo = ViewBag.UserInfo as mp.BLL.UserInfo;
 }
 
@@ -29,6 +29,14 @@
             <a class="item border-right @(subPage == mp.Controllers.UserSubPages.FollowingPackages || subPage == mp.Controllers.UserSubPages.FollowingUsers ? "active" : "")" href="/user/@userInfo.ID/followingusers">@userInfo.FollowerCount 关注</a>
         </div>
     </div>
+
+    @if (subPage == mp.Controllers.UserSubPages.FollowingPackages || subPage == mp.Controllers.UserSubPages.FollowingUsers)
+    {
+        <div class="btn-group btn-group-sm">
+            <a href="/user/@userInfo.ID/followingusers" class="btn btn-default @(subPage== mp.Controllers.UserSubPages.FollowingUsers?"active":"")"><span class="glyphicon glyphicon-user"></span> 用户</a>
+            <a href="/user/@userInfo.ID/followingpackages" class="btn btn-default @(subPage== mp.Controllers.UserSubPages.FollowingPackages?"active":"")"><span class="glyphicon glyphicon-th"></span> 图包</a>
+        </div>
+    }
 
     <div class="waterfall-236" data-url="/user/@userInfo.ID/@subPage.ToString().ToLower()/">
         @Html.Action("index", new { subPage = subPage, userId = userInfo.ID, max = int.MaxValue })

@@ -71,10 +71,12 @@
 .modal-footer:after {
   clear: both;
 }
-.waterfall-item-236 {
+.waterfall-item {
   float: left;
-  margin: 6px;
   display: block;
+}
+.waterfall-item.fw236 {
+  margin: 6px;
   width: 236px;
   background: white;
   border-radius: 4px;
@@ -82,31 +84,31 @@
   position: relative;
   overflow: hidden;
 }
-.waterfall-item-236 .actions {
+.waterfall-item.fw236 .actions {
   position: absolute;
   display: none;
   left: 15px;
   right: 15px;
   top: 15px;
 }
-.waterfall-item-236 .img {
+.waterfall-item.fw236 .img {
   display: block;
   position: relative;
 }
-.waterfall-item-236 .img .cover {
+.waterfall-item.fw236 .img .cover {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
 }
-.waterfall-item-236 .img:hover .cover {
+.waterfall-item.fw236 .img:hover .cover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-.waterfall-item-236 .img:hover .actions {
+.waterfall-item.fw236 .img:hover .actions {
   display: block;
 }
-.waterfall-item-236 .avt {
+.waterfall-item.fw236 .avt {
   width: 160px;
   height: 160px;
   display: block;
@@ -116,29 +118,29 @@
   margin: 30px auto 10px;
   overflow: hidden;
 }
-.waterfall-item-236 .avt img {
+.waterfall-item.fw236 .avt img {
   width: 150px;
   height: 150px;
 }
-.waterfall-item-236 .description,
-.waterfall-item-236 .info,
-.waterfall-item-236 .title,
-.waterfall-item-236 .attr {
+.waterfall-item.fw236 .description,
+.waterfall-item.fw236 .info,
+.waterfall-item.fw236 .title,
+.waterfall-item.fw236 .attr {
   margin-top: 0;
   padding: 8px 10px;
 }
-.waterfall-item-236 .description a,
-.waterfall-item-236 .info a,
-.waterfall-item-236 .title a,
-.waterfall-item-236 .attr a {
+.waterfall-item.fw236 .description a,
+.waterfall-item.fw236 .info a,
+.waterfall-item.fw236 .title a,
+.waterfall-item.fw236 .attr a {
   margin: 0 3px;
 }
-.waterfall-item-236 .attr {
+.waterfall-item.fw236 .attr {
   font-size: 12px;
   color: #777777;
   line-height: 18px;
 }
-.waterfall-item-236 .title {
+.waterfall-item.fw236 .title {
   color: #333333;
   line-height: 20px;
   font-weight: 700;
@@ -147,46 +149,55 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.waterfall-item-236 .info {
+.waterfall-item.fw236 .info {
   background-color: #f9f9f9;
   border-top: 1px solid #eeeeee;
 }
-.waterfall-item-236 .info img {
+.waterfall-item.fw236 .info img {
   width: 40px;
   height: 40px;
 }
-.waterfall-item-236 .thumbs {
+.waterfall-item.fw236 .thumbs {
   position: relative;
   width: 216px;
   height: 289px;
   margin: 10px;
 }
-.waterfall-item-236 .thumbs .thumb1,
-.waterfall-item-236 .thumbs .thumb2,
-.waterfall-item-236 .thumbs .thumb3,
-.waterfall-item-236 .thumbs .thumb4 {
+.waterfall-item.fw236 .thumbs .thumb1,
+.waterfall-item.fw236 .thumbs .thumb2,
+.waterfall-item.fw236 .thumbs .thumb3,
+.waterfall-item.fw236 .thumbs .thumb4 {
   position: absolute;
   border: 1px solid #eeeeee;
 }
-.waterfall-item-236 .thumbs .thumb2,
-.waterfall-item-236 .thumbs .thumb3,
-.waterfall-item-236 .thumbs .thumb4 {
+.waterfall-item.fw236 .thumbs .thumb2,
+.waterfall-item.fw236 .thumbs .thumb3,
+.waterfall-item.fw236 .thumbs .thumb4 {
   top: 219px;
   width: 70px;
   height: 70px;
 }
-.waterfall-item-236 .thumbs .thumb1 {
+.waterfall-item.fw236 .thumbs .thumb1 {
   width: 216px;
   height: 216px;
   left: 0;
   top: 0;
 }
-.waterfall-item-236 .thumbs .thumb2 {
+.waterfall-item.fw236 .thumbs .thumb2 {
   left: 0;
 }
-.waterfall-item-236 .thumbs .thumb3 {
+.waterfall-item.fw236 .thumbs .thumb3 {
   left: 73px;
 }
-.waterfall-item-236 .thumbs .thumb4 {
+.waterfall-item.fw236 .thumbs .thumb4 {
   left: 146px;
+}
+.waterfall-item.fw78 {
+  margin: 2px;
+  width: 78px;
+  box-shadow: 0 0 1px #777777;
+  overflow: hidden;
+}
+.waterfall-item.more {
+  margin: 0;
 }

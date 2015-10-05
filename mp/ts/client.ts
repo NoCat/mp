@@ -17,7 +17,12 @@ module mp
         $(window).resize(calculateWidth);
         $('.waterfall-236').masonry({
             columnWidth: 248,
-            itemSelector: '.waterfall-item-236'
+            itemSelector: '.waterfall-item'
+        });
+
+        $('.waterfall-78').masonry({
+            columnWidth: 82,
+            itemSelector: '.waterfall-item'
         });
 
         $(window).scroll((e) =>
@@ -26,7 +31,7 @@ module mp
             if (waterfall.length == 0)
                 return;
 
-            var more = waterfall.find('.waterfall-item-236.more');
+            var more = waterfall.find('.waterfall-item.more');
             if (more.length == 0)
                 return;
 
@@ -36,13 +41,13 @@ module mp
             var moreTop = more.offset().top;
             if (moreTop <= bottom)
             {
-                more.remove();
                 waterfall.masonry('remove', more);
+                more.remove();
                 var url = waterfall.data('url');
                 if (url == null)
                     return;
 
-                var max = waterfall.find('.waterfall-item-236:last').data('id');
+                var max = waterfall.find('.waterfall-item:last').data('id');
                 url += max;
                 $.get(url,(data) =>
                 {

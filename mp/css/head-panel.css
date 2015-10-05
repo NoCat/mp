@@ -101,6 +101,7 @@
 }
 .mp-panel .panel-footer {
   padding: 0;
+  overflow: hidden;
 }
 .mp-panel .panel-footer .item {
   color: #777777;

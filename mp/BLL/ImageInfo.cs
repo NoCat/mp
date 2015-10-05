@@ -10,12 +10,16 @@ namespace mp.BLL
     public class ImageInfo
     {
         public int ID { get; set; }
+        public int PackageID { get; set; }
+        public DateTime CreatedTime { get; set; }
         Image _image = null;
         public ImageInfo(Image image)
         {
             _image = image;
             Description = image.Description;
             ID = image.ID;
+            PackageID = image.PackageID;
+            CreatedTime = image.CreatedTime;
         }
         UserInfo _user = null;
         public UserInfo User

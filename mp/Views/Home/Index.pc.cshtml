@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/Layout.pc.cshtml";
 }
 
-@RenderPage("~/Views/Shared/header.pc.cshtml")
-
 <div class="mp-container">
     <div class="mp-piece">
         <div class="header clearfix">
@@ -20,7 +18,7 @@
             <h2>最新图片</h2>
         </div>
         <div class="waterfall-236 clearfix">
-            @Html.Partial("ImageList.pc", (List<mp.BLL.ImageInfo>)ViewBag.ImageList)
+            @Html.Partial("ImageListFw236.pc", (List<mp.BLL.ImageInfo>)ViewBag.ImageList)
         </div>
     </div>
 </div>

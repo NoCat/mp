@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "index.pc";
+    Layout = "~/Views/Shared/Layout.pc.cshtml";
+    var imageInfo = ViewBag.ImageInfo as mp.BLL.ImageInfo;
+}
+
+<div class="mp-image-container">
+    <div class="clearfix">
+        <div class="left">
+            <div class="mp-panel panel">
+                <div class="panel-body">
+                    <div class="bar-top clearfix">
+                        <div class="pull-left">
+                            <div class="btn btn-primary btn-sm">转存</div>
+                            <div class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="@imageInfo.ThumbFW658.Url" width="@imageInfo.ThumbFW658.Width" height="@imageInfo.ThumbFW658.Height" />
+                    </div>
+                    <div class="bar-bottom"></div>
+                </div>
+            </div>
+            <div class="mp-panel panel">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="@imageInfo.User.Head" />
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">@imageInfo.User.Name</div>
+                            <div>收集于 @imageInfo.CreatedTime.ToString("yyyy年MM月dd日 hh:mm")</div>
+                        </div>
+                    </div>
+                    <div class="description">@imageInfo.Description</div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="mp-panel panel">
+                <div class="panel-body">
+                    <div class="scroller">
+                        <div class="waterfall-78">
+                            @Html.Action("Images", "Package", new { packageId = imageInfo.PackageID, max = int.MaxValue, thumb = "fw78" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

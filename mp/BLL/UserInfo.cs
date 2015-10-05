@@ -79,8 +79,8 @@ namespace mp.BLL
         public UserInfo(User user)
         {
             _user = user;
-            Head = new Uri(Configs.ImageHost, string.Format("avt/{0}.jpg", user.ID));
-            BigHead = new Uri(Configs.ImageHost, string.Format("avt/{0}_big.jpg", user.ID));
+            Head = new Uri(Configs.ImageHost, string.Format("avt/{0}", user.ID));
+            BigHead = new Uri(Configs.ImageHost, string.Format("avt/{0}_big", user.ID));
             HomePage = new Uri("/user/" + user.ID, UriKind.Relative);
             Name = user.Name;
             ID = user.ID;

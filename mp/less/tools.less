@@ -69,8 +69,59 @@
         line-height: 2.5;
     }
 
-    .submit,input
+    .submit, input
     {
         margin: 10px 0;
+    }
+}
+
+.mp-image-container
+{
+    width: 1020px;
+    margin: 15px auto;
+
+    .left
+    {
+        float: left;
+        width: 705px;
+    }
+
+    .right
+    {
+        float: right;
+        width: 295px;
+        margin-left:20px;
+    }
+
+    .scroller{
+        height:500px;
+        overflow-y:scroll;
+        overflow-x:hidden;
+
+        .waterfall-76{
+            min-height:520px;
+        }
+    }
+
+    .image{
+        margin:15px 0;
+        text-align:center;
+
+        img{
+            margin:0 auto;
+            box-shadow:1px 1px 3px 0 #d9d9d9;
+        }
+    }
+
+    .media-object{
+        width:50px;
+        height:50px;
+    }
+
+    .description{
+        margin-top:10px;
+        padding:10px;
+        background:#f8f8f8;
+        color:@gray-dark;
     }
 }

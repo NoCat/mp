@@ -1,0 +1,13 @@
+﻿@model IEnumerable<mp.BLL.ImageInfo>
+
+@foreach (var image in Model)
+{
+    <a href="/image/@image.ID" class="waterfall-item fw78" data-id="@image.ID">
+        <img width="@image.ThumbFW78.Width" height="@image.ThumbFW78.Height" src="@image.ThumbFW78.Url" />
+        <div class="cover"></div>
+    </a>
+}
+@if (Model.Count() != 0)
+{
+    <div class="waterfall-item more"></div>
+}
