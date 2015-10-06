@@ -1,8 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Index.pc";
     Layout = "~/Views/Shared/Layout.pc.cshtml";
     var subPage = (mp.Controllers.UserSubPages)ViewBag.SubPage;
     var userInfo = ViewBag.UserInfo as mp.BLL.UserInfo;
+
+    ViewBag.Title = userInfo.Name + "的主页_喵帕斯";
+    ViewBag.Keywords = userInfo.Name + "收集的图片,图包";
+    ViewBag.Description = userInfo.Description;
 }
 
 <div class="mp-container">

@@ -38,7 +38,7 @@ namespace mp.Controllers
                         {
                             list.Add(new BLL.ImageInfo(i));
                         });
-                        return PartialView("ImageList.pc", list);
+                        return PartialView("ImageListFw236.pc", list);
                     }
                 case UserSubPages.Praises:
                     {

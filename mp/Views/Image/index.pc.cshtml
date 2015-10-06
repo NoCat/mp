@@ -1,7 +1,10 @@
 ﻿@{
-    ViewBag.Title = "index.pc";
     Layout = "~/Views/Shared/Layout.pc.cshtml";
     var imageInfo = ViewBag.ImageInfo as mp.BLL.ImageInfo;
+
+    ViewBag.Title = imageInfo.Description + "@" + imageInfo.User.Name + "收集到" + imageInfo.Package.Title + "_喵帕斯";
+    ViewBag.Keywords = imageInfo.Description;
+    ViewBag.Description = imageInfo.Description;
 }
 
 <div class="mp-image-container">
