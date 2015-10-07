@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/Layout.pc.cshtml";
     var imageInfo = ViewBag.ImageInfo as mp.BLL.ImageInfo;
+    var next = ViewBag.Next;
+    var prev = ViewBag.Prev;
 
     ViewBag.Title = imageInfo.Description + "@" + imageInfo.User.Name + "收集到" + imageInfo.Package.Title + "_喵帕斯";
     ViewBag.Keywords = imageInfo.Description;
@@ -53,5 +55,16 @@
             </div>
         </div>
     </div>
+    @if (prev != null)
+    {
+        <a href="/image/@prev" class="prev">
+            <span class="glyphicon glyphicon-menu-left"></span>
+        </a>
+    }
+    @if (next != null)
+    {
+        <a href="/image/@next" class="next">
+            <span class="glyphicon glyphicon-menu-right"></span>
+        </a>
+    }
 </div>
-
