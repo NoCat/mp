@@ -153,3 +153,31 @@
   background: #f8f8f8;
   color: #333333;
 }
+.mp-image-container .prev,
+.mp-image-container .next {
+  display: block;
+  position: fixed;
+  top: 50%;
+  margin-top: -50px;
+  width: 60px;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.mp-image-container .prev:hover,
+.mp-image-container .next:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.mp-image-container .prev span,
+.mp-image-container .next span {
+  font-size: 46px;
+  line-height: 140px;
+  color: white;
+}
+.mp-image-container .prev {
+  left: 5px;
+}
+.mp-image-container .next {
+  right: 5px;
+}

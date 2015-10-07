@@ -32,10 +32,12 @@
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-left">
-                            <img class="media-object" src="@imageInfo.User.Head" />
+                            <a href="@imageInfo.User.HomePage">
+                                <img class="media-object" src="@imageInfo.User.Head" />
+                            </a>
                         </div>
                         <div class="media-body">
-                            <div class="media-heading">@imageInfo.User.Name</div>
+                            <a href="@imageInfo.User.HomePage" class="media-heading">@imageInfo.User.Name</a>
                             <div>收集于 @imageInfo.CreatedTime.ToString("yyyy年MM月dd日 hh:mm")</div>
                         </div>
                     </div>
