@@ -70,7 +70,6 @@
     <Compile Include="FollowingTypes.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="ImageTag.cs" />
-    <Compile Include="LoginCookie.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageTypes.cs" />
     <Compile Include="Package.cs" />

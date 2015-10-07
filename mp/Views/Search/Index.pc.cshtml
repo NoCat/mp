@@ -1,0 +1,16 @@
+﻿@{
+    var kw = (string)ViewBag.Keyword;
+    ViewBag.Title = kw+"_喵帕斯";
+    ViewBag.Keywords = kw;
+    ViewBag.Description = "";
+    Layout = "~/Views/Shared/Layout.pc.cshtml";
+}
+
+<div class="mp-container">
+    <div class="header clearfix">
+        <h2>"@(kw)"的搜索结果</h2>
+    </div>
+    <div class="waterfall-236" data-url="/search/@Url.Encode(kw)/">
+        @Html.Action("index", new { kw=kw,max=int.MaxValue})
+    </div>
+</div>

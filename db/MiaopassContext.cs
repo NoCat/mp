@@ -22,7 +22,6 @@ namespace mp.DAL
         public DbSet<Image> Images { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<Activity> Activitys { get; set; }
-        public DbSet<LoginCookie> LoginCookies { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Following> Followings { get; set; }
         public DbSet<Tag> Tags { get; set; }

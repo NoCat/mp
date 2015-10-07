@@ -24,6 +24,8 @@ namespace mp
             //用户页
             routes.MapRoute(name: "user-default", url: "user/{userId}", defaults: new { controller = "user", action = "index" });
             routes.MapRoute(name: "user", url: "user/{userId}/{subPage}/{max}", defaults: new { controller = "user", action = "index", max = 0 });
+            //搜索页
+            routes.MapRoute(name: "search", url: "search/{kw}/{max}", defaults: new { controller = "search",action = "index", kw = "", max = 0 });
         }
     }
 }
