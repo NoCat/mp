@@ -10,7 +10,10 @@
 <div class="mp-container">
     <div class="panel panel-default mp-panel mp-piece">
         <div class="panel-body clearfix">
-            <h3 class="title pull-left">@packageInfo.Title</h3>
+            <div class="pull-left">
+                <h3 class="title">@packageInfo.Title</h3>
+                <div class="description">@Html.MpDescription(packageInfo.Description)</div>
+            </div>
             <div class="actions pull-right">
                 <div class="btn btn-primary btn-sm">关注</div>
             </div>
