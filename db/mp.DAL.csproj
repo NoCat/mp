@@ -76,6 +76,7 @@
     <Compile Include="Pick.cs" />
     <Compile Include="Praise.cs" />
     <Compile Include="Tag.cs" />
+    <Compile Include="Url.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

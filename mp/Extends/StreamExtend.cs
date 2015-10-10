@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Security.Cryptography;
 
 
 static public class StreamExtend
@@ -17,5 +18,12 @@ static public class StreamExtend
             a = input.Read(buffer, 0, bufferSize);
             stream.Write(buffer, 0, a);
         }
+    }
+
+    public static string MD5(this Stream stream)
+    {
+        stream.Position=0;
+        var md5 = System.Security.Cryptography.MD5.Create();
+        return  md5.ComputeHash(stream).ToHexString();
     }
 }

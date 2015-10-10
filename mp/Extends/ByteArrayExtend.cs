@@ -15,4 +15,9 @@ static public class ByteArrayExtend
         }
         return strB.ToString();
     }
+
+    static public string MD5(this byte[] array)
+    {
+        return System.Security.Cryptography.MD5.Create().ComputeHash(array).ToHexString();
+    }
 }

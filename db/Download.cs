@@ -12,9 +12,10 @@ namespace mp.DAL
     public class Download
     {
         public int ID { get; set; }
-        public string From { get; set; }
-        public string Source { get; set; }
-        public uint SourceHash { get; set; }
+        public int FromUrlID { get; set; }
+        virtual public Url FromUrl { get; set; }
+        public int SourceUrlID { get; set; }
+        virtual public Url SourceUrl { get; set; }
         public DownloadStates State { get; set; }
         public int FileID { get; set; }
         virtual public File File { get; set; }
