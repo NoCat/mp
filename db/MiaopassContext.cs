@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using mp.DAL;
+using System.Linq.Expressions;
 
 namespace mp.DAL
 {
@@ -73,6 +74,17 @@ namespace mp.DAL
             {
                 SaveChanges();
             }
+        }
+
+         public T CreateIfNotExist<T>(Expression<Func<T, bool>> predicate, T newEntity) where T: class
+        {
+            var result = Set<T>().Where(predicate).FirstOrDefault();
+            if (result == null)
+            {
+                Insert(newEntity);
+                result = newEntity;
+            }
+            return result;
         }
     }
 }

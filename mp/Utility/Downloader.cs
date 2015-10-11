@@ -142,7 +142,7 @@ public static class Downloader
             {
                 Description = pick.Description,
                 FileID = download.FileID,
-                Url = pick.From,
+                FromUrlID = pick.FromUrlID,
                 PackageID = pick.PackageID,
                 UserID = pick.UserID,
                 Via = 0

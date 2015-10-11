@@ -14,7 +14,7 @@ namespace mp.DAL
         virtual public Download Download { get; set; }
         public int PackageID { get; set; }
         virtual public Package Package { get; set; }
-        public string From { get; set; }
+        public int FromUrlID { get; set; }
         public string Description { get; set; }
     }
 }

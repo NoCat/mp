@@ -20,12 +20,9 @@ namespace mp.DAL
         public int FileID { get; set; }
         virtual public File File { get; set; }
 
-        public static uint GetHash(string str)
+        public Download()
         {
-            str = str.ToLower();
-            var crc32 = new CRC32();
-            var result=crc32.ComputeHash( UTF8Encoding.UTF8.GetBytes(str));
-            return BitConverter.ToUInt32(result,0);
+            State = DownloadStates.NotBegin;
         }
     }
 }

@@ -13,5 +13,13 @@ namespace mp.BLL
         {
             _db = db;
         }
+
+        public Image Insert(Image image)
+        {
+            _db.Insert(image);
+            var package = new Package { ID = image.PackageID, LastModify = image.CreatedTime };
+            _db.Update(package);
+            return image;
+        }
     }
 }

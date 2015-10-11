@@ -8,26 +8,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mp.DAL
 {
-    public class Thumb
-    {
-        public string Url { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public Thumb(File file, string imageHost,string type,int width)
-        {
-            Url = imageHost + "_" + type + file.MD5 + ".jpg";
-            Width = width;
-            if(type=="fw")
-            {                
-                Height = Width / file.Width * file.Height;
-            }
-            else
-            {
-                Height = Width;
-            }            
-        }
-    }
-
     public class Image
     {
         public int ID { get; set; }
@@ -38,64 +18,14 @@ namespace mp.DAL
         public int FileID { get; set; }
         virtual public File File { get; set; }
         public DateTime CreatedTime { get; set; }
-        public string Url { get; set; }
-        [MaxLength(200)]
+        public int FromUrlID { get; set; }
         public string Description { get; set; }
         public int Via { get; set; }
 
-        
-        public string ImageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
-        [NotMapped]
-        public string OriginUrl
-        {
-            get
-            {
-                return ImageHost + File.MD5 + ".jpg";
-            }
-        }
-        [NotMapped]
-        public string Fw236Url
-        {
-            get
-            {
-                return ImageHost + File.MD5 + "_fw236.jpg";
-            }
-        }
-        [NotMapped]
-        public string Fw658Url
-        {
-            get
-            {
-                return ImageHost + File.MD5 + "_fw658.jpg";
-            }
-        }
-        [NotMapped]
-        public string Fw78Url
-        {
-            get
-            {
-                return ImageHost + File.MD5 + "_fw78.jpg";
-            }
-        }
-        [NotMapped]
-        public string Sq236Url
-        {
-            get
-            {
-                return ImageHost + File.MD5 + "_sq236.jpg";
-            }
-        }
-        [NotMapped]
-        public string Sq75Url
-        {
-            get
-            {
-                return ImageHost + File.MD5 + "_sq75.jpg";
-            }
-        }
         public Image()
         {
             CreatedTime = DateTime.Now;
+            Via = 0;
         }
     }
 }
