@@ -17,7 +17,7 @@ namespace mp.BLL
             _context = context;
         }
 
-        public DbSet<T> Items
+        public IQueryable<T> Items
         {
             get
             {

@@ -7,7 +7,7 @@ using mp.DAL;
 
 namespace mp.BLL
 {
-    public class UnitOfWork:IDisposable
+    public class ManagermentService:IDisposable
     {
         MiaopassContext _context = new MiaopassContext();
         ManagerBase<Url> _urls;

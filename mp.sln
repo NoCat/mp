@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.DAL", "db\mp.DAL.csproj"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.BLL", "BLL\mp.BLL.csproj", "{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.Utility", "mp.Utility\mp.Utility.csproj", "{B33C5124-78F5-4B9C-ACD7-93E9451829B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.Extends", "mp.Utility\mp.Extends.csproj", "{B33C5124-78F5-4B9C-ACD7-93E9451829B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
