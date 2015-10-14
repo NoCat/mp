@@ -7,7 +7,7 @@ using mp.DAL;
 
 namespace mp.BLL
 {
-    public class UnitOfWork
+    public class UnitOfWork:IDisposable
     {
         MiaopassContext _context = new MiaopassContext();
         ManagerBase<Url> _urls;
@@ -36,6 +36,11 @@ namespace mp.BLL
         public int Save()
         {
             return _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
