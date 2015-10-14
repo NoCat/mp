@@ -171,18 +171,13 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extends\HtmlHelperExtend.cs" />
-    <Compile Include="Extends\StringExtend.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Utility\AjaxResult.cs" />
+    <Compile Include="Models\AjaxResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extends\BitmapExtend.cs" />
-    <Compile Include="Extends\ByteArrayExtend.cs" />
     <Compile Include="Utility\Configs.cs" />
     <Compile Include="Utility\Downloader.cs" />
-    <Compile Include="Utility\OssFile.cs" />
-    <Compile Include="Extends\StreamExtend.cs" />
     <Compile Include="Utility\Security.cs" />
     <Compile Include="Utility\Tools.cs" />
   </ItemGroup>
@@ -258,7 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -417,6 +411,14 @@
     <ProjectReference Include="..\BLL\mp.BLL.csproj">
       <Project>{db7e41d2-a35f-4071-94d3-929d60de7dc1}</Project>
       <Name>mp.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\db\mp.DAL.csproj">
+      <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
+      <Name>mp.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mp.Utility\mp.Extends.csproj">
+      <Project>{b33c5124-78f5-4b9c-acd7-93e9451829b4}</Project>
+      <Name>mp.Extends</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

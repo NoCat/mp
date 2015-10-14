@@ -9,13 +9,13 @@ namespace mp.Controllers
 {
     public class ControllerBase : Controller
     {
-        ManagermentService _service;
-        public ManagermentService Service
+        ManagementService _service;
+        public ManagementService Service
         {
             get
             {
                 if (_service == null)
-                    _service = new ManagermentService();
+                    _service = new ManagementService();
                 return _service;
             }
         }

@@ -8,17 +8,14 @@ namespace mp.Controllers
 {
     public class ImageController : ControllerBase
     {
-        //
-        // GET: /Image/
-
         public ActionResult Index(int imageId=0)
         {
-            var image = DB.Images.Find(imageId);
+            var image = Service.Images.Items.Where(i => i.ID == imageId).FirstOrDefault();
             if (image == null)
                 return Redirect("/");
 
-            var next = DB.Images.Where(i => i.ID < imageId && i.PackageID==image.PackageID).OrderByDescending(i=>i.ID).Select(i=>i.ID).FirstOrDefault();
-            var prev = DB.Images.Where(i => i.ID > imageId && i.PackageID == image.PackageID).Select(i => i.ID).FirstOrDefault();
+            var next = Service.Images.Items.Where(i => i.ID < imageId && i.PackageID == image.PackageID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+            var prev = Service.Images.Items.Where(i => i.ID > imageId && i.PackageID == image.PackageID).Select(i => i.ID).FirstOrDefault();
 
             ViewBag.ImageInfo = new BLL.ImageInfo(image);
 

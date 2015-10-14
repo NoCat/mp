@@ -16,9 +16,8 @@ namespace mp.Controllers
         {
             var result = new AjaxResult();
             email = email.Trim();
-            var user = DB.Users.Where(u => u.Email == email).FirstOrDefault();
-            var pwd = Tools.Md5(password).ToHexString();
-            if(user==null||user.Password!=pwd)
+            var user = Service.Users.Items.Where(u => u.Email == email).FirstOrDefault();
+            if(user==null||user.Password!=password.MD5())
             {
                 result.Success = false;
                 result.Message = "邮箱或密码错误";

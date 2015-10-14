@@ -13,7 +13,7 @@ namespace mp.Controllers
             if (packageId == 0)
                 return Redirect("/");
 
-            var package = DB.Packages.Find(packageId);
+            var package = Service.Packages.Items.Where(p=>p.ID==packageId).FirstOrDefault();
             if (package == null)
                 return Redirect("/");
 
@@ -27,7 +27,7 @@ namespace mp.Controllers
                 max = int.MaxValue;
 
             var list = new List<BLL.ImageInfo>();
-            DB.Images.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i=>i.ID).Take(20).ToList().ForEach(i =>
+            Service.Images.Items.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i=>i.ID).Take(20).ToList().ForEach(i =>
             {
                 list.Add(new BLL.ImageInfo(i));
             });

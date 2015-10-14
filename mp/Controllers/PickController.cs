@@ -30,7 +30,7 @@ namespace mp.Controllers
                 return Json(result);
             }
             //判断图包是否存在
-            var package = DB.Packages.Find(packageId);
+            var package = Service.Packages.Items.Where(p=>p.ID==packageId).FirstOrDefault();
             if (package == null)
             {
                 result.Success = false;

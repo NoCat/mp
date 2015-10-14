@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using mp.DAL;
 using mp.BLL;
 
 namespace mp.Controllers
@@ -17,11 +16,11 @@ namespace mp.Controllers
         {
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
-            DB.Images.OrderByDescending(i => i.ID).Take(40).ToList().ForEach(i =>
+            Service.Images.Items.OrderByDescending(i=>i.ID).Take(40).ToList().ForEach(i =>
             {
                 imageList.Add(new ImageInfo(i));
             });
-            DB.Packages.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
+            Service.Packages.Items.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
             {
                 packageList.Add(new PackageInfo(p));
             });

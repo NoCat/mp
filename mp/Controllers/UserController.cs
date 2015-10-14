@@ -12,7 +12,7 @@ namespace mp.Controllers
         {
             if (max == 0)
             {
-                var user = DB.Users.Find(userId);
+                var user = Service.Users.Items.Where(u=>u.ID==userId).FirstOrDefault();
                 if (user == null)
                     return Redirect("/");
 
@@ -25,7 +25,7 @@ namespace mp.Controllers
                 case UserSubPages.Packages:
                     {
                         var list = new List<BLL.PackageInfo>();
-                        DB.Packages.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
+                        Service.Packages.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
                         {
                             list.Add(new BLL.PackageInfo(p));
                         });
@@ -34,7 +34,7 @@ namespace mp.Controllers
                 case UserSubPages.Images:
                     {
                         var list = new List<BLL.ImageInfo>();
-                        DB.Images.Where(i => i.UserID == userId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+                        Service.Images.Items.Where(i => i.UserID == userId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
                         {
                             list.Add(new BLL.ImageInfo(i));
                         });
@@ -43,7 +43,7 @@ namespace mp.Controllers
                 case UserSubPages.Praises:
                     {
                         var list = new List<BLL.ImageInfo>();
-                        DB.Praises.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
+                        Service.Praises.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
                         {
                             list.Add(new BLL.ImageInfo(p.Image));
                         });
@@ -52,7 +52,7 @@ namespace mp.Controllers
                 case UserSubPages.Followers:
                     {
                         var list = new List<BLL.UserInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Service.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
                             list.Add(new BLL.UserInfo(f.User));
                         });
@@ -61,7 +61,7 @@ namespace mp.Controllers
                 case UserSubPages.FollowingUsers:
                     {
                         var list = new List<BLL.UserInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Service.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
                             list.Add(new BLL.UserInfo(f.User));
                         });
@@ -70,48 +70,14 @@ namespace mp.Controllers
                 case UserSubPages.FollowingPackages:
                     {
                         var list = new List<BLL.PackageInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Service.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
-                            list.Add(new BLL.PackageInfo(DB.Packages.Find(f.Info)));
+                            list.Add(new BLL.PackageInfo(Service.Packages.Items.Where(i=>i.ID==f.Info).FirstOrDefault()));
                         });
                         return PartialView("PackageList.pc", list);
                     }
             }
             return View("index.pc");
-        }
-
-        public ActionResult Packages(int userId = 0, int max = 0)
-        {
-            var user = DB.Users.Find(userId);
-            if (user == null)
-                return Redirect("/");
-
-            return View();
-        }
-
-        public ActionResult Images(int userId = 0, int max = 0)
-        {
-            return View();
-        }
-
-        public ActionResult Praises(int userId = 0, int max = 0)
-        {
-            return View();
-        }
-
-        public ActionResult Followers(int userId = 0, int max = 0)
-        {
-            return View();
-        }
-
-        public ActionResult FollowingPackages(int userId = 0, int max = 0)
-        {
-            return View();
-        }
-
-        public ActionResult FollowingUsers(int userId = 0, int max = 0)
-        {
-            return View();
         }
     }
 
