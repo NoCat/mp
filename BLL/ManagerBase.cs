@@ -8,44 +8,44 @@ using System.Data.Entity;
 
 namespace mp.BLL
 {
-    public class ManagerBase<T> where T:class
+    public class ManagerBase<T> where T : class
     {
-        MiaopassContext _context;
+        protected MiaopassContext Context { private set; get; }
+        protected ManagementService Service { private set; get; }
 
         public ManagerBase(MiaopassContext context)
         {
-            _context = context;
+            Context = context;
+            Service = new ManagementService(Context);
         }
 
         public IQueryable<T> Items
         {
             get
             {
-                return _context.Set<T>();
+                return Context.Set<T>();
             }
         }
 
-        virtual public T Insert(T entity,bool save=true)
+        virtual public void Insert(T entity, bool save = true)
         {
-            _context.Insert(entity,save);
-            return entity;
+            Context.Insert(entity, save);
         }
 
-        virtual public T Update(T entity,bool save=true)
+        virtual public void Update(T entity, bool save = true)
         {
-            _context.Update(entity,save);
-            return entity;
+            Context.Update(entity, save);
         }
 
         virtual public void Delete(T entity, bool save = true)
         {
-            _context.Delete(entity,save);            
+            Context.Delete(entity, save);
         }
 
-        public T CreateIfNotExist(T entity,System.Linq.Expressions.Expression<Func<T,bool>> predicate)
+        virtual public T CreateIfNotExist(T entity, System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
             var result = Items.Where(predicate).FirstOrDefault();
-            if(result==null)
+            if (result == null)
             {
                 return Insert(entity);
             }

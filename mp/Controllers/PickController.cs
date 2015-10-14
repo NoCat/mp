@@ -48,10 +48,10 @@ namespace mp.Controllers
             DAL.File file = null;
             //检查是否已经下载过该图片
             {
-                var sourceUrl = DB.CreateIfNotExist<Url>((u => u.CRC32 == source.CRC32() && u.Text == source), new Url { Text = source, CRC32 = source.CRC32() });
-                var fromUrl = DB.CreateIfNotExist<Url>((u => u.CRC32 == from.CRC32() && u.Text == from), new Url { Text = from, CRC32 = from.CRC32() });
+                var sourceUrl = Service.Urls.CreateIfNotExist(new Url { Text = source, CRC32 = source.CRC32() },(u => u.CRC32 == source.CRC32() && u.Text == source));
+                var fromUrl = Service.Urls.CreateIfNotExist(new Url { Text = from, CRC32 = from.CRC32() },(u => u.CRC32 == from.CRC32() && u.Text == from));
 
-                var download = DB.CreateIfNotExist<Download>(d => d.SourceUrlID == sourceUrl.ID, new Download { FromUrlID = fromUrl.ID, SourceUrlID = sourceUrl.ID });
+                var download = Service.Downloads.CreateIfNotExist(new Download { FromUrlID = fromUrl.ID, SourceUrlID = sourceUrl.ID }, d => d.SourceUrlID == sourceUrl.ID);
                 //判断是否下载过了
                 if (download.FileID != 0)
                 {
