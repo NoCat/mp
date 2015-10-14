@@ -45,39 +45,11 @@ namespace mp.Controllers
                 return Json(result);
             }
 
-            DAL.File file = null;
-            //检查是否已经下载过该图片
-            {
-                var sourceUrl = Service.Urls.CreateIfNotExist(new Url { Text = source, CRC32 = source.CRC32() },(u => u.CRC32 == source.CRC32() && u.Text == source));
-                var fromUrl = Service.Urls.CreateIfNotExist(new Url { Text = from, CRC32 = from.CRC32() },(u => u.CRC32 == from.CRC32() && u.Text == from));
+            var sourceUrl = Service.Urls.CreateIfNotExist(new Url { Text = source, CRC32 = source.CRC32() }, (u => u.CRC32 == source.CRC32() && u.Text == source));
+            var fromUrl = Service.Urls.CreateIfNotExist(new Url { Text = from, CRC32 = from.CRC32() }, (u => u.CRC32 == from.CRC32() && u.Text == from));
 
-                var download = Service.Downloads.CreateIfNotExist(new Download { FromUrlID = fromUrl.ID, SourceUrlID = sourceUrl.ID }, d => d.SourceUrlID == sourceUrl.ID);
-                //判断是否下载过了
-                if (download.FileID != 0)
-                {
-                    //已经下载过,直接添加图片
-                    new BLL.ImageManager(DB).Insert(package, new Image
-                    {
-                        Description = description,
-                        FileID = download.FileID,
-                        PackageID = package.ID,
-                        UserID = Security.User.ID,
-                        FromUrlID = fromUrl.ID
-                    });
-                }
-                else
-                {
-                    //未下载过的,添加到pick任务
-                    var pick = new Pick
-                    {
-                        DownloadID = download.ID,
-                        Description = description,
-                        FromUrlID = fromUrl.ID,
-                        PackageID = packageId,
-                        UserID = Security.User.ID
-                    };
-                }
-            }
+            var pick = new Pick { Description=description, FromUrlID=fromUrl.ID,SourceUrlID=sourceUrl.ID, PackageID=packageId };
+            Service.Picks.Insert(pick);
 
             return Json(result);
         }

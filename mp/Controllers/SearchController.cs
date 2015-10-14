@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using mp.Models;
 
 namespace mp.Controllers
 {
@@ -18,11 +19,11 @@ namespace mp.Controllers
             }
             else
             {
-                var list = new List<BLL.ImageInfo>();
+                var list = new List<ImageInfo>();
                 if(string.IsNullOrWhiteSpace(kw)==false|| kw.Length>2)
                 {
                     Service.Images.Items.Where(i => i.Description.Contains(kw) && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList()
-                        .ForEach(i => list.Add(new BLL.ImageInfo(i)));
+                        .ForEach(i => list.Add(new ImageInfo(i)));
                 }
                 return PartialView("ImageListFw236.pc",list);
             }

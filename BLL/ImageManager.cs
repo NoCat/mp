@@ -9,7 +9,7 @@ namespace mp.BLL
 {
     public class ImageManager:ManagerBase<Image>
     {
-        public ImageManager(MiaopassContext context) : base(context) { }
+        public ImageManager(MiaopassContext context,ManagementService service) : base(context,service) { }
 
         public override void Insert(Image entity, bool save = true)
         {

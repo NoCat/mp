@@ -13,10 +13,10 @@ namespace mp.BLL
         protected MiaopassContext Context { private set; get; }
         protected ManagementService Service { private set; get; }
 
-        public ManagerBase(MiaopassContext context)
+        public ManagerBase(MiaopassContext context, ManagementService service)
         {
             Context = context;
-            Service = new ManagementService(Context);
+            Service = service;
         }
 
         public IQueryable<T> Items
@@ -47,7 +47,8 @@ namespace mp.BLL
             var result = Items.Where(predicate).FirstOrDefault();
             if (result == null)
             {
-                return Insert(entity);
+                Insert(entity);
+                return entity;
             }
             return result;
         }

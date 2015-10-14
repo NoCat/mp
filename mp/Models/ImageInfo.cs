@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.DAL;
+using mp.Models;
 
-namespace mp.BLL
-{
-   
+namespace mp.Models
+{   
     public class ImageInfo
     {
         public int ID { get; set; }

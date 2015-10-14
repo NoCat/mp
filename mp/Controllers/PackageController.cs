@@ -17,7 +17,7 @@ namespace mp.Controllers
             if (package == null)
                 return Redirect("/");
 
-            ViewBag.packageInfo = new BLL.PackageInfo(package);
+            ViewBag.packageInfo = PackageInfo(package);
             return View();
         }
 

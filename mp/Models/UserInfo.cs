@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using mp.DAL;
 
-namespace mp.BLL
+namespace mp.Models
 {
     public class UserInfo
     {
