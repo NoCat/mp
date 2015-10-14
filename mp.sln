@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp", "mp\mp.csproj", "{5EA82478-40BF-4F8B-B8BE-F8E0A319505F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.DAL", "db\mp.DAL.csproj", "{E4CD5070-086D-410A-862D-2BBADC5337F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp.BLL", "BLL\mp.BLL.csproj", "{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E4CD5070-086D-410A-862D-2BBADC5337F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4CD5070-086D-410A-862D-2BBADC5337F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4CD5070-086D-410A-862D-2BBADC5337F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

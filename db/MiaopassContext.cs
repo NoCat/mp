@@ -76,6 +76,15 @@ namespace mp.DAL
             }
         }
 
+        public void Delete(object entity,bool save=true)
+        {
+            Entry(entity).State = EntityState.Deleted;
+            if(save)
+            {
+                SaveChanges();
+            }
+        }
+
          public T CreateIfNotExist<T>(Expression<Func<T, bool>> predicate, T newEntity) where T: class
         {
             var result = Set<T>().Where(predicate).FirstOrDefault();
