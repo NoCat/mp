@@ -17,11 +17,11 @@ namespace mp.Controllers
         {
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
-            Service.Images.Items.OrderByDescending(i=>i.ID).Take(40).ToList().ForEach(i =>
+            DB.Images.OrderByDescending(i=>i.ID).Take(40).ToList().ForEach(i =>
             {
                 imageList.Add(new ImageInfo(i));
             });
-            Service.Packages.Items.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
+            DB.Packages.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
             {
                 packageList.Add(new PackageInfo(p));
             });

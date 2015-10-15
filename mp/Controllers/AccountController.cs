@@ -16,7 +16,7 @@ namespace mp.Controllers
         {
             var result = new AjaxResult();
             email = email.Trim();
-            var user = Service.Users.Items.Where(u => u.Email == email).FirstOrDefault();
+            var user = DB.Users.Where(u => u.Email == email).FirstOrDefault();
             if(user==null||user.Password!=password.MD5())
             {
                 result.Success = false;

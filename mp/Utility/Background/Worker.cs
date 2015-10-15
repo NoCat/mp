@@ -44,7 +44,7 @@ namespace mp.Utility
                 {
                     if (job.IsProcessing == false && job.LastExcute + job.Interval < DateTime.Now)
                     {
-                        var t = new Thread(new ThreadStart(job.ExcuteCore));
+                        var t = new Thread(new ThreadStart(job.Excute));
                         t.IsBackground = true;
                         t.Start();
                     }

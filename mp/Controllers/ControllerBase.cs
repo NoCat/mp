@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.BLL;
+using mp.DAL;
 using System.Web.Mvc;
 
 namespace mp.Controllers
 {
     public class ControllerBase : Controller
     {
-        ManagementService _service;
-        public ManagementService Service
+        MiaopassContext _db;
+        public MiaopassContext DB
         {
             get
             {
-                if (_service == null)
-                    _service = new ManagementService();
-                return _service;
+                if (_db == null)
+                    _db = new MiaopassContext();
+                return _db;
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_service != null)
-                _service.Dispose();
+            if (_db != null)
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }

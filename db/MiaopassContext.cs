@@ -4,20 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using mp.DAL;
 using System.Linq.Expressions;
+using System.Transactions;
 
 namespace mp.DAL
 {
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class MiaopassContext : DbContext
     {
-        public StoredProcedure StoredProcedure { get; private set; }
-        public MiaopassContext()
-            : base("name=db")
-        {
-            StoredProcedure = new StoredProcedure(this);
-        }
         public DbSet<User> Users { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Image> Images { get; set; }
@@ -37,12 +31,6 @@ namespace mp.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        /// <summary>
-        /// 插入实体
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity">实体</param>
-        /// <param name="save">是否马上保存,默认马上保存</param>
         public void Insert<T>(T entity, bool save = true) where T : class
         {
             Set<T>().Add(entity);
@@ -52,12 +40,6 @@ namespace mp.DAL
             }
         }
 
-        /// <summary>
-        /// 插入一组实体
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity">实体数组</param>
-        /// <param name="save">是否马上保存,默认马上保存</param>
         public void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
             Set<T>().AddRange(entities);
@@ -67,7 +49,7 @@ namespace mp.DAL
             }
         }
 
-        public void Update(object entity,bool save=true)
+        public void Update(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Modified;
             if (save)
@@ -76,16 +58,25 @@ namespace mp.DAL
             }
         }
 
-        public void Delete(object entity,bool save=true)
+        public void Delete(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Deleted;
-            if(save)
+            if (save)
             {
                 SaveChanges();
             }
         }
 
-         public T CreateIfNotExist<T>(Expression<Func<T, bool>> predicate, T newEntity) where T: class
+        public void Transaction(Action action)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                action();
+                transaction.Complete();
+            }
+        }
+
+        public T CreateIfNotExist<T>(Expression<Func<T, bool>> predicate, T newEntity) where T : class
         {
             var result = Set<T>().Where(predicate).FirstOrDefault();
             if (result == null)
@@ -95,5 +86,72 @@ namespace mp.DAL
             }
             return result;
         }
+
+        #region 储存过程
+
+        #region Image
+        public void ImageInsert(Image entity)
+        {
+            Transaction(() =>
+            {
+                Insert(entity);
+                PackageUpdate(new Package { ID = entity.PackageID, LastModify = entity.CreatedTime });
+            });
+        }
+        public void ImageUpdate(Image entity) { Update(entity); }
+        public void ImageDelete(Image entity) { Delete(entity); }
+        #endregion
+
+        #region Package
+        public void PackageInsert(Package entity) { Insert(entity); }
+        public void PackageUpdate(Package entity) { Update(entity); }
+        public void PackageDelete(Package entity) { Delete(entity); }
+        #endregion
+
+        #region User
+        public void UserInsert(User entity) { Insert(entity); }
+        public void UserUpdate(User entity) { Update(entity); }
+        public void UserDelete(User entity) { Delete(entity); }
+        #endregion
+
+        #region Url
+        public void UrlInsert(Url entity) { Insert(entity); }
+        public void UrlUpdate(Url entity) { Update(entity); }
+        public void UrlDelete(Url entity) { Delete(entity); }
+        public Url UrlCreateIfNotExist(Url entity, Expression<Func<Url, bool>> predicate)
+        {
+            var result = Urls.Where(predicate).FirstOrDefault();
+            if (result == null)
+            {
+                UrlInsert(entity);
+                return entity;
+            }
+            return result;
+        }
+        #endregion
+
+        #region Download
+        public void DownloadInsert(Download entity) { Insert(entity); }
+        public void DownloadUpdate(Download entity) { Update(entity); }
+        public void DownloadDelete(Download entity) { Delete(entity); }
+        public Download DownloadCreateIfNotExist(Download entity, Expression<Func<Download, bool>> predicate)
+        {
+            var result = Downloads.Where(predicate).FirstOrDefault();
+            if (result == null)
+            {
+                DownloadInsert(entity);
+                return entity;
+            }
+            return result;
+        }
+        #endregion
+
+        #region Pick
+        public void PickInsert(Pick entity) { Insert(entity); }
+        public void PickUpdate(Pick entity) { Update(entity); }
+        public void PickDelete(Pick entity) { Delete(entity); }
+        #endregion
+
+        #endregion
     }
 }

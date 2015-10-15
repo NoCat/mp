@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB7E41D2-A35F-4071-94D3-929D60DE7DC1}</ProjectGuid>
+    <ProjectGuid>{89D0E768-FA89-4892-894C-7D9AF6CBED48}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mp</RootNamespace>
-    <AssemblyName>BLL</AssemblyName>
+    <RootNamespace>Utility</RootNamespace>
+    <AssemblyName>Utility</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,22 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\packages\MySql.Data.6.8.6\lib\net40\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="mysql.data.entity.EF6">
-      <HintPath>..\packages\MySql.Data.Entities.6.8.3.0\lib\net40\mysql.data.entity.EF6.dll</HintPath>
+    <Reference Include="Aliyun.OSS">
+      <HintPath>C:\Users\Rayt\Downloads\aliyun_dotnet_sdk_20150528\bin\Aliyun.OSS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,27 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManager.cs" />
-    <Compile Include="ManagerBase.cs" />
+    <Compile Include="OssFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\db\mp.DAL.csproj">
-      <Project>{e4cd5070-086d-410a-862d-2bbadc5337f3}</Project>
-      <Name>mp.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\mp.Utility\mp.Extends.csproj">
-      <Project>{b33c5124-78f5-4b9c-acd7-93e9451829b4}</Project>
-      <Name>mp.Extends</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utility\mp.Utility.csproj">
-      <Project>{89d0e768-fa89-4892-894c-7d9af6cbed48}</Project>
-      <Name>mp.Utility</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

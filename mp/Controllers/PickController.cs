@@ -30,7 +30,7 @@ namespace mp.Controllers
                 return Json(result);
             }
             //判断图包是否存在
-            var package = Service.Packages.Items.Where(p=>p.ID==packageId).FirstOrDefault();
+            var package = DB.Packages.Find(packageId);
             if (package == null)
             {
                 result.Success = false;
@@ -45,11 +45,22 @@ namespace mp.Controllers
                 return Json(result);
             }
 
-            var sourceUrl = Service.Urls.CreateIfNotExist(new Url { Text = source, CRC32 = source.CRC32() }, (u => u.CRC32 == source.CRC32() && u.Text == source));
-            var fromUrl = Service.Urls.CreateIfNotExist(new Url { Text = from, CRC32 = from.CRC32() }, (u => u.CRC32 == from.CRC32() && u.Text == from));
+            var sourceUrl = DB.UrlCreateIfNotExist(new Url { Text = source, CRC32 = source.CRC32() }, (u => u.CRC32 == source.CRC32() && u.Text == source));
+            var fromUrl = DB.UrlCreateIfNotExist(new Url { Text = from, CRC32 = from.CRC32() }, (u => u.CRC32 == from.CRC32() && u.Text == from));
 
-            var pick = new Pick { Description=description, FromUrlID=fromUrl.ID,SourceUrlID=sourceUrl.ID, PackageID=packageId };
-            Service.Picks.Insert(pick);
+            //根据sourceUrl查找下载列表
+            var download = DB.DownloadCreateIfNotExist(new Download { FromUrlID = fromUrl.ID, SourceUrlID = sourceUrl.ID }, d => d.SourceUrlID == sourceUrl.ID);
+            //判断文件是否已经下载过
+            if(download.FileID!=0)
+            {
+                //文件已经下载过，直接添加到图包
+                DB.ImageInsert(new Image { Description = description, FileID = download.FileID, PackageID = package.ID, UserID = package.UserID, FromUrlID = fromUrl.ID });
+            }
+            else
+            {
+                //文件未下载过，添加pick任务
+                DB.PickInsert(new Pick { DownloadID = download.ID, FromUrlID = fromUrl.ID, PackageID = package.ID, UserID = package.UserID, Description = description });
+            }
 
             return Json(result);
         }

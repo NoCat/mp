@@ -5,29 +5,26 @@ using System.Web;
 
 namespace mp.Utility
 {
-    public abstract class Job
+    public class Job
     {
-        object _param = null;
         public Worker Parent { get; set; }
         /// <summary>
-        /// 构造函数
+        /// 构造函数,默认执行一次，除非指定interval为非0值
         /// </summary>
-        /// <param name="interval">执行时间间隔，TimeSpan.Zero为只执行一次</param>
-        public Job(TimeSpan interval, object param)
+        public Job()
         {
-            Interval = interval;
+            Interval = TimeSpan.Zero;
             LastExcute = DateTime.MinValue;
-            _param = param;
         }
-
+        public object Parameter { get; set; }
         public DateTime LastExcute { set; get; }
         public bool IsProcessing { set; get; }
         public TimeSpan Interval { set; get; }
-        abstract public void Excute(object param);
-        public void ExcuteCore()
+        virtual protected void ExcuteCore(object param) { }
+        public void Excute()
         {
             IsProcessing = true;
-            Excute(_param);
+            ExcuteCore(Parameter);
             LastExcute = DateTime.Now;
             IsProcessing = false;
             if (Interval == TimeSpan.Zero)

@@ -51,6 +51,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MiaopassContext.cs" />
-    <Compile Include="StoredProcedure.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="ActivityTypes.cs" />
     <Compile Include="Comment.cs" />

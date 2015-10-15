@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using mp.Models;
 
 namespace mp.Controllers
 {
@@ -13,11 +14,11 @@ namespace mp.Controllers
             if (packageId == 0)
                 return Redirect("/");
 
-            var package = Service.Packages.Items.Where(p=>p.ID==packageId).FirstOrDefault();
+            var package = DB.Packages.Find(packageId);
             if (package == null)
                 return Redirect("/");
 
-            ViewBag.packageInfo = PackageInfo(package);
+            ViewBag.packageInfo =new PackageInfo(package);
             return View();
         }
 
@@ -26,10 +27,10 @@ namespace mp.Controllers
             if (max == 0)
                 max = int.MaxValue;
 
-            var list = new List<BLL.ImageInfo>();
-            Service.Images.Items.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i=>i.ID).Take(20).ToList().ForEach(i =>
+            var list = new List<ImageInfo>();
+            DB.Images.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i=>i.ID).Take(20).ToList().ForEach(i =>
             {
-                list.Add(new BLL.ImageInfo(i));
+                list.Add(new ImageInfo(i));
             });
 
             switch (thumb.ToLower())
