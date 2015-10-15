@@ -86,48 +86,36 @@ namespace mp.Utility
                 if (hash1 == "" || hash2 == "")
                     throw new Exception("文件下载失败");
 
-                mp.DAL.File file = null;
-                using (var filestream = System.IO.File.OpenRead(filePath1))
+                db.Transaction(() =>
                 {
-                    var manager = new mp.BLL.FileManager(db);
-                    manager.Create(filestream, hash1);
-                }
+                    mp.DAL.File file = null;
+                    using (var filestream = System.IO.File.OpenRead(filePath1))
+                    {
+                        var manager = new mp.BLL.FileManager(db);
+                        file = manager.Create(filestream);
+                    }
 
-                //将下载任务标记为已完成
-                download.State = DownloadStates.Finished;
-                download.FileID = file.ID;
-                _db.Entry(download).State = System.Data.Entity.EntityState.Modified;
+                    //将下载任务标记为已完成
+                    download.State = DownloadStates.Finished;
+                    download.FileID = file.ID;
+                    db.FileUpdate(file);
 
-                //完善对应的pick任务
-                var picks = _db.Picks.Where(i => i.DownloadID == download.ID);
-                var imageList = picks.Select(pick => new mp.DAL.Image()
-                {
-                    Description = pick.Description,
-                    FileID = download.FileID,
-                    FromUrlID = pick.FromUrlID,
-                    PackageID = pick.PackageID,
-                    UserID = pick.UserID,
-                    Via = 0
+                    //完善对应的pick任务
+                    var picks = db.Picks.Where(i => i.DownloadID == download.ID);
+                    var imageList = picks.Select(pick => new mp.DAL.Image()
+                    {
+                        Description = pick.Description,
+                        FileID = download.FileID,
+                        FromUrlID = pick.FromUrlID,
+                        PackageID = pick.PackageID,
+                        UserID = pick.UserID,
+                        Via = 0
+                    });
+                    
+                    
+                    imageList.ToList().ForEach(i => { db.ImageInsert(i); });
+                    picks.ToList().ForEach(p => { db.PickDelete(p); });
                 });
-
-                //var imageList = new List<db.Models.Image>();
-                //foreach (var pick in picks)
-                //{
-                //    var image = new db.Models.Image()
-                //    {
-                //        Description = pick.Description,
-                //        FileID = download.FileID,
-                //        Url = pick.From,
-                //        PackageID = pick.PackageID,
-                //        UserID = pick.UserID,
-                //        Via=0 
-                //    };
-                //    imageList.Add(image);
-                //}
-                db.Images.AddRange(imageList);
-                picks.Delete();
-
-                db.SaveChanges();
             }
             catch { }
             finally

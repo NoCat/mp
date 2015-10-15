@@ -155,7 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="BLL\FileManager.cs" />
     <Compile Include="Models\ImageInfo.cs" />
     <Compile Include="Models\PackageInfo.cs" />
     <Compile Include="BLL\PackageManager.cs" />

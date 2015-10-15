@@ -10,8 +10,11 @@ namespace mp.BLL
 {
     public class FileManager:ManagerBase
     {
-        public mp.DAL.File Create(Stream s, string md5)
+        public FileManager(MiaopassContext db) : base(db) { }
+
+        public mp.DAL.File Create(Stream s)
         {
+            var md5 = s.MD5();
             var file = DB.Files.Where(i => i.MD5 == md5).FirstOrDefault();
             if (file == null)
             {
