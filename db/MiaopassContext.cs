@@ -31,7 +31,7 @@ namespace mp.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public void Insert<T>(T entity, bool save = true) where T : class
+        void Insert<T>(T entity, bool save = true) where T : class
         {
             Set<T>().Add(entity);
             if (save)
@@ -40,7 +40,7 @@ namespace mp.DAL
             }
         }
 
-        public void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
+        void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
             Set<T>().AddRange(entities);
             if (save)
@@ -49,7 +49,7 @@ namespace mp.DAL
             }
         }
 
-        public void Update(object entity, bool save = true)
+        void Update(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Modified;
             if (save)
@@ -58,7 +58,7 @@ namespace mp.DAL
             }
         }
 
-        public void Delete(object entity, bool save = true)
+        void Delete(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Deleted;
             if (save)
@@ -150,6 +150,12 @@ namespace mp.DAL
         public void PickInsert(Pick entity) { Insert(entity); }
         public void PickUpdate(Pick entity) { Update(entity); }
         public void PickDelete(Pick entity) { Delete(entity); }
+        #endregion
+
+        #region File
+        public void FileInsert(File entity) { Insert(entity); }
+        public void FileUpdate(File entity) { Update(entity); }
+        public void FileDelete(File entity) { Delete(entity); }
         #endregion
 
         #endregion
