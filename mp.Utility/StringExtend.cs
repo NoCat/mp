@@ -27,4 +27,9 @@ static public class StringExtend
     {
         return Crc32C.Crc32CAlgorithm.Compute(str.ToBytes());
     }
+
+    static public string MapPath(this string str)
+    {
+        return HttpContext.Current.Server.MapPath(str);
+    }
 }

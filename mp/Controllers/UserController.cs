@@ -13,7 +13,7 @@ namespace mp.Controllers
         {
             if (max == 0)
             {
-                var user = DB.Users.Find(userId); 
+                var user = DB.Users.Find(userId);
                 if (user == null)
                     return Redirect("/");
 
@@ -73,7 +73,7 @@ namespace mp.Controllers
                         var list = new List<PackageInfo>();
                         DB.Followings.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
-                            list.Add(new PackageInfo(DB.Packages.Find(f.Info));
+                            list.Add(new PackageInfo(DB.Packages.Find(f.Info)));
                         });
                         return PartialView("PackageList.pc", list);
                     }

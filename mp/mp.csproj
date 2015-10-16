@@ -154,6 +154,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BackgrounWorkerConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\ImageInfo.cs" />
     <Compile Include="Models\PackageInfo.cs" />
@@ -178,7 +179,6 @@
     <Compile Include="Utility\Background\Worker.cs" />
     <Compile Include="Utility\Background\Job.cs" />
     <Compile Include="Utility\Configs.cs" />
-    <Compile Include="Utility\Downloader.cs" />
     <Compile Include="Utility\Security.cs" />
     <Compile Include="Utility\Tools.cs" />
   </ItemGroup>

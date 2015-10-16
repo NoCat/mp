@@ -25,6 +25,7 @@ namespace mp.DAL
         public DbSet<Pick> Picks { get; set; }
         public DbSet<Praise> Praises { get; set; }
         public DbSet<Url> Urls { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

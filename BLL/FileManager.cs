@@ -14,6 +14,7 @@ namespace mp.BLL
 
         public mp.DAL.File Create(Stream s)
         {
+            s.Position = 0;
             var md5 = s.MD5();
             var file = DB.Files.Where(i => i.MD5 == md5).FirstOrDefault();
             if (file == null)

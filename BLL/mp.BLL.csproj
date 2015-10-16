@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aliyun.OSS, Version=1.0.5626.29242, Culture=neutral, PublicKeyToken=0ad4175f0dac0b9b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Rayt\Downloads\aliyun_dotnet_sdk_20150528\bin\Aliyun.OSS.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -45,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
@@ -57,6 +62,7 @@
   <ItemGroup>
     <Compile Include="FileManager.cs" />
     <Compile Include="ManagerBase.cs" />
+    <Compile Include="OssFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,10 +77,6 @@
     <ProjectReference Include="..\mp.Utility\mp.Extends.csproj">
       <Project>{b33c5124-78f5-4b9c-acd7-93e9451829b4}</Project>
       <Name>mp.Extends</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utility\mp.Utility.csproj">
-      <Project>{89d0e768-fa89-4892-894c-7d9af6cbed48}</Project>
-      <Name>mp.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

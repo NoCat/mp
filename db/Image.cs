@@ -25,7 +25,6 @@ namespace mp.DAL
         public Image()
         {
             CreatedTime = DateTime.Now;
-            Via = 0;
         }
     }
 }
