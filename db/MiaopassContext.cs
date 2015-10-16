@@ -96,7 +96,10 @@ namespace mp.DAL
             Transaction(() =>
             {
                 Insert(entity);
-                PackageUpdate(new Package { ID = entity.PackageID, LastModify = entity.CreatedTime });
+                var package = Packages.Find(entity.PackageID);
+                if (package.HasCover == false)
+                    package.CoverID = entity.ID;
+                PackageUpdate(package);
             });
         }
         public void ImageUpdate(Image entity) { Update(entity); }

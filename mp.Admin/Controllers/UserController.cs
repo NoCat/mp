@@ -21,7 +21,7 @@ namespace mp.Admin.Controllers
             return View();
         }
 
-        public ActionResult Create(string email,string password="12345678")
+        public ActionResult Create(string email, string name, string password = "12345678")
         {
             return View();
         }
