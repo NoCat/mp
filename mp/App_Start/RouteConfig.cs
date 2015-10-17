@@ -18,12 +18,12 @@ namespace mp
             routes.MapRoute(name: "image/{id}", url: "", defaults: new { controller = "image", action = "index", id = 0 });
             //图包页
             routes.MapRoute(name: "package-images", url: "package/{packageId}/images/{max}/{thumb}", defaults: new { controller = "package", action = "Images", max = 0 ,thumb="fw236"});
-            routes.MapRoute(name: "package", url: "package/{packageId}", defaults: new { controller = "package", action = "Index" }, constraints: new { packageid=@"\d+"});
+            routes.MapRoute(name: "package", url: "package/{packageId}/{action}", defaults: new { controller = "package", action = "Index" }, constraints: new { packageid=@"\d+"});
             //图片页
-            routes.MapRoute(name: "image", url: "image/{imageId}", defaults: new { controller = "image", action = "index"});
+            routes.MapRoute(name: "image", url: "image/{imageId}/{action}", defaults: new { controller = "image", action = "index"});
             //用户页
-            routes.MapRoute(name: "user-default", url: "user/{userId}", defaults: new { controller = "user", action = "index" });
             routes.MapRoute(name: "user", url: "user/{userId}/{subPage}/{max}", defaults: new { controller = "user", action = "index", max = 0 });
+            routes.MapRoute(name: "user-default", url: "user/{userId}/{action}", defaults: new { controller = "user", action = "index" });
             //搜索页
             routes.MapRoute(name: "search", url: "search/{kw}/{max}", defaults: new { controller = "search",action = "index", kw = "", max = 0 });
 
