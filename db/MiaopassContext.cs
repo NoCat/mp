@@ -27,6 +27,8 @@ namespace mp.DAL
         public DbSet<Url> Urls { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
 
+        public MiaopassContext() : base("name=db") { }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

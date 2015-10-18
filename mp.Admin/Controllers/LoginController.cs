@@ -18,19 +18,18 @@ namespace mp.Admin.Controllers
         [HttpPost]
         public ActionResult Index(string username, string password)
         {
-            var result = new AjaxResult();
             var user = DB.AdminUsers.Where(u => u.Username == username).FirstOrDefault();
             if (user != null)
             {
                 if (user.Password == password.MD5())
                 {
                     Security.Login(user.ID, false);
-                    return Json(result);
+                    return Redirect("/");
                 }
             }
-            result.Success = false;
-            result.Message = "帐号或密码错误";
-            return Json(result);
+            ViewBag.Error = true;
+            return View();
+            
         }
     }
 }
