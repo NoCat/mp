@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using mp.Admin.Models;
 
 namespace mp.Admin.Controllers
 {
@@ -14,7 +15,8 @@ namespace mp.Admin.Controllers
 
         public ActionResult Index(int page=1,int size=20)
         {
-            var list = DB.AdminSubAccounts.Include("User").Where(a => a.AdminUserID == Security.User.ID).ToPagedList(page, size);
+            var userIds = DB.AdminSubAccounts.Where(a => a.AdminUserID == Security.User.ID).Select(a => a.UserID);
+            var list = DB.Users.Select(u => new UserInfo(u)).Where(u => userIds.Contains(u.ID)).ToPagedList(page, size);
             ViewBag.List = list;
             return View();
         }
@@ -37,7 +39,7 @@ namespace mp.Admin.Controllers
         {
             if(DB.Users.Find(id)!=null)
             {
-                if (DB.AdminSubAccounts.Where(a => a.UserID == id) == null)
+                if (DB.AdminSubAccounts.Where(a => a.UserID == id).FirstOrDefault() == null)
                     DB.AdminSubAccountInsert(new DAL.AdminSubAccount { AdminUserID = Security.User.ID, UserID = id });
             }            
             return RedirectToAction("Index");

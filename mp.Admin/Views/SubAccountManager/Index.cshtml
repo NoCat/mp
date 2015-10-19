@@ -9,8 +9,8 @@
 
 <h2 class="page-header">子账号管理</h2>
 <div class="placeholder clearfix">
-    <button class="btn btn-primary pull-right btn-sm"><span class="glyphicon glyphicon-plus"></span>添加现有</button>
-    <button class="btn btn-primary pull-right btn-sm"><span class="glyphicon glyphicon-plus"></span>添加新建</button>
+    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#createexist"><span class="glyphicon glyphicon-plus"></span>添加现有</button>
+    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#createnew"><span class="glyphicon glyphicon-plus"></span>添加新建</button>
 </div>
 
 <table class="table table-table-striped">
@@ -37,7 +37,7 @@
 
 @Html.PagedListPager((IPagedList)list, page => Url.Action("index", new { page }))
 
-<div class="modal fade">
+<div class="modal fade" id="createexist">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" method="post" action="@Url.Action("CreateExist")">
@@ -52,14 +52,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">确定</button>
+                    <button class="btn btn-primary">确定</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<div class="modal fade">
+<div class="modal fade" id="createnew">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" method="post" action="@Url.Action("CreateNew")">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">确定</button>
+                    <button class="btn btn-primary">确定</button>
                 </div>
             </form>
         </div>

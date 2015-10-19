@@ -18,7 +18,7 @@
             </div>
         </form>
     </div>
-    <button class="btn btn-primary pull-right btn-sm"><span class="glyphicon glyphicon-plus"></span>新增</button>
+    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#create"><span class="glyphicon glyphicon-plus"></span>新增</button>
 </div>
 
 <table class="table table-table-striped">
@@ -34,7 +34,7 @@
             <td>@item.Name</td>
             <td>
                 <div class="row">
-                    <a href="@Url.Action("Delete", new {id=item.ID})" class="col-xs-3 btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
+                    <a href="@Url.Action("Delete", new {id=item.ID})" class="col-xs-2 btn btn-xs btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
                 </div>
             </td>
         </tr>
@@ -44,7 +44,7 @@
 
 @Html.PagedListPager((IPagedList)list, page => Url.Action("index", new { page }))
 
-<div class="modal fade">
+<div class="modal fade" id="create">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" method="post" action="@Url.Action("create")">
@@ -59,11 +59,11 @@
                     </div>
                     <div class="form-group">
                         <label class="col-xs-4">密码：</label>
-                        <div class="col-xs-8"><input type="text" name="password" class="form-control" /></div>
+                        <div class="col-xs-8"><input type="password" name="password" class="form-control" /></div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">确定</button>
+                    <button class="btn btn-primary">确定</button>
                 </div>
             </form>
         </div>

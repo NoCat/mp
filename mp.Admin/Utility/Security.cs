@@ -30,7 +30,7 @@ public class Security
         }
     }
 
-    static public User User
+    static public AdminUser User
     {
         get
         {
@@ -40,10 +40,10 @@ public class Security
             var item = HttpContext.Current.Items["User"];
             if (item != null)
             {
-                return item as User;
+                return item as AdminUser;
             }
 
-            var s = new MiaopassContext().Users.Find(HttpContext.Current.Session[SessionKey]);
+            var s = new MiaopassContext().AdminUsers.Find(HttpContext.Current.Session[SessionKey]);
             HttpContext.Current.Items["User"] = s;
             return s;
         }

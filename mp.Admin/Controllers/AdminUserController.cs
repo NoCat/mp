@@ -26,7 +26,7 @@ namespace mp.Admin.Controllers
         public ActionResult Create(string name, string password)
         {
             name=name.Trim();
-            var exist = DB.AdminUsers.Where(u => u.Name == name);
+            var exist = DB.AdminUsers.Where(u => u.Name == name).FirstOrDefault();
             if (exist == null)
                 DB.AdminUserInsert(new AdminUser { Name = name, Password = password.MD5() });
             return RedirectToAction("index");

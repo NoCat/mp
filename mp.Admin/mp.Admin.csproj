@@ -157,6 +157,7 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\jquery.js" />
@@ -202,6 +203,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\SubAccountManager\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
