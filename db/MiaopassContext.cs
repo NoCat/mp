@@ -166,6 +166,17 @@ namespace mp.DAL
         public void FileDelete(File entity) { Delete(entity); }
         #endregion
 
+        #region AdminUser
+        public void AdminUserInsert(AdminUser entity) { Insert(entity); }
+        public void AdminUserUpdate(AdminUser entity) { Update(entity); }
+        public void AdminUserDelete(AdminUser entity) { Delete(entity); }
+        #endregion
+
+        #region AdminSubAccount
+        public void AdminSubAccountInsert(AdminSubAccount entity) { Insert(entity); }
+        public void AdminSubAccountUpdate(AdminSubAccount entity) { Update(entity); }
+        public void AdminSubAccountDelete(AdminSubAccount entity) { Delete(entity); }
+        #endregion
         #endregion
     }
 }

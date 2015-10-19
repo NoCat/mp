@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "子账号管理";
+    Layout = "~/Views/Shared/dashboardMaster.cshtml";
+    var list = ViewBag.List;
+}
+
+<h2 class="page-header">子账号管理</h2>
+<div class="placeholder clearfix">
+    <button class="btn btn-primary pull-right btn-sm"><span class="glyphicon glyphicon-plus"></span>添加现有</button>
+    <button class="btn btn-primary pull-right btn-sm"><span class="glyphicon glyphicon-plus"></span>添加新建</button>
+</div>
+
+<table class="table table-table-striped">
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>操作</th>
+    </tr>
+    @foreach (mp.Admin.Models.UserInfo item in list)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>
+                <div class="row">
+                    <a href="@Url.Action("Delete", new {id=item.ID})" class="col-xs-3 btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
+                    <a href="@Url.Action("Index","Subaccount", new {id=item.ID})" class="col-xs-3 btn btn-sm btn-primary confirm">详情</a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+
+@Html.PagedListPager((IPagedList)list, page => Url.Action("index", new { page }))
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" method="post" action="@Url.Action("CreateExist")">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加现有</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-xs-4">用户ID：</label>
+                        <div class="col-xs-8"><input type="text" name="id" class="form-control" /></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" method="post" action="@Url.Action("CreateNew")">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加新建</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-xs-4">电子邮箱</label>
+                        <div class="col-xs-8"><input type="text" name="email" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4">昵称</label>
+                        <div class="col-xs-8"><input type="text" name="name" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4">密码</label>
+                        <div class="col-xs-8"><input type="password" name="password" class="form-control" /></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
