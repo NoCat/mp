@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminSubAccount.cs" />
     <Compile Include="AdminUser.cs" />
     <Compile Include="MiaopassContext.cs" />
     <Compile Include="Activity.cs" />

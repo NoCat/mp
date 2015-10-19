@@ -26,6 +26,8 @@ namespace mp.DAL
         public DbSet<Praise> Praises { get; set; }
         public DbSet<Url> Urls { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<AdminSubAccount> AdminSubAccounts { get; set; }
+
 
         public MiaopassContext() : base("name=db") { }
 
