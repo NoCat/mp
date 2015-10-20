@@ -25,10 +25,8 @@
             <td>@item.ID</td>
             <td>@item.Name</td>
             <td>
-                <div class="row">
-                    <a href="@Url.Action("Delete", new {id=item.ID})" class="col-xs-3 btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
-                    <a href="@Url.Action("Index","Subaccount", new {id=item.ID})" class="col-xs-3 btn btn-sm btn-primary confirm">详情</a>
-                </div>
+                <a href="@Url.Action("Delete", new {id=item.ID})" class="btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
+                <a href="@Url.Action("Index","Subaccount", new {id=item.ID})" class="btn btn-sm btn-primary">详情</a>
             </td>
         </tr>
     }

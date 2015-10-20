@@ -11,14 +11,10 @@ namespace mp.Admin.Controllers
 {
     public class UploadController : ControllerBase
     {
-        //
-        // GET: /Upload/
-
-        [HttpPost]
         public ActionResult Index(string name, int chunk, int chunks,HttpPostedFileBase data)
         {
             var result = new AjaxResult();
-            var path = Server.MapPath("~/upload/");
+            var path = Server.MapPath("~/temp/");
             using (var fs = System.IO.File.Create(path + name + "_" + chunk))
             {
                 fs.Write(data.InputStream);
