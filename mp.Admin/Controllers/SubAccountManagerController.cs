@@ -16,8 +16,10 @@ namespace mp.Admin.Controllers
         public ActionResult Index(int page=1,int size=20)
         {
             var userIds = DB.AdminSubAccounts.Where(a => a.AdminUserID == Security.User.ID).Select(a => a.UserID);
-            var list = DB.Users.Select(u => new UserInfo(u)).Where(u => userIds.Contains(u.ID)).ToPagedList(page, size);
-            ViewBag.List = list;
+            var result = DB.Users.Where(u => userIds.Contains(u.ID)).ToPagedList(page, size);
+            var list = new List<UserInfo>();
+            result.ToList().ForEach(u => list.Add(new UserInfo(u)));
+            ViewBag.List = new Pagination<UserInfo>(list,page,size,result.TotalItemCount);
             return View();
         }
 
