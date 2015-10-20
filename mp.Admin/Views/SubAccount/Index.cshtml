@@ -1,0 +1,114 @@
+﻿@{
+    var subAccount = ViewBag.SubAccount as mp.Admin.Models.UserInfo;
+    ViewBag.Title = "子账号 " + subAccount.Name;
+    Layout = "~/Views/Shared/dashboardMaster.cshtml";
+}
+
+<h2 class="page-header">子账号 @subAccount.Name</h2>
+<div class="placeholder clearfix">
+    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#create"><span class="glyphicon glyphicon-plus"></span>添加图包</button>
+</div>
+
+<table class="table table-table-striped">
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>操作</th>
+    </tr>
+    @foreach (mp.Admin.Models.AdminUserInfo item in ViewBag.List)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>
+                <div class="row">
+                    <div class="col-xs-2 btn btn-xs btn-danger confirm">
+                        <span>添加图片</span>
+                        <input class="add-image" id="file" type="file" multiple="multiple" data-subaccountid="@subAccount.ID" data-packageid="@item.ID" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="create">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" method="post" action="@Url.Action("create")">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新建图包</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-xs-4">标题</label>
+                        <div class="col-xs-8"><input type="text" name="title" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4">描述</label>
+                        <div class="col-xs-8"><input type="text" name="description" class="form-control" /></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">正在上传。。</h4>
+        </div>
+        <div class="modal-body">
+            <div class="progress">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/uploader.js"></script>
+<script src="/js/BatchUploader.js"></script>
+<script>
+    $(function () {
+        $(".add-image input").change(function () {
+            var btn = $(this);
+            var subAccountId = btn.data("subAccountId");
+            var packageId = btn.data("packageId");
+            var progress = $("#progress");
+            var uploader = new BatchUploader();
+            uploader.url = "/upload";
+            for (var i = 0; i < this.files.length; i++) {
+                uploader.add(this.files[i]);
+            }
+            uploader.onProgress = function (p) {
+                p = Math.floor(p * 100);
+                progress.css({ "width": p + "%" });
+            }
+            uploader.onDone = function (datas) {
+                //alert(JSON.stringify(datas));
+
+                var uploadDatas = [];
+                for (var i = 0; i < datas.length; i++) {
+                    uploadDatas.push({ id: datas[i].Data, description: datas[i].File.name });
+                }
+
+                $.post("/subaccount/PackageAddImages/",
+                    { id: subAccountId, packageId: packageId, values: JSON.stringify(uploadDatas) },
+                    function (msg) {
+                        if (msg.Success == false)
+                            alert(msg.Message);
+                        else
+                            location.reload();
+                    },
+                "json");
+            }
+            uploader.start();
+        })
+    })
+</script>

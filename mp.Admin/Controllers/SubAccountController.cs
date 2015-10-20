@@ -15,10 +15,15 @@ namespace mp.Admin.Controllers
         //
         // GET: /SubAccount/
 
-        public ActionResult Index(int id, int page = 1, int size = 20)
+        public ActionResult Index(int id)
         {
-            var list = DB.Packages.Where(p => p.UserID == id).Select(p => new PackageInfo(p)).ToPagedList(page, size);
+            var subAccount = DB.Users.Find(id);
+            var result = DB.Packages.Where(p => p.UserID == id).Take(40);
+            var list = new List<PackageInfo>();
+
+            result.ToList().ForEach(p => list.Add(new PackageInfo(p)));
             ViewBag.List = list;
+            ViewBag.SubAccount = new UserInfo(subAccount);
             return View();
         }
 

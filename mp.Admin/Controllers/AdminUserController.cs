@@ -12,20 +12,22 @@ namespace mp.Admin.Controllers
     public class AdminUserManagerController : ControllerBase
     {
         //系统用户管理
-        public ActionResult Index(string find = "", int page = 1, int page_size = 20)
+        public ActionResult Index(string find = "")
         {
             IEnumerable<AdminUser> result = DB.AdminUsers;
             if (find != "")
                 result = result.Where(u => u.Name.StartsWith(find));
 
-           var list = result.Select(u => new AdminUserInfo(u)).ToPagedList(page, page_size);
-           ViewBag.List = list;
+            result = result.Take(40);
+            var list = new List<AdminUserInfo>();
+            result.ToList().ForEach(a => list.Add(new AdminUserInfo(a)));
+            ViewBag.List = list;
             return View();
         }
 
         public ActionResult Create(string name, string password)
         {
-            name=name.Trim();
+            name = name.Trim();
             var exist = DB.AdminUsers.Where(u => u.Name == name).FirstOrDefault();
             if (exist == null)
                 DB.AdminUserInsert(new AdminUser { Name = name, Password = password.MD5() });

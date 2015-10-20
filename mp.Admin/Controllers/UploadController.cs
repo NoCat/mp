@@ -15,22 +15,23 @@ namespace mp.Admin.Controllers
         // GET: /Upload/
 
         [HttpPost]
-        public ActionResult Index(string filename, int chunk, int chunks)
+        public ActionResult Index(string name, int chunk, int chunks,HttpPostedFileBase data)
         {
             var result = new AjaxResult();
-            using (var fs = System.IO.File.Create(string.Format("~/temp/{0)_{1}", filename, chunk).MapPath()))
+            var path = Server.MapPath("~/upload/");
+            using (var fs = System.IO.File.Create(path + name + "_" + chunk))
             {
-                fs.Write(Request.Files["file"].InputStream);
+                fs.Write(data.InputStream);
             }
 
             if (chunk == chunks - 1)
             {
-                var mergePath = string.Format("~/temp/{0}", filename).MapPath();
+                var mergePath = path + name;
                 using (var fs = System.IO.File.Create(mergePath))
                 {
                     for (int i = 0; i < chunks; i++)
                     {
-                        var chunkPath = string.Format("~/temp/{0)_{1}", filename, i).MapPath();
+                        var chunkPath = path + name + "_" + i;
                         using (var cf = System.IO.File.OpenRead(chunkPath))
                         {
                             fs.Write(cf);

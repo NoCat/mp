@@ -13,13 +13,14 @@ namespace mp.Admin.Controllers
         //
         // GET: /SubAccountManager/
 
-        public ActionResult Index(int page=1,int size=20)
+        public ActionResult Index()
         {
             var userIds = DB.AdminSubAccounts.Where(a => a.AdminUserID == Security.User.ID).Select(a => a.UserID);
-            var result = DB.Users.Where(u => userIds.Contains(u.ID)).ToPagedList(page, size);
+            var result = DB.Users.Where(u => userIds.Contains(u.ID)).Take(40);
+
             var list = new List<UserInfo>();
             result.ToList().ForEach(u => list.Add(new UserInfo(u)));
-            ViewBag.List = new Pagination<UserInfo>(list,page,size,result.TotalItemCount);
+            ViewBag.List = list;
             return View();
         }
 
