@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace mp.Admin.Controllers
 {
+    [MPAuthorize]
     public class SubAccountController : ControllerBase
     {
         //

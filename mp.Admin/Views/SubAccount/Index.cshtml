@@ -1,7 +1,9 @@
 ﻿@{
-    var subAccount = ViewBag.SubAccount as mp.Admin.Models.UserInfo;
-    ViewBag.Title = "子账号 " + subAccount.Name;
     Layout = "~/Views/Shared/dashboardMaster.cshtml";
+    
+    var subAccount = ViewBag.SubAccount as mp.Admin.Models.UserInfo;
+    ViewBag.Title = "子账号--" + subAccount.Name;
+    ViewBag.SubPage = "子账号";
 }
 
 <style>
@@ -37,6 +39,7 @@
     <tr>
         <th>ID</th>
         <th>用户名</th>
+        <th>图片数</th>
         <th>操作</th>
     </tr>
     @foreach (mp.Admin.Models.PackageInfo item in ViewBag.List)
@@ -44,13 +47,12 @@
         <tr>
             <td>@item.ID</td>
             <td>@item.Title</td>
+            <td>@item.ImageCount</td>
             <td>
-                <div class="row">
-                    <div class="col-xs-2 btn btn-xs btn-success btn-file">
-                        <span>添加图片</span>
-                        <input class="add-image" id="file" type="file" multiple="multiple" data-subaccountid="@subAccount.ID" data-packageid="@item.ID" />
-                    </div>
-                </div>
+                <btn class="btn btn-xs btn-success btn-file">
+                    <span>添加图片</span>
+                    <input class="add-image" id="file" type="file" multiple="multiple" data-subaccountid="@subAccount.ID" data-packageid="@item.ID" />
+                </btn>
             </td>
         </tr>
     }

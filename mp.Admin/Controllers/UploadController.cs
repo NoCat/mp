@@ -9,9 +9,10 @@ using mp.BLL;
 
 namespace mp.Admin.Controllers
 {
+    [MPAuthorize]
     public class UploadController : ControllerBase
     {
-        public ActionResult Index(string name, int chunk, int chunks,HttpPostedFileBase data)
+        public ActionResult Index(string name, int chunk, int chunks, HttpPostedFileBase data)
         {
             var result = new AjaxResult();
             var path = Server.MapPath("~/temp/");
@@ -36,7 +37,7 @@ namespace mp.Admin.Controllers
                     }
 
                     var manager = new FileManager(DB);
-                    var file= manager.Create(fs);
+                    var file = manager.Create(fs);
                     result.Data = new { id = file.ID };
                 }
 

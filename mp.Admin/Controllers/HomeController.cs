@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace mp.Admin.Controllers
 {
+    [MPAuthorize]
     public class HomeController : Controller
     {
         //

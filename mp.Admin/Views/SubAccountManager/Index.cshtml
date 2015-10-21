@@ -3,14 +3,15 @@
 
 @{
     ViewBag.Title = "子账号管理";
+    ViewBag.SubPage = "子账号";
     Layout = "~/Views/Shared/dashboardMaster.cshtml";
     var list = ViewBag.List;
 }
 
 <h2 class="page-header">子账号管理</h2>
 <div class="placeholder clearfix">
-    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#createexist"><span class="glyphicon glyphicon-plus"></span>添加现有</button>
     <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#createnew"><span class="glyphicon glyphicon-plus"></span>添加新建</button>
+    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#createexist"><span class="glyphicon glyphicon-plus"></span>添加现有</button>
 </div>
 
 <table class="table table-table-striped">
@@ -25,8 +26,8 @@
             <td>@item.ID</td>
             <td>@item.Name</td>
             <td>
-                <a href="@Url.Action("Delete", new {id=item.ID})" class="btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
                 <a href="@Url.Action("Index","Subaccount", new {id=item.ID})" class="btn btn-sm btn-primary">详情</a>
+                <a href="@Url.Action("Delete", new {id=item.ID})" class="btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-trash"></span>删除</a>
             </td>
         </tr>
     }

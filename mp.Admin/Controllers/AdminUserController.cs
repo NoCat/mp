@@ -9,6 +9,7 @@ using PagedList;
 
 namespace mp.Admin.Controllers
 {
+    [MPAuthorize]
     public class AdminUserManagerController : ControllerBase
     {
         //系统用户管理
