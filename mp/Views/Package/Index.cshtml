@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/Layout.pc.cshtml";
 
-    var packageInfo = ViewBag.packageInfo as mp.BLL.PackageInfo;
+    var packageInfo = ViewBag.packageInfo as mp.Models.PackageInfo;
     ViewBag.Title = packageInfo.Title + "@" + packageInfo.User.Name + "收集_喵帕斯";
     ViewBag.Keywords = packageInfo.Title;
     ViewBag.Description = packageInfo.Description;

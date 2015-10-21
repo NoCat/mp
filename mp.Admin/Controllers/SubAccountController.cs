@@ -37,6 +37,7 @@ namespace mp.Admin.Controllers
 
         public ActionResult PackageAddImages(int id, int packageId, string values)
         {
+            var result = new AjaxResult();
             foreach (JObject item in JArray.Parse(values))
             {
                 var fileid = (int)item["id"];
@@ -45,7 +46,7 @@ namespace mp.Admin.Controllers
                 DB.ImageInsert(new Image { FileID = fileid, PackageID = packageId, UserID = id, Description = description });
             }
 
-            return View();
+            return Json(result);
         }
 
         public ActionResult PackageEdit(int id)

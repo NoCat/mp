@@ -107,8 +107,8 @@
             $(".add-image").change(function () {
                 $("#progress-modal").modal();
                 var btn = $(this);
-                var subAccountId = btn.data("subAccountId");
-                var packageId = btn.data("packageId");
+                var subAccountId = btn.data("subaccountid");
+                var packageId = btn.data("packageid");
                 var progress = $("#progress");
                 var uploader = new BatchUploader();
                 uploader.url = "/upload";
@@ -124,7 +124,7 @@
 
                     var uploadDatas = [];
                     for (var i = 0; i < datas.length; i++) {
-                        uploadDatas.push({ id: datas[i].Data, description: datas[i].File.name });
+                        uploadDatas.push({ id: datas[i].Data.id, description: datas[i].File.name });
                     }
 
                     $.post("/subaccount/PackageAddImages/",
