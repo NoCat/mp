@@ -25,9 +25,13 @@ namespace mp.DAL
         public DbSet<Pick> Picks { get; set; }
         public DbSet<Praise> Praises { get; set; }
         public DbSet<Url> Urls { get; set; }
+        public DbSet<Config> Configs { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<AdminSubAccount> AdminSubAccounts { get; set; }
-
+        public DbSet<AdminPixivPickUser> AdminPixivPickUsers { get; set; }
+        public DbSet<AdminPixivTag> AdminPixivTags { get; set; }
+        public DbSet<AdminPixivWork> AdminPixivWorks { get; set; }
+        public DbSet<AdminPixivWorkTag> AdminPixivWorkTags { get; set; }
 
         public MiaopassContext() : base("name=db") { }
 
@@ -177,6 +181,13 @@ namespace mp.DAL
         public void AdminSubAccountUpdate(AdminSubAccount entity) { Update(entity); }
         public void AdminSubAccountDelete(AdminSubAccount entity) { Delete(entity); }
         #endregion
+
+        #region Config
+        public void ConfigInsert(Config entity) { Insert(entity); }
+        public void ConfigUpdate(Config entity) { Update(entity); }
+        public void ConfigDelete(Config entity) { Delete(entity); }
+        #endregion
+
         #endregion
     }
 }

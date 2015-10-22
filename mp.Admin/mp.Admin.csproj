@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PickController.cs" />
     <Compile Include="Controllers\SubAccountController.cs" />
     <Compile Include="Controllers\SubAccountManagerController.cs" />
     <Compile Include="Controllers\UploadController.cs" />

@@ -11,8 +11,8 @@ namespace mp
         public void Start()
         {
             var worker = new Worker();
-            var downloadJob = new DownloadJob { Interval = TimeSpan.Zero };
-            worker.Add(downloadJob);
+            worker.Add(new DownloadJob());
+            worker.Add(new CleanExpiredFileJob());
             worker.StartAsync();
         }
     }

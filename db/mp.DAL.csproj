@@ -59,8 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPixivPickUser.cs" />
+    <Compile Include="AdminPixivTag.cs" />
+    <Compile Include="AdminPixivWork.cs" />
+    <Compile Include="AdminPixivWorkTag.cs" />
     <Compile Include="AdminSubAccount.cs" />
     <Compile Include="AdminUser.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="MiaopassContext.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="ActivityTypes.cs" />
