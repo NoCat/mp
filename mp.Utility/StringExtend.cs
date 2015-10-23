@@ -25,6 +25,7 @@ static public class StringExtend
 
     static public UInt32 CRC32(this string str)
     {
+        str = str.ToLower();
         return Crc32C.Crc32CAlgorithm.Compute(str.ToBytes());
     }
 
