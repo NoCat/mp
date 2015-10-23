@@ -6,14 +6,9 @@ using mp.DAL;
 
 namespace mp
 {
-    public static class ConfigManager
+    public  class ConfigManager
     {
-        MiaopassContext _db;
-
-        public ConfigManager(MiaopassContext db)
-        {
-            _db = db;
-        }
+        MiaopassContext _db=new MiaopassContext();
 
         public string this[string name]
         {

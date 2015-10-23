@@ -40,8 +40,9 @@ namespace mp.Utility
         {
             while (true)
             {
-                foreach (var job in Jobs)
+                for (int i = 0; i < Jobs.Count; i++)
                 {
+                    var job = Jobs[i];
                     if (job.IsProcessing == false && job.LastExcute + job.Interval < DateTime.Now)
                     {
                         var t = new Thread(new ThreadStart(job.Excute));

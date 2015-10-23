@@ -48,7 +48,7 @@ namespace mp.Controllers
                         {
                             list.Add(new ImageInfo(p.Image));
                         });
-                        return PartialView("ImageList.pc", list);
+                        return PartialView("ImageListFw236.pc", list);
                     }
                 case UserSubPages.Followers:
                     {

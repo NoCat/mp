@@ -10,7 +10,7 @@ namespace mp.Utility
     {
         protected override void ExcuteCore(object param)
         {
-            var path = HttpContext.Current.Server.MapPath("~/temp/");
+            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/temp/");
             var directory = new DirectoryInfo(path);
             var now = DateTime.Now;
             foreach (FileInfo item in directory.GetFiles())

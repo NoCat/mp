@@ -412,6 +412,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Views\Search\Index.pc.cshtml" />
+    <None Include="Properties\PublishProfiles\web.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\mp.BLL.csproj">
