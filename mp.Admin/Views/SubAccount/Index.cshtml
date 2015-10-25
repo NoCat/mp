@@ -61,7 +61,7 @@
 <div class="modal fade" id="create">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" method="post" action="@Url.Action("create")">
+            <form class="form-horizontal" method="post" action="@Url.Action("PackageCreate", new { id=subAccount.ID})">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">新建图包</h4>

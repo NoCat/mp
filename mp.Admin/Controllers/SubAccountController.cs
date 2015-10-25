@@ -19,7 +19,7 @@ namespace mp.Admin.Controllers
         public ActionResult Index(int id)
         {
             var subAccount = DB.Users.Find(id);
-            var result = DB.Packages.Where(p => p.UserID == id).Take(40);
+            var result = DB.Packages.Where(p => p.UserID == id).OrderByDescending(p=>p.ID).Take(40);
             var list = new List<PackageInfo>();
 
             result.ToList().ForEach(p => list.Add(new PackageInfo(p)));
@@ -32,7 +32,7 @@ namespace mp.Admin.Controllers
         {
             var package = new Package { UserID = id, Title = title, Description = description };
             DB.PackageInsert(package);
-            return View();
+            return RedirectToAction("index", new { id = id });
         }
 
         public ActionResult PackageAddImages(int id, int packageId, string values)
