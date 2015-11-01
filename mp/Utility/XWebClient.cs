@@ -10,10 +10,15 @@ namespace mp.Utility
 {
     public class XWebClient : WebClient
     {
+        // Cookie 容器
+        private CookieContainer cookieContainer=new CookieContainer();
+
         public string Get(string url, Encoding encoding = null)
         {
             if (encoding == null)
                 encoding = Encoding.UTF8;
+
+            Headers.Add("User-Agent","Mozilla/5.0 (Windows NT 6.1; rv:41.0) Gecko/20100101 Firefox/41.0");
 
             var result = "";
             var tryCount = 0;
@@ -38,6 +43,8 @@ namespace mp.Utility
         {
             if (encoding == null)
                 encoding = Encoding.UTF8;
+
+            Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:41.0) Gecko/20100101 Firefox/41.0");
 
             var values = new NameValueCollection();
             if (data != null)
@@ -65,6 +72,17 @@ namespace mp.Utility
                 }
             }
             return result;
+        }
+
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest request = base.GetWebRequest(address);
+            if (request is HttpWebRequest)
+            {
+                HttpWebRequest httpRequest = request as HttpWebRequest;
+                httpRequest.CookieContainer = cookieContainer;
+            }
+            return request;
         }
     }
 }

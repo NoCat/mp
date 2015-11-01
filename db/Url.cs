@@ -9,6 +9,6 @@ namespace mp.DAL
     {
         public int ID { get; set; }
         public string Text { get; set; }
-        public uint CRC32 { get; set; }
+        public int CRC32 { get; set; }
     }
 }

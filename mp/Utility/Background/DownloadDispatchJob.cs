@@ -10,7 +10,7 @@ namespace mp.Utility
 {
     public class DownloadJob : Job
     {
-        int maxThreadsCount = 3;
+        int maxThreadsCount = 1;
         int currentThreadsCount = 0;
         MiaopassContext db = new MiaopassContext();
         static string baseDirectory = HttpContext.Current.Server.MapPath("~/");
@@ -44,7 +44,7 @@ namespace mp.Utility
                 db.DownloadUpdate(download);
                 var t = new Thread(new ParameterizedThreadStart(Download));
                 t.IsBackground = true;
-                t.Start();
+                t.Start(download);
             }
         }
 
@@ -102,17 +102,19 @@ namespace mp.Utility
 
                     //完善对应的pick任务
                     var picks = db.Picks.Where(i => i.DownloadID == download.ID);
-                    var imageList = picks.Select(pick => new mp.DAL.Image()
-                    {
-                        Description = pick.Description,
-                        FileID = download.FileID,
-                        FromUrlID = pick.FromUrlID,
-                        PackageID = pick.PackageID,
-                        UserID = pick.UserID,
-                        Via = 0
-                    });
-                    
-                    
+                    var imageList = new List<DAL.Image>();
+                    picks.ToList().ForEach(pick => imageList.Add(
+                        new mp.DAL.Image()
+                        {
+                            Description = pick.Description,
+                            FileID = download.FileID,
+                            FromUrlID = pick.FromUrlID,
+                            PackageID = pick.PackageID,
+                            UserID = pick.UserID,
+                            Via = 0
+                        }));
+
+
                     imageList.ToList().ForEach(i => { db.ImageInsert(i); });
                     picks.ToList().ForEach(p => { db.PickDelete(p); });
                 });

@@ -64,6 +64,7 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="ManagerBase.cs" />
     <Compile Include="OssFile.cs" />
+    <Compile Include="PickManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

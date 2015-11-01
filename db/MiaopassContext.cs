@@ -188,6 +188,38 @@ namespace mp.DAL
         public void ConfigDelete(Config entity) { Delete(entity); }
         #endregion
 
+        #region AdminPixivTag
+        public void AdminPixivTagInsert(AdminPixivTag entity) { Insert(entity); }
+        public void AdminPixivTagUpdate(AdminPixivTag entity) { Update(entity); }
+        public void AdminPixivTagDelete(AdminPixivTag entity) { Delete(entity); }
+        public AdminPixivTag AdminPixivTagCreateIfNotExist(AdminPixivTag entity, Expression<Func<AdminPixivTag, bool>> predicate)
+        {
+            var result = AdminPixivTags.Where(predicate).FirstOrDefault();
+            if (result == null)
+            {
+                AdminPixivTagInsert(entity);
+                return entity;
+            }
+            return result;
+        }
+        #endregion
+
+        #region AdminPixivPickUser
+        public void AdminPixivPickUserInsert(AdminPixivPickUser entity) { Insert(entity); }
+        public void AdminPixivPickUserUpdate(AdminPixivPickUser entity) { Update(entity); }
+        public void AdminPixivPickUserDelete(AdminPixivPickUser entity) { Delete(entity); }
+        public AdminPixivPickUser AdminPixivPickUserCreateIfNotExist(AdminPixivPickUser entity, Expression<Func<AdminPixivPickUser, bool>> predicate)
+        {
+            var result = AdminPixivPickUsers.Where(predicate).FirstOrDefault();
+            if (result == null)
+            {
+                AdminPixivPickUserInsert(entity);
+                return entity;
+            }
+            return result;
+        }
+        #endregion
+
         #endregion
     }
 }

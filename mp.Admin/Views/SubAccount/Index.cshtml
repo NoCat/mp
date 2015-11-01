@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/dashboardMaster.cshtml";
-    
+
     var subAccount = ViewBag.SubAccount as mp.Admin.Models.UserInfo;
     ViewBag.Title = "子账号--" + subAccount.Name;
     ViewBag.SubPage = "子账号";
@@ -105,7 +105,7 @@
     <script>
         $(function () {
             $(".add-image").change(function () {
-                $("#progress-modal").modal();
+                $("#progress-modal").modal({ backdrop: "static" });
                 var btn = $(this);
                 var subAccountId = btn.data("subaccountid");
                 var packageId = btn.data("packageid");

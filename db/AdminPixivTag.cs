@@ -11,7 +11,6 @@ namespace mp.DAL
         public string PText { get; set; }
         public string MText { get; set; }
         public bool IsSkip { get; set; }
-        public DateTime LastModify { get; set; }
         public int CitationCount { get; set; }
     }
 }
