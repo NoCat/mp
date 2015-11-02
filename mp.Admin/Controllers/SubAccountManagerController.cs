@@ -50,7 +50,7 @@ namespace mp.Admin.Controllers
         }
 
         public ActionResult Delete(int id)
-        {
+        {            
             return View();
         }
 
