@@ -54,11 +54,16 @@ namespace mp.Utility
             return result;
         }
 
+        public PickJob()
+        {
+            Interval = TimeSpan.FromHours(3);
+        }
+
         protected override void ExcuteCore(object param)
         {
             var db = new MiaopassContext();
             var wc = new XWebClient();
-            var now=DateTime.Now;
+            var now = DateTime.Now;
             var time = now.AddDays(-2);
             var list = db.AdminPixivPickUsers.Where(p => p.LastPickTime < time).ToList();
             if (list.Count == 0)
@@ -72,20 +77,21 @@ namespace mp.Utility
             {
                 var isEnd = false;
                 var pixivworkList = new List<PixivWork>();
-                try
+
+                //查看作品列表
+                var page = 1;
+                while (true)
                 {
-                    //查看作品列表
-                    var page = 1;
-                    while (true)
+                    var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.PixivUserID + "&p=" + page);
+                    //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + 163536 + "&p=" + page);
+                    var doc = new HtmlDocument();
+                    doc.LoadHtml(html);
+
+                    var workList = doc.DocumentNode.SelectNodes(SelectorToXPath(".work._work"));
+
+                    foreach (var item in workList)
                     {
-                        var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.PixivUserID + "&p=" + page);
-                        //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + 163536 + "&p=" + page);
-                        var doc = new HtmlDocument();
-                        doc.LoadHtml(html);
-
-                        var workList = doc.DocumentNode.SelectNodes(SelectorToXPath(".work._work"));
-
-                        foreach (var item in workList)
+                        try
                         {
                             var work = new PixivWork();
 
@@ -122,14 +128,15 @@ namespace mp.Utility
                             work.Title = title;
 
                             pixivworkList.Add(work);
-                        }
 
-                        page++;
-                        if (isEnd == true || workList.Count < 20)
-                            break;
+                        }
+                        catch { }
                     }
+
+                    page++;
+                    if (isEnd == true || workList.Count < 20)
+                        break;
                 }
-                catch { }
 
                 db.Transaction(() =>
                 {

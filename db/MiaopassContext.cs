@@ -107,6 +107,7 @@ namespace mp.DAL
                 var package = Packages.Find(entity.PackageID);
                 if (package.HasCover == false)
                     package.CoverID = entity.ID;
+                package.LastModify = DateTime.Now;
                 PackageUpdate(package);
             });
         }

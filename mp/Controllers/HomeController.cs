@@ -21,7 +21,7 @@ namespace mp.Controllers
             {
                 imageList.Add(new ImageInfo(i));
             });
-            DB.Packages.OrderByDescending(p => p.ID).Take(6).ToList().ForEach(p =>
+            DB.Packages.OrderByDescending(p => p.LastModify).ThenByDescending(p=>p.ID).Take(6).ToList().ForEach(p =>
             {
                 packageList.Add(new PackageInfo(p));
             });

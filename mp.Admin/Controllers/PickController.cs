@@ -21,14 +21,14 @@ namespace mp.Admin.Controllers
         {
             var userPick = new AdminPixivPickUser { PackageID = packageId, PixivUserID = pixivUserId, LastPickTime = new DateTime(1999,1,1) };
             DB.AdminPixivPickUserInsert(userPick);
-            return RedirectToAction("index");
+            return Redirect("~/pick");
         }
 
         public ActionResult Delete(int id)
         {
             var pick = DB.AdminPixivPickUsers.Find(id);
             DB.AdminPixivPickUserDelete(pick);
-            return RedirectToAction("index");
+            return Redirect("~/pick");
         }
     }
 }

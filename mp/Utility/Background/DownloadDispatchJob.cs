@@ -13,7 +13,7 @@ namespace mp.Utility
         int maxThreadsCount = 1;
         int currentThreadsCount = 0;
         MiaopassContext db = new MiaopassContext();
-        static string baseDirectory = HttpContext.Current.Server.MapPath("~/");
+        static string baseDirectory = System.Web.Hosting.HostingEnvironment.MapPath("~/");
 
         protected override void ExcuteCore(object param)
         {

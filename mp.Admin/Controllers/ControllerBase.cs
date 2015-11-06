@@ -15,12 +15,5 @@ namespace mp.Admin.Controllers
                 return _db;
             }
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_db != null)
-                _db.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace mp.Admin.Controllers
 
         public ActionResult PackageCreate(int id, string title, string description)
         {
-            var package = new Package { UserID = id, Title = title, Description = description };
+            var package = new Package { UserID = id, Title = title, Description = description,LastModify=new DateTime(1990,1,1) };
             DB.PackageInsert(package);
             return RedirectToAction("index", new { id = id });
         }
