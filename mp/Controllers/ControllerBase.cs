@@ -27,5 +27,11 @@ namespace mp.Controllers
                 _db.Dispose();
             base.Dispose(disposing);
         }
+
+        protected ContentResult JsonResult(object obj)
+        {
+            var str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            return Content(str, "application/json");
+        }
     }
 }

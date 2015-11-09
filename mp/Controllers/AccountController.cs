@@ -29,7 +29,6 @@ namespace mp.Controllers
             return Json(result);
         }
 
-        [HttpPost]
         public ActionResult Logout()
         {
             var result = new AjaxResult();
