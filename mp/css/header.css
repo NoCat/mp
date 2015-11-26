@@ -116,3 +116,9 @@
   display: block;
   float: left;
 }
+.mp-header #mp-user-menu .avt {
+  width: 32px;
+  height: 32px;
+  margin: 6px;
+  border-radius: 16px;
+}

@@ -1,7 +1,4 @@
-﻿@{
-    var user = new mp.DAL.MiaopassContext().Users.Find(Session["userid"]);
-}
-
+﻿
 <div class="mp-header">
     <div class="mp-container clearfix">
         <div class="pull-left clearfix">
@@ -15,22 +12,22 @@
             @if (Security.IsLogin)
             {
                 var userInfo = new mp.Models.UserInfo(Security.User);
-                <div class="dropdown" id="mp-user-menu">
-                    <a href="@userInfo.HomePage">
-                        <img class="" src="@userInfo.Head" />
-                    </a>
-                    <a href="@userInfo.HomePage">
+                <div class="dropdown d" id="mp-user-menu">
+                    <img class="avt" src="@userInfo.Head" />
+                    <a href="#" data-toggle="dropdown">
                         @userInfo.Name
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/account/logout">退出</a></li>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="@userInfo.HomePage">个人主页</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/account/logout" >退出</a></li>
                     </ul>
                 </div>
             }
             else
             {
-                <div class="btn btn-primary btn-sm mp-btn" id="login-btn">登录</div>
+                <div class="btn btn-primary btn-sm mp-btn login">登录</div>
                 <div class="btn btn-default btn-sm mp-btn" id="signup-btn">注册</div>
             }
         </div>

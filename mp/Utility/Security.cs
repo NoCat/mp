@@ -22,12 +22,19 @@ public class Security
             if (cookie == null)
                 return false;
 
-            var ticket = FormsAuthentication.Decrypt(cookie.Value);
-            if (ticket == null || ticket.Expired == true)
-                return false;
+            try
+            {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+                if (ticket == null || ticket.Expired == true)
+                    return false;
 
-            HttpContext.Current.Session[SessionKey] = Convert.ToInt32(ticket.UserData);
-            return true;
+                HttpContext.Current.Session[SessionKey] = Convert.ToInt32(ticket.UserData);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 

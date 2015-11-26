@@ -13,6 +13,7 @@ namespace mp.Models
         public int PackageID { get; set; }
         public DateTime CreatedTime { get; set; }
         Image _image = null;
+        public int UserID { get; set; }
         public ImageInfo(Image image)
         {
             _image = image;
@@ -20,6 +21,7 @@ namespace mp.Models
             ID = image.ID;
             PackageID = image.PackageID;
             CreatedTime = image.CreatedTime;
+            UserID = image.UserID;
         }
         UserInfo _user = null;
         public UserInfo User

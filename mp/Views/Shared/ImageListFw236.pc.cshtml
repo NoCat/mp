@@ -8,12 +8,38 @@
             <div class="cover"></div>
             <div class="actions clearfix">
                 <div class="pull-left">
-                    <div class="btn btn-primary btn-sm">转存</div>
+                    @if (Security.IsLogin == true)
+                    {
+                        if (Security.User.ID == image.UserID)
+                        {
+                            <div class="btn btn-primary btn-sm image-edit" data-id="@image.ID">编辑</div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-primary btn-sm resave" data-id="@image.ID">转存</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="btn btn-primary btn-sm login">转存</div>
+                    }
                 </div>
                 <div class="pull-right">
-                    <div class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-heart"></span>
-                    </div>
+                    @if (Security.IsLogin)
+                    {
+                        if (Security.User.ID != image.UserID)
+                        {
+                            <div class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="btn btn-default btn-sm login">
+                            <span class="glyphicon glyphicon-heart"></span>
+                        </div>
+                    }
                 </div>
             </div>
         </a>

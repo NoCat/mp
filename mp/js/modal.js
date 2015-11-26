@@ -12,9 +12,6 @@ var mp;
             modal.modal('show');
         }
         $(function () {
-            $('#login-btn').click(function () {
-                ShowModal('#login-modal');
-            });
             $('#signup-btn').click(function () {
                 ShowModal('#signup-modal');
             });
@@ -30,6 +27,14 @@ var mp;
                         $('#login-modal .bg-warning').text(result.Message).slideDown();
                     }
                 }, 'json');
+            });
+            $(document).on('click', '.login', function () {
+                ShowModal('#login-modal');
+                return false;
+            });
+            $(document).on('click', '.resave', function () {
+                ShowModal('#resave-modal');
+                return false;
             });
         });
     })(modal = mp.modal || (mp.modal = {}));

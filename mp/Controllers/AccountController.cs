@@ -31,9 +31,8 @@ namespace mp.Controllers
 
         public ActionResult Logout()
         {
-            var result = new AjaxResult();
             Security.Logout();
-            return Json(result);
+            return Redirect("/");
         }
     }
 }

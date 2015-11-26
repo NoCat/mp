@@ -400,9 +400,6 @@
     <Content Include="less\footer.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\LoginModal.pc.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Package\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ namespace mp.Controllers
             base.Dispose(disposing);
         }
 
-        protected ContentResult JsonResult(object obj)
+        protected ContentResult JsonContent(object obj)
         {
             var str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             return Content(str, "application/json");

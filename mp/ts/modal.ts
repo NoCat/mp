@@ -1,11 +1,6 @@
 ﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="../scripts/typings/bootstrap/bootstrap.d.ts" />
 
-module mp
-{
-
-}
-
 module mp.modal
 {
     interface AjaxResult
@@ -30,11 +25,6 @@ module mp.modal
 
     $(function ()
     {
-        $('#login-btn').click(() =>
-        {
-            ShowModal('#login-modal');
-        });
-
         $('#signup-btn').click(() =>
         {
             ShowModal('#signup-modal');
@@ -46,7 +36,7 @@ module mp.modal
             var password: string = $('#login-password').val();
             var remember: boolean = $('#login-remember').prop('checked');
 
-            $.post('/account/login', { email: email, password: password,remember:remember },(result: AjaxResult) =>
+            $.post('/account/login', { email: email, password: password, remember: remember },(result: AjaxResult) =>
             {
                 if (result.Success)
                 {
@@ -57,6 +47,18 @@ module mp.modal
                     $('#login-modal .bg-warning').text(result.Message).slideDown();
                 }
             }, 'json');
+        });
+
+        $(document).on('click', '.login',() =>
+        {
+            ShowModal('#login-modal');
+            return false;
+        });
+
+        $(document).on('click', '.resave',() =>
+        {
+            ShowModal('#resave-modal');
+            return false;
         });
     })
 }
