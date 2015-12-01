@@ -1,0 +1,28 @@
+﻿@model mp.Models.ImageModalModel
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="imageid" value="@Model.Image.ID" />
+    <input type="hidden" name="PackageID" value="@Model.PackageID" />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-5">
+                <img src="@Model.Image.ThumbFW236.Url" />
+            </div>
+            <div class="col-xs-7">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (var package in Model.PackageList)
+                        {
+                            <li><a href="javascript:void();" class="menu-item" data-id="@package.ID">@package.Title</a></li>
+                        }
+                        <li class="divider"></li>
+                        <li><input type="text" class="form-control input-sm input" placeholder="查找/创建图包" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

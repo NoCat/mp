@@ -32,9 +32,24 @@ var mp;
                 ShowModal('#login-modal');
                 return false;
             });
-            $(document).on('click', '.resave', function () {
+            $(document).on('click', '.resave', function (e) {
+                var t = $(e.target);
+                var url = t.data('url');
+                var modal = $('#resave-modal');
+                var loading = modal.find('.loading');
+                var form = modal.find('.form');
+                loading.show();
+                form.hide();
+                form.load(url, function () {
+                    loading.hide();
+                    form.show();
+                });
                 ShowModal('#resave-modal');
                 return false;
+            });
+            $('#resave-modal .ok').click(function () {
+                var form = $('#resave-modal form');
+                form.submit();
             });
         });
     })(modal = mp.modal || (mp.modal = {}));

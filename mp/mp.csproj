@@ -161,6 +161,7 @@
     <Compile Include="App_Start\BackgrounWorkerConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\ImageInfo.cs" />
+    <Compile Include="Models\ImageResaveModel.cs" />
     <Compile Include="Models\PackageInfo.cs" />
     <Compile Include="BLL\PackageManager.cs" />
     <Compile Include="Models\UserInfo.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Utility\Background\Worker.cs" />
     <Compile Include="Utility\Background\Job.cs" />
     <Compile Include="Utility\Configs.cs" />
+    <Compile Include="Utility\MPAuthorize.cs" />
     <Compile Include="Utility\Security.cs" />
     <Compile Include="Utility\Tools.cs" />
     <Compile Include="Utility\XWebClient.cs">
@@ -234,11 +236,13 @@
     <Content Include="css\bootstrap\responsive-embed.css" />
     <Content Include="css\bootstrap\theme.css" />
     <Content Include="css\bootstrap\variables.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="css\footer.css" />
     <Content Include="css\head-panel.css" />
     <Content Include="css\header.css" />
     <Content Include="css\tools.css" />
     <Content Include="css\waterfall-item-236.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="js\bootstrap.js" />
@@ -412,9 +416,14 @@
     <Content Include="Views\Shared\ImageListFw78.pc.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Views\Search\Index.pc.cshtml" />
     <None Include="Properties\PublishProfiles\web.pubxml" />
+    <Content Include="Views\Image\Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\mp.BLL.csproj">
