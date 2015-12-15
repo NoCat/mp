@@ -68,24 +68,15 @@
                 <h4 class="modal-title">转存</h4>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col col-xs-5">
-                            <img src="http://img.miaopass.net/efb9fe7148072703745ddcd379cc3077_fw236.jpg" />
-                        </div>
-                        <div class="col col-xs-7 ">
-                            <div class="btn-group btn-block">
-                                <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    当前图包 <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" style="width:100%">
-                                    <li role="separator" class="divider"></li>
-                                    <li><input class="form-control input-sm" type="text" /></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="loading">
+                    <i class="icons-pinner icon-spin"></i>
+                    读取中...
                 </div>
+                <div class="form"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary ok">确认</button>
             </div>
         </div>
     </div>

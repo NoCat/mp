@@ -27,5 +27,18 @@ namespace mp.Controllers
            
             return View("Index.pc");
         }
+        
+        [MPAuthorize]
+        public ActionResult Resave(int imageId)
+        {
+            var image = DB.Images.Find(imageId);
+            var model = new ImageModalModel();
+
+            model.PackageList = DB.Packages.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID).ToArray();
+            model.Image = new ImageInfo(image);
+            model.Description = image.Description;
+            
+            return PartialView("Modal",model);
+        }
     }
 }

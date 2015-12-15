@@ -8,7 +8,16 @@ namespace mp.Models
 {
     public class PackageInfo
     {
-        MiaopassContext _db = new MiaopassContext();
+        MiaopassContext _db = null;
+        MiaopassContext DB
+        {
+            get
+            {
+                if (_db == null)
+                    _db = new MiaopassContext();
+                return _db;
+            }
+        }
 
         Package _package = null;
         public string Title { get; set; }
@@ -16,14 +25,14 @@ namespace mp.Models
         public Uri HomePage { get; set; }
         public int ID { get; set; }
 
-        int _imageCount=-1;
+        int _imageCount = -1;
         public int ImageCount
         {
             get
             {
-                if(_imageCount==-1)
+                if (_imageCount == -1)
                 {
-                    _imageCount = _db.Images.Where(i => i.PackageID == _package.ID).Count();
+                    _imageCount = DB.Images.Where(i => i.PackageID == _package.ID).Count();
                 }
                 return _imageCount;
             }
@@ -34,11 +43,11 @@ namespace mp.Models
         {
             get
             {
-                if(_cover==null)
+                if (_cover == null)
                 {
                     if (_package.CoverID != 0)
                     {
-                        var image = _db.Images.Find(_package.CoverID);
+                        var image = DB.Images.Find(_package.CoverID);
                         _cover = new ImageInfo(image);
                     }
                 }
@@ -51,9 +60,9 @@ namespace mp.Models
         {
             get
             {
-                if(_followerCount==-1)
+                if (_followerCount == -1)
                 {
-                    _followerCount = _db.Followings.Where(f => f.Type == FollowingTypes.Package && f.Info == _package.ID).Count();
+                    _followerCount = DB.Followings.Where(f => f.Type == FollowingTypes.Package && f.Info == _package.ID).Count();
                 }
                 return _followerCount;
             }
@@ -64,7 +73,7 @@ namespace mp.Models
         {
             get
             {
-                if (_user==null)
+                if (_user == null)
                 {
                     _user = new UserInfo(_package.User);
                 }

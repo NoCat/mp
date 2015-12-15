@@ -55,10 +55,33 @@ module mp.modal
             return false;
         });
 
-        $(document).on('click', '.resave',() =>
+        $(document).on('click', '.resave',(e) =>
         {
+            var t = $(e.target);
+            var url = t.data('url');
+            var modal = $('#resave-modal');
+
+            var loading = modal.find('.loading');
+            var form = modal.find('.form');
+            
+            //显示loading
+            loading.show();
+            form.hide();
+
+            //远程加载url
+            form.load(url,() =>
+            {
+                loading.hide();
+                form.show();
+            });
             ShowModal('#resave-modal');
             return false;
+        });
+
+        $('#resave-modal .ok').click(() =>
+        {
+            var form = $('#resave-modal form');
+            form.submit();
         });
     })
 }

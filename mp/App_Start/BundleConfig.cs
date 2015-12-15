@@ -25,7 +25,8 @@ namespace mp
                 "~/css/head-panel.css",
                 "~/css/header.css",
                 "~/css/tools.css",
-                "~/css/waterfall-item-236.css"
+                "~/css/waterfall-item-236.css",
+                "~/css/font-awesome.min.css"
                 ));
         }
     }
