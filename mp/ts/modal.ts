@@ -10,18 +10,69 @@ module mp.modal
         Data: any;
     }
 
-    function MessageBox(msg: string, onClosed?: () => void): void
+    var prev: JQuery = null;
+    var loginModal = $('#login-modal');
+    var signupModal = $('#signup - modal');
+    var resaveModal = $('#resave - modal');
+
+    export function MessageBox(msg: string): void
     {
         $('#message-modal').modal('show');
     }
 
-    function ShowModal(selector: string, onClosed?: () => void): void
+    export function ShowLogin()
+    {
+        ShowModal(signupModal);
+    }
+
+    export function ShowSignup()
+    {
+        ShowModal(signupModal);
+    }
+
+    export function ShowResave()
+    {
+        ShowModal(resaveModal);
+    }
+
+    function ShowModal(target:JQuery): void
     {
         var modal = $('#modal');
-        modal.find('.modal-dialog').hide();
-        $(selector).show();
         modal.modal('show');
+        var visible = modal.find('.modal-dialog:visible');
+        visible.animate({ opacity: '0', marginTop: '0px', marginBottom: '0px', height: '0px' }, function ()
+        {
+            visible.removeAttr('style');
+            modal.append(visible);
+
+            prev = visible;
+        });
+
+        target.css({ display: 'block', opacity: '0', }).animate({ opacity: '1' }, function ()
+        {
+            modal.prepend($(this));
+        });
     }
+
+    function Rollback()
+    {
+        if (prev != null)
+            ShowModal(prev);
+        else
+            Close();
+    }
+
+    function Close()
+    {
+        $('#modal').modal('hide');
+    }
+
+    $('#modal').on('hidden.bs.modal', function ()
+    {
+        $('#modal .modal-dialog').removeAttr('style');
+
+        prev = null;
+    });
 
     $(function ()
     {

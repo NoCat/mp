@@ -387,6 +387,7 @@
     <TypeScriptCompile Include="ts\home.ts" />
     <TypeScriptCompile Include="ts\client.ts" />
     <TypeScriptCompile Include="ts\modal.ts" />
+    <TypeScriptCompile Include="ts\start.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\ImageListFw236.pc.cshtml" />
