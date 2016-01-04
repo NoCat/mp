@@ -79,12 +79,14 @@ namespace mp.Models
         public UserInfo(User user)
         {
             _user = user;
-            Head = new Uri(Configs.ImageHost, string.Format("avt/{0}", user.ID));
-            BigHead = new Uri(Configs.ImageHost, string.Format("avt/{0}_big", user.ID));
+            var headId = 0;
+            if (user.UseDefaultHead == false)
+                headId = user.ID;
+            Head = new Uri(Configs.ImageHost, string.Format("avt/{0}", headId));
+            BigHead = new Uri(Configs.ImageHost, string.Format("avt/{0}_big", headId));
             HomePage = new Uri("/user/" + user.ID, UriKind.Relative);
             Name = user.Name;
             ID = user.ID;
-            Description = user.Description;
         }
     }
 

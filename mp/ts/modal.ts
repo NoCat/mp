@@ -1,4 +1,5 @@
 ﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="bootstrapselectpicker.ts" />
 /// <reference path="../scripts/typings/bootstrap/bootstrap.d.ts" />
 
 module mp.modal
@@ -11,31 +12,69 @@ module mp.modal
     }
 
     var prev: JQuery = null;
-    var loginModal = $('#login-modal');
-    var signupModal = $('#signup - modal');
-    var resaveModal = $('#resave - modal');
 
-    export function MessageBox(msg: string): void
+    export function MessageBox(msg: string, title: string, callback: () => void = null): void
     {
-        $('#message-modal').modal('show');
+        var modal = $('#message-modal');
+        modal.find('.modal-title').text(title);
+        modal.find('.msg').text(msg);
+
+        var ok = modal.find('.ok');
+        ok.off();
+        ok.click(() =>
+        {
+            if (callback == null)
+            {
+                if (prev != null)
+                    ShowModal(prev);
+                else
+                    Close();
+            }
+            else
+            {
+                callback();
+            }
+        });
+
+        ShowModal(modal);
     }
 
     export function ShowLogin()
     {
-        ShowModal(signupModal);
+        ShowModal($('#login-modal'));
     }
 
     export function ShowSignup()
     {
-        ShowModal(signupModal);
+        ShowModal($('#signup-modal'));
     }
 
-    export function ShowResave()
+    export function ShowImage(url: string, title: string)
     {
-        ShowModal(resaveModal);
+        var modal = $('#image-modal');
+
+        modal.find('.modal-title').text(title);
+
+        var loading = modal.find('.loading');
+        var content = modal.find('.content');
+
+        loading.show();
+        content.hide();
+
+        content.load(url,() =>
+        {
+            loading.slideUp();
+            content.slideDown();
+
+            content.find('.selectpicker').selectpicker({
+                size: 4
+            });
+        });
+
+        ShowModal(modal);
     }
 
-    function ShowModal(target:JQuery): void
+    function ShowModal(target: JQuery): void
     {
         var modal = $('#modal');
         modal.modal('show');
@@ -54,14 +93,6 @@ module mp.modal
         });
     }
 
-    function Rollback()
-    {
-        if (prev != null)
-            ShowModal(prev);
-        else
-            Close();
-    }
-
     function Close()
     {
         $('#modal').modal('hide');
@@ -74,20 +105,17 @@ module mp.modal
         prev = null;
     });
 
+
+    //定义对话框按钮行为
     $(function ()
     {
-        $('#signup-btn').click(() =>
+        //登录对话框--表单提交
+        $(document).on('submit', '#login-modal form', function (e)
         {
-            ShowModal('#signup-modal');
-        });
+            var form = $(e.target);
+            var data = form.serialize();
 
-        $('#login-submit').click(function ()
-        {
-            var email: string = $('#login-email').val();
-            var password: string = $('#login-password').val();
-            var remember: boolean = $('#login-remember').prop('checked');
-
-            $.post('/account/login', { email: email, password: password, remember: remember },(result: AjaxResult) =>
+            $.post('/account/login', data,(result: AjaxResult) =>
             {
                 if (result.Success)
                 {
@@ -95,44 +123,36 @@ module mp.modal
                 }
                 else
                 {
-                    $('#login-modal .bg-warning').text(result.Message).slideDown();
+                    var warning = $('#login-modal .bg-warning');
+                    warning.text(result.Message).slideDown();
+                    setTimeout(() => { warning.slideUp(); }, 2000);
                 }
             }, 'json');
-        });
 
-        $(document).on('click', '.login',() =>
-        {
-            ShowModal('#login-modal');
             return false;
         });
-
-        $(document).on('click', '.resave',(e) =>
+        
+        //这侧对话框--表单提交
+        $(document).on('submit', '#signup-modal form',(e) =>
         {
-            var t = $(e.target);
-            var url = t.data('url');
-            var modal = $('#resave-modal');
+            var form = $(e.target);
+            var data = form.serialize();
 
-            var loading = modal.find('.loading');
-            var form = modal.find('.form');
-            
-            //显示loading
-            loading.show();
-            form.hide();
-
-            //远程加载url
-            form.load(url,() =>
+            $.post('/account/signup', data,(result: AjaxResult) =>
             {
-                loading.hide();
-                form.show();
-            });
-            ShowModal('#resave-modal');
-            return false;
-        });
+                if (result.Success)
+                {
+                    MessageBox('注册成功', '提示',() => { ShowLogin(); });
+                }
+                else
+                {
+                    var warning = $('#signup-modal .bg-warning');
+                    warning.text(result.Message).slideDown();
+                    setTimeout(() => { warning.slideUp(); }, 2000);
+                }
+            }, 'json');
 
-        $('#resave-modal .ok').click(() =>
-        {
-            var form = $('#resave-modal form');
-            form.submit();
+            return false;
         });
     })
 }

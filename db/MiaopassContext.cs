@@ -40,7 +40,7 @@ namespace mp.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        void Insert<T>(T entity, bool save = true) where T : class
+        public void Insert<T>(T entity, bool save = true) where T : class
         {
             Set<T>().Add(entity);
             if (save)
@@ -49,7 +49,7 @@ namespace mp.DAL
             }
         }
 
-        void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
+       public  void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
             Set<T>().AddRange(entities);
             if (save)
@@ -58,7 +58,7 @@ namespace mp.DAL
             }
         }
 
-        void Update(object entity, bool save = true)
+        public void Update(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Modified;
             if (save)
@@ -67,7 +67,7 @@ namespace mp.DAL
             }
         }
 
-        void Delete(object entity, bool save = true)
+        public void Delete(object entity, bool save = true)
         {
             Entry(entity).State = EntityState.Deleted;
             if (save)

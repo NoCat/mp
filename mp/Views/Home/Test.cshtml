@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/layout.pc.cshtml";
+}
+
+<style>
+    .inline-block {
+        display: inline-block;
+    }
+
+    .btn-group.select {
+        width: 100%;
+    }
+
+        .btn-group.select .dropdown-toggle,
+        .btn-group.select .dropdown-menu {
+            min-width: 100%;
+        }
+</style>
+
+<div class="container">
+    <div class="btn-group select">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="inline-block pull-left btn-text">下拉式菜单</span> <span class="inline-block pull-right"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a  data-value="Action">Action</a></li>
+            <li><a data-value="Another action">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+        <input type="hidden" />
+    </div>
+</div>
+
+@section script{
+    <script>
+        $(function () {
+            $(document).on('click', '.select .dropdown-menu a', function () {
+                var item = $(this);
+                var data = item.data('value');
+                var select = item.parents('.select');
+                var input = select.find('input[type="hidden"]');
+                input.val(data);
+
+                var text = select.find('.btn-text');
+                text.text(data);
+            });
+        })
+    </script>
+}

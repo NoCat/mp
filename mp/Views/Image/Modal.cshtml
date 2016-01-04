@@ -1,28 +1,49 @@
 ﻿@model mp.Models.ImageModalModel
-@using (Html.BeginForm())
-{
-    <input type="hidden" name="imageid" value="@Model.Image.ID" />
-    <input type="hidden" name="PackageID" value="@Model.PackageID" />
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-5">
-                <img src="@Model.Image.ThumbFW236.Url" />
-            </div>
-            <div class="col-xs-7">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        @foreach (var package in Model.PackageList)
-                        {
-                            <li><a href="javascript:void();" class="menu-item" data-id="@package.ID">@package.Title</a></li>
-                        }
-                        <li class="divider"></li>
-                        <li><input type="text" class="form-control input-sm input" placeholder="查找/创建图包" /></li>
-                    </ul>
+<form action="@Request.Url">
+    <div class="modal-body">
+        <input type="hidden" name="PackageID" value="@Model.PackageID" />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-5 col">
+                    <img src="@Model.Image.ThumbFW236.Url" />
+                </div>
+                <div class="col-xs-7 col">
+                    <div class="form-group">
+                        <label>图包</label>
+                        <select class="selectpicker" name="packageid">
+                            @foreach (var item in Model.PackageList)
+                            {
+                                <option value="@item.ID">@item.Title</option>
+                            }
+                        </select>
+
+                        @*<div class="btn-group form-control">
+                            <button type="button" class="btn btn-default btn-block  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach (var package in Model.PackageList)
+                                {
+                                    <li><a href="javascript:void();" class="menu-item" data-id="@package.ID">@package.Title</a></li>
+                                }
+                                <li class="divider"></li>
+                                <li><input type="text" class="form-control input-sm input" placeholder="查找/创建图包" /></li>
+                            </ul>
+                        </div>*@
+
+                    </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <textarea class="form-control">
+
+                        </textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-}
+    <div class="modal-footer">
+        <button class="btn btn-primary">确定</button>
+        <div class="btn btn-default" data-dissmiss="modal">取消</div>
+    </div>
+</form>

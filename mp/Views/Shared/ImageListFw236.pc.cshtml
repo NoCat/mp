@@ -12,16 +12,16 @@
                     {
                         if (Security.User.ID == image.UserID)
                         {
-                            <div class="btn btn-primary btn-sm image-edit" data-url="/image/@image.ID/resave">编辑</div>
+                            <div class="btn btn-primary btn-sm image-edit-btn" data-id="@image.ID" data-url="/image/@image.ID/resave">编辑</div>
                         }
                         else
                         {
-                            <div class="btn btn-primary btn-sm resave" data-url="/image/@image.ID/resave" >转存</div>
+                            <div class="btn btn-primary btn-sm resave-btn" data-id="@image.ID" data-url="/image/@image.ID/resave" >转存</div>
                         }
                     }
                     else
                     {
-                        <div class="btn btn-primary btn-sm login">转存</div>
+                        <div class="btn btn-primary btn-sm login-btn">转存</div>
                     }
                 </div>
                 <div class="pull-right">

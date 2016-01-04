@@ -32,5 +32,10 @@ namespace mp.Controllers
             return View("index.pc");
         }
 
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

@@ -16,7 +16,10 @@ namespace mp
                 "~/js/client.js",
                 "~/js/home.js",
                 "~/js/masonry.pkgd.min.js",
-                "~/js/modal.js"
+                "~/js/bootstrap-selectpicker.min.js",
+                "~/js/bootstrap-select-language-zh_cn.js",
+                "~/js/modal.js",
+                "~/js/start.js"
                 ));
 
             bundles.Add(new StyleBundle("~/css/mp.css").Include(
@@ -26,7 +29,8 @@ namespace mp
                 "~/css/header.css",
                 "~/css/tools.css",
                 "~/css/waterfall-item-236.css",
-                "~/css/font-awesome.min.css"
+                "~/css/font-awesome.min.css",
+                "~/css/bootstrap-select.min.css"
                 ));
         }
     }

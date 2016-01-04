@@ -2,54 +2,109 @@ var mp;
 (function (mp) {
     var modal;
     (function (_modal) {
-        function MessageBox(msg, onClosed) {
-            $('#message-modal').modal('show');
-        }
-        function ShowModal(selector, onClosed) {
-            var modal = $('#modal');
-            modal.find('.modal-dialog').hide();
-            $(selector).show();
-            modal.modal('show');
-        }
-        $(function () {
-            $('#signup-btn').click(function () {
-                ShowModal('#signup-modal');
+        var prev = null;
+        function MessageBox(msg, title, callback) {
+            if (callback === void 0) { callback = null; }
+            var modal = $('#message-modal');
+            modal.find('.modal-title').text(title);
+            modal.find('.msg').text(msg);
+            var ok = modal.find('.ok');
+            ok.off();
+            ok.click(function () {
+                if (callback == null) {
+                    if (prev != null)
+                        ShowModal(prev);
+                    else
+                        Close();
+                }
+                else {
+                    callback();
+                }
             });
-            $('#login-submit').click(function () {
-                var email = $('#login-email').val();
-                var password = $('#login-password').val();
-                var remember = $('#login-remember').prop('checked');
-                $.post('/account/login', { email: email, password: password, remember: remember }, function (result) {
+            ShowModal(modal);
+        }
+        _modal.MessageBox = MessageBox;
+        function ShowLogin() {
+            ShowModal($('#login-modal'));
+        }
+        _modal.ShowLogin = ShowLogin;
+        function ShowSignup() {
+            ShowModal($('#signup-modal'));
+        }
+        _modal.ShowSignup = ShowSignup;
+        function ShowImage(url, title) {
+            var modal = $('#image-modal');
+            modal.find('.modal-title').text(title);
+            var loading = modal.find('.loading');
+            var content = modal.find('.content');
+            loading.show();
+            content.hide();
+            content.load(url, function () {
+                loading.slideUp();
+                content.slideDown();
+                content.find('.selectpicker').selectpicker({
+                    size: 4
+                });
+            });
+            ShowModal(modal);
+        }
+        _modal.ShowImage = ShowImage;
+        function ShowModal(target) {
+            var modal = $('#modal');
+            modal.modal('show');
+            var visible = modal.find('.modal-dialog:visible');
+            visible.animate({ opacity: '0', marginTop: '0px', marginBottom: '0px', height: '0px' }, function () {
+                visible.removeAttr('style');
+                modal.append(visible);
+                prev = visible;
+            });
+            target.css({ display: 'block', opacity: '0', }).animate({ opacity: '1' }, function () {
+                modal.prepend($(this));
+            });
+        }
+        function Close() {
+            $('#modal').modal('hide');
+        }
+        $('#modal').on('hidden.bs.modal', function () {
+            $('#modal .modal-dialog').removeAttr('style');
+            prev = null;
+        });
+        $(function () {
+            $(document).on('submit', '#login-modal form', function (e) {
+                var form = $(e.target);
+                var data = form.serialize();
+                $.post('/account/login', data, function (result) {
                     if (result.Success) {
                         location.reload();
                     }
                     else {
-                        $('#login-modal .bg-warning').text(result.Message).slideDown();
+                        var warning = $('#login-modal .bg-warning');
+                        warning.text(result.Message).slideDown();
+                        setTimeout(function () {
+                            warning.slideUp();
+                        }, 2000);
                     }
                 }, 'json');
-            });
-            $(document).on('click', '.login', function () {
-                ShowModal('#login-modal');
                 return false;
             });
-            $(document).on('click', '.resave', function (e) {
-                var t = $(e.target);
-                var url = t.data('url');
-                var modal = $('#resave-modal');
-                var loading = modal.find('.loading');
-                var form = modal.find('.form');
-                loading.show();
-                form.hide();
-                form.load(url, function () {
-                    loading.hide();
-                    form.show();
-                });
-                ShowModal('#resave-modal');
+            $(document).on('submit', '#signup-modal form', function (e) {
+                var form = $(e.target);
+                var data = form.serialize();
+                $.post('/account/signup', data, function (result) {
+                    if (result.Success) {
+                        MessageBox('注册成功', '提示', function () {
+                            ShowLogin();
+                        });
+                    }
+                    else {
+                        var warning = $('#signup-modal .bg-warning');
+                        warning.text(result.Message).slideDown();
+                        setTimeout(function () {
+                            warning.slideUp();
+                        }, 2000);
+                    }
+                }, 'json');
                 return false;
-            });
-            $('#resave-modal .ok').click(function () {
-                var form = $('#resave-modal form');
-                form.submit();
             });
         });
     })(modal = mp.modal || (mp.modal = {}));
