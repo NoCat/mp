@@ -1,6 +1,6 @@
 ﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
-/// <reference path="bootstrapselectpicker.ts" />
 /// <reference path="../scripts/typings/bootstrap/bootstrap.d.ts" />
+/// <reference path="select.ts" />
 
 module mp.modal
 {
@@ -66,9 +66,6 @@ module mp.modal
             loading.slideUp();
             content.slideDown();
 
-            content.find('.selectpicker').selectpicker({
-                size: 4
-            });
         });
 
         ShowModal(modal);

@@ -42,9 +42,6 @@ var mp;
             content.load(url, function () {
                 loading.slideUp();
                 content.slideDown();
-                content.find('.selectpicker').selectpicker({
-                    size: 4
-                });
             });
             ShowModal(modal);
         }
