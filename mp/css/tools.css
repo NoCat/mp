@@ -71,6 +71,37 @@
 .modal-footer:after {
   clear: both;
 }
+.inline-block {
+  display: inline-block;
+}
+.text-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+/*#region bsSelect样式 */
+.btn-group.select {
+  width: 100%;
+}
+.btn-group.select .dropdown-toggle,
+.btn-group.select .dropdown-menu {
+  width: 100%;
+}
+.btn-group.select .dropdown-menu > li > a {
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.btn-group.select .current {
+  width: 90%;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  float: left !important;
+}
+/*#endregion */
 .mp-piece {
   margin: 20px 0;
 }

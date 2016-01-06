@@ -16,8 +16,7 @@ namespace mp
                 "~/js/client.js",
                 "~/js/home.js",
                 "~/js/masonry.pkgd.min.js",
-                "~/js/bootstrap-selectpicker.min.js",
-                "~/js/bootstrap-select-language-zh_cn.js",
+                "~/js/select.js",
                 "~/js/modal.js",
                 "~/js/start.js"
                 ));

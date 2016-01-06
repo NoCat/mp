@@ -261,6 +261,7 @@
     <Content Include="js\masonry.js" />
     <Content Include="js\masonry.pkgd.min.js" />
     <Content Include="js\modal.js" />
+    <Content Include="js\select.js" />
     <Content Include="js\start.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-selectpicker.js" />
