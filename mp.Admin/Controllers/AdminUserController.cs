@@ -15,7 +15,7 @@ namespace mp.Admin.Controllers
         //系统用户管理
         public ActionResult Index(string find = "")
         {
-            IEnumerable<AdminUser> result = DB.AdminUsers;
+            IEnumerable<AdminUser> result = Manager.AdminUsers.Items;
             if (find != "")
                 result = result.Where(u => u.Name.StartsWith(find));
 
@@ -29,14 +29,14 @@ namespace mp.Admin.Controllers
         public ActionResult Create(string name, string password)
         {
             name = name.Trim();
-            var exist = DB.AdminUsers.Where(u => u.Name == name).FirstOrDefault();
+            var exist = Manager.AdminUsers.Items.Where(u => u.Name == name).FirstOrDefault();
             if (exist == null)
-                DB.AdminUserInsert(new AdminUser { Name = name, Password = password.MD5() });
+                Manager.AdminUsers.Add(new AdminUser { Name = name, Password = password.MD5() });
             return RedirectToAction("index");
         }
         public ActionResult Delete(int id)
         {
-            DB.AdminUserDelete(new AdminUser { ID = id });
+            Manager.AdminUsers.Remove(new AdminUser { ID = id });
             return RedirectToAction("index");
         }
         [HttpPost]

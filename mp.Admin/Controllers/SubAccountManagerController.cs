@@ -16,8 +16,8 @@ namespace mp.Admin.Controllers
 
         public ActionResult Index()
         {
-            var userIds = DB.AdminSubAccounts.Where(a => a.AdminUserID == Security.User.ID).Select(a => a.UserID);
-            var result = DB.Users.Where(u => userIds.Contains(u.ID)).Take(40);
+            var userIds = Manager.AdminSubAccounts.Items.Where(a => a.AdminUserID == Security.User.ID).Select(a => a.UserID);
+            var result = Manager.Users.Items.Where(u => userIds.Contains(u.ID)).Take(40);
 
             var list = new List<UserInfo>();
             result.ToList().ForEach(u => list.Add(new UserInfo(u)));
@@ -30,10 +30,10 @@ namespace mp.Admin.Controllers
             email = email.Trim();
             name = name.Trim();
 
-            var exist = DB.Users.Where(u => u.Email == email && u.Name == name).FirstOrDefault();
+            var exist = Manager.Users.Items.Where(u => u.Email == email && u.Name == name).FirstOrDefault();
             if (exist == null)
             {
-                DB.UserInsert(new DAL.User { Email = email, Name = name, Password = password.MD5() });
+                Manager.Users.Add(new DAL.User { Email = email, Name = name, Password = password.MD5() });
             }
 
             return RedirectToAction("Index");
@@ -41,10 +41,10 @@ namespace mp.Admin.Controllers
 
         public ActionResult CreateExist(int id)
         {
-            if (DB.Users.Find(id) != null)
+            if (Manager.Users.Find(id) != null)
             {
-                if (DB.AdminSubAccounts.Where(a => a.UserID == id).FirstOrDefault() == null)
-                    DB.AdminSubAccountInsert(new DAL.AdminSubAccount { AdminUserID = Security.User.ID, UserID = id });
+                if (Manager.AdminSubAccounts.Items.Where(a => a.UserID == id).FirstOrDefault() == null)
+                    Manager.AdminSubAccounts.Add(new DAL.AdminSubAccount { AdminUserID = Security.User.ID, UserID = id });
             }
             return RedirectToAction("Index");
         }

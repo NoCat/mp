@@ -8,11 +8,11 @@ using System.Drawing.Imaging;
 
 namespace mp.BLL
 {
-    public class FileManager:ManagerBase
+    public class FileManager:ManagerBase<DAL.File>
     {
-        public FileManager(MiaopassContext db) : base(db) { }
+        public FileManager(MiaopassContext db, ManagerCollection collection) : base(db, collection) { }
 
-        public mp.DAL.File Create(Stream s)
+        public mp.DAL.File Add(Stream s)
         {
             s.Position = 0;
             var md5 = s.MD5();
@@ -82,7 +82,8 @@ namespace mp.BLL
 
                         //写入数据库
                         file = new mp.DAL.File{ MD5 = md5, Height = height, Width = width };
-                        DB.FileInsert(file);
+
+                        Collection.Files.Add(file);
                     }
                 }
                 catch { }

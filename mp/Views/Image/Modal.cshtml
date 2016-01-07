@@ -1,41 +1,43 @@
 ﻿@model mp.Models.ImageModalModel
 <form action="@Request.Url">
     <div class="modal-body">
-        <input type="hidden" name="PackageID" value="@Model.PackageID" />
+        @if (Model.FileID != 0)
+        {
+            <input type="hidden" name="fileid" value="@Model.FileID" />
+        }
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-5 col">
-                    <img src="@Model.Image.ThumbFW236.Url" />
+                    <img src="@Model.ImagePath" />
                 </div>
                 <div class="col-xs-7 col">
                     <div class="form-group">
                         <label>图包</label>
-                        <select class="selectpicker" name="packageid">
-                            @foreach (var item in Model.PackageList)
-                            {
-                                <option value="@item.ID">@item.Title</option>
-                            }
-                        </select>
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <div class="btn-group select">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="current"></span> <span class="inline-block pull-right"><span class="caret"></span></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @foreach (var item in Model.PackageList)
+                                        {
+                                            <li><a data-value="@item.ID">@item.Title</a></li>
+                                        }
+                                    </ul>
+                                    <input type="hidden" name="packageid" value="@Model.PackageID"/>
+                                </div>
 
-                        @*<div class="btn-group form-control">
-                            <button type="button" class="btn btn-default btn-block  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                @foreach (var package in Model.PackageList)
-                                {
-                                    <li><a href="javascript:void();" class="menu-item" data-id="@package.ID">@package.Title</a></li>
-                                }
-                                <li class="divider"></li>
-                                <li><input type="text" class="form-control input-sm input" placeholder="查找/创建图包" /></li>
-                            </ul>
-                        </div>*@
-
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="btn btn-primary package-add-btn">添加新图包</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>描述</label>
-                        <textarea class="form-control">
-
+                        <textarea name="description" class="form-control" style="resize:none;">
+                            @Model.Description
                         </textarea>
                     </div>
                 </div>

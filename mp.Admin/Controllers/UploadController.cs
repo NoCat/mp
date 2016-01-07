@@ -35,9 +35,8 @@ namespace mp.Admin.Controllers
                         }
                         System.IO.File.Delete(chunkPath);
                     }
-
-                    var manager = new FileManager(DB);
-                    var file = manager.Create(fs);
+                    
+                    var file = Manager.Files.Add(fs);
                     result.Data = new { id = file.ID };
                 }
 

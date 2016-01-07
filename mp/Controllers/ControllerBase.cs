@@ -10,22 +10,15 @@ namespace mp.Controllers
 {
     public class ControllerBase : Controller
     {
-        MiaopassContext _db;
-        public MiaopassContext DB
+        ManagerCollection collection;
+        public ManagerCollection Manager
         {
             get
             {
-                if (_db == null)
-                    _db = new MiaopassContext();
-                return _db;
+                if (collection == null)
+                    collection = new ManagerCollection();
+                return collection;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_db != null)
-                _db.Dispose();
-            base.Dispose(disposing);
         }
 
         protected ContentResult JsonContent(object obj)

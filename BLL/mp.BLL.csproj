@@ -62,7 +62,9 @@
   <ItemGroup>
     <Compile Include="ConfigManager.cs" />
     <Compile Include="FileManager.cs" />
+    <Compile Include="ImageManager.cs" />
     <Compile Include="ManagerBase.cs" />
+    <Compile Include="ManagerCollection.cs" />
     <Compile Include="OssFile.cs" />
     <Compile Include="PickManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

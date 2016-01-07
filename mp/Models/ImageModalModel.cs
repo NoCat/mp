@@ -10,7 +10,8 @@ namespace mp.Models
     public class ImageModalModel
     {
         public int ID { get; set; }
-        public ImageInfo Image { get; set; }
+        public Uri ImagePath { get; set; }
+        public int FileID { get; set; }
         public int PackageID { get; set; }
         public Package[] PackageList { get; set; }
         public string Description { get; set; }

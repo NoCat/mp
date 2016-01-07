@@ -18,7 +18,7 @@ namespace mp.Admin.Controllers
         [HttpPost]
         public ActionResult Index(string username, string password)
         {
-            var user = DB.AdminUsers.Where(u => u.Name == username).FirstOrDefault();
+            var user = Manager.AdminUsers.Items.Where(u => u.Name == username).FirstOrDefault();
             if (user != null)
             {
                 if (user.Password == password.MD5())

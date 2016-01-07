@@ -40,6 +40,26 @@ namespace mp.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
+        public T Add<T>(T entity, bool save = true) where T : class
+        {
+            Set<T>().Add(entity);
+            if (save)
+            {
+                SaveChanges();
+            }
+            return entity;
+        }
+
+        public T Remove<T>(T entity, bool save = true) where T : class
+        {
+            Entry(entity).State = EntityState.Deleted;
+            if (save)
+            {
+                SaveChanges();
+            }
+            return entity;
+        }
+
         public void Insert<T>(T entity, bool save = true) where T : class
         {
             Set<T>().Add(entity);
@@ -49,7 +69,7 @@ namespace mp.DAL
             }
         }
 
-       public  void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
+        public void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
             Set<T>().AddRange(entities);
             if (save)
@@ -58,13 +78,14 @@ namespace mp.DAL
             }
         }
 
-        public void Update(object entity, bool save = true)
+        public T Update<T>(T entity, bool save = true) where T : class
         {
             Entry(entity).State = EntityState.Modified;
             if (save)
             {
                 SaveChanges();
             }
+            return entity;
         }
 
         public void Delete(object entity, bool save = true)
@@ -98,22 +119,22 @@ namespace mp.DAL
 
         #region 储存过程
 
-        #region Image
-        public void ImageInsert(Image entity)
-        {
-            Transaction(() =>
-            {
-                Insert(entity);
-                var package = Packages.Find(entity.PackageID);
-                if (package.HasCover == false)
-                    package.CoverID = entity.ID;
-                package.LastModify = DateTime.Now;
-                PackageUpdate(package);
-            });
-        }
-        public void ImageUpdate(Image entity) { Update(entity); }
-        public void ImageDelete(Image entity) { Delete(entity); }
-        #endregion
+        //#region Image
+        //public void ImageInsert(Image entity)
+        //{
+        //    Transaction(() =>
+        //    {
+        //        Insert(entity);
+        //        var package = Packages.Find(entity.PackageID);
+        //        if (package.HasCover == false)
+        //            package.CoverID = entity.ID;
+        //        package.LastModify = DateTime.Now;
+        //        PackageUpdate(package);
+        //    });
+        //}
+        //public void ImageUpdate(Image entity) { Update(entity); }
+        //public void ImageDelete(Image entity) { Delete(entity); }
+        //#endregion
 
         #region Package
         public void PackageInsert(Package entity) { Insert(entity); }

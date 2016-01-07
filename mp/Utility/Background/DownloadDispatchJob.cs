@@ -92,7 +92,7 @@ namespace mp.Utility
                     using (var filestream = System.IO.File.OpenRead(filePath1))
                     {
                         var manager = new mp.BLL.FileManager(db);
-                        file = manager.Create(filestream);
+                        file = manager.Add(filestream);
                     }
 
                     //将下载任务标记为已完成

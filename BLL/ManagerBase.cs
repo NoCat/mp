@@ -8,20 +8,53 @@ using System.Data.Entity;
 
 namespace mp.BLL
 {
-    public class ManagerBase
+    public class ManagerBase<T> where T : class
     {
-        MiaopassContext _db;
-        protected MiaopassContext DB
+        protected MiaopassContext DB { private set; get; }
+        public ManagerCollection Collection { get; set; }
+
+        public ManagerBase(MiaopassContext db, ManagerCollection colletion)
+        {
+            this.DB = db;
+            this.Collection = colletion;
+        }
+
+        public IQueryable<T> Items
         {
             get
             {
-                if (_db == null)
-                    _db = new MiaopassContext();
-                return _db;
+                return DB.Set<T>();
             }
         }
 
-        public ManagerBase() { }
-        public ManagerBase(MiaopassContext db) { _db = db; }
+        public T Find(params object[] args)
+        {
+            return DB.Set<T>().Find(args);
+        }
+
+        virtual public T Add(T entity, bool save = true)
+        {
+            return DB.Add(entity, save);
+        }
+
+        virtual public T Remove(T entity, bool save = true)
+        {
+            return DB.Remove(entity, save);
+        }
+
+        virtual public T Update(T entity, bool save = true)
+        {
+            return DB.Update(entity, save);
+        }
+
+        virtual public T CreateIfNotExist(T newEntity, System.Linq.Expressions.Expression<Func<T, bool>> predicate, bool save = true)
+        {
+            var entity = DB.Set<T>().Where(predicate).FirstOrDefault();
+            if (entity != null)
+                return entity;
+
+            return Add(newEntity, save);
+        }
+
     }
 }

@@ -161,11 +161,9 @@
     <Compile Include="App_Start\BackgrounWorkerConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Models\ImageInfo.cs" />
-    <Compile Include="Models\ImageResaveModel.cs" />
+    <Compile Include="Models\ImageModalModel.cs" />
     <Compile Include="Models\PackageInfo.cs" />
-    <Compile Include="BLL\PackageManager.cs" />
     <Compile Include="Models\UserInfo.cs" />
-    <Compile Include="BLL\UserManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
