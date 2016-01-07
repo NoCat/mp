@@ -22,7 +22,7 @@ namespace mp.Controllers
                 var list = new List<ImageInfo>();
                 if(string.IsNullOrWhiteSpace(kw)==false|| kw.Length>2)
                 {
-                    DB.Images.Where(i => i.Description.Contains(kw) && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList()
+                    Manager.Images.Items.Where(i => i.Description.Contains(kw) && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList()
                         .ForEach(i => list.Add(new ImageInfo(i)));
                 }
                 return PartialView("ImageListFw236.pc",list);

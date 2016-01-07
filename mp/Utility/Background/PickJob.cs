@@ -149,8 +149,8 @@ namespace mp.Utility
                             db.AdminPixivTagUpdate(tag);
                         });
 
-                        var manager = new PickManager(db);
-                        manager.Add(item.From, item.Source, user.PackageID, string.Format("[{0}]/[{1}]", item.Title, item.Username));
+                        var manager = new ManagerCollection(db);
+                        manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("[{0}]/[{1}]", item.Title, item.Username));
                     }
 
                     user.LastPickTime = now;

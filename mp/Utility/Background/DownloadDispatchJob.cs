@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.DAL;
+using mp.BLL;
 using System.Threading;
 using System.Net;
 
@@ -12,16 +13,16 @@ namespace mp.Utility
     {
         int maxThreadsCount = 1;
         int currentThreadsCount = 0;
-        MiaopassContext db = new MiaopassContext();
+        ManagerCollection manager = new ManagerCollection();
         static string baseDirectory = System.Web.Hosting.HostingEnvironment.MapPath("~/");
 
         protected override void ExcuteCore(object param)
         {
             //将所有未完成的任务设置为未开始
-            db.Downloads.Where(d => d.State == DownloadStates.Processing).ToList().ForEach(d =>
+            manager.Downloads.Items.Where(d => d.State == DownloadStates.Processing).ToList().ForEach(d =>
             {
                 d.State = DownloadStates.NotBegin;
-                db.DownloadUpdate(d);
+                manager.Downloads.Update(d);
             });
 
             while (true)
@@ -32,7 +33,7 @@ namespace mp.Utility
                     continue;
                 }
 
-                var download = db.Downloads.Where(d => d.State == DownloadStates.NotBegin).OrderByDescending(d=>d.ID).FirstOrDefault();
+                var download = manager.Downloads.Items.Where(d => d.State == DownloadStates.NotBegin).OrderByDescending(d=>d.ID).FirstOrDefault();
                 if (download == null)
                 {
                     Thread.Sleep(200);
@@ -41,7 +42,7 @@ namespace mp.Utility
 
                 currentThreadsCount++;
                 download.State = DownloadStates.Processing;
-                db.DownloadUpdate(download);
+                manager.Downloads.Update(download);
                 var t = new Thread(new ParameterizedThreadStart(Download));
                 t.IsBackground = true;
                 t.Start(download);
@@ -86,22 +87,21 @@ namespace mp.Utility
                 if (hash1 == "" || hash2 == "")
                     throw new Exception("文件下载失败");
 
-                db.Transaction(() =>
+                manager.Transaction(() =>
                 {
                     mp.DAL.File file = null;
                     using (var filestream = System.IO.File.OpenRead(filePath1))
                     {
-                        var manager = new mp.BLL.FileManager(db);
-                        file = manager.Add(filestream);
+                        file = manager.Files.Add(filestream);
                     }
 
                     //将下载任务标记为已完成
                     download.State = DownloadStates.Finished;
                     download.FileID = file.ID;
-                    db.FileUpdate(file);
+                    manager.Files.Update(file);
 
                     //完善对应的pick任务
-                    var picks = db.Picks.Where(i => i.DownloadID == download.ID);
+                    var picks = manager.Picks.Items.Where(i => i.DownloadID == download.ID);
                     var imageList = new List<DAL.Image>();
                     picks.ToList().ForEach(pick => imageList.Add(
                         new mp.DAL.Image()
@@ -115,8 +115,8 @@ namespace mp.Utility
                         }));
 
 
-                    imageList.ToList().ForEach(i => { db.ImageInsert(i); });
-                    picks.ToList().ForEach(p => { db.PickDelete(p); });
+                    imageList.ToList().ForEach(i => { manager.Images.Add(i); });
+                    picks.ToList().ForEach(p => { manager.Picks.Remove(p); });
                 });
             }
             catch { }

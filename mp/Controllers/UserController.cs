@@ -13,7 +13,7 @@ namespace mp.Controllers
         {
             if (max == 0)
             {
-                var user = DB.Users.Find(userId);
+                var user = Manager.Users.Find(userId);
                 if (user == null)
                     return Redirect("/");
 
@@ -26,7 +26,7 @@ namespace mp.Controllers
                 case UserSubPages.Packages:
                     {
                         var list = new List<PackageInfo>();
-                        DB.Packages.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
+                        Manager.Packages.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
                         {
                             list.Add(new PackageInfo(p));
                         });
@@ -35,7 +35,7 @@ namespace mp.Controllers
                 case UserSubPages.Images:
                     {
                         var list = new List<ImageInfo>();
-                        DB.Images.Where(i => i.UserID == userId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
                         {
                             list.Add(new ImageInfo(i));
                         });
@@ -44,7 +44,7 @@ namespace mp.Controllers
                 case UserSubPages.Praises:
                     {
                         var list = new List<ImageInfo>();
-                        DB.Praises.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
+                        Manager.Praises.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
                         {
                             list.Add(new ImageInfo(p.Image));
                         });
@@ -53,7 +53,7 @@ namespace mp.Controllers
                 case UserSubPages.Followers:
                     {
                         var list = new List<UserInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
                             list.Add(new UserInfo(f.User));
                         });
@@ -62,7 +62,7 @@ namespace mp.Controllers
                 case UserSubPages.FollowingUsers:
                     {
                         var list = new List<UserInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
                             list.Add(new UserInfo(f.User));
                         });
@@ -71,9 +71,9 @@ namespace mp.Controllers
                 case UserSubPages.FollowingPackages:
                     {
                         var list = new List<PackageInfo>();
-                        DB.Followings.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
+                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
                         {
-                            list.Add(new PackageInfo(DB.Packages.Find(f.Info)));
+                            list.Add(new PackageInfo(Manager.Packages.Find(f.Info)));
                         });
                         return PartialView("PackageList.pc", list);
                     }

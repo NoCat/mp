@@ -15,7 +15,7 @@ namespace mp.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost,MPAuthorize]
         public ActionResult Index(int packageId = 0, string description = "", string source = "", string from = "")
         {
             description = description.Trim();
@@ -23,15 +23,8 @@ namespace mp.Controllers
             from = from.Trim();
 
             var result = new AjaxResult();
-            //判断是否已经登录
-            if (Security.IsLogin == false)
-            {
-                result.Success = false;
-                result.Message = "请先登录";
-                return Json(result);
-            }
             //判断图包是否存在
-            var package = DB.Packages.Find(packageId);
+            var package = Manager.Packages.Find(packageId);
             if (package == null)
             {
                 result.Success = false;
@@ -46,8 +39,7 @@ namespace mp.Controllers
                 return Json(result);
             }
 
-            var manager = new PickManager(DB);
-            manager.Add(from, source, packageId, description);
+            Manager.Picks.Add(from, source, packageId, description);
 
             return Json(result);
         }

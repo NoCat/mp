@@ -67,25 +67,36 @@ namespace mp.BLL
             }
         }
 
-        ManagerBase<Pick> picks;
-        public ManagerBase<Pick> Picks
+        PickManager picks;
+        public PickManager Picks
         {
             get
             {
                 if (picks == null)
-                    picks = new ManagerBase<Pick>(db, this);
+                    picks =new PickManager(db, this);
                 return picks;
             }
         }
 
-        ManagerBase<Praise> praise;
-        public ManagerBase<Praise> Praise
+        ManagerBase<Praise> praises;
+        public ManagerBase<Praise> Praises
         {
             get
             {
-                if (praise == null)
-                    praise = new ManagerBase<Praise>(db, this);
-                return praise;
+                if (praises == null)
+                    praises = new ManagerBase<Praise>(db, this);
+                return praises;
+            }
+        }
+
+        ManagerBase<Following> followings;
+        public ManagerBase<Following> Followings
+        {
+            get
+            {
+                if (followings == null)
+                    followings = new ManagerBase<Following>(db, this);
+                return followings;
             }
         }
 
@@ -164,6 +175,11 @@ namespace mp.BLL
         public ManagerCollection(MiaopassContext db)
         {
             this.db = db;
+        }
+
+        public void Transaction(Action action)
+        {
+            db.Transaction(action);
         }
     }
 }

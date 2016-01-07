@@ -18,7 +18,7 @@ namespace mp.Controllers
         {
             var result = new AjaxResult();
             email = email.Trim();
-            var user = DB.Users.Where(u => u.Email == email).FirstOrDefault();
+            var user = Manager.Users.Items.Where(u => u.Email == email).FirstOrDefault();
             if (user == null || user.Password != (password + user.Salt).MD5())
             {
                 result.Success = false;
@@ -44,7 +44,7 @@ namespace mp.Controllers
             }
 
             email = email.Trim();
-            var emailExist = DB.Users.Where(u => u.Email == email).Count() > 0;
+            var emailExist = Manager.Users.Items.Where(u => u.Email == email).Count() > 0;
             if (emailExist)
             {
                 result.Success = false;
@@ -53,7 +53,7 @@ namespace mp.Controllers
             }
 
             name = name.Trim();
-            var nameExist = DB.Users.Where(u => u.Name == name).Count() > 0;
+            var nameExist = Manager.Users.Items.Where(u => u.Name == name).Count() > 0;
             if (nameExist)
             {
                 result.Success = false;
@@ -73,7 +73,7 @@ namespace mp.Controllers
                 UseDefaultHead=true
             };
 
-            DB.Insert(user);
+            Manager.Users.Add(user);
 
             return JsonContent(result);
         }
