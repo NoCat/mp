@@ -10,13 +10,9 @@
                 <div class="pull-left">
                     @if (Security.IsLogin == true)
                     {
-                        if (Security.User.ID == image.UserID)
+                        if (Security.User.ID != image.UserID)
                         {
-                            <div class="btn btn-primary btn-sm image-edit-btn" data-id="@image.ID" data-url="/image/@image.ID/resave">编辑</div>
-                        }
-                        else
-                        {
-                            <div class="btn btn-primary btn-sm resave-btn" data-id="@image.ID" data-url="/image/@image.ID/resave" >转存</div>
+                            <div class="btn btn-primary btn-sm resave-btn" data-id="@image.ID">转存</div>
                         }
                     }
                     else
@@ -29,7 +25,7 @@
                     {
                         if (Security.User.ID != image.UserID)
                         {
-                            <div class="btn btn-default btn-sm">
+                            <div class="btn btn-default btn-sm praise-btn" data-id="@image.ID">
                                 <span class="glyphicon glyphicon-heart"></span>
                             </div>
                         }

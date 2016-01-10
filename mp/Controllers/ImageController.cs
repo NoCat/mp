@@ -69,7 +69,7 @@ namespace mp.Controllers
                 FileID = image.FileID
             };
             Manager.Images.Add(nImage);
-
+            
             return JsonContent(result);
         }
         #endregion

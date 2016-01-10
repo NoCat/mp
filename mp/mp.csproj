@@ -400,6 +400,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
+    <TypeScriptCompile Include="ts\mp.ts" />
     <TypeScriptCompile Include="ts\select.ts" />
     <TypeScriptCompile Include="ts\masonry.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

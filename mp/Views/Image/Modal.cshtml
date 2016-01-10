@@ -1,6 +1,7 @@
 ﻿@model mp.Models.ImageModalModel
-<form action="@Request.Url">
+<form action="@Request.Url" method="post">
     <div class="modal-body">
+        <div class="bg-warning text-center text-warning"></div>
         @if (Model.FileID != 0)
         {
             <input type="hidden" name="fileid" value="@Model.FileID" />
@@ -25,20 +26,18 @@
                                             <li><a data-value="@item.ID">@item.Title</a></li>
                                         }
                                     </ul>
-                                    <input type="hidden" name="packageid" value="@Model.PackageID"/>
+                                    <input type="hidden" name="packageid" value="@Model.PackageID" />
                                 </div>
 
                             </div>
-                            <div class="col-xs-3">
-                                <div class="btn btn-primary package-add-btn">添加新图包</div>
+                            <div class="col-xs-3 col">
+                                <div class="btn btn-default package-add-btn">添加</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>描述</label>
-                        <textarea name="description" class="form-control" style="resize:none;">
-                            @Model.Description
-                        </textarea>
+                        <textarea name="description" class="form-control" style="resize:none;">@Model.Description</textarea>
                     </div>
                 </div>
             </div>

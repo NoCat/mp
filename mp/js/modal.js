@@ -32,7 +32,7 @@ var mp;
             ShowModal($('#signup-modal'));
         }
         _modal.ShowSignup = ShowSignup;
-        function ShowImage(url, title) {
+        function ShowImage(url, title, callback) {
             var modal = $('#image-modal');
             modal.find('.modal-title').text(title);
             var loading = modal.find('.loading');
@@ -42,6 +42,31 @@ var mp;
             content.load(url, function () {
                 loading.slideUp();
                 content.slideDown();
+                var select = content.find('.select');
+                select.bsSelect();
+                var form = content.find('form');
+                form.off();
+                form.submit(function () {
+                    var action = form.attr('action');
+                    var data = form.serialize();
+                    $.post(action, data, function (result) {
+                        if (result.Success) {
+                            if (callback != null)
+                                callback();
+                            else
+                                Close();
+                        }
+                        else {
+                            var warning = content.find('.bg-warning');
+                            warning.text(result.Message);
+                            warning.slideDown();
+                            setTimeout(function () {
+                                warning.slideUp();
+                            }, 2000);
+                        }
+                    }, 'json');
+                    return false;
+                });
             });
             ShowModal(modal);
         }
@@ -62,6 +87,7 @@ var mp;
         function Close() {
             $('#modal').modal('hide');
         }
+        _modal.Close = Close;
         $('#modal').on('hidden.bs.modal', function () {
             $('#modal .modal-dialog').removeAttr('style');
             prev = null;

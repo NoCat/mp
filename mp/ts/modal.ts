@@ -1,16 +1,8 @@
-﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
-/// <reference path="../scripts/typings/bootstrap/bootstrap.d.ts" />
+﻿/// <reference path="mp.ts" />
 /// <reference path="select.ts" />
 
 module mp.modal
 {
-    interface AjaxResult
-    {
-        Success: boolean;
-        Message: string;
-        Data: any;
-    }
-
     var prev: JQuery = null;
 
     export function MessageBox(msg: string, title: string, callback: () => void = null): void
@@ -49,7 +41,7 @@ module mp.modal
         ShowModal($('#signup-modal'));
     }
 
-    export function ShowImage(url: string, title: string)
+    export function ShowImage(url: string, title: string,callback?:()=>void)
     {
         var modal = $('#image-modal');
 
@@ -66,6 +58,37 @@ module mp.modal
             loading.slideUp();
             content.slideDown();
 
+            var select = content.find('.select');
+            select.bsSelect();
+
+            var form = content.find('form');
+            form.off();
+            form.submit(() =>
+            {
+                var action = form.attr('action');
+                var data = form.serialize();
+
+                $.post(action, data,(result:AjaxResult) =>
+                {
+                    if (result.Success)
+                    {
+                        if (callback != null)
+                            callback();
+                        else
+                            Close();
+                    }
+                    else
+                    {
+                        var warning = content.find('.bg-warning');
+                        warning.text(result.Message);
+
+                        warning.slideDown();
+                        setTimeout(() => { warning.slideUp(); }, 2000);
+                    }
+                }, 'json');
+
+                return false;
+            });
         });
 
         ShowModal(modal);
@@ -90,7 +113,7 @@ module mp.modal
         });
     }
 
-    function Close()
+    export function Close()
     {
         $('#modal').modal('hide');
     }

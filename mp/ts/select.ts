@@ -2,7 +2,7 @@
 
 interface JQuery
 {
-    bsSelect(method: string, args: any);
+    bsSelect(method?: string, args?: any);
 }
 
 interface selectItem

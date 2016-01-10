@@ -38,8 +38,7 @@ namespace mp.BLL
                 {
                     var coverId = DB.Images.Where(i => i.PackageID == package.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                     package.CoverID = coverId;
-                    if (package.HasCover)
-                        package.HasCover = false;
+                    package.HasCover = false;
 
                     package.LastModify = DateTime.Now;
 
