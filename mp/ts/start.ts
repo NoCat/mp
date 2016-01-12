@@ -52,9 +52,36 @@ module mp.start
             {
                 if (result.Success)
                 {
+                    btn.find('.text').text(result.Data.count);
+                    btn.removeClass('.praise-btn');
+                    btn.addClass('.cancel-praise-btn');
                 }
                 else
                 {
+                    modal.MessageBox(result.Message);
+                }
+            }, 'json');
+
+            return false;
+        });
+
+        $(document).on('click', '.cancel-praise-btn',(e) =>
+        {
+            var btn = $(e.target);
+            var id = btn.data('id');
+
+            var url = '/image/' + id + '/cancelpraise';
+            $.post('url',(result: AjaxResult) =>
+            {
+                if (result.Success)
+                {
+                    btn.find('.text').text(result.Data.count);
+                    btn.removeClass('.cancel-praise-btn');
+                    btn.addClass('.praise-btn');
+                }
+                else
+                {
+                    modal.MessageBox(result.Message);
                 }
             }, 'json');
 

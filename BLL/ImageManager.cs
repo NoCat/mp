@@ -5,6 +5,8 @@ using System.Text;
 
 using mp.DAL;
 
+using EntityFramework.Extensions;
+
 namespace mp.BLL
 {
     public class ImageManager : ManagerBase<Image>
@@ -36,13 +38,19 @@ namespace mp.BLL
                 DB.Remove(entity);
                 if (package != null && package.CoverID == entity.ID)
                 {
+                    //修改图包信息
                     var coverId = DB.Images.Where(i => i.PackageID == package.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                     package.CoverID = coverId;
                     package.HasCover = false;
 
                     package.LastModify = DateTime.Now;
-
                     Collection.Packages.Update(package);
+
+                    //删除所有关于该图片的赞记录
+                    DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
+
+                    //删除所有关于该图片的转存记录
+                    DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
                 }
             });
             return entity;

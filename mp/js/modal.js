@@ -4,6 +4,7 @@ var mp;
     (function (_modal) {
         var prev = null;
         function MessageBox(msg, title, callback) {
+            if (title === void 0) { title = '提示'; }
             if (callback === void 0) { callback = null; }
             var modal = $('#message-modal');
             modal.find('.modal-title').text(title);

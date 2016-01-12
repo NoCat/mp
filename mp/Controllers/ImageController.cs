@@ -69,7 +69,8 @@ namespace mp.Controllers
                 FileID = image.FileID
             };
             Manager.Images.Add(nImage);
-            
+            Manager.ResaveChains.Add(new ResaveChain { Parent = image.ID, Child = nImage.ID });
+
             return JsonContent(result);
         }
         #endregion
@@ -141,7 +142,7 @@ namespace mp.Controllers
             var file = Manager.Files.Find(id);
 
             var model = GetModalModel();
-            model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url ;
+            model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
 
             return PartialView("modal", model);
         }
@@ -149,6 +150,65 @@ namespace mp.Controllers
         public ActionResult Add(ImageModalModel model)
         {
             var result = new AjaxResult();
+            return JsonContent(result);
+        }
+        #endregion
+
+        #region 赞
+        [MPAuthorize, HttpPost]
+        public ActionResult Praise(int id)
+        {
+            var result = new AjaxResult();
+
+            var image = Manager.Images.Find(id);
+            if (image == null)
+            {
+                result.Success = false;
+                result.Message = "错误操作";
+                return JsonContent(result);
+            }
+
+            var praise = Manager.Praises.Items.Where(p => p.ImageID == image.ID && p.UserID == Security.User.ID).FirstOrDefault();
+            if (praise != null)
+            {
+                result.Success = false;
+                result.Message = "已经赞过了哦~";
+                return JsonContent(result);
+            }
+
+            praise = new Praise { ImageID = image.ID, UserID = Security.User.ID };
+            var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
+
+            result.Data = new { count };
+
+            Manager.Praises.Add(praise);
+
+            return JsonContent(result);
+        }
+        #endregion
+
+        #region 取消赞
+        [MPAuthorize,HttpPost]
+        public ActionResult CancelPraise(int id)
+        {
+            var result = new AjaxResult();
+
+            var image = Manager.Images.Find(id);
+
+            if (image == null)
+            {
+                result.Success = false;
+                result.Message = "错误操作";
+                return JsonContent(result);
+            }
+
+             var praise= Manager.Praises.Items.Where(p => p.ImageID == image.ID && p.UserID == Security.User.ID).FirstOrDefault();
+             if (praise != null)
+                 Manager.Praises.Remove(praise);
+
+             var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
+             result.Data = new { count=count };
+
             return JsonContent(result);
         }
         #endregion

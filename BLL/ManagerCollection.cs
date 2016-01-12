@@ -73,18 +73,18 @@ namespace mp.BLL
             get
             {
                 if (picks == null)
-                    picks =new PickManager(db, this);
+                    picks = new PickManager(db, this);
                 return picks;
             }
         }
 
-        ManagerBase<Praise> praises;
-        public ManagerBase<Praise> Praises
+        PraiseManager praises;
+        public PraiseManager Praises
         {
             get
             {
                 if (praises == null)
-                    praises = new ManagerBase<Praise>(db, this);
+                    praises = new PraiseManager(db, this);
                 return praises;
             }
         }
@@ -166,7 +166,17 @@ namespace mp.BLL
             }
         }
 
-
+        ResaveChainManager resaveChains;
+        public ResaveChainManager ResaveChains
+        {
+            get
+            {
+                if (resaveChains == null)
+                    resaveChains = new ResaveChainManager(db, this);
+                return resaveChains;
+            }
+        }
+        
         public ManagerCollection()
         {
             db = new MiaopassContext();

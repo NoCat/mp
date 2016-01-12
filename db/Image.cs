@@ -20,7 +20,7 @@ namespace mp.DAL
         public DateTime CreatedTime { get; set; }
         public int FromUrlID { get; set; }
         public string Description { get; set; }
-        public int Via { get; set; }
+        public int PraiseCount { get; set; }
 
         public Image()
         {

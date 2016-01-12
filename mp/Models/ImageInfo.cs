@@ -3,26 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.DAL;
+using mp.BLL;
 using mp.Models;
 
 namespace mp.Models
 {   
     public class ImageInfo
     {
+        Image image;
+        MiaopassContext db;
+        MiaopassContext DB
+        {
+            get
+            {
+                if (db == null)
+                    db = new MiaopassContext();
+                return db;
+            }
+        }
+
         public int ID { get; set; }
         public int PackageID { get; set; }
-        public DateTime CreatedTime { get; set; }
-        Image _image = null;
+        public DateTime CreatedTime { get; set; }        
         public int UserID { get; set; }
+        public int PraiseCount { get; set; }
         public ImageInfo(Image image)
         {
-            _image = image;
+            this.image = image;
             Description = image.Description;
             ID = image.ID;
             PackageID = image.PackageID;
             CreatedTime = image.CreatedTime;
             UserID = image.UserID;
+            PraiseCount = image.PraiseCount;
         }
+
         UserInfo _user = null;
         public UserInfo User
         {
@@ -30,12 +45,11 @@ namespace mp.Models
             {
                 if (_user==null)
                 {
-                    _user = new UserInfo(_image.User);
+                    _user = new UserInfo(image.User);
                 }
                 return _user;
             }
         }
-
 
         PackageInfo _package = null;
         public PackageInfo Package
@@ -44,9 +58,20 @@ namespace mp.Models
             {
                 if (_package==null)
                 {
-                    _package = new PackageInfo(_image.Package);
+                    _package = new PackageInfo(image.Package);
                 }
                 return _package;
+            }
+        }
+
+        public bool IsPraise
+        {
+            get
+            {
+                if(Security.IsLogin==false)
+                    return false;
+
+                return DB.Praises.Where(p => p.ImageID == ID && p.UserID == Security.User.ID).Count() > 0;
             }
         }
 
@@ -59,7 +84,7 @@ namespace mp.Models
             get
             {
                 if (_thumbFW236 == null)
-                    _thumbFW236 = new Thumb(_image, "fw", 236);
+                    _thumbFW236 = new Thumb(image, "fw", 236);
                 return _thumbFW236;
             }
         }
@@ -70,7 +95,7 @@ namespace mp.Models
             get
             {
                 if (_thumbSQ236 == null)
-                    _thumbSQ236 = new Thumb(_image, "sq", 236);
+                    _thumbSQ236 = new Thumb(image, "sq", 236);
                 return _thumbSQ236;
             }
         }
@@ -81,7 +106,7 @@ namespace mp.Models
             get
             {
                 if (_thumbSQ75 == null)
-                    _thumbSQ75 = new Thumb(_image, "sq", 75);
+                    _thumbSQ75 = new Thumb(image, "sq", 75);
                 return _thumbSQ75;
             }
         }
@@ -92,7 +117,7 @@ namespace mp.Models
             get
             {
                 if (_thumbFW658 == null)
-                    _thumbFW658 = new Thumb(_image, "fw", 658);
+                    _thumbFW658 = new Thumb(image, "fw", 658);
                 return _thumbFW658;
             }
         }
@@ -103,7 +128,7 @@ namespace mp.Models
             get
             {
                 if (_thumbFW78 == null)
-                    _thumbFW78 = new Thumb(_image, "fw", 78);
+                    _thumbFW78 = new Thumb(image, "fw", 78);
                 return _thumbFW78;
             }
         }

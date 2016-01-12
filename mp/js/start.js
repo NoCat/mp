@@ -35,8 +35,28 @@ var mp;
                 var url = '/image/' + id + '/praise';
                 $.post('url', function (result) {
                     if (result.Success) {
+                        btn.find('.text').text(result.Data.count);
+                        btn.removeClass('.praise-btn');
+                        btn.addClass('.cancel-praise-btn');
                     }
                     else {
+                        mp.modal.MessageBox(result.Message);
+                    }
+                }, 'json');
+                return false;
+            });
+            $(document).on('click', '.cancel-praise-btn', function (e) {
+                var btn = $(e.target);
+                var id = btn.data('id');
+                var url = '/image/' + id + '/cancelpraise';
+                $.post('url', function (result) {
+                    if (result.Success) {
+                        btn.find('.text').text(result.Data.count);
+                        btn.removeClass('.cancel-praise-btn');
+                        btn.addClass('.praise-btn');
+                    }
+                    else {
+                        mp.modal.MessageBox(result.Message);
                     }
                 }, 'json');
                 return false;

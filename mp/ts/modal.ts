@@ -5,7 +5,7 @@ module mp.modal
 {
     var prev: JQuery = null;
 
-    export function MessageBox(msg: string, title: string, callback: () => void = null): void
+    export function MessageBox(msg: string, title: string='提示', callback: () => void = null): void
     {
         var modal = $('#message-modal');
         modal.find('.modal-title').text(title);
