@@ -72,6 +72,7 @@
     <Compile Include="ManagerBase.cs" />
     <Compile Include="ManagerCollection.cs" />
     <Compile Include="OssFile.cs" />
+    <Compile Include="PackageManager.cs" />
     <Compile Include="PickManager.cs" />
     <Compile Include="PraiseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
