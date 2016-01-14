@@ -21,6 +21,7 @@ namespace mp.DAL
         public int FromUrlID { get; set; }
         public string Description { get; set; }
         public int PraiseCount { get; set; }
+        public int ResaveCount { get; set; }
 
         public Image()
         {
