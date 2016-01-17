@@ -19,7 +19,7 @@ module mp.start
 
         $(document).on('click', '.resave-btn',(e) =>
         {
-            var btn = $(e.target);
+            var btn = $(e.currentTarget);
             var id = btn.data('id');
 
             var url = '/image/' + id + '/resave';
@@ -33,7 +33,7 @@ module mp.start
 
         $(document).on('click', '.image-edit-btn',(e) =>
         {
-            var btn = $(e.target);
+            var btn = $(e.currentTarget);
             var id = btn.data('id');
 
             var url = '/image/' + id + '/edit';
@@ -42,19 +42,25 @@ module mp.start
             return false;
         });
 
-        $(document).on('.click', '.praise-btn',(e) =>
+        $(document).on('click', '.praise-btn',(e) =>
         {
-            var btn = $(e.target);
+            var btn = $(e.currentTarget);
             var id = btn.data('id');
 
             var url = '/image/' + id + '/praise';
-            $.post('url',(result: AjaxResult) =>
+            $.post(url,(result: AjaxResult) =>
             {
                 if (result.Success)
                 {
-                    btn.find('.text').text(result.Data.count);
-                    btn.removeClass('.praise-btn');
-                    btn.addClass('.cancel-praise-btn');
+                    var count = result.Data.count;
+                    var text = btn.find('.text');
+                    if (count == 0)
+                        text.text('');
+                    else
+                        text.text(count);
+
+                    btn.removeClass('praise-btn');
+                    btn.addClass('cancel-praise-btn');
                 }
                 else
                 {
@@ -67,17 +73,23 @@ module mp.start
 
         $(document).on('click', '.cancel-praise-btn',(e) =>
         {
-            var btn = $(e.target);
+            var btn = $(e.currentTarget);
             var id = btn.data('id');
 
             var url = '/image/' + id + '/cancelpraise';
-            $.post('url',(result: AjaxResult) =>
+            $.post(url,(result: AjaxResult) =>
             {
                 if (result.Success)
                 {
-                    btn.find('.text').text(result.Data.count);
-                    btn.removeClass('.cancel-praise-btn');
-                    btn.addClass('.praise-btn');
+                    var count = result.Data.count;
+                    var text = btn.find('.text');
+                    if (count == 0)
+                        text.text('');
+                    else
+                        text.text(count);
+
+                    btn.removeClass('cancel-praise-btn');
+                    btn.addClass('praise-btn');
                 }
                 else
                 {

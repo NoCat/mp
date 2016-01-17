@@ -61,11 +61,11 @@ namespace mp.Utility
 
         protected override void ExcuteCore(object param)
         {
-            var db = new MiaopassContext();
+            var manager = new ManagerCollection();
             var wc = new XWebClient();
             var now = DateTime.Now;
             var time = now.AddDays(-2);
-            var list = db.AdminPixivPickUsers.Where(p => p.LastPickTime < time).ToList();
+            var list = manager.AdminPixivPickUsers.Items.Where(p => p.LastPickTime < time).ToList();
             if (list.Count == 0)
                 return;
 
@@ -138,23 +138,22 @@ namespace mp.Utility
                         break;
                 }
 
-                db.Transaction(() =>
+                manager.Transaction(() =>
                 {
                     foreach (var item in pixivworkList)
                     {
                         item.Tags.ForEach(t =>
                         {
-                            var tag = db.AdminPixivTagCreateIfNotExist(new AdminPixivTag { PText = t }, a => a.PText == t);
+                            var tag = manager.AdminPixivTags.CreateIfNotExist(new AdminPixivTag { PText = t }, a => a.PText == t);
                             tag.CitationCount++;
-                            db.AdminPixivTagUpdate(tag);
+                            manager.AdminPixivTags.Update(tag);
                         });
 
-                        var manager = new ManagerCollection(db);
                         manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("[{0}]/[{1}]", item.Title, item.Username));
                     }
 
                     user.LastPickTime = now;
-                    db.AdminPixivPickUserUpdate(user);
+                    manager.AdminPixivPickUsers.Update(user);
                 });
             }
         }

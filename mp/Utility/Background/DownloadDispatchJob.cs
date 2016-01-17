@@ -110,8 +110,7 @@ namespace mp.Utility
                             FileID = download.FileID,
                             FromUrlID = pick.FromUrlID,
                             PackageID = pick.PackageID,
-                            UserID = pick.UserID,
-                            Via = 0
+                            UserID = pick.UserID
                         }));
 
 

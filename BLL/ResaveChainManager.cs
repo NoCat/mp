@@ -25,15 +25,21 @@ namespace mp.BLL
                 });
             addList.Add(entity);
 
+            //所有父节点的resaveCount加1
+            var imageIds = addList.Select(i => i.Parent);
+            var images = DB.Images.Where(i => imageIds.Contains(i.ID)).ToList();
+            images.ForEach(i => { i.ResaveCount++; });
+
             DB.Transaction(() =>
             {
-                //所有父节点的resaveCount加1
-                DB.Images.Where(i => addList.Select(a => a.Parent).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount + 1 });
+                //更新相关图片信息
+                DB.UpdateRange(images, false);
 
                 //保存所有的chains
-                DB.ResaveChains.AddRange(addList);
+                DB.AddRange(addList, false);
                 DB.SaveChanges();
             });
+
             return entity;
         }
     }

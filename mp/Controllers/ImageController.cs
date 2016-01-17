@@ -177,11 +177,11 @@ namespace mp.Controllers
             }
 
             praise = new Praise { ImageID = image.ID, UserID = Security.User.ID };
+            Manager.Praises.Add(praise);
+
             var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
 
             result.Data = new { count };
-
-            Manager.Praises.Add(praise);
 
             return JsonContent(result);
         }
@@ -207,7 +207,7 @@ namespace mp.Controllers
                  Manager.Praises.Remove(praise);
 
              var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
-             result.Data = new { count=count };
+             result.Data = new { count };
 
             return JsonContent(result);
         }

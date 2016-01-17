@@ -4,30 +4,27 @@ using System.Linq;
 using System.Text;
 using mp.DAL;
 
-namespace mp
+namespace mp.BLL
 {
-    public  class ConfigManager
+    public class ConfigManager:ManagerBase<Config>
     {
-        MiaopassContext _db=new MiaopassContext();
+        public ConfigManager(MiaopassContext db, ManagerCollection collection) : base(db, collection) { }
 
         public string this[string name]
         {
             get
             {
-                var res = _db.Configs.Where(c => c.Name == name).FirstOrDefault();
-                if (res == null)
-                    return null;
-                return res.Value;
+                return  DB.Configs.Where(c => c.Name == name).Select(c=>c.Value).FirstOrDefault();                
             }
             set
             {
-                var res=_db.Configs.Where(c => c.Name == name).FirstOrDefault();
+                var res = DB.Configs.Where(c => c.Name == name).FirstOrDefault();
                 if (res == null)
-                    _db.ConfigInsert(new Config { Name = name, Value = value });
+                    DB.Add(new Config { Name = name, Value = value });
                 else
                 {
                     res.Value=value;
-                    _db.ConfigUpdate(res);
+                    DB.Update(res);
                 }
             }
         }

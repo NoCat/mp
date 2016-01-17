@@ -10,29 +10,30 @@
                 <div class="pull-left">
                     @if (Security.IsLogin == true)
                     {
-                        if (Security.User.ID != image.UserID)
-                        {
-                            <div class="btn btn-primary btn-sm resave-btn" data-id="@image.ID">转存</div>
-                        }
+                        <div class="btn btn-primary btn-sm resave-btn" data-id="@image.ID">
+                            转存
+                            <span class="text">@(image.ResaveCount > 0 ? image.ResaveCount.ToString() : "")</span>
+                        </div>
                     }
                     else
                     {
-                        <div class="btn btn-primary btn-sm login-btn">转存</div>
+                        <div class="btn btn-primary btn-sm login-btn">
+                            转存
+                            <span class="text">@(image.ResaveCount > 0 ? image.ResaveCount.ToString() : "")</span>
+                        </div>
                     }
                 </div>
                 <div class="pull-right">
                     @if (Security.IsLogin)
                     {
-                        if (Security.User.ID != image.UserID)
-                        {
-                            <div class="btn btn-default btn-sm @(image.IsPraise?"cancel-praise-btn":"praise-btn")" data-id="@image.ID">
-                                <span class="glyphicon glyphicon-heart"></span><span class="text">@(image.PraiseCount > 0 ? image.PraiseCount.ToString() : "")</span>
-                            </div>
-                        }
+                        <div class="btn btn-default btn-sm @(image.IsPraise?"cancel-praise-btn":"praise-btn")" data-id="@image.ID">
+                            <span class="glyphicon glyphicon-heart"></span>
+                            <span class="text">@(image.PraiseCount > 0 ? image.PraiseCount.ToString() : "")</span>
+                        </div>
                     }
                     else
                     {
-                        <div class="btn btn-default btn-sm login">
+                        <div class="btn btn-default btn-sm login-btn">
                             <span class="glyphicon glyphicon-heart"></span>
                         </div>
                     }

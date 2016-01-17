@@ -51,6 +51,15 @@ namespace mp.DAL
             return entity;
         }
 
+        public void AddRange<T>(IEnumerable<T> entities,bool save=true) where T:class
+        {
+            Set<T>().AddRange(entities);
+            if(save)
+            {
+                SaveChanges();
+            }
+        }
+
         public T Remove<T>(T entity, bool save = true) where T : class
         {
             Entry(entity).State = EntityState.Deleted;
@@ -61,23 +70,18 @@ namespace mp.DAL
             return entity;
         }
 
-        public void Insert<T>(T entity, bool save = true) where T : class
+        public void RemoveRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
-            Set<T>().Add(entity);
+            foreach (var entity in entities)
+            {
+                Entry(entity).State = EntityState.Deleted;
+            }
             if (save)
             {
                 SaveChanges();
             }
         }
 
-        public void InsertRange<T>(IEnumerable<T> entities, bool save = true) where T : class
-        {
-            Set<T>().AddRange(entities);
-            if (save)
-            {
-                SaveChanges();
-            }
-        }
 
         public T Update<T>(T entity, bool save = true) where T : class
         {
@@ -89,9 +93,12 @@ namespace mp.DAL
             return entity;
         }
 
-        public void Delete(object entity, bool save = true)
+        public void UpdateRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
-            Entry(entity).State = EntityState.Deleted;
+            foreach (var entity in entities)
+            {
+                Entry(entity).State = EntityState.Modified;
+            }            
             if (save)
             {
                 SaveChanges();
@@ -106,143 +113,5 @@ namespace mp.DAL
                 transaction.Complete();
             }
         }
-
-        public T CreateIfNotExist<T>(Expression<Func<T, bool>> predicate, T newEntity) where T : class
-        {
-            var result = Set<T>().Where(predicate).FirstOrDefault();
-            if (result == null)
-            {
-                Insert(newEntity);
-                result = newEntity;
-            }
-            return result;
-        }
-
-        #region 储存过程
-
-        //#region Image
-        //public void ImageInsert(Image entity)
-        //{
-        //    Transaction(() =>
-        //    {
-        //        Insert(entity);
-        //        var package = Packages.Find(entity.PackageID);
-        //        if (package.HasCover == false)
-        //            package.CoverID = entity.ID;
-        //        package.LastModify = DateTime.Now;
-        //        PackageUpdate(package);
-        //    });
-        //}
-        //public void ImageUpdate(Image entity) { Update(entity); }
-        //public void ImageDelete(Image entity) { Delete(entity); }
-        //#endregion
-
-        #region Package
-        public void PackageInsert(Package entity) { Insert(entity); }
-        public void PackageUpdate(Package entity) { Update(entity); }
-        public void PackageDelete(Package entity) { Delete(entity); }
-        #endregion
-
-        #region User
-        public void UserInsert(User entity) { Insert(entity); }
-        public void UserUpdate(User entity) { Update(entity); }
-        public void UserDelete(User entity) { Delete(entity); }
-        #endregion
-
-        #region Url
-        public void UrlInsert(Url entity) { Insert(entity); }
-        public void UrlUpdate(Url entity) { Update(entity); }
-        public void UrlDelete(Url entity) { Delete(entity); }
-        public Url UrlCreateIfNotExist(Url entity, Expression<Func<Url, bool>> predicate)
-        {
-            var result = Urls.Where(predicate).FirstOrDefault();
-            if (result == null)
-            {
-                UrlInsert(entity);
-                return entity;
-            }
-            return result;
-        }
-        #endregion
-
-        #region Download
-        public void DownloadInsert(Download entity) { Insert(entity); }
-        public void DownloadUpdate(Download entity) { Update(entity); }
-        public void DownloadDelete(Download entity) { Delete(entity); }
-        public Download DownloadCreateIfNotExist(Download entity, Expression<Func<Download, bool>> predicate)
-        {
-            var result = Downloads.Where(predicate).FirstOrDefault();
-            if (result == null)
-            {
-                DownloadInsert(entity);
-                return entity;
-            }
-            return result;
-        }
-        #endregion
-
-        #region Pick
-        public void PickInsert(Pick entity) { Insert(entity); }
-        public void PickUpdate(Pick entity) { Update(entity); }
-        public void PickDelete(Pick entity) { Delete(entity); }
-        #endregion
-
-        #region File
-        public void FileInsert(File entity) { Insert(entity); }
-        public void FileUpdate(File entity) { Update(entity); }
-        public void FileDelete(File entity) { Delete(entity); }
-        #endregion
-
-        #region AdminUser
-        public void AdminUserInsert(AdminUser entity) { Insert(entity); }
-        public void AdminUserUpdate(AdminUser entity) { Update(entity); }
-        public void AdminUserDelete(AdminUser entity) { Delete(entity); }
-        #endregion
-
-        #region AdminSubAccount
-        public void AdminSubAccountInsert(AdminSubAccount entity) { Insert(entity); }
-        public void AdminSubAccountUpdate(AdminSubAccount entity) { Update(entity); }
-        public void AdminSubAccountDelete(AdminSubAccount entity) { Delete(entity); }
-        #endregion
-
-        #region Config
-        public void ConfigInsert(Config entity) { Insert(entity); }
-        public void ConfigUpdate(Config entity) { Update(entity); }
-        public void ConfigDelete(Config entity) { Delete(entity); }
-        #endregion
-
-        #region AdminPixivTag
-        public void AdminPixivTagInsert(AdminPixivTag entity) { Insert(entity); }
-        public void AdminPixivTagUpdate(AdminPixivTag entity) { Update(entity); }
-        public void AdminPixivTagDelete(AdminPixivTag entity) { Delete(entity); }
-        public AdminPixivTag AdminPixivTagCreateIfNotExist(AdminPixivTag entity, Expression<Func<AdminPixivTag, bool>> predicate)
-        {
-            var result = AdminPixivTags.Where(predicate).FirstOrDefault();
-            if (result == null)
-            {
-                AdminPixivTagInsert(entity);
-                return entity;
-            }
-            return result;
-        }
-        #endregion
-
-        #region AdminPixivPickUser
-        public void AdminPixivPickUserInsert(AdminPixivPickUser entity) { Insert(entity); }
-        public void AdminPixivPickUserUpdate(AdminPixivPickUser entity) { Update(entity); }
-        public void AdminPixivPickUserDelete(AdminPixivPickUser entity) { Delete(entity); }
-        public AdminPixivPickUser AdminPixivPickUserCreateIfNotExist(AdminPixivPickUser entity, Expression<Func<AdminPixivPickUser, bool>> predicate)
-        {
-            var result = AdminPixivPickUsers.Where(predicate).FirstOrDefault();
-            if (result == null)
-            {
-                AdminPixivPickUserInsert(entity);
-                return entity;
-            }
-            return result;
-        }
-        #endregion
-
-        #endregion
     }
 }

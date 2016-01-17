@@ -27,6 +27,7 @@ namespace mp.Models
         public DateTime CreatedTime { get; set; }        
         public int UserID { get; set; }
         public int PraiseCount { get; set; }
+        public int ResaveCount { get; set; }
         public ImageInfo(Image image)
         {
             this.image = image;
@@ -36,6 +37,7 @@ namespace mp.Models
             CreatedTime = image.CreatedTime;
             UserID = image.UserID;
             PraiseCount = image.PraiseCount;
+            ResaveCount = image.ResaveCount;
         }
 
         UserInfo _user = null;
