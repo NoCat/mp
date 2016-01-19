@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Aliyun.OpenServices.OpenStorageService;
+using Aliyun.OSS;
 using System.IO;
 using System.Configuration;
 
