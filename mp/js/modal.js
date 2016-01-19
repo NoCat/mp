@@ -46,7 +46,6 @@ var mp;
                 var select = content.find('.select');
                 select.bsSelect();
                 var form = content.find('form');
-                form.off();
                 form.submit(function () {
                     var action = form.attr('action');
                     var data = form.serialize();
@@ -68,10 +67,50 @@ var mp;
                     }, 'json');
                     return false;
                 });
+                var createPackageBtn = content.find('.package-create');
+                createPackageBtn.click(function () {
+                    PackageModal('/package/create', '创建', function (result) {
+                    });
+                });
             });
             ShowModal(modal);
         }
         _modal.ShowImage = ShowImage;
+        function PackageModal(url, title, callback) {
+            if (callback === void 0) { callback = null; }
+            var modal = $('#package-modal');
+            modal.find('.modal-title').text(title);
+            var loading = modal.find('.loading');
+            var content = modal.find('.content');
+            loading.show();
+            content.hide();
+            content.load(url, function () {
+                loading.slideUp();
+                content.slideDown();
+                var form = content.find('form');
+                form.submit(function () {
+                    var action = form.attr('action');
+                    var data = form.serialize();
+                    $.post(action, data, function (result) {
+                        if (result.Success) {
+                            if (callback != null)
+                                callback(result);
+                            else
+                                Close();
+                        }
+                        else {
+                            var warning = content.find('.bg-warning');
+                            warning.text(result.Message);
+                            warning.slideDown();
+                            setTimeout(function () {
+                                warning.slideUp();
+                            }, 2000);
+                        }
+                    }, 'json');
+                });
+            });
+            ShowModal(modal);
+        }
         function ShowModal(target) {
             var modal = $('#modal');
             modal.modal('show');
