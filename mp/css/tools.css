@@ -79,6 +79,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+textarea {
+  resize: none;
+  overflow-y: auto;
+}
 /*#region bsSelect样式 */
 .btn-group.select {
   width: 100%;
@@ -148,7 +152,6 @@
 }
 .modal-dialog .bg-warning {
   display: none;
-  margin: -15px -15px 0 -15px;
   line-height: 2.5;
 }
 .modal-dialog .btn-block {
