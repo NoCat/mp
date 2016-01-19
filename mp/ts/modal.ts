@@ -5,7 +5,7 @@ module mp.modal
 {
     var prev: JQuery = null;
 
-    export function MessageBox(msg: string, title: string='提示', callback: () => void = null): void
+    export function MessageBox(msg: string, title: string = '提示', callback: () => void = null): void
     {
         var modal = $('#message-modal');
         modal.find('.modal-title').text(title);
@@ -41,7 +41,7 @@ module mp.modal
         ShowModal($('#signup-modal'));
     }
 
-    export function ShowImage(url: string, title: string,callback?:()=>void)
+    export function ShowImage(url: string, title: string, callback?: () => void)
     {
         var modal = $('#image-modal');
 
@@ -62,13 +62,12 @@ module mp.modal
             select.bsSelect();
 
             var form = content.find('form');
-            form.off();
             form.submit(() =>
             {
                 var action = form.attr('action');
                 var data = form.serialize();
 
-                $.post(action, data,(result:AjaxResult) =>
+                $.post(action, data,(result: AjaxResult) =>
                 {
                     if (result.Success)
                     {
@@ -88,6 +87,63 @@ module mp.modal
                 }, 'json');
 
                 return false;
+            });
+
+            var createPackageBtn = content.find('.package-create');
+            createPackageBtn.click(() =>
+            {
+                PackageModal('/package/create', '创建',(result) =>
+                {
+
+                });
+            });
+        });
+
+        ShowModal(modal);
+    }
+
+    function PackageModal(url: string, title: string, callback: (result: AjaxResult) => void = null)
+    {
+        var modal = $('#package-modal');
+
+        modal.find('.modal-title').text(title);
+
+        var loading = modal.find('.loading');
+        var content = modal.find('.content');
+
+        loading.show();
+        content.hide();
+
+        content.load(url,() =>
+        {
+            loading.slideUp();
+            content.slideDown();
+
+            var form = content.find('form');
+            form.submit(() =>
+            {
+                var action = form.attr('action');
+                var data = form.serialize();
+
+                $.post(action, data,(result: AjaxResult) =>
+                {
+                    if (result.Success)
+                    {
+                        if (callback != null)
+                            callback(result);
+                        else
+                            Close();
+                    }
+                    else
+                    {
+                        var warning = content.find('.bg-warning');
+                        warning.text(result.Message);
+
+                        warning.slideDown();
+                        setTimeout(() => { warning.slideUp(); }, 2000);
+                    }
+                }, 'json');
+
             });
         });
 
@@ -152,7 +208,7 @@ module mp.modal
             return false;
         });
         
-        //这侧对话框--表单提交
+        //注册对话框--表单提交
         $(document).on('submit', '#signup-modal form',(e) =>
         {
             var form = $(e.target);
