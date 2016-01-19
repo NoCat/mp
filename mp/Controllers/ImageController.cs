@@ -150,6 +150,23 @@ namespace mp.Controllers
         public ActionResult Add(ImageModalModel model)
         {
             var result = new AjaxResult();
+            var image = new Image();
+            image.PackageID = model.PackageID;
+            image.FileID = model.FileID;
+            image.Description = model.Description;
+            image.UserID = (int)Session["userid"];
+            image.PraiseCount = 0;
+            image.ResaveCount = 0;
+            try
+            {
+                Manager.Images.Add(image);
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.Message;
+            }
+            
             return JsonContent(result);
         }
         #endregion

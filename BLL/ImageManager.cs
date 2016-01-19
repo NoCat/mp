@@ -47,15 +47,15 @@ namespace mp.BLL
                     DB.Update(package);
                 }
 
-                    //删除所有关于该图片的赞记录
-                    DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
+                //删除所有关于该图片的赞记录
+                DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
 
-                    //所有的父节点转存数减1
-                    DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount - 1 });
+                //所有的父节点转存数减1
+                DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount - 1 });
 
-                    //删除所有关于该图片的转存记录
-                    DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
-                
+                //删除所有关于该图片的转存记录
+                DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
+
             });
             return entity;
 
