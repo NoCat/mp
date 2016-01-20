@@ -15,6 +15,7 @@ namespace mp.Controllers
         {
             return View();
         }
+        [HttpPost,MPAuthorize]
         public ActionResult Index(string name, int chunk, int chunks, HttpPostedFileBase data)
         {
             var result = new AjaxResult();

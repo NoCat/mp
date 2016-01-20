@@ -13,6 +13,9 @@
             {
                 var userInfo = new mp.Models.UserInfo(Security.User);
                 <div class="dropdown d" id="mp-user-menu">
+                    <div class="nav navbar-btn navbar-right">
+                        <input type="file" class=" btn btn-default btn-sm" id="upload" multiple />
+                    </div>
                     <img class="avt" src="@userInfo.Head" />
                     <a href="#" data-toggle="dropdown">
                         @userInfo.Name
@@ -21,7 +24,7 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="@userInfo.HomePage">个人主页</a></li>
                         <li class="divider"></li>
-                        <li><a href="/account/logout" >退出</a></li>
+                        <li><a href="/account/logout">退出</a></li>
                     </ul>
                 </div>
             }
