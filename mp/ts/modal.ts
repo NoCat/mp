@@ -17,10 +17,7 @@ module mp.modal
         {
             if (callback == null)
             {
-                if (prev != null)
-                    ShowModal(prev);
-                else
-                    Close();
+                Rollback();
             }
             else
             {
@@ -94,7 +91,10 @@ module mp.modal
             {
                 PackageModal('/package/create', '创建',(result) =>
                 {
-
+                    var data: { id: number;title: string } = result.Data;
+                    select.bsSelect('add', { value: data.id, text: data.title });
+                    select.bsSelect('select', data.id);
+                    ShowModal(modal);
                 });
             });
         });
@@ -102,7 +102,7 @@ module mp.modal
         ShowModal(modal);
     }
 
-    function PackageModal(url: string, title: string, callback: (result: AjaxResult) => void = null)
+    function PackageModal(url: string, title: string, onSuccess: (result: AjaxResult) => void = null, onCancel: () => void = null)
     {
         var modal = $('#package-modal');
 
@@ -129,8 +129,8 @@ module mp.modal
                 {
                     if (result.Success)
                     {
-                        if (callback != null)
-                            callback(result);
+                        if (onSuccess != null)
+                            onSuccess(result);
                         else
                             Close();
                     }
@@ -144,10 +144,29 @@ module mp.modal
                     }
                 }, 'json');
 
+                return false;
+            });
+
+            var cancel = modal.find('.cancel').click(() =>
+            {
+                if (onCancel != null)
+                    onCancel();
+                else
+                {
+                    Rollback();
+                }
             });
         });
 
         ShowModal(modal);
+}
+
+    function Rollback()
+    {
+        if (prev == null)
+            Close();
+        else
+            ShowModal(prev);
     }
 
     function ShowModal(target: JQuery): void

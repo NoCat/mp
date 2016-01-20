@@ -13,10 +13,7 @@ var mp;
             ok.off();
             ok.click(function () {
                 if (callback == null) {
-                    if (prev != null)
-                        ShowModal(prev);
-                    else
-                        Close();
+                    Rollback();
                 }
                 else {
                     callback();
@@ -70,14 +67,19 @@ var mp;
                 var createPackageBtn = content.find('.package-create');
                 createPackageBtn.click(function () {
                     PackageModal('/package/create', '创建', function (result) {
+                        var data = result.Data;
+                        select.bsSelect('add', { value: data.id, text: data.title });
+                        select.bsSelect('select', data.id);
+                        ShowModal(modal);
                     });
                 });
             });
             ShowModal(modal);
         }
         _modal.ShowImage = ShowImage;
-        function PackageModal(url, title, callback) {
-            if (callback === void 0) { callback = null; }
+        function PackageModal(url, title, onSuccess, onCancel) {
+            if (onSuccess === void 0) { onSuccess = null; }
+            if (onCancel === void 0) { onCancel = null; }
             var modal = $('#package-modal');
             modal.find('.modal-title').text(title);
             var loading = modal.find('.loading');
@@ -93,8 +95,8 @@ var mp;
                     var data = form.serialize();
                     $.post(action, data, function (result) {
                         if (result.Success) {
-                            if (callback != null)
-                                callback(result);
+                            if (onSuccess != null)
+                                onSuccess(result);
                             else
                                 Close();
                         }
@@ -107,9 +109,23 @@ var mp;
                             }, 2000);
                         }
                     }, 'json');
+                    return false;
+                });
+                var cancel = modal.find('.cancel').click(function () {
+                    if (onCancel != null)
+                        onCancel();
+                    else {
+                        Rollback();
+                    }
                 });
             });
             ShowModal(modal);
+        }
+        function Rollback() {
+            if (prev == null)
+                Close();
+            else
+                ShowModal(prev);
         }
         function ShowModal(target) {
             var modal = $('#modal');

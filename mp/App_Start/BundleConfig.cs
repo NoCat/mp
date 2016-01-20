@@ -12,6 +12,7 @@ namespace mp
         {
             bundles.Add(new ScriptBundle("~/js/mp.js").Include(
                 "~/js/jquery.js",
+                "~/js/uploader.js",
                 "~/js/bootstrap.js",
                 "~/js/client.js",
                 "~/js/home.js",

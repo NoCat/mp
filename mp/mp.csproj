@@ -263,6 +263,7 @@
     <Content Include="js\select.js" />
     <Content Include="js\start.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="js\uploader.js" />
     <Content Include="Scripts\bootstrap-selectpicker.js" />
     <Content Include="Scripts\bootstrap-selectpicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />

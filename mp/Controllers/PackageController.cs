@@ -73,6 +73,8 @@ namespace mp.Controllers
             };
             Manager.Packages.Add(package);
 
+            result.Data = new { id=package.ID,title=package.Title };
+
             return JsonContent(result);
         } 
         #endregion
