@@ -38,6 +38,11 @@ module mp.modal
         ShowModal($('#signup-modal'));
     }
 
+    export function ShowProgress()
+    {
+        ShowModal($('#progress-modal'));
+    }
+
     export function ShowImage(url: string, title: string, callback?: () => void)
     {
         var modal = $('#image-modal');

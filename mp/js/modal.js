@@ -30,6 +30,10 @@ var mp;
             ShowModal($('#signup-modal'));
         }
         _modal.ShowSignup = ShowSignup;
+        function ShowProgress() {
+            ShowModal($('#progress-modal'));
+        }
+        _modal.ShowProgress = ShowProgress;
         function ShowImage(url, title, callback) {
             var modal = $('#image-modal');
             modal.find('.modal-title').text(title);

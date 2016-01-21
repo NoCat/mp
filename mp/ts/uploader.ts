@@ -99,7 +99,7 @@
         url = "";
         chunkSize = 256 * 1024;
 
-        onProgress: (percentage: number) => void = null;
+        onProgress: (percentage: number,currentIndex:number) => void = null;
         onDone: (datas: Array<UploaderDoneData>) => void = null;
         onError: (msg: string) => void = null;
 
@@ -125,8 +125,9 @@
                 };
                 u.onProgress = (p) => {
                     var p1 = (this.loadedSize + u.file.size * p) / this.totalSize;
+                    var c = this.currentIndex;
                     if (this.onProgress != null)
-                        this.onProgress(p1);
+                        this.onProgress(p1,c);
                 };
                 u.onDone = (data) => {
                     this.doneDataList.push(data);

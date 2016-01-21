@@ -108,8 +108,9 @@ var mp;
                     };
                     u.onProgress = function (p) {
                         var p1 = (_this.loadedSize + u.file.size * p) / _this.totalSize;
+                        var c = _this.currentIndex;
                         if (_this.onProgress != null)
-                            _this.onProgress(p1);
+                            _this.onProgress(p1, c);
                     };
                     u.onDone = function (data) {
                         _this.doneDataList.push(data);
