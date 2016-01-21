@@ -118,7 +118,7 @@ module mp.start {
                 modal.Close();
 
                 modal.ShowImage("image/Add?id=" + datas[0].Data.id,"添加图片");
-    
+                //$.get("/Image/Add", { id: datas[0].Data.id },() => { }, 'string');
             }
             up.start();
         })
