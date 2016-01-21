@@ -47,6 +47,30 @@ namespace mp.BLL
             return DB.Update(entity, save);
         }
 
+        void AddRange(IEnumerable <T> entities, bool save = true)
+        {
+            foreach (var item in entities)
+            {
+                Add(item, save);
+            }
+        }
+
+        void UpdateRange(IEnumerable<T> entities,bool save=true)
+        {
+            foreach (var item in entities)
+            {
+                Update(item, save);
+            }
+        }
+
+        void RemoveRange(IEnumerable<T>entities,bool save=true)
+        {
+            foreach (var item in entities)
+            {
+                Remove(item, save);
+            }
+        }
+
         virtual public T CreateIfNotExist(T newEntity, System.Linq.Expressions.Expression<Func<T, bool>> predicate, bool save = true)
         {
             var entity = DB.Set<T>().Where(predicate).FirstOrDefault();
@@ -55,6 +79,5 @@ namespace mp.BLL
 
             return Add(newEntity, save);
         }
-
     }
 }

@@ -104,6 +104,7 @@ module mp.start {
                 $("#current-index").text(c);
                 p = Math.floor(p * 100);
                 progress.css({ "width": p + "%" });
+                progress.text(p + "%");
             }
 
             up.onDone = function (datas) {
@@ -114,9 +115,10 @@ module mp.start {
                     uploadDatas.push({ id: datas[i].Data.id, description: datas[i].File.name });
                 }
 
-                $("#image-modal").modal({ backdrop: 'static' });
+                modal.Close();
 
-                $("#image-modal.modal-body").load("\image\Add\?id="+datas[0].Data.id);
+                modal.ShowImage("image/Add?id=" + datas[0].Data.id,"添加图片");
+    
             }
             up.start();
         })
