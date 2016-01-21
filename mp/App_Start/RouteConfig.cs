@@ -18,8 +18,7 @@ namespace mp
             routes.MapRoute(name: "package-images", url: "package/{packageId}/images/{max}/{thumb}", defaults: new { controller = "package", action = "Images", max = 0 ,thumb="fw236"});
             routes.MapRoute(name: "package", url: "package/{id}/{action}", defaults: new { controller = "package", action = "Index" }, constraints: new { id=@"\d+"});
             //图片页
-            routes.MapRoute(name: "image", url: "image/{id}/{action}", defaults: new { controller = "image", action = "index"});
-            routes.MapRoute(name: "image2", url: "image/{action}", defaults: new { controller = "image", action = "index" });
+            routes.MapRoute(name: "image", url: "image/{id}/{action}", defaults: new { controller = "image", action = "index" }, constraints: new { id = @"\d+" });
             //用户页
             routes.MapRoute(name: "user", url: "user/{userId}/{subPage}/{max}", defaults: new { controller = "user", action = "index", max = 0 });
             routes.MapRoute(name: "user-default", url: "user/{userId}/{action}", defaults: new { controller = "user", action = "index" });
