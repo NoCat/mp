@@ -34,8 +34,7 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Resave(int id)
         {
-            var model = GetModalModel(id);
-            model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
+            var model = GetModalModel(id,ModelTypes.Resave);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -79,7 +78,7 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Edit(int id)
         {
-            var model = GetModalModel(id);
+            var model = GetModalModel(id,ModelTypes.Edit);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -139,34 +138,42 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Add(int id)
         {
-            var file = Manager.Files.Find(id);
-
-            var model = GetModalModel();
-            model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
-
+            var model = GetModalModel(id,ModelTypes.Add);
             return PartialView("modal", model);
         }
         [MPAuthorize, HttpPost]
-        public ActionResult Add(ImageModalModel model)
+        public ActionResult Add(List<int> fileid, int packageid, List<string> filename, string description = "")
         {
             var result = new AjaxResult();
-            var image = new Image();
-            image.PackageID = model.PackageID;
-            image.FileID = model.FileID;
-            image.Description = model.Description;
-            image.UserID = (int)Session["userid"];
-            image.PraiseCount = 0;
-            image.ResaveCount = 0;
+            var images = new List<Image>();
+            if (description != "")
+            {
+                for (int i = 0; i < filename.Count; i++)
+                {
+                    filename[i] = description;
+                }
+            }
+
+            for (int i = 0; i < filename.Count; i++)
+            {
+                var image= new Image();
+                image.FileID = fileid[i];
+                image.Description = filename[i];
+                image.PackageID = packageid;
+                image.UserID = (int)Session["userid"];
+                images.Add(image);
+            }
+
             try
             {
-                Manager.Images.Add(image);
+                Manager.Images.AddRange(images);
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = ex.Message;
             }
-            
+
             return JsonContent(result);
         }
         #endregion
@@ -205,7 +212,7 @@ namespace mp.Controllers
         #endregion
 
         #region 取消赞
-        [MPAuthorize,HttpPost]
+        [MPAuthorize, HttpPost]
         public ActionResult CancelPraise(int id)
         {
             var result = new AjaxResult();
@@ -219,31 +226,53 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-             var praise= Manager.Praises.Items.Where(p => p.ImageID == image.ID && p.UserID == Security.User.ID).FirstOrDefault();
-             if (praise != null)
-                 Manager.Praises.Remove(praise);
+            var praise = Manager.Praises.Items.Where(p => p.ImageID == image.ID && p.UserID == Security.User.ID).FirstOrDefault();
+            if (praise != null)
+                Manager.Praises.Remove(praise);
 
-             var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
-             result.Data = new { count };
+            var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
+            result.Data = new { count };
 
             return JsonContent(result);
         }
         #endregion
 
-        ImageModalModel GetModalModel(int id = 0)
+        ImageModalModel GetModalModel(int id, ModelTypes type)
         {
             var model = new ImageModalModel();
 
             model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID).ToArray();
 
-            var image = Manager.Images.Find(id);
-            if (image != null)
+            switch (type)
             {
-                model.ID = image.ID;
-                model.PackageID = image.PackageID;
-                model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
-                model.Description = image.Description;
+                case ModelTypes.Resave:
+                    {
+                        var image = Manager.Images.Find(id);
+                        if (image != null)
+                        {
+                            model.ID = image.ID;
+                            model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
+                            model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
+                            model.Description = image.Description;
+                        }
+                        break;
+                    }
+                case ModelTypes.Add:
+                    {
+                        var file = Manager.Files.Find(id);
+                        model.ImagePath = new ImageInfo(new Image { File=file}).ThumbFW236.Url;
+                        model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
+                        break;
+                    }
+
+                case ModelTypes.Edit:
+                    {
+                        break;
+                    }
+                default:
+                    break;
             }
+
             return model;
         }
     }

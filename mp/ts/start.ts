@@ -117,8 +117,20 @@ module mp.start {
 
                 modal.Close();
 
-                modal.ShowImage("image/Add?id=" + datas[0].Data.id,"添加图片");
-                //$.get("/Image/Add", { id: datas[0].Data.id },() => { }, 'string');
+               
+                modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片",
+                    () => {
+                        modal.MessageBox("创建成功", "提示",() => { modal.Close(); location.reload(); });
+                    },                
+                    () => {
+                        var form = $('#image-modal form');
+                        for (var i = 0; i < datas.length; i++) {
+                            var fileid = $("<input type='hidden' name='fileid' value='" + datas[i].Data.id + "'/>");
+                            var filename=$('<input type="hidden" name="filename" value="'+datas[i].File.name+'"/>');
+                            form.append(fileid).append(filename);
+                        }
+                    }
+                    );
             }
             up.start();
         })

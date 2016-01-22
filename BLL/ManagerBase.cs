@@ -47,7 +47,7 @@ namespace mp.BLL
             return DB.Update(entity, save);
         }
 
-        void AddRange(IEnumerable <T> entities, bool save = true)
+        public void AddRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {
@@ -55,7 +55,7 @@ namespace mp.BLL
             }
         }
 
-        void UpdateRange(IEnumerable<T> entities,bool save=true)
+        public void UpdateRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {
@@ -63,7 +63,7 @@ namespace mp.BLL
             }
         }
 
-        void RemoveRange(IEnumerable<T>entities,bool save=true)
+        public void RemoveRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {

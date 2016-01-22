@@ -34,7 +34,7 @@ var mp;
             ShowModal($('#progress-modal'));
         }
         _modal.ShowProgress = ShowProgress;
-        function ShowImage(url, title, callback) {
+        function ShowImage(url, title, onSubmit, onLoaded) {
             var modal = $('#image-modal');
             modal.find('.modal-title').text(title);
             var loading = modal.find('.loading');
@@ -47,13 +47,15 @@ var mp;
                 var select = content.find('.select');
                 select.bsSelect();
                 var form = content.find('form');
+                if (onLoaded != null)
+                    onLoaded();
                 form.submit(function () {
                     var action = form.attr('action');
                     var data = form.serialize();
                     $.post(action, data, function (result) {
                         if (result.Success) {
-                            if (callback != null)
-                                callback();
+                            if (onSubmit != null)
+                                onSubmit();
                             else
                                 Close();
                         }

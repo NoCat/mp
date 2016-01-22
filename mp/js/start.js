@@ -96,7 +96,19 @@ var mp;
                         uploadDatas.push({ id: datas[i].Data.id, description: datas[i].File.name });
                     }
                     mp.modal.Close();
-                    mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片");
+                    mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", function () {
+                        mp.modal.MessageBox("创建成功", "提示", function () {
+                            mp.modal.Close();
+                            location.reload();
+                        });
+                    }, function () {
+                        var form = $('#image-modal form');
+                        for (var i = 0; i < datas.length; i++) {
+                            var fileid = $("<input type='hidden' name='fileid' value='" + datas[i].Data.id + "'/>");
+                            var filename = $('<input type="hidden" name="filename" value="' + datas[i].File.name + '"/>');
+                            form.append(fileid).append(filename);
+                        }
+                    });
                 };
                 up.start();
             });
