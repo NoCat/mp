@@ -123,7 +123,7 @@ module mp.modal
         ShowModal(modal);
     }
 
-    function PackageModal(url: string, title: string, onSuccess: (result: AjaxResult) => void = null, onCancel: () => void = null)
+    export function PackageModal(url: string, title: string, onSuccess: (result: AjaxResult) => void = null, onCancel: () => void = null)
     {
         var modal = $('#package-modal');
 

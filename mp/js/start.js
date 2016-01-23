@@ -74,21 +74,27 @@ var mp;
                 }, 'json');
                 return false;
             });
-            $(document).on('change', '#upload', function (e) {
+            $(document).on('click', '.navbar .tool-upload', function (e) {
+                var p = $(e.currentTarget).parents('.nav .dropdown.open');
+                p.removeClass("open");
+            });
+            $(document).on('change', '.navbar .tool-upload', function (e) {
                 var files = $(e.currentTarget).prop('files');
                 if (files.length == 0) {
                     return false;
                 }
                 mp.modal.ShowProgress();
-                $("#total").text(files.length);
-                var progress = $(".progress-bar");
+                var dialog = $("#progress-modal");
+                dialog.find(".total-index").text(files.length);
+                var progress = dialog.find(".progress-bar");
+                var current = dialog.find(".current-index");
                 var up = new mp.uploader.BatchUploader();
                 up.url = "/upload";
                 for (var i = 0; i < files.length; i++) {
                     up.add(files[i]);
                 }
                 up.onProgress = function (p, c) {
-                    $("#current-index").text(c);
+                    current.text(c);
                     p = Math.floor(p * 100);
                     progress.css({ "width": p + "%" });
                     progress.text(p + "%");
@@ -100,15 +106,19 @@ var mp;
                     }
                     mp.modal.Close();
                     var onSuccess = function () {
+                        progress.css({ width: '0' });
+                        progress.text();
+                        var packageid = $('#image-modal form').find('input[name="packageid"]').val();
+                        var url = '/package?id=' + packageid;
                         mp.modal.MessageBox("创建成功", "提示", function () {
                             mp.modal.Close();
-                            location.reload();
+                            location.replace(url);
                         });
                     };
                     var onLoaded = function () {
                         var form = $('#image-modal form');
                         for (var i = 0; i < datas.length; i++) {
-                            var fileid = $("<input type='hidden' name='fileid' value='" + datas[i].Data.id + "'/>");
+                            var fileid = $('<input type="hidden" name="fileid" value="' + datas[i].Data.id + '"/>');
                             var filename = $('<input type="hidden" name="filename" value="' + datas[i].File.name + '"/>');
                             form.append(fileid).append(filename);
                         }
@@ -116,6 +126,14 @@ var mp;
                     mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
                 };
                 up.start();
+            });
+            $(document).on('click', '.navbar .tool-package', function (e) {
+                $(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
+                var onSuccess = function (d) {
+                    var url = '/package?id=' + d.Data.id;
+                    location.replace(url);
+                };
+                mp.modal.PackageModal('/package/create', '创建图包', onSuccess, null);
             });
         });
     })(start = mp.start || (mp.start = {}));

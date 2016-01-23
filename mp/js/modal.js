@@ -141,6 +141,7 @@ var mp;
             });
             ShowModal(modal);
         }
+        _modal.PackageModal = PackageModal;
         function Rollback() {
             if (prev.length == 0)
                 Close();
