@@ -1,38 +1,124 @@
-﻿
-<div class="mp-header">
-    <div class="mp-container clearfix">
-        <div class="pull-left clearfix">
-            <a href="/" class="mp-link">首页</a>
-            <div class="mp-search">
-                <input type="text" placeholder="请输入" />
-                <span class="glyphicon glyphicon-search icon"></span>
+﻿<style>
+    .navbar .navbar-collapse {
+        margin-left: 50px;
+    }
+
+    .navbar .glyphicon-search {
+        left: -25px;
+    }
+
+    .navbar .avt {
+        width: 32px;
+        height: 32px;
+        margin: 6px auto auto auto;
+        border-radius: 16px;
+    }
+
+    .navbar .dropdown-menu .tool-upload {
+        position: absolute;
+        top: 6px;
+        height: 26px;
+        width: 158px;
+        opacity: 0;
+        cursor:pointer;
+    }
+</style>
+@*<div class="mp-header">
+        <div class="mp-container clearfix">
+            <div class="pull-left clearfix">
+                <a href="/" class="mp-link">首页</a>
+                <div class="mp-search">
+                    <input type="text" placeholder="请输入" />
+                    <span class="glyphicon glyphicon-search icon"></span>
+                </div>
+            </div>
+            <div class="pull-right clearfix">
+                @if (Security.IsLogin)
+                {
+                    var userInfo = new mp.Models.UserInfo(Security.User);
+                    <div class="dropdown d" id="mp-user-menu">
+                        <div class="nav navbar-btn navbar-right">
+                                <input type="file" class=" btn btn-default btn-sm" id="upload" multiple />
+                            </div>
+                        <img class="avt" src="@userInfo.Head" />
+                        <a href="#" data-toggle="dropdown">
+                            @userInfo.Name
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="@userInfo.HomePage">个人主页</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/account/logout">退出</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn navbar-btn" id="mp-tool-bar">
+                        <a href="#" style="text-decoration:none" data-toggle="dropdown">
+                            +<span class="caret"></span>
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button class="btn btn-default">上传图片</button>
+                            <input type="file" id="upload" style="position:relative;opacity:1;" multiple />
+                        </li>
+                        <li>
+                            <button class="btn btn-default">创建图包</button>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <div class="btn btn-primary btn-sm mp-btn login-btn">登录</div>
+                    <div class="btn btn-default btn-sm mp-btn signup-btn">注册</div>
+                }
             </div>
         </div>
-        <div class="pull-right clearfix">
-            @if (Security.IsLogin)
-            {
-                var userInfo = new mp.Models.UserInfo(Security.User);
-                <div class="dropdown d" id="mp-user-menu">
-                    <div class="nav navbar-btn navbar-right">
-                        <input type="file" class=" btn btn-default btn-sm" id="upload" multiple />
-                    </div>
-                    <img class="avt" src="@userInfo.Head" />
-                    <a href="#" data-toggle="dropdown">
-                        @userInfo.Name
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="@userInfo.HomePage">个人主页</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/account/logout">退出</a></li>
-                    </ul>
-                </div>
-            }
-            else
-            {
-                <div class="btn btn-primary btn-sm mp-btn login-btn">登录</div>
-                <div class="btn btn-default btn-sm mp-btn signup-btn">注册</div>
-            }
+    </div>*@
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid" style="max-width:80%">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">首页</a>
         </div>
-    </div>
-</div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav"></ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入" />
+                </div>
+                <a type="submit" class="glyphicon glyphicon-search icon " href="#"></a>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                @if (Security.IsLogin)
+                {
+                    var userInfo = new mp.Models.UserInfo(Security.User);
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">操作<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><input type="file" class="tool-upload" multiple /><a href="#">上传图片</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" id="createImage">创建图包</a></li>
+                        </ul>
+                    </li>
+                    <li><img class="avt" src="@userInfo.Head" /></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@userInfo.Name<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@userInfo.HomePage">个人主页</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/account/logout">退出</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="btn btn-primary btn-sm mp-btn login-btn">登录</li>
+                    <li class="btn btn-default btn-sm mp-btn signup-btn">注册</li>
+                }
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
