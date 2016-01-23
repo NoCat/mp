@@ -186,13 +186,13 @@ module mp.modal
 
     function Rollback()
     {
-        if (prev.length==0)
+        if (prev.length == 0)
             Close();
         else
-            ShowModal(prev.pop());
+            ShowModal(prev.pop(),false);
     }
 
-    function ShowModal(target: JQuery): void
+    function ShowModal(target: JQuery, isPush: boolean = true): void
     {
         var modal = $('#modal');
         modal.modal('show');
@@ -202,7 +202,10 @@ module mp.modal
             visible.removeAttr('style');
             modal.append(visible);
 
-            prev.push(visible);
+            if (isPush == true)
+            {
+                prev.push(visible);
+            }
         });
 
         target.css({ display: 'block', opacity: '0', }).animate({ opacity: '1' }, function ()

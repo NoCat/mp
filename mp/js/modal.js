@@ -145,16 +145,19 @@ var mp;
             if (prev.length == 0)
                 Close();
             else
-                ShowModal(prev.pop());
+                ShowModal(prev.pop(), false);
         }
-        function ShowModal(target) {
+        function ShowModal(target, isPush) {
+            if (isPush === void 0) { isPush = true; }
             var modal = $('#modal');
             modal.modal('show');
             var visible = modal.find('.modal-dialog:visible');
             visible.animate({ opacity: '0', marginTop: '0px', marginBottom: '0px', height: '0px' }, function () {
                 visible.removeAttr('style');
                 modal.append(visible);
-                prev.push(visible);
+                if (isPush == true) {
+                    prev.push(visible);
+                }
             });
             target.css({ display: 'block', opacity: '0', }).animate({ opacity: '1' }, function () {
                 modal.prepend($(this));
