@@ -16,10 +16,36 @@
                 <div class="panel-body">
                     <div class="bar-top clearfix">
                         <div class="pull-left">
-                            <div class="btn btn-primary btn-sm">转存</div>
-                            <div class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-heart"></span>
-                            </div>
+                            @if (Security.IsLogin)
+                            {
+                                <div class="btn btn-primary btn-sm resave-btn" data-id="@imageInfo.ID">转存</div>
+                                if (imageInfo.IsPraise)
+                                {
+                                    <div class="btn btn-default btn-sm cancel-praise-btn" data-id="@imageInfo.ID">
+                                        <span class="glyphicon glyphicon-heart"></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="btn btn-default btn-sm praise-btn" data-id="@imageInfo.ID">
+                                        <span class="glyphicon glyphicon-heart"></span>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="btn btn-primary btn-sm login-btn">转存</div>
+                                <div class="btn btn-default btn-sm login-btn">
+                                    <span class="glyphicon glyphicon-heart"></span>
+                                </div>
+                            }
+                        </div>
+                        <div class="pull-right">
+                            @if (Security.IsLogin == true && imageInfo.UserID == Security.User.ID)
+                            {
+                                <div class="btn btn-default btn-sm image-edit-btn" data-id="@imageInfo.ID">编辑</div>
+                                <div class="btn btn-danger btn-sm image-delete-btn" data-id="@imageInfo.ID">删除</div>
+                            }
                         </div>
                     </div>
                     <div class="image">

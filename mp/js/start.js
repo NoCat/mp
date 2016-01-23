@@ -26,7 +26,10 @@ var mp;
                 var btn = $(e.currentTarget);
                 var id = btn.data('id');
                 var url = '/image/' + id + '/edit';
-                mp.modal.ShowImage(url, '编辑');
+                var onSuccess = function () {
+                    location.reload();
+                };
+                mp.modal.ShowImage(url, '编辑', onSuccess);
                 return false;
             });
             $(document).on('click', '.praise-btn', function (e) {
@@ -96,19 +99,21 @@ var mp;
                         uploadDatas.push({ id: datas[i].Data.id, description: datas[i].File.name });
                     }
                     mp.modal.Close();
-                    mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", function () {
+                    var onSuccess = function () {
                         mp.modal.MessageBox("创建成功", "提示", function () {
                             mp.modal.Close();
                             location.reload();
                         });
-                    }, function () {
+                    };
+                    var onLoaded = function () {
                         var form = $('#image-modal form');
                         for (var i = 0; i < datas.length; i++) {
                             var fileid = $("<input type='hidden' name='fileid' value='" + datas[i].Data.id + "'/>");
                             var filename = $('<input type="hidden" name="filename" value="' + datas[i].File.name + '"/>');
                             form.append(fileid).append(filename);
                         }
-                    });
+                    };
+                    mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
                 };
                 up.start();
             });
