@@ -34,7 +34,7 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Resave(int id)
         {
-            var model = GetModalModel(id,ModelTypes.Resave);
+            var model = GetModalModel(id, ModelTypes.Resave);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -78,7 +78,7 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Edit(int id)
         {
-            var model = GetModalModel(id,ModelTypes.Edit);
+            var model = GetModalModel(id, ModelTypes.Edit);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -138,15 +138,15 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Add(int id)
         {
-            var model = GetModalModel(id,ModelTypes.Add);
+            var model = GetModalModel(id, ModelTypes.Add);
             return PartialView("modal", model);
         }
         [MPAuthorize, HttpPost]
-        public ActionResult Add(List<int> fileid, int packageid, List<string> filename, string description = "")
+        public ActionResult Add(List<int> fileid, int packageid, List<string> filename, string description)
         {
             var result = new AjaxResult();
             var images = new List<Image>();
-            if (description != "")
+            if (string.IsNullOrWhiteSpace(description) == false)
             {
                 for (int i = 0; i < filename.Count; i++)
                 {
@@ -156,7 +156,7 @@ namespace mp.Controllers
 
             for (int i = 0; i < filename.Count; i++)
             {
-                var image= new Image();
+                var image = new Image();
                 image.FileID = fileid[i];
                 image.Description = filename[i];
                 image.PackageID = packageid;
@@ -260,7 +260,7 @@ namespace mp.Controllers
                 case ModelTypes.Add:
                     {
                         var file = Manager.Files.Find(id);
-                        model.ImagePath = new ImageInfo(new Image { File=file}).ThumbFW236.Url;
+                        model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
                         model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
                         break;
                     }
