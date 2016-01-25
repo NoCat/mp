@@ -20,7 +20,7 @@ module mp.start {
 
             var url = '/image/' + id + '/resave';
             modal.ShowImage(url, '转存',() => {
-                modal.MessageBox('转存成功', '提示',() => { modal.Close(); });
+                modal.ShowMessage('转存成功', '提示',() => { modal.Close(); });
             });
 
             return false;
@@ -37,6 +37,33 @@ module mp.start {
             };
 
             modal.ShowImage(url, '编辑', onSuccess);
+
+            return false;
+        });
+
+        $(document).on('click', '.image-delete-btn',(e) =>
+        {
+            var btn = $(e.currentTarget);
+            var id = btn.data('id');
+
+            var url = '/image/' + id + '/delete';
+
+            var onOK = () =>
+            {
+                $.post(url,(result: AjaxResult) =>
+                {
+                    if (result.Success)
+                    {
+                        location.href = result.Data.url;
+                    }
+                    else
+                    {
+                        modal.ShowMessage(result.Message, '提示',() => { modal.Close(); });
+                    }
+                }, 'json');
+            };
+
+            modal.ShowConfirm('图片删除后无法恢复,确定要删除吗?', '确定', onOK);
 
             return false;
         });
@@ -59,7 +86,7 @@ module mp.start {
                     btn.addClass('cancel-praise-btn');
                 }
                 else {
-                    modal.MessageBox(result.Message);
+                    modal.ShowMessage(result.Message);
                 }
             }, 'json');
 
@@ -84,7 +111,7 @@ module mp.start {
                     btn.addClass('praise-btn');
                 }
                 else {
-                    modal.MessageBox(result.Message);
+                    modal.ShowMessage(result.Message);
                 }
             }, 'json');
 
@@ -137,7 +164,7 @@ module mp.start {
                     progress.text();
                     var packageid = $('#image-modal form').find('input[name="packageid"]').val();
                     var url = '/package?id=' + packageid;
-                    modal.MessageBox("创建成功", "提示",() => { modal.Close(); location.replace(url); });
+                    modal.ShowMessage("创建成功", "提示",() => { modal.Close(); location.replace(url); });
                 };
 
                 var onLoaded = () => {
@@ -161,7 +188,7 @@ module mp.start {
                 var url = '/package?id=' + d.Data.id;
                 location.replace(url);
             }
-            modal.PackageModal('/package/create', '创建图包', onSuccess, null);
+            modal.ShowPackage('/package/create', '创建图包', onSuccess, null);
         })
     });
 }

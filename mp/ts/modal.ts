@@ -5,7 +5,7 @@ module mp.modal
 {
     var prev: Array<JQuery> = [];
 
-    export function MessageBox(msg: string, title: string = '提示', callback: () => void = null): void
+    export function ShowMessage(msg: string, title: string = '提示', OnOK: () => void = null): void
     {
         var modal = $('#message-modal');
         modal.find('.modal-title').text(title);
@@ -15,13 +15,13 @@ module mp.modal
         ok.off();
         ok.click(() =>
         {
-            if (callback == null)
+            if (OnOK == null)
             {
                 Rollback();
             }
             else
             {
-                callback();
+                OnOK();
             }
         });
 
@@ -98,7 +98,7 @@ module mp.modal
             var createPackageBtn = content.find('.package-create');
             createPackageBtn.click(() =>
             {
-                PackageModal('/package/create', '创建',(result) =>
+                ShowPackage('/package/create', '创建',(result) =>
                 {
                     var data: { id: number; title: string } = result.Data;
                     select.bsSelect('add', { value: data.id, text: data.title });
@@ -123,7 +123,7 @@ module mp.modal
         ShowModal(modal);
     }
 
-    export function PackageModal(url: string, title: string, onSuccess: (result: AjaxResult) => void = null, onCancel: () => void = null)
+    export function ShowPackage(url: string, title: string, onSuccess: (result: AjaxResult) => void = null, onCancel: () => void = null)
     {
         var modal = $('#package-modal');
 
@@ -182,6 +182,44 @@ module mp.modal
         });
 
         ShowModal(modal);
+    }
+
+    export function ShowConfirm(msg: string, title: string, OnOK: () => void = null, OnCancel: () => void = null): void
+    {
+        var modal = $('#confirm-modal');
+        modal.find('.modal-title').text(title);
+        modal.find('.msg').text(msg);
+
+        var ok = modal.find('.ok');
+        ok.off();
+        ok.click(() =>
+        {
+            if (OnOK == null)
+            {
+                Rollback();
+            }
+            else
+            {
+                OnOK();
+            }
+        });
+
+        var cancel = modal.find('.cancel');
+        cancel.off();
+        cancel.click(() =>
+        {
+            if (OnCancel == null)
+            {
+                Rollback();
+            }
+            else
+            {
+                OnCancel();
+            }
+        });
+
+        ShowModal(modal);
+
     }
 
     function Rollback()
@@ -263,7 +301,7 @@ module mp.modal
             {
                 if (result.Success)
                 {
-                    MessageBox('注册成功', '提示',() => { ShowLogin(); });
+                    ShowMessage('注册成功', '提示',() => { ShowLogin(); });
                 }
                 else
                 {

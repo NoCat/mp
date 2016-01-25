@@ -145,6 +145,15 @@ namespace mp.Controllers
         public ActionResult Add(List<int> fileid, int packageid, List<string> filename, string description)
         {
             var result = new AjaxResult();
+
+            var package = Manager.Packages.Find(packageid);
+            if(package==null || package.UserID!=Security.User.ID)
+            {
+                result.Message = "错误操作";
+                result.Success = false;
+                return JsonContent(result);
+            }
+
             var images = new List<Image>();
             if (string.IsNullOrWhiteSpace(description) == false)
             {
@@ -154,13 +163,19 @@ namespace mp.Controllers
                 }
             }
 
-            for (int i = 0; i < filename.Count; i++)
+            var validFileIds = Manager.Files.Items.Where(f => fileid.Contains(f.ID)).Select(f=>f.ID).ToList();
+
+            foreach (var id in validFileIds)
             {
+                var index = fileid.IndexOf(id);
+                if (index == -1)
+                    continue;
+
                 var image = new Image();
-                image.FileID = fileid[i];
-                image.Description = filename[i];
+                image.FileID = fileid[index];
+                image.Description = filename[index];
                 image.PackageID = packageid;
-                image.UserID = (int)Session["userid"];
+                image.UserID = Security.User.ID;
                 images.Add(image);
             }
 
@@ -267,6 +282,9 @@ namespace mp.Controllers
 
                 case ModelTypes.Edit:
                     {
+                        var image = Manager.Images.Find(id);
+                        model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
+                        model.PackageID = image.PackageID;
                         break;
                     }
                 default:

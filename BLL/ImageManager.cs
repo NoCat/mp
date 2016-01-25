@@ -23,8 +23,8 @@ namespace mp.BLL
                 if (package.HasCover == false)
                     package.CoverID = entity.ID;
                 package.LastModify = DateTime.Now;
-
-                Collection.Packages.Update(package);
+                
+                DB.Update(package);
             });
             return entity;
         }
@@ -59,6 +59,23 @@ namespace mp.BLL
             });
             return entity;
 
+        }
+
+        public override void AddRange(IEnumerable<Image> entities, bool save = true)
+        {
+            if (entities.Count() == 0)
+                return;
+
+            var packageid = entities.Select(e => e.PackageID).First();
+            var package = DB.Packages.Find(packageid);
+
+            DB.Transaction(() => {
+                DB.AddRange(entities);
+                package.LastModify = DateTime.Now;
+                if (package.HasCover == false)
+                    package.CoverID = entities.Select(e => e.ID).Last();
+                DB.Update(package);
+            });
         }
     }
 }

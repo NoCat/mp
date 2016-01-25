@@ -3,25 +3,25 @@ var mp;
     var modal;
     (function (_modal) {
         var prev = [];
-        function MessageBox(msg, title, callback) {
+        function ShowMessage(msg, title, OnOK) {
             if (title === void 0) { title = '提示'; }
-            if (callback === void 0) { callback = null; }
+            if (OnOK === void 0) { OnOK = null; }
             var modal = $('#message-modal');
             modal.find('.modal-title').text(title);
             modal.find('.msg').text(msg);
             var ok = modal.find('.ok');
             ok.off();
             ok.click(function () {
-                if (callback == null) {
+                if (OnOK == null) {
                     Rollback();
                 }
                 else {
-                    callback();
+                    OnOK();
                 }
             });
             ShowModal(modal);
         }
-        _modal.MessageBox = MessageBox;
+        _modal.ShowMessage = ShowMessage;
         function ShowLogin() {
             ShowModal($('#login-modal'));
         }
@@ -75,7 +75,7 @@ var mp;
                 });
                 var createPackageBtn = content.find('.package-create');
                 createPackageBtn.click(function () {
-                    PackageModal('/package/create', '创建', function (result) {
+                    ShowPackage('/package/create', '创建', function (result) {
                         var data = result.Data;
                         select.bsSelect('add', { value: data.id, text: data.title });
                         select.bsSelect('select', data.id);
@@ -95,7 +95,7 @@ var mp;
             ShowModal(modal);
         }
         _modal.ShowImage = ShowImage;
-        function PackageModal(url, title, onSuccess, onCancel) {
+        function ShowPackage(url, title, onSuccess, onCancel) {
             if (onSuccess === void 0) { onSuccess = null; }
             if (onCancel === void 0) { onCancel = null; }
             var modal = $('#package-modal');
@@ -141,7 +141,36 @@ var mp;
             });
             ShowModal(modal);
         }
-        _modal.PackageModal = PackageModal;
+        _modal.ShowPackage = ShowPackage;
+        function ShowConfirm(msg, title, OnOK, OnCancel) {
+            if (OnOK === void 0) { OnOK = null; }
+            if (OnCancel === void 0) { OnCancel = null; }
+            var modal = $('#confirm-modal');
+            modal.find('.modal-title').text(title);
+            modal.find('.msg').text(msg);
+            var ok = modal.find('.ok');
+            ok.off();
+            ok.click(function () {
+                if (OnOK == null) {
+                    Rollback();
+                }
+                else {
+                    OnOK();
+                }
+            });
+            var cancel = modal.find('.cancel');
+            cancel.off();
+            cancel.click(function () {
+                if (OnCancel == null) {
+                    Rollback();
+                }
+                else {
+                    OnCancel();
+                }
+            });
+            ShowModal(modal);
+        }
+        _modal.ShowConfirm = ShowConfirm;
         function Rollback() {
             if (prev.length == 0)
                 Close();
@@ -195,7 +224,7 @@ var mp;
                 var data = form.serialize();
                 $.post('/account/signup', data, function (result) {
                     if (result.Success) {
-                        MessageBox('注册成功', '提示', function () {
+                        ShowMessage('注册成功', '提示', function () {
                             ShowLogin();
                         });
                     }

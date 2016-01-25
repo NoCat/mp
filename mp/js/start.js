@@ -16,7 +16,7 @@ var mp;
                 var id = btn.data('id');
                 var url = '/image/' + id + '/resave';
                 mp.modal.ShowImage(url, '转存', function () {
-                    mp.modal.MessageBox('转存成功', '提示', function () {
+                    mp.modal.ShowMessage('转存成功', '提示', function () {
                         mp.modal.Close();
                     });
                 });
@@ -30,6 +30,25 @@ var mp;
                     location.reload();
                 };
                 mp.modal.ShowImage(url, '编辑', onSuccess);
+                return false;
+            });
+            $(document).on('click', '.image-delete-btn', function (e) {
+                var btn = $(e.currentTarget);
+                var id = btn.data('id');
+                var url = '/image/' + id + '/delete';
+                var onOK = function () {
+                    $.post(url, function (result) {
+                        if (result.Success) {
+                            location.href = result.Data.url;
+                        }
+                        else {
+                            mp.modal.ShowMessage(result.Message, '提示', function () {
+                                mp.modal.Close();
+                            });
+                        }
+                    }, 'json');
+                };
+                mp.modal.ShowConfirm('图片删除后无法恢复,确定要删除吗?', '确定', onOK);
                 return false;
             });
             $(document).on('click', '.praise-btn', function (e) {
@@ -48,7 +67,7 @@ var mp;
                         btn.addClass('cancel-praise-btn');
                     }
                     else {
-                        mp.modal.MessageBox(result.Message);
+                        mp.modal.ShowMessage(result.Message);
                     }
                 }, 'json');
                 return false;
@@ -69,7 +88,7 @@ var mp;
                         btn.addClass('praise-btn');
                     }
                     else {
-                        mp.modal.MessageBox(result.Message);
+                        mp.modal.ShowMessage(result.Message);
                     }
                 }, 'json');
                 return false;
@@ -110,7 +129,7 @@ var mp;
                         progress.text();
                         var packageid = $('#image-modal form').find('input[name="packageid"]').val();
                         var url = '/package?id=' + packageid;
-                        mp.modal.MessageBox("创建成功", "提示", function () {
+                        mp.modal.ShowMessage("创建成功", "提示", function () {
                             mp.modal.Close();
                             location.replace(url);
                         });
@@ -133,7 +152,7 @@ var mp;
                     var url = '/package?id=' + d.Data.id;
                     location.replace(url);
                 };
-                mp.modal.PackageModal('/package/create', '创建图包', onSuccess, null);
+                mp.modal.ShowPackage('/package/create', '创建图包', onSuccess, null);
             });
         });
     })(start = mp.start || (mp.start = {}));

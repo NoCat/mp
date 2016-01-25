@@ -47,27 +47,39 @@ namespace mp.BLL
             return DB.Update(entity, save);
         }
 
-        public void AddRange(IEnumerable<T> entities, bool save = true)
+        virtual public void AddRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {
-                Add(item, save);
+                Add(item, false);
+            }
+            if (save)
+            {
+                DB.SaveChanges();
             }
         }
 
-        public void UpdateRange(IEnumerable<T> entities, bool save = true)
+        virtual public void UpdateRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {
-                Update(item, save);
+                Update(item, false);
+            }
+            if(save)
+            {
+                DB.SaveChanges();
             }
         }
 
-        public void RemoveRange(IEnumerable<T> entities, bool save = true)
+        virtual public void RemoveRange(IEnumerable<T> entities, bool save = true)
         {
             foreach (var item in entities)
             {
-                Remove(item, save);
+                Remove(item, false);
+            }
+            if(save)
+            {
+                DB.SaveChanges();
             }
         }
 
