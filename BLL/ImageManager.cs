@@ -23,7 +23,7 @@ namespace mp.BLL
                 if (package.HasCover == false)
                     package.CoverID = entity.ID;
                 package.LastModify = DateTime.Now;
-                
+
                 DB.Update(package);
             });
             return entity;
@@ -31,32 +31,38 @@ namespace mp.BLL
 
         public override Image Remove(Image entity, bool save = true)
         {
-            var package = Collection.Packages.Find(entity.PackageID);
-
-            DB.Transaction(() =>
+            var package = DB.Packages.Find(entity.PackageID);
+            
+            if (package != null && package.CoverID == entity.ID)
             {
-                DB.Remove(entity);
-                if (package != null && package.CoverID == entity.ID)
-                {
-                    //修改图包信息
-                    var coverId = DB.Images.Where(i => i.PackageID == package.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
-                    package.CoverID = coverId;
-                    package.HasCover = false;
+                //修改图包信息
+                var coverId = DB.Images.Where(i => i.PackageID == package.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                package.CoverID = coverId;
+                package.HasCover = false;
 
-                    package.LastModify = DateTime.Now;
-                    DB.Update(package);
-                }
+                package.LastModify = DateTime.Now;
+                DB.Update(package);
+            }
 
-                //删除所有关于该图片的赞记录
-                DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
+            //赞的记录
+            var praiseList = DB.Praises.Where(p => p.ImageID == entity.ID).ToList();
+            //所有父节点
+            var parentList = DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).ToList();
+            //所有转存记录
+            var chainList = DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).ToList();
 
-                //所有的父节点转存数减1
-                DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount - 1 });
+            //删除所有关于该图片的赞记录
+            DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
 
-                //删除所有关于该图片的转存记录
-                DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
+            //所有的父节点转存数减1
+            DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount - 1 });
 
-            });
+            //删除所有关于该图片的转存记录
+            DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
+
+            //删除实体
+            DB.Remove(entity);
+
             return entity;
 
         }
@@ -69,7 +75,8 @@ namespace mp.BLL
             var packageid = entities.Select(e => e.PackageID).First();
             var package = DB.Packages.Find(packageid);
 
-            DB.Transaction(() => {
+            DB.Transaction(() =>
+            {
                 DB.AddRange(entities);
                 package.LastModify = DateTime.Now;
                 if (package.HasCover == false)

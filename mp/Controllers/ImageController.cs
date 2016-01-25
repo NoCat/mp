@@ -128,7 +128,7 @@ namespace mp.Controllers
             Manager.Images.Remove(image);
 
             //返回跳转网址
-            result.Data = string.Format("/package/{0}", image.PackageID);
+            result.Data = new { url = string.Format("/package/{0}", image.PackageID) };
 
             return JsonContent(result);
         }
@@ -284,6 +284,7 @@ namespace mp.Controllers
                     {
                         var image = Manager.Images.Find(id);
                         model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
+                        model.Description = image.Description;
                         model.PackageID = image.PackageID;
                         break;
                     }
