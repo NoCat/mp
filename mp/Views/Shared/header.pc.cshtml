@@ -13,10 +13,10 @@
         overflow: visible;
     }
 
-    .navbar .avt {
-        margin-top:8px;
-        margin-right:-5px;
+    .navbar .avt {        
         float:left;
+        margin-right:5px;
+        margin-top:-5px;
         cursor:pointer;
         width: 32px;
         height: 32px;
@@ -38,6 +38,10 @@
 
     .navbar .mp-brand {
         font-size: 15px;
+    }
+
+    .navbar .signup-btn{
+        margin-left:15px;
     }
 </style>
 @*<div class="mp-header">
@@ -121,8 +125,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <img class="avt" src="@userInfo.Head" data-toggle="dropdown" />
-                        <a href="#" class="dropdown-toggle float-left" data-toggle="dropdown">@userInfo.Name<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="avt" src="@userInfo.Head" data-toggle="dropdown" />@userInfo.Name<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@userInfo.HomePage">个人主页</a></li>
                             <li role="separator" class="divider"></li>
@@ -132,8 +135,8 @@
                 }
                 else
                 {
-                    <li class="btn btn-primary btn-sm mp-btn login-btn">登录</li>
-                    <li class="btn btn-default btn-sm mp-btn signup-btn">注册</li>
+                    <li class="btn btn-primary navbar-btn login-btn">登录</li>
+                    <li class="btn btn-default navbar-btn signup-btn">注册</li>
                 }
             </ul>
         </div><!-- /.navbar-collapse -->
