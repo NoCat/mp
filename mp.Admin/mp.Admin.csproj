@@ -141,6 +141,7 @@
     <Compile Include="Controllers\PickController.cs" />
     <Compile Include="Controllers\SubAccountController.cs" />
     <Compile Include="Controllers\SubAccountManagerController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,6 +232,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <Content Include="Views\Pick\Index.cshtml" />
+    <Content Include="Views\Tag\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

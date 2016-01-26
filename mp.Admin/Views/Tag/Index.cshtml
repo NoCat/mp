@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/dashboardMaster.cshtml";
+    ViewBag.SubPage = "标签";
+}
+@model List<mp.DAL.AdminPixivTag>
+<h2>标签编辑</h2>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>日文标签</th>
+        <th>中文标签</th>
+        <th>操作</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.PText</td>
+            <td>@item.MText</td>
+            <td>
+                <button class="btn btn-primary">编辑</button>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade">
+    <div id="tag-modal" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑标签</h4>
+            </div>
+            <div class="modal-body">
+                <div class="ptext"></div>
+                <div>
+                    <input type="text" class="mtext" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
