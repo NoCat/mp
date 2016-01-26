@@ -33,7 +33,7 @@ namespace mp.BLL
             DB.Transaction(() =>
             {
                 //添加新的chain
-                var sql1 = string.Format("insert into resavechain (parent,child) select parent,child,pathlength+1 from resavechain where child=? union select ?,?,0",entity.Parent,entity.Parent,entity.Child);
+                var sql1 = string.Format("insert into resavechain (parent,child,pathlength) select parent,child,pathlength+1 from resavechain where child=? union select ?,?,0",entity.Parent,entity.Parent,entity.Child);
                 DB.Database.ExecuteSqlCommand(sql1, entity.Parent, entity.Parent, entity.Child);
 
                 //更新相关图片信息
