@@ -32,36 +32,35 @@ namespace mp.BLL
         public override Image Remove(Image entity, bool save = true)
         {
             var package = DB.Packages.Find(entity.PackageID);
-            
-            if (package != null && package.CoverID == entity.ID)
+
+            DB.Transaction(() =>
             {
                 //修改图包信息
-                var coverId = DB.Images.Where(i => i.PackageID == package.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
-                package.CoverID = coverId;
-                package.HasCover = false;
+                if (package != null && package.CoverID == entity.ID)
+                {                    
+                    var coverId = DB.Images.Where(i => i.PackageID == package.ID && i.ID!=entity.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                    package.CoverID = coverId;
+                    package.HasCover = false;
 
-                package.LastModify = DateTime.Now;
-                DB.Update(package);
-            }
+                    package.LastModify = DateTime.Now;
+                    DB.Update(package);
+                }
 
-            //赞的记录
-            var praiseList = DB.Praises.Where(p => p.ImageID == entity.ID).ToList();
-            //所有父节点
-            var parentList = DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).ToList();
-            //所有转存记录
-            var chainList = DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).ToList();
+                //删除关于该图片的赞
+                var sql1 = "delete from praise where imageid=?";
+                DB.Database.ExecuteSqlCommand(sql1, entity.ID);
 
-            //删除所有关于该图片的赞记录
-            DB.Praises.Where(p => p.ImageID == entity.ID).Delete();
+                //所有父节点转存数减1
+                var sql2 = "update image set resavecount=resavecount-1 where id in (select parent from resavechain where child=?)";
+                DB.Database.ExecuteSqlCommand(sql2, entity.ID);
 
-            //所有的父节点转存数减1
-            DB.Images.Where(i => DB.ResaveChains.Where(c => c.Child == entity.ID).Select(c => c.Child).Contains(i.ID)).Update(i => new Image { ResaveCount = i.ResaveCount - 1 });
+                //删除所有转存记录
+                var sql3 = "delete from resavechain where parent=? or child=?";
+                DB.Database.ExecuteSqlCommand(sql3, entity.ID, entity.ID);
 
-            //删除所有关于该图片的转存记录
-            DB.ResaveChains.Where(r => r.Parent == entity.ID || r.Child == entity.ID).Delete();
-
-            //删除实体
-            DB.Remove(entity);
+                //删除实体
+                DB.Remove(entity);
+            });
 
             return entity;
 
