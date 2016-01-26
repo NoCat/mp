@@ -15,7 +15,7 @@ namespace mp.BLL
 
         public override ResaveChain Add(ResaveChain entity, bool save = true)
         {
-            //获取所有的父节点
+            //获取所有的父节点   
             var addList = new List<ResaveChain>();
             DB.ResaveChains.Where(r => r.Child == entity.Parent)
                 .ToList()
@@ -32,8 +32,14 @@ namespace mp.BLL
 
             DB.Transaction(() =>
             {
+                //添加新的chain
+                var sql1 = string.Format("insert into resavechain (parent,child) select parent,child,pathlength+1 from resavechain where child=? union select ?,?,0",entity.Parent,entity.Parent,entity.Child);
+                DB.Database.ExecuteSqlCommand(sql1, entity.Parent, entity.Parent, entity.Child);
+
                 //更新相关图片信息
-                DB.UpdateRange(images, false);
+                var sql2 = string.Format("update image set praisecount=praisecount+1 where id in (select parent from resavechain where child=?)");
+                DB.Database.ExecuteSqlCommand(sql2,entity.Child);
+                //DB.UpdateRange(images, false);
 
                 //保存所有的chains
                 DB.AddRange(addList, false);
