@@ -24,7 +24,17 @@ namespace mp.Admin.Controllers
             var result = new AjaxResult();
             var tag = Manager.AdminPixivTags.Find(id);
             tag.MText = mtext;
-            Manager.AdminPixivTags.Update(tag);
+            try
+            {
+                Manager.AdminPixivTags.Update(tag);
+            }
+            catch (Exception e)
+            {
+                result.Success = false;
+                result.Message = e.Message;
+                throw;
+            }
+            
             return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result),"application/json");            
         }
     }

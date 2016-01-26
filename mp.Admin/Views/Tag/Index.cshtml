@@ -17,25 +17,25 @@
         <tr>
             <td>@item.ID</td>
             <td>@item.PText</td>
-            <td>@item.MText</td>
+            <td data-id="@item.ID">@item.MText</td>
             <td>
-                <button class="btn btn-primary">编辑</button>
+                <button class="btn btn-primary edit-btn" data-id="@item.ID" data-ptext="@item.PText" data-mtext="@item.MText">编辑</button>
             </td>
         </tr>
     }
 </table>
 
-<div class="modal fade">
-    <div id="tag-modal" class="modal-dialog">
+<div class="modal fade" id="edit-tag">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">编辑标签</h4>
             </div>
             <div class="modal-body">
-                <div class="ptext"></div>
+                日文标签: <div class="ptext"></div>
                 <div>
-                    <input type="text" class="mtext" />
+                    中文标签: <input type="text" class="mtext" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -45,3 +45,35 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+@section script{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.edit-btn').click(function () {
+                var t = $(this);
+                var id = $(this).data('id');
+                var ptext = $(this).data('ptext');
+                var mtext = $(this).data('mtext');
+                $('#edit-tag').modal('show');
+                //初始化窗口
+                var dialog = $('.modal-dialog');
+                dialog.find('.ptext').text(ptext);
+                dialog.find('.mtext').val(mtext);
+                //提交按钮
+                dialog.find('.btn.btn-primary').click(function () {
+                    var ntext = dialog.find('.mtext').val();
+                    $.post('/tag/edit', { id: id,mtext: ntext }, function (result) {
+                        if (result.Success) {
+                            //将原来的内容更新一遍
+                            t.data('mtext', ntext);
+                            $('td[data-id="' + id + '"]').text(ntext);
+                            $('#edit-tag').modal('hide');
+                        }
+                        else {
+                            alert(result.Message);
+                        }
+                    }, 'json')
+                })              
+            })
+        })
+    </script>
+}
