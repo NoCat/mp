@@ -37,5 +37,10 @@ namespace mp.Admin.Controllers
             
             return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result),"application/json");            
         }
+
+        public ActionResult Query(string keyword)
+        {
+            return View();
+        }
     }
 }
