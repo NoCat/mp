@@ -142,14 +142,23 @@ namespace mp.Utility
                 {
                     foreach (var item in pixivworkList)
                     {
+                        var mtextList = new List<string>();
                         item.Tags.ForEach(t =>
                         {
                             var tag = manager.AdminPixivTags.CreateIfNotExist(new AdminPixivTag { PText = t }, a => a.PText == t);
                             tag.CitationCount++;
+                            if (string.IsNullOrWhiteSpace(tag.MText) == false)
+                                mtextList.Add(tag.MText);
                             manager.AdminPixivTags.Update(tag);
                         });
 
-                        manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("[{0}]/[{1}]", item.Title, item.Username));
+                        var strTag = "";
+                        foreach (var t in mtextList.Distinct())
+                        {
+                            strTag += string.Format("#{0}#", t);
+                        }
+
+                        manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}[{1}]/[{2}]", strTag, item.Title, item.Username));
                     }
 
                     user.LastPickTime = now;
