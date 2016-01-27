@@ -13,10 +13,15 @@ namespace mp.Admin.Controllers
         //
         // GET: /Tag/
 
-        public ActionResult Index(int page=1)
-        {
-            var taglist = Manager.AdminPixivTags.Items.Where(i => (i.ID >= 40 * (page - 1) && i.ID < 40 * page)).ToList();
-            return View(taglist);
+        public ActionResult Index(string keyword)
+        {            
+            IQueryable<AdminPixivTag> taglist = Manager.AdminPixivTags.Items;
+            if(!string.IsNullOrWhiteSpace(keyword))
+            {
+                keyword = keyword.Trim();
+                taglist = taglist.Where(t => t.MText.StartsWith(keyword));
+            }
+            return View(taglist.Take(20).ToList());
         }
 
         public ActionResult Edit(int id,string mtext)
