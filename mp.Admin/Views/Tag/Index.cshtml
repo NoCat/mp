@@ -32,10 +32,16 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">编辑标签</h4>
             </div>
-            <div class="modal-body">
-                日文标签: <div class="ptext"></div>
-                <div>
-                    中文标签: <input type="text" class="mtext" />
+            <div class="modal-body ">
+                <div class="row">
+                    <label class="col-sm-2">日文标签</label>
+                    <span class="col-sm-10 ptext"></span>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2" style="top:5px;">中文标签</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control mtext" />
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -50,29 +56,32 @@
         $(document).ready(function () {
             $('.edit-btn').click(function () {
                 var t = $(this);
-                var id = $(this).data('id');
-                var ptext = $(this).data('ptext');
-                var mtext = $(this).data('mtext');
+                var id = t.data('id');
+                var ptext = t.data('ptext');
+                var mtext = t.data('mtext');
                 $('#edit-tag').modal('show');
                 //初始化窗口
                 var dialog = $('.modal-dialog');
                 dialog.find('.ptext').text(ptext);
                 dialog.find('.mtext').val(mtext);
+
+                var button = dialog.find('.btn.btn-primary');
                 //提交按钮
-                dialog.find('.btn.btn-primary').click(function () {
+                button.click(function () {
                     var ntext = dialog.find('.mtext').val();
-                    $.post('/tag/edit', { id: id,mtext: ntext }, function (result) {
+                    $.post('/tag/edit', { id: id, mtext: ntext }, function (result) {
                         if (result.Success) {
                             //将原来的内容更新一遍
                             t.data('mtext', ntext);
                             $('td[data-id="' + id + '"]').text(ntext);
+                            button.unbind();
                             $('#edit-tag').modal('hide');
                         }
                         else {
                             alert(result.Message);
                         }
                     }, 'json')
-                })              
+                })
             })
         })
     </script>

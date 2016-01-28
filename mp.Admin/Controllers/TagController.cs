@@ -19,7 +19,7 @@ namespace mp.Admin.Controllers
             if(!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.Trim();
-                taglist = taglist.Where(t => t.MText.StartsWith(keyword));
+                taglist = taglist.Where(t => t.PText.StartsWith(keyword));
             }
             return View(taglist.Take(20).ToList());
         }
