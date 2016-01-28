@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using mp.Admin.Models;
-using PagedList;
 using mp.DAL;
 using Newtonsoft.Json.Linq;
 
