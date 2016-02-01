@@ -107,6 +107,11 @@ var mp;
                 dialog.find(".total-index").text(files.length);
                 var progress = dialog.find(".progress-bar");
                 var current = dialog.find(".current-index");
+                dialog.find(".close").click(function () {
+                    up.stop();
+                    progress.css({ width: '0' });
+                    progress.text();
+                });
                 var up = new mp.uploader.BatchUploader();
                 up.url = "/upload";
                 for (var i = 0; i < files.length; i++) {
