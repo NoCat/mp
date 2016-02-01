@@ -46,7 +46,14 @@ namespace mp.BLL
                         }
                         else
                         {
-                            OssFile.Create(md5 + ".jpg", bitmap.SaveAsJpeg());
+                            if (bitmap.RawFormat.Equals(ImageFormat.Jpeg))
+                            {
+                                OssFile.Create(md5 + ".jpg", s);
+                            }
+                            else
+                            {
+                                OssFile.Create(md5 + ".jpg", bitmap.SaveAsJpeg());
+                            }
                         }
 
 

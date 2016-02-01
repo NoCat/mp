@@ -35,6 +35,10 @@ namespace mp.Controllers
         public ActionResult Resave(int id)
         {
             var model = GetModalModel(id, ModelTypes.Resave);
+            var image = Manager.Images.Find(id);
+
+            var list = Manager.Packages.Items.Select(p => new { p.ID, p.Title, inPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == image.FileID).Count() > 0 });
+
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -147,7 +151,7 @@ namespace mp.Controllers
             var result = new AjaxResult();
 
             var package = Manager.Packages.Find(packageid);
-            if(package==null || package.UserID!=Security.User.ID)
+            if (package == null || package.UserID != Security.User.ID)
             {
                 result.Message = "错误操作";
                 result.Success = false;
@@ -163,7 +167,7 @@ namespace mp.Controllers
                 }
             }
 
-            var validFileIds = Manager.Files.Items.Where(f => fileid.Contains(f.ID)).Select(f=>f.ID).ToList();
+            var validFileIds = Manager.Files.Items.Where(f => fileid.Contains(f.ID)).Select(f => f.ID).ToList();
 
             foreach (var id in validFileIds)
             {

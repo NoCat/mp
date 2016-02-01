@@ -44,6 +44,14 @@ namespace mp.Controllers
             }
 
             email = email.Trim();
+            //电子邮箱正则验证
+            if(!System.Text.RegularExpressions.Regex.IsMatch(email, @"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"))
+            {
+                result.Success = false;
+                result.Message = "请输入有效的邮箱地址";
+                return JsonContent(result);
+            }
+
             var emailExist = Manager.Users.Items.Where(u => u.Email == email).Count() > 0;
             if (emailExist)
             {
