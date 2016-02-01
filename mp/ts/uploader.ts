@@ -95,11 +95,12 @@
         private totalSize = 0;
         private loadedSize = 0;
         private doneDataList: Array<UploaderDoneData>;
+        private _stop = false;
         currentIndex = 0;
         url = "";
         chunkSize = 256 * 1024;
 
-        onProgress: (percentage: number,currentIndex:number) => void = null;
+        onProgress: (percentage: number, currentIndex: number) => void = null;
         onDone: (datas: Array<UploaderDoneData>) => void = null;
         onError: (msg: string) => void = null;
 
@@ -127,7 +128,11 @@
                     var p1 = (this.loadedSize + u.file.size * p) / this.totalSize;
                     var c = this.currentIndex;
                     if (this.onProgress != null)
-                        this.onProgress(p1,c);
+                        this.onProgress(p1, c);
+                    if (this._stop == true) {
+                        u.stop();
+                        return;
+                    }
                 };
                 u.onDone = (data) => {
                     this.doneDataList.push(data);
@@ -143,7 +148,7 @@
             }
         }
         stop() {
-            this.list[this.currentIndex].stop();
+            this._stop = true;
         }
     }
 }

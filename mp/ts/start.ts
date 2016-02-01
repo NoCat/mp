@@ -136,12 +136,6 @@ module mp.start {
             var progress = dialog.find(".progress-bar");
             var current = dialog.find(".current-index");
 
-            dialog.find(".close").click(() => {
-                up.stop();
-                progress.css({ width: '0' });
-                progress.text();
-            })
-
             var up = new uploader.BatchUploader();
             up.url = "/upload";
             for (var i = 0; i < files.length; i++) {
@@ -182,9 +176,16 @@ module mp.start {
                     }
                 }
 
-                modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
+                modal.ShowImage("/image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
             }
             up.start();
+            var close = dialog.find('.close');
+            close.click(() => {
+                up.stop();
+                progress.css({ width: '0' });
+                progress.text();
+                close.unbind();
+            })
         })
 
         //响应创建图包

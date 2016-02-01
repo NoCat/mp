@@ -107,11 +107,6 @@ var mp;
                 dialog.find(".total-index").text(files.length);
                 var progress = dialog.find(".progress-bar");
                 var current = dialog.find(".current-index");
-                dialog.find(".close").click(function () {
-                    up.stop();
-                    progress.css({ width: '0' });
-                    progress.text();
-                });
                 var up = new mp.uploader.BatchUploader();
                 up.url = "/upload";
                 for (var i = 0; i < files.length; i++) {
@@ -147,9 +142,16 @@ var mp;
                             form.append(fileid).append(filename);
                         }
                     };
-                    mp.modal.ShowImage("image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
+                    mp.modal.ShowImage("/image/Add?id=" + datas[0].Data.id, "添加图片", onSuccess, onLoaded);
                 };
                 up.start();
+                var close = dialog.find('.close');
+                close.click(function () {
+                    up.stop();
+                    progress.css({ width: '0' });
+                    progress.text();
+                    close.unbind();
+                });
             });
             $(document).on('click', '.navbar .tool-package', function (e) {
                 $(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');

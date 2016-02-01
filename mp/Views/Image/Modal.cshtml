@@ -1,4 +1,5 @@
 ﻿@model mp.Models.ImageModalModel
+
 <form action="@Request.Url" method="post">
     <div class="modal-body">
         <div class="bg-warning text-center text-warning"></div>
@@ -38,6 +39,7 @@
                     <div class="form-group">
                         <label>描述</label>
                         <textarea name="description" class="form-control" style="resize:none;">@Model.Description</textarea>
+                        <span style="color:#888;font-size:13px;margin-left:30px;">可以在"#"中输入标签,例如#miaopass#</span>
                     </div>
                 </div>
             </div>
