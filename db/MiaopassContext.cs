@@ -72,16 +72,12 @@ namespace mp.DAL
 
         public void RemoveRange<T>(IEnumerable<T> entities, bool save = true) where T : class
         {
-            foreach (var entity in entities)
-            {
-                Entry(entity).State = EntityState.Deleted;
-            }
+            Set<T>().RemoveRange(entities);
             if (save)
             {
                 SaveChanges();
             }
         }
-
 
         public T Update<T>(T entity, bool save = true) where T : class
         {
