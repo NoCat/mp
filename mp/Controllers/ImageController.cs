@@ -35,10 +35,6 @@ namespace mp.Controllers
         public ActionResult Resave(int id)
         {
             var model = GetModalModel(id, ModelTypes.Resave);
-            var image = Manager.Images.Find(id);
-
-            var list = Manager.Packages.Items.Select(p => new { p.ID, p.Title, inPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == image.FileID).Count() > 0 });
-
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -260,7 +256,7 @@ namespace mp.Controllers
         {
             var model = new ImageModalModel();
 
-            model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID).ToArray();
+            var fileId = 0;
 
             switch (type)
             {
@@ -270,7 +266,6 @@ namespace mp.Controllers
                         if (image != null)
                         {
                             model.ID = image.ID;
-                            model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
                             model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
                             model.Description = image.Description;
                         }
@@ -279,8 +274,7 @@ namespace mp.Controllers
                 case ModelTypes.Add:
                     {
                         var file = Manager.Files.Find(id);
-                        model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
-                        model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
+                        model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;                        
                         break;
                     }
 
@@ -295,6 +289,17 @@ namespace mp.Controllers
                 default:
                     break;
             }
+
+            model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID)
+                .Select(p => new ImageModalModel.PackageListItem
+                {
+                    ID = p.ID,
+                    Title = p.Title,
+                    InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == fileId).Count() > 0
+                }).ToArray();
+
+            if(model.PackageID==0)
+                model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
 
             return model;
         }

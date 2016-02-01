@@ -13,7 +13,14 @@ namespace mp.Models
         public Uri ImagePath { get; set; }
         public int FileID { get; set; }
         public int PackageID { get; set; }
-        public Package[] PackageList { get; set; }
+        public PackageListItem[] PackageList { get; set; }
         public string Description { get; set; }
+
+        public class PackageListItem
+        {
+            public int ID { get; set; }
+            public string Title { get; set; }
+            public bool InPackage { get; set; }
+        }
     }
 }

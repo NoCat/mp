@@ -24,7 +24,7 @@
                                     <ul class="dropdown-menu">
                                         @foreach (var item in Model.PackageList)
                                         {
-                                            <li><a data-value="@item.ID">@item.Title</a></li>
+                                            <li><a data-value="@item.ID" data-inpackage="@item.InPackage">@item.Title</a></li>
                                         }
                                     </ul>
                                     <input type="hidden" name="packageid" value="@Model.PackageID" />
