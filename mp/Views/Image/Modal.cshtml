@@ -1,7 +1,8 @@
 ﻿@model mp.Models.ImageModalModel
 <div class="bg-warning text-center text-warning"></div>
 <form action="@Request.Url" method="post">
-    <div class="modal-body">        
+    <div class="modal-body">
+        <div class="bg-warning text-center text-warning"></div>
         @if (Model.FileID != 0)
         {
             <input type="hidden" name="fileid" value="@Model.FileID" />
@@ -20,7 +21,7 @@
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="current"></span> <span class="inline-block pull-right"><span class="caret"></span></span>
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="max-height:165px;overflow-y:scroll;">
                                         @foreach (var item in Model.PackageList)
                                         {
                                             <li><a data-value="@item.ID" data-inpackage="@(item.InPackage?"true":"false")">@item.Title</a></li>
@@ -38,6 +39,7 @@
                     <div class="form-group">
                         <label>描述</label>
                         <textarea name="description" class="form-control" style="resize:none;">@Model.Description</textarea>
+                        <span style="color:#888;font-size:13px;margin-left:30px;">可以在"#"中输入标签,例如#miaopass#</span>
                     </div>
                 </div>
             </div>

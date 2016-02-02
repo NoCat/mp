@@ -82,6 +82,7 @@ var mp;
             function BatchUploader() {
                 this.totalSize = 0;
                 this.loadedSize = 0;
+                this._stop = false;
                 this.currentIndex = 0;
                 this.url = "";
                 this.chunkSize = 256 * 1024;
@@ -111,6 +112,10 @@ var mp;
                         var c = _this.currentIndex;
                         if (_this.onProgress != null)
                             _this.onProgress(p1, c);
+                        if (_this._stop == true) {
+                            u.stop();
+                            return;
+                        }
                     };
                     u.onDone = function (data) {
                         _this.doneDataList.push(data);
@@ -126,7 +131,7 @@ var mp;
                 }
             };
             BatchUploader.prototype.stop = function () {
-                this.list[this.currentIndex].stop();
+                this._stop = true;
             };
             return BatchUploader;
         })();

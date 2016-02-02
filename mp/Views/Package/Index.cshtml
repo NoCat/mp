@@ -11,11 +11,18 @@
     <div class="panel panel-default mp-panel mp-piece">
         <div class="panel-body clearfix">
             <div class="pull-left">
-                <h3 class="title">@packageInfo.Title</h3>
-                <div class="description">@Html.MpDescription(packageInfo.Description)</div>
+                <h3 class="title package-title">@packageInfo.Title</h3>
+                <div class="description package-description">@Html.MpDescription(packageInfo.Description)</div>
             </div>
             <div class="actions pull-right">
-                <div class="btn btn-primary btn-sm">关注</div>
+                @if (packageInfo.User.ID == Security.User.ID)
+                {
+                    <div class="btn btn-primary btn-sm package-edit-btn" data-id="@packageInfo.ID">编辑</div>
+                }
+                else
+                {
+                    <div class="btn btn-primary btn-sm">关注</div>
+                }
             </div>
         </div>
         <div class="panel-footer clearfix">
