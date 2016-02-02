@@ -47,8 +47,8 @@ var mp;
             content.load(url, function () {
                 loading.slideUp();
                 content.slideDown();
-                var select = content.find('.select');
-                select.bsSelect();
+                var selectValue = content.find('.select input[type="hidden"]').val();
+                content.find('.select .dropdown-menu li a[data-value="' + selectValue + '"]').click();
                 var form = content.find('form');
                 if (onLoaded != null)
                     onLoaded();
@@ -77,8 +77,13 @@ var mp;
                 createPackageBtn.click(function () {
                     ShowPackage('/package/create', '创建', function (result) {
                         var data = result.Data;
-                        select.bsSelect('add', { value: data.id, text: data.title });
-                        select.bsSelect('select', data.id);
+                        var options = content.find('.select .dropdown-menu');
+                        var option = $('<li><a></a></li>');
+                        var a = option.find('a');
+                        a.attr('data-value', data.id);
+                        option.find('a').text(data.title);
+                        options.add(option);
+                        option.click();
                         ShowModal(modal);
                     });
                 });
@@ -237,6 +242,28 @@ var mp;
                     }
                 }, 'json');
                 return false;
+            });
+            $(document).on('click', '#image-modal .select .dropdown-menu li a', function (e) {
+                var modal = $('#image-modal');
+                var option = $(e.target);
+                var select = option.parents('.select');
+                var options = select.find('.dropdown-menu');
+                var value = option.data('value');
+                var input = select.find('input[type="hidden"]');
+                var current = select.find('.current');
+                var inPackage = option.data('inpackage');
+                var warning = modal.find('.bg-warning');
+                if (inPackage == true) {
+                    warning.text('图片已存在图包中');
+                    warning.slideDown();
+                }
+                else {
+                    warning.slideUp();
+                }
+                options.find('.active').removeClass('active');
+                option.parent().addClass('active');
+                input.val(value);
+                current.text(option.text());
             });
         });
     })(modal = mp.modal || (mp.modal = {}));

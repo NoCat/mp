@@ -13,10 +13,21 @@ interface selectItem
 
 $.fn.bsSelect = function (method?: string, args?: any)
 {
+    var bsSelect = {};
+    if (this.bsSelect != null)
+    {
+        bsSelect = this.bsSelect;
+    }
+    else
+    {
+        this.bsSelect = bsSelect;
+    }
+
     var select = $(this);
     var options = select.find('.dropdown-menu');
     var input = select.find('input[type="hidden"]');
     var current = select.find('.current');
+    var onSeleteItem = null;
 
     switch (method)
     {
@@ -43,7 +54,12 @@ $.fn.bsSelect = function (method?: string, args?: any)
                     option.parent().addClass('active');
                     input.val(value);
                     current.text(option.text());
-                }                
+                }
+            }
+            break;
+        case 'onItemSelected':
+            {
+                onSeleteItem = args;
             }
             break;
         default:
@@ -60,6 +76,9 @@ $(() =>
     {
         var option = $(e.target);
         var select = option.parents('.select');
+
+        var bsSelect = select[0];
+
 
         var value = option.data('value');
         select.bsSelect('select', value);

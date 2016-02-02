@@ -1,8 +1,16 @@
 $.fn.bsSelect = function (method, args) {
+    var bsSelect = {};
+    if (this.bsSelect != null) {
+        bsSelect = this.bsSelect;
+    }
+    else {
+        this.bsSelect = bsSelect;
+    }
     var select = $(this);
     var options = select.find('.dropdown-menu');
     var input = select.find('input[type="hidden"]');
     var current = select.find('.current');
+    var onSeleteItem = null;
     switch (method) {
         case 'add':
             {
@@ -26,6 +34,11 @@ $.fn.bsSelect = function (method, args) {
                 }
             }
             break;
+        case 'onItemSelected':
+            {
+                onSeleteItem = args;
+            }
+            break;
         default:
             {
                 select.bsSelect('select', input.val());
@@ -37,6 +50,7 @@ $(function () {
     $(document).on('click', '.select .dropdown-menu li a', function (e) {
         var option = $(e.target);
         var select = option.parents('.select');
+        var bsSelect = select[0];
         var value = option.data('value');
         select.bsSelect('select', value);
     });

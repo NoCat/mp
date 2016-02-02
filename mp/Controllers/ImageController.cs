@@ -34,7 +34,13 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Resave(int id)
         {
-            var model = GetModalModel(id, ModelTypes.Resave);
+            var model=new ImageModalModel();
+            var image = Manager.Images.Find(id);
+            if (image != null)
+            {
+                
+            }
+            //var model = GetModalModel(id, ModelTypes.Resave);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -265,6 +271,7 @@ namespace mp.Controllers
                         var image = Manager.Images.Find(id);
                         if (image != null)
                         {
+                            fileId = image.FileID;
                             model.ID = image.ID;
                             model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
                             model.Description = image.Description;

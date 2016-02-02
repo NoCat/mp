@@ -17,7 +17,7 @@ namespace mp.Controllers
         {
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
-            Manager.Images.Items.OrderByDescending(i=>i.ID).Take(40).ToList().ForEach(i =>
+            Manager.Images.Items.Include("File").OrderByDescending(i=>i.ID).Take(40).ToList().ForEach(i =>
             {
                 imageList.Add(new ImageInfo(i));
             });

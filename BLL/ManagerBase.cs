@@ -19,7 +19,7 @@ namespace mp.BLL
             this.Collection = colletion;
         }
 
-        public IQueryable<T> Items
+        public DbSet<T> Items
         {
             get
             {
