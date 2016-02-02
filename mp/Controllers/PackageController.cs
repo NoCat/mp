@@ -117,6 +117,7 @@ namespace mp.Controllers
             package.Description = description;
             Manager.Packages.Update(package);
 
+            result.Data=new {Title=title,Description=description};
             return JsonContent(result);
         }
         #endregion

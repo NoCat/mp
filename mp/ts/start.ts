@@ -118,13 +118,13 @@ module mp.start {
             return false;
         });
 
-        //响应点击上传按钮
+        //点击上传按钮
         $(document).on('click', '.navbar .tool-upload',(e) => {
             var p = $(e.currentTarget).parents('.nav .dropdown.open');
             p.removeClass("open");
         })
 
-        //响应上传文件
+        //上传文件
         $(document).on('change', '.navbar .tool-upload',(e) => {
             var files = $(e.currentTarget).prop('files');
             if (files.length == 0) {
@@ -188,7 +188,7 @@ module mp.start {
             })
         })
 
-        //响应创建图包
+        //创建图包
         $(document).on('click', '.navbar .tool-package',(e) => {
             $(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
             var onSuccess = (d) => {
@@ -196,6 +196,17 @@ module mp.start {
                 location.replace(url);
             }
             modal.ShowPackage('/package/create', '创建图包', onSuccess, null);
+        })
+
+        //编辑图包
+        $(document).on('click', '.package-edit-btn',(e) => {
+            var t = $(e.currentTarget);
+            var packageid = t.data('id');
+            modal.ShowPackage('/package/edit?id=' + packageid, '编辑图包',(result: AjaxResult) => {
+                $('.package-title').text(result.Data.Title);
+                $('.package-description').text(result.Data.Description);
+                modal.Close();
+            },() => { });
         })
     });
 }

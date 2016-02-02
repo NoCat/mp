@@ -21,7 +21,7 @@
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="current"></span> <span class="inline-block pull-right"><span class="caret"></span></span>
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="max-height:165px;overflow-y:scroll;">
                                         @foreach (var item in Model.PackageList)
                                         {
                                             <li><a data-value="@item.ID" data-inpackage="@item.InPackage">@item.Title</a></li>

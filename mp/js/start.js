@@ -161,6 +161,16 @@ var mp;
                 };
                 mp.modal.ShowPackage('/package/create', '创建图包', onSuccess, null);
             });
+            $(document).on('click', '.package-edit-btn', function (e) {
+                var t = $(e.currentTarget);
+                var packageid = t.data('id');
+                mp.modal.ShowPackage('/package/edit?id=' + packageid, '编辑图包', function (result) {
+                    $('.package-title').text(result.Data.Title);
+                    $('.package-description').text(result.Data.Description);
+                    mp.modal.Close();
+                }, function () {
+                });
+            });
         });
     })(start = mp.start || (mp.start = {}));
 })(mp || (mp = {}));
