@@ -38,9 +38,18 @@ namespace mp.Controllers
             var image = Manager.Images.Find(id);
             if (image != null)
             {
-                
+                model.ID = image.ID;
+                model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
+                model.Description = image.Description;
+                model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p=>p.ID)
+                        .Select(p => new ImageModalModel.PackageListItem
+                        {
+                            ID = p.ID,
+                            Title = p.Title,
+                            InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID ==image.FileID).Count() > 0
+                        }).ToArray();
+                model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
             }
-            //var model = GetModalModel(id, ModelTypes.Resave);
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -84,7 +93,23 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Edit(int id)
         {
-            var model = GetModalModel(id, ModelTypes.Edit);
+            var model = new ImageModalModel();
+            var image = Manager.Images.Find(id);
+            if (image != null)
+            {
+                model.ID = image.ID;
+                model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
+                model.Description = image.Description;
+                model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID)
+                        .Select(p => new ImageModalModel.PackageListItem
+                        {
+                            ID = p.ID,
+                            Title = p.Title,
+                            InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == image.FileID).Count() > 0
+                        }).ToArray();
+                model.PackageList.Where(p => p.ID == image.PackageID).First().InPackage = false;
+                model.PackageID = image.PackageID;
+            }
             return PartialView("Modal", model);
         }
         [MPAuthorize, HttpPost]
@@ -144,7 +169,20 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Add(int id)
         {
-            var model = GetModalModel(id, ModelTypes.Add);
+            var model = new ImageModalModel();
+            var file = Manager.Files.Find(id);
+            if (file != null)
+            {                
+                model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
+                model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID)
+                    .Select(p => new ImageModalModel.PackageListItem
+                    {
+                        ID = p.ID,
+                        Title = p.Title,
+                        InPackage = false
+                    }).ToArray();
+                model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
+            }
             return PartialView("modal", model);
         }
         [MPAuthorize, HttpPost]

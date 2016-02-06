@@ -11,14 +11,11 @@ namespace mp.Models
     public class ImageInfo
     {
         Image image;
-        MiaopassContext db;
-        MiaopassContext DB
+        ManagerCollection DB
         {
             get
             {
-                if (db == null)
-                    db = new MiaopassContext();
-                return db;
+                return Security.Manager;
             }
         }
 
@@ -73,7 +70,7 @@ namespace mp.Models
                 if(Security.IsLogin==false)
                     return false;
 
-                return DB.Praises.Where(p => p.ImageID == ID && p.UserID == Security.User.ID).Count() > 0;
+                return DB.Praises.Items.Where(p => p.ImageID == ID && p.UserID == Security.User.ID).Count() > 0;
             }
         }
 

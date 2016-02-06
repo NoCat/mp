@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.DAL;
+using mp.BLL;
 
 namespace mp.Models
 {
     public class UserInfo
     {
-        MiaopassContext _db = new MiaopassContext();
+        ManagerCollection Manager
+        {
+            get
+            {
+                return Security.Manager;
+            }
+        }
         User _user = null;
         public Uri Head { get; set; }
         public Uri BigHead { get; set; }
@@ -23,7 +30,7 @@ namespace mp.Models
             get
             {
                 if (_packageCount == -1)
-                    _packageCount = _db.Packages.Where(p => p.UserID == _user.ID).Count();
+                    _packageCount = Manager.Packages.Items.Where(p => p.UserID == _user.ID).Count();
                 return _packageCount;
             }
         }
@@ -34,7 +41,7 @@ namespace mp.Models
             get
             {
                 if (_praiseCount == -1)
-                    _praiseCount = _db.Praises.Where(p => p.UserID == _user.ID).Count();
+                    _praiseCount = Manager.Praises.Items.Where(p => p.UserID == _user.ID).Count();
                 return _praiseCount;
             }
         }
@@ -45,7 +52,7 @@ namespace mp.Models
             get
             {
                 if (_followingCount == -1)
-                    _followingCount = _db.Followings.Where(f => f.UserID == _user.ID).Count();
+                    _followingCount = Manager.Followings.Items.Where(f => f.UserID == _user.ID).Count();
                 return _followingCount;
             }
         }
@@ -57,7 +64,7 @@ namespace mp.Models
             {
                 if (_imageCount==-1)
                 {
-                    _imageCount = _db.Images.Where(i => i.UserID == _user.ID).Count();
+                    _imageCount = Manager.Images.Items.Where(i => i.UserID == _user.ID).Count();
                 }
                 return _imageCount;
             }
@@ -70,7 +77,7 @@ namespace mp.Models
             {
                 if(_followerCount==-1)
                 {
-                    _followerCount = _db.Followings.Where(f => f.Type == FollowingTypes.User && f.Info == _user.ID).Count();
+                    _followerCount = Manager.Followings.Items.Where(f => f.Type == FollowingTypes.User && f.Info == _user.ID).Count();
                 }
                 return _followerCount;
             }

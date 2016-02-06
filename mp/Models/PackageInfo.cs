@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using mp.DAL;
+using mp.BLL;
 
 namespace mp.Models
 {
     public class PackageInfo
     {
-        MiaopassContext _db = null;
-        MiaopassContext DB
+        ManagerCollection  DB
         {
             get
             {
-                if (_db == null)
-                    _db = new MiaopassContext();
-                return _db;
+                return Security.Manager;
             }
         }
 
@@ -32,7 +30,7 @@ namespace mp.Models
             {
                 if (_imageCount == -1)
                 {
-                    _imageCount = DB.Images.Where(i => i.PackageID == _package.ID).Count();
+                    _imageCount = DB.Images.Items.Where(i => i.PackageID == _package.ID).Count();
                 }
                 return _imageCount;
             }
@@ -62,7 +60,7 @@ namespace mp.Models
             {
                 if (_followerCount == -1)
                 {
-                    _followerCount = DB.Followings.Where(f => f.Type == FollowingTypes.Package && f.Info == _package.ID).Count();
+                    _followerCount = DB.Followings.Items.Where(f => f.Type == FollowingTypes.Package && f.Info == _package.ID).Count();
                 }
                 return _followerCount;
             }

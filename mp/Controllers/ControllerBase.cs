@@ -10,14 +10,11 @@ namespace mp.Controllers
 {
     public class ControllerBase : Controller
     {
-        ManagerCollection collection;
         public ManagerCollection Manager
         {
             get
             {
-                if (collection == null)
-                    collection = new ManagerCollection();
-                return collection;
+                return Security.Manager;
             }
         }
 
