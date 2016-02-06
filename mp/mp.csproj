@@ -262,6 +262,7 @@
     <Content Include="js\modal.js" />
     <Content Include="js\select.js" />
     <Content Include="js\start.js" />
+    <Content Include="App_Code\MPHelpers.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="js\uploader.js" />
     <Content Include="Scripts\bootstrap-selectpicker.js" />

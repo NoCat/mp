@@ -11,9 +11,6 @@ namespace mp.Controllers
     {
         public ActionResult Index(int Id = 0)
         {
-            if (Id == 0)
-                return Redirect("/");
-
             var package = Manager.Packages.Find(Id);
             if (package == null)
                 return Redirect("/");

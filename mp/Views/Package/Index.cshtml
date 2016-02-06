@@ -38,6 +38,11 @@
     </div>
 
     <div class="waterfall-236" data-url="/package/@packageInfo.ID/images/">
+        @if(Security.IsLogin && Security.User.ID==packageInfo.UserID)
+        {
+            
+        }
+
         @Html.Action("Images", new { max = 0, packageId = packageInfo.ID })
     </div>
 
