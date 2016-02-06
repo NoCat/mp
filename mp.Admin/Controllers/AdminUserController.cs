@@ -5,8 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using mp.DAL;
 using mp.Admin.Models;
-using PagedList;
-
 namespace mp.Admin.Controllers
 {
     [MPAuthorize]

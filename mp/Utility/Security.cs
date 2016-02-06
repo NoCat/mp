@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using mp.DAL;
+using mp.BLL;
 
 
 public class Security
@@ -51,7 +52,7 @@ public class Security
                 return item as User;
             }
 
-            var s = new MiaopassContext().Users.Find(HttpContext.Current.Session[SessionKey]);
+            var s = Manager.Users.Find(HttpContext.Current.Session[SessionKey]);
             HttpContext.Current.Items["User"] = s;
             return s;
         }
@@ -144,5 +145,21 @@ public class Security
     {
         HttpContext.Current.Response.Cookies.Add(new HttpCookie(CookieKey) { Expires = DateTime.Now.AddDays(-1) });
         HttpContext.Current.Session.Remove(SessionKey);
+    }
+
+    static public ManagerCollection Manager
+    {
+        get
+        {
+            var item = HttpContext.Current.Items["Manager"];
+            if (item != null)
+            {
+                return item as ManagerCollection;
+            }
+
+            var s = new ManagerCollection();
+            HttpContext.Current.Items["Manager"] = s;
+            return s;
+        }
     }
 }
