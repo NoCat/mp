@@ -1,49 +1,55 @@
 ﻿<style>
-    .navbar-default{
-        height:46px;
-        background-color:white;
-        box-shadow:0 0 1px 0 #aaa;
+    .navbar-default {
+        height: 46px;
+        background-color: white;
+        box-shadow: 0 0 1px 0 #aaa;
     }
-    .navbar .navbar-form{
-        position:relative;
-        top:2px;
+
+    .navbar .navbar-form {
+        position: relative;
+        top: 2px;
     }
+
     .navbar .glyphicon-search {
         left: -25px;
         top: 3px;
     }
 
-    .navbar .avt {        
-        float:left;
-        margin-right:5px;
-        margin-top:-5px;
-        cursor:pointer;
+    .navbar .avt {
+        float: left;
+        margin-right: 5px;
+        margin-top: -5px;
+        cursor: pointer;
         width: 32px;
         height: 32px;
         border-radius: 16px;
-        display:inline;
+        display: inline;
     }
-    .float-left{
-        float:left;
+
+    .float-left {
+        float: left;
     }
 
     .navbar .dropdown-menu .tool-upload {
         position: absolute;
-        top: 6px;
-        height: 26px;
-        width: 158px;
+        top: 0;
+        left: 0;
+        height: 9999px;
+        width: 9999px;
         opacity: 0;
         cursor: pointer;
     }
 
-    .navbar input[type='text']{
-        height:30px;
+    .navbar input[type='text'] {
+        height: 30px;
     }
-    .navbar .signup-btn{
-        margin-left:15px;
+
+    .navbar .signup-btn {
+        margin-left: 15px;
     }
-    .navbar a:focus{
-        outline:none;
+
+    .navbar a:focus {
+        outline: none;
     }
 </style>
 @*<div class="mp-header">
@@ -105,7 +111,7 @@
                 <li>
                     <a href="/">首页</a>
                 </li>
-            </ul>            
+            </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="请输入" />
@@ -119,7 +125,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">操作<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><input type="file" class="tool-upload" multiple /><a href="#">上传图片</a></li>
+                            <li><a href="#" style="overflow:hidden; position:relative;"><input type="file" class="tool-upload" multiple />上传图片</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a class="tool-package" href="#">创建图包</a></li>
                         </ul>
