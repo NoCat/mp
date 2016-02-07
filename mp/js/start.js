@@ -95,7 +95,6 @@ var mp;
             });
             $(document).on('click', '.navbar .tool-upload', function (e) {
                 var p = $(e.currentTarget).parents('.nav .dropdown.open');
-                p.removeClass("open");
             });
             $(document).on('change', '.navbar .tool-upload', function (e) {
                 var files = $(e.currentTarget).prop('files');
@@ -154,7 +153,6 @@ var mp;
                 });
             });
             $(document).on('click', '.navbar .tool-package', function (e) {
-                $(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
                 var onSuccess = function (d) {
                     var url = '/package?id=' + d.Data.id;
                     location.replace(url);

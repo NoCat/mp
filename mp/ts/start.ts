@@ -121,7 +121,7 @@ module mp.start {
         //点击上传按钮
         $(document).on('click', '.navbar .tool-upload',(e) => {
             var p = $(e.currentTarget).parents('.nav .dropdown.open');
-            p.removeClass("open");
+            //p.removeClass("open");
         })
 
         //上传文件
@@ -190,7 +190,7 @@ module mp.start {
 
         //创建图包
         $(document).on('click', '.navbar .tool-package',(e) => {
-            $(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
+            //$(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
             var onSuccess = (d) => {
                 var url = '/package?id=' + d.Data.id;
                 location.replace(url);
