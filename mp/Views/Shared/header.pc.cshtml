@@ -30,7 +30,7 @@
         float: left;
     }
 
-    .navbar .dropdown-menu .tool-upload {
+    .navbar .dropdown-menu .upload-btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -52,58 +52,6 @@
         outline: none;
     }
 </style>
-@*<div class="mp-header">
-        <div class="mp-container clearfix">
-            <div class="pull-left clearfix">
-                <a href="/" class="mp-link">首页</a>
-                <div class="mp-search">
-                    <input type="text" placeholder="请输入" />
-                    <span class="glyphicon glyphicon-search icon"></span>
-                </div>
-            </div>
-            <div class="pull-right clearfix">
-                @if (Security.IsLogin)
-                {
-                    var userInfo = new mp.Models.UserInfo(Security.User);
-                    <div class="dropdown d" id="mp-user-menu">
-                        <div class="nav navbar-btn navbar-right">
-                                <input type="file" class=" btn btn-default btn-sm" id="upload" multiple />
-                            </div>
-                        <img class="avt" src="@userInfo.Head" />
-                        <a href="#" data-toggle="dropdown">
-                            @userInfo.Name
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="@userInfo.HomePage">个人主页</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/account/logout">退出</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown btn navbar-btn" id="mp-tool-bar">
-                        <a href="#" style="text-decoration:none" data-toggle="dropdown">
-                            +<span class="caret"></span>
-                        </a>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button class="btn btn-default">上传图片</button>
-                            <input type="file" id="upload" style="position:relative;opacity:1;" multiple />
-                        </li>
-                        <li>
-                            <button class="btn btn-default">创建图包</button>
-                        </li>
-                    </ul>
-                }
-                else
-                {
-                    <div class="btn btn-primary btn-sm mp-btn login-btn">登录</div>
-                    <div class="btn btn-default btn-sm mp-btn signup-btn">注册</div>
-                }
-            </div>
-        </div>
-    </div>*@
-
 <nav class="navbar navbar-default">
     <div class="mp-container">
         <div class="collapse navbar-collapse">
@@ -125,7 +73,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">操作<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" style="overflow:hidden; position:relative;"><input type="file" class="tool-upload" multiple />上传图片</a></li>
+                            <li><a href="#" style="overflow:hidden; position:relative;"><input type="file" class="upload-btn" multiple />上传图片</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a class="tool-package" href="#">创建图包</a></li>
                         </ul>
