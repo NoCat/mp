@@ -1,12 +1,45 @@
 ﻿@import (reference) "tools.less";
 
-.waterfall-item
-{
+.waterfall-item {
     float: left;
     display: block;
 
-    &.fw236
-    {
+    &.fw236 {
+        &.add {
+            &:hover{
+                cursor:pointer;
+                background-color:#f8f8f8;
+            }
+
+            input[type="file"]{
+                position:absolute;
+                left:0;
+                top:0;
+                width:9999px;
+                height:9999px;
+                opacity:0;
+                cursor:pointer;
+            }
+
+            .border {
+                margin: 10px;
+                border: dashed 3px #ccc;
+                border-radius: 8px;
+                padding: 30px 0;
+            }
+
+            .img {
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 10px;
+            }
+
+            .text{
+                text-align:center;
+                color:#aaa;
+            }
+        }
+
         margin: 6px;
         width: 236px;
         background: white;
@@ -15,8 +48,7 @@
         position: relative;
         overflow: hidden;
 
-        .actions
-        {
+        .actions {
             position: absolute;
             display: none;
             left: 15px;
@@ -24,13 +56,11 @@
             top: 15px;
         }
 
-        .img
-        {
+        .img {
             display: block;
             position: relative;
 
-            .cover
-            {
+            .cover {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -38,22 +68,18 @@
                 width: 100%;
             }
 
-            &:hover
-            {
-                .cover
-                {
+            &:hover {
+                .cover {
                     background-color: rgba(255,255,255,0.1);
                 }
 
-                .actions
-                {
+                .actions {
                     display: block;
                 }
             }
         }
 
-        .avt
-        {
+        .avt {
             .size(160px,160px);
             display: block;
             border-radius: 80px;
@@ -62,33 +88,28 @@
             margin: 30px auto 10px;
             overflow: hidden;
 
-            img
-            {
+            img {
                 .size(150px,150px);
             }
         }
 
 
-        .description, .info, .title, .attr
-        {
+        .description, .info, .title, .attr {
             margin-top: 0;
             padding: 8px 10px;
 
-            a
-            {
+            a {
                 margin: 0 3px;
             }
         }
 
-        .attr
-        {
+        .attr {
             font-size: @font-size-small;
             color: @gray-light;
             line-height: @line-height-small-compute;
         }
 
-        .title
-        {
+        .title {
             color: @gray-dark;
             line-height: @line-height-computed;
             font-weight: 700;
@@ -98,72 +119,61 @@
             white-space: nowrap;
         }
 
-        .info
-        {
+        .info {
             background-color: #f9f9f9;
             border-top: 1px solid @gray-lighter;
 
-            img
-            {
+            img {
                 .size(40px,40px);
             }
         }
 
-        .thumbs
-        {
+        .thumbs {
             position: relative;
             width: 216px;
             height: 289px;
             margin: 10px;
 
-            .thumb1, .thumb2, .thumb3, .thumb4
-            {
+            .thumb1, .thumb2, .thumb3, .thumb4 {
                 position: absolute;
                 border: 1px solid @gray-lighter;
             }
 
-            .thumb2, .thumb3, .thumb4
-            {
+            .thumb2, .thumb3, .thumb4 {
                 top: 219px;
                 width: 70px;
                 height: 70px;
             }
 
-            .thumb1
-            {
+            .thumb1 {
                 width: 216px;
                 height: 216px;
                 left: 0;
                 top: 0;
             }
 
-            .thumb2
-            {
+            .thumb2 {
                 left: 0;
             }
 
-            .thumb3
-            {
+            .thumb3 {
                 left: 73px;
             }
 
-            .thumb4
-            {
+            .thumb4 {
                 left: 146px;
             }
         }
     }
 
-    &.fw78
-    {
+    &.fw78 {
         margin: 2px;
         width: 78px;
         box-shadow: 0 0 1px @gray-light;
         overflow: hidden;
     }
 
-    &.more
-    {
+    &.more {
         margin: 0;
     }
 }

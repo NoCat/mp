@@ -41,14 +41,15 @@
         @if (Security.IsLogin && Security.User.ID == packageInfo.UserID)
         {
             <div class="waterfall-item fw236 add">
-                <div class="border" style="margin:10px;border:dashed 3px #ccc;border-radius:8px;padding:30px 0;">
-                    <div class="img" style="width:50px;margin:0 auto 10px;">
+                <div class="border">
+                    <div class="img">
                         <img src="/images/plus.png" />
                     </div>
-                    <div class="text" style="text-align:center;color:#aaa;">
+                    <div class="text">
                         点击添加图片
                     </div>
                 </div>
+                <input type="file" class="tool-upload" multiple accept="image/jpeg,image/png,image/bmp" />
             </div>
         }
 
