@@ -32,7 +32,7 @@ namespace mp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signup(string email, string name, string password1, string password2)
+        public ActionResult Signup(string email="", string name="", string password1="", string password2="")
         {
             var result = new AjaxResult();
 
@@ -40,6 +40,13 @@ namespace mp.Controllers
             {
                 result.Success = false;
                 result.Message = "两次输入的密码不一样";
+                return JsonContent(result);
+            }
+
+            if(password1.Length==0)
+            {
+                result.Success = false;
+                result.Message = "密码长度不能为0";
                 return JsonContent(result);
             }
 

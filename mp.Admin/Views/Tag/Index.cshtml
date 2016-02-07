@@ -5,6 +5,21 @@
 }
 @model List<mp.DAL.AdminPixivTag>
 <h2>标签编辑</h2>
+
+<div style="margin:10px auto;" class="clearfix">
+    <div class="pull-left">
+        <div class="btn btn-primary btn-sm">新增</div>
+    </div>
+    <div class="pull-right">
+        <div class="input-group input-group-sm">
+            <input type="text" name="" class="form-control" placeholder="搜索...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
+    </div>
+</div>
+
 <table class="table table-striped">
     <tr>
         <th>ID</th>
@@ -61,7 +76,7 @@
                 //提交按钮
                 dialog.find('.btn.btn-primary').click(function () {
                     var ntext = dialog.find('.mtext').val();
-                    $.post('/tag/edit', { id: id,mtext: ntext }, function (result) {
+                    $.post('/tag/edit', { id: id, mtext: ntext }, function (result) {
                         if (result.Success) {
                             //将原来的内容更新一遍
                             t.data('mtext', ntext);
@@ -72,7 +87,7 @@
                             alert(result.Message);
                         }
                     }, 'json')
-                })              
+                })
             })
         })
     </script>

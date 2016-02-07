@@ -71,6 +71,9 @@
 .modal-footer:after {
   clear: both;
 }
+body {
+  font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif;
+}
 .inline-block {
   display: inline-block;
 }
