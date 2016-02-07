@@ -27,5 +27,10 @@ namespace mp.Admin.Controllers
                 return manager;
             }
         }
+
+        protected ContentResult JsonContent(object obj)
+        {
+            return Content(Newtonsoft.Json.JsonConvert.SerializeObject(obj), "application/json");
+        }
     }
 }

@@ -47,11 +47,19 @@ namespace mp.Controllers
             return PartialView("modal");
         }
         [MPAuthorize, HttpPost]
-        public ActionResult Create(string title, string description)
+        public ActionResult Create(string title="", string description="")
         {
             var result = new AjaxResult();
 
             title = title.Trim();
+
+            if(title.Length==0)
+            {
+                result.Success = false;
+                result.Message = "图包标题不能为空";
+                return JsonContent(result);
+            }
+
             var exist = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID && p.Title == title).Count() > 0;
             if (exist)
             {
