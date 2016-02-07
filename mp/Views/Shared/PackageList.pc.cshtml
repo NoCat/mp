@@ -4,7 +4,7 @@
 {
     <div class="waterfall-item fw236" data-id="@packageInfo.ID">
         <a href="@packageInfo.HomePage" class="img">
-            <img width="236" height="236" src="@(packageInfo.Cover==null?"":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
+            <img width="236" height="236" src="@(packageInfo.Cover==null?"/images/image.png":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
             <div class="cover"></div>
         </a>
         <a class="title" href="@packageInfo.HomePage" title="@packageInfo.Title">

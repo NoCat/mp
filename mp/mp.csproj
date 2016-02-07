@@ -251,6 +251,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\image.png" />
     <Content Include="images\plus.png" />
     <Content Include="js\bootstrap-selectpicker.min.js" />
     <Content Include="js\bootstrap.js" />
@@ -263,6 +264,8 @@
     <Content Include="js\modal.js" />
     <Content Include="js\select.js" />
     <Content Include="js\start.js" />
+    <Content Include="psd\image.psd" />
+    <Content Include="psd\plus.psd" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="js\uploader.js" />
     <Content Include="Scripts\bootstrap-selectpicker.js" />
@@ -290,7 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="psd\" />
     <Folder Include="temp\" />
   </ItemGroup>
   <ItemGroup>
