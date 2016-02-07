@@ -3,7 +3,7 @@
 <form action="@Request.Url" method="post">
     <div class="modal-body">
         @if (Model.FileID != 0)
-        {
+        {                    
             <input type="hidden" name="fileid" value="@Model.FileID" />
         }
         <div class="container-fluid">

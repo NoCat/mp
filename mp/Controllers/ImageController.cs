@@ -136,8 +136,7 @@ namespace mp.Controllers
             image.PackageID = package.ID;
             image.Description = model.Description;
 
-            Manager.Images.Update(image);
-
+            Manager.Images.Update(image);    
             return JsonContent(result);
         }
         #endregion

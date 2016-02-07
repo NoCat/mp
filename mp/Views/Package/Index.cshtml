@@ -38,6 +38,21 @@
     </div>
 
     <div class="waterfall-236" data-url="/package/@packageInfo.ID/images/">
+        @if (Security.IsLogin && Security.User.ID == packageInfo.UserID)
+        {
+            <div class="waterfall-item fw236 add">
+                <div class="border">
+                    <div class="img">
+                        <img src="/images/plus.png" />
+                    </div>
+                    <div class="text">
+                        点击添加图片
+                    </div>
+                </div>
+                <input type="file" class="tool-upload" multiple accept="image/jpeg,image/png,image/bmp" />
+            </div>
+        }
+
         @Html.Action("Images", new { max = 0, packageId = packageInfo.ID })
     </div>
 

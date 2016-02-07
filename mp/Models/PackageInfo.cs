@@ -22,6 +22,7 @@ namespace mp.Models
         public string Description { get; set; }
         public Uri HomePage { get; set; }
         public int ID { get; set; }
+        public int UserID { get; set; }
 
         int _imageCount = -1;
         public int ImageCount
@@ -86,6 +87,7 @@ namespace mp.Models
             Description = package.Description;
             HomePage = new Uri("/package/" + package.ID, UriKind.Relative);
             ID = package.ID;
+            UserID = package.UserID;
         }
     }
 }

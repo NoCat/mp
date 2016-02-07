@@ -251,6 +251,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\plus.png" />
     <Content Include="js\bootstrap-selectpicker.min.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\client.js" />
@@ -289,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="psd\" />
     <Folder Include="temp\" />
   </ItemGroup>
   <ItemGroup>
