@@ -121,15 +121,16 @@ module mp.start {
         //点击上传按钮
         $(document).on('click', '.navbar .tool-upload',(e) => {
             var p = $(e.currentTarget).parents('.nav .dropdown.open');
-            //p.removeClass("open");
+            p.removeClass("open");
         })
 
         //上传文件
-        $(document).on('change', '.navbar .tool-upload',(e) => {
+        $(document).on('change', '.upload-btn',(e) => {           
             var files = $(e.currentTarget).prop('files');
             if (files.length == 0) {
                 return false;
             }
+            var currentPackageId = $(e.currentTarget).data('id');
             modal.ShowProgress();
             var dialog = $("#progress-modal");
             dialog.find(".total-index").text(files.length);
@@ -156,19 +157,20 @@ module mp.start {
                 for (var i = 0; i < datas.length; i++) {
                     uploadDatas.push({ id: datas[i].Data.id, description: datas[i].File.name });
                 }
+                progress.css({ 'width': '0%' });
+                progress.text('');
 
                 modal.Close();
 
                 var onSuccess = () => {
-                    progress.css({ width: '0' });
-                    progress.text();
                     var packageid = $('#image-modal form').find('input[name="packageid"]').val();
                     var url = '/package?id=' + packageid;
                     modal.ShowMessage("创建成功", "提示",() => { modal.Close(); location.replace(url); });
                 };
 
-                var onLoaded = () => {
+                var onLoaded = () => {                    
                     var form = $('#image-modal form');
+                    form.find('.select .dropdown-menu li a[data-value="' + currentPackageId + '"]').click();
                     for (var i = 0; i < datas.length; i++) {
                         var fileid = $('<input type="hidden" name="fileid" value="' + datas[i].Data.id + '"/>');
                         var filename = $('<input type="hidden" name="filename" value="' + datas[i].File.name + '"/>');
@@ -182,15 +184,15 @@ module mp.start {
             var close = dialog.find('.close');
             close.click(() => {
                 up.stop();
-                progress.css({ width: '0' });
-                progress.text();
+                progress.css({ 'width': '0%' });
+                progress.text('');
+                modal.Close();
                 close.unbind();
             })
         })
 
         //创建图包
         $(document).on('click', '.navbar .tool-package',(e) => {
-            //$(e.currentTarget).parents('.navbar .dropdown.open').removeClass('open');
             var onSuccess = (d) => {
                 var url = '/package?id=' + d.Data.id;
                 location.replace(url);
