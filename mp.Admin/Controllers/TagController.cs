@@ -14,9 +14,10 @@ namespace mp.Admin.Controllers
         // GET: /Tag/
 
         public ActionResult Index(string keyword)
-        {            
+        {
+            ViewBag.Keyword = keyword;
             IQueryable<AdminPixivTag> taglist = Manager.AdminPixivTags.Items;
-            if(!string.IsNullOrWhiteSpace(keyword))
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.Trim();
                 taglist = taglist.Where(t => t.PText.StartsWith(keyword));
@@ -24,7 +25,18 @@ namespace mp.Admin.Controllers
             return View(taglist.Take(20).ToList());
         }
 
-        public ActionResult Edit(int id,string mtext)
+        public ActionResult Edit(int id)
+        {
+            var model = Manager.AdminPixivTags.Find(id);
+            if (model == null)
+                model = new AdminPixivTag();
+
+            ViewBag.ModalType = "edit";
+
+            return PartialView("modal", model);
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, string mtext)
         {
             var result = new AjaxResult();
             var tag = Manager.AdminPixivTags.Find(id);
@@ -43,11 +55,17 @@ namespace mp.Admin.Controllers
             return JsonContent(result);
         }
 
-        public ActionResult Add(string ptext="",string mtext="")
+        public ActionResult Add()
+        {
+            var model = new AdminPixivTag();
+            return PartialView("modal",model);
+        }
+        [HttpPost]
+        public ActionResult Add(string ptext = "", string mtext = "")
         {
             var result = new AjaxResult();
             ptext = ptext.Trim();
-            if(ptext.Length==0)
+            if (ptext.Length == 0)
             {
                 result.Success = false;
                 result.Message = "ptext不能为空";
@@ -63,7 +81,7 @@ namespace mp.Admin.Controllers
             }
 
             var tag = Manager.AdminPixivTags.Items.Where(t => t.PText == ptext).FirstOrDefault();
-            if(tag!=null)
+            if (tag != null)
             {
                 result.Success = false;
                 result.Message = "ptext已经存在";

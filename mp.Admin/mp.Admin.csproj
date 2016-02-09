@@ -47,7 +47,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.CSharp">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.8.6\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
@@ -160,7 +162,9 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\uploader.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -224,6 +228,7 @@
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <Content Include="Views\Pick\Index.cshtml" />
     <Content Include="Views\Tag\Index.cshtml" />
+    <Content Include="Views\Tag\Modal.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

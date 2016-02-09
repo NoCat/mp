@@ -1,0 +1,29 @@
+﻿@model mp.DAL.AdminPixivTag
+
+<form class="form-horizontal" action="@Request.Url">
+    <div class="modal-body ">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">日文标签</label>
+            <div class="col-sm-10">
+                @if (ViewBag.ModalType == "edit")
+                {
+                    <p class="form-control-static">@Model.PText</p>
+                }
+                else
+                {
+                    <input class="form-control" name="ptext" />
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">中文标签</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="mtext" value="@Model.MText"/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">确定</button>
+    </div>
+</form>

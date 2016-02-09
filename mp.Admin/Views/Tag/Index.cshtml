@@ -1,22 +1,24 @@
-﻿@{
+﻿@model List<mp.DAL.AdminPixivTag>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/dashboardMaster.cshtml";
     ViewBag.SubPage = "标签";
 }
-@model List<mp.DAL.AdminPixivTag>
 <h2>标签编辑</h2>
 
 <div style="margin:10px auto;" class="clearfix">
     <div class="pull-left">
-        <div class="btn btn-primary btn-sm">新增</div>
+        <div class="btn btn-primary btn-sm add-btn">新增</div>
     </div>
     <div class="pull-right">
-        <div class="input-group input-group-sm">
-            <input type="text" name="" class="form-control" placeholder="搜索...">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-        </div>
+        <form action="/tag">
+            <div class="input-group input-group-sm">
+                <input type="text" name="keyword" class="form-control" value="@ViewBag.Keyword" placeholder="搜索...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -34,35 +36,27 @@
             <td>@item.PText</td>
             <td data-id="@item.ID">@item.MText</td>
             <td>
-                <button class="btn btn-primary edit-btn btn-xs" data-id="@item.ID" data-ptext="@item.PText" data-mtext="@item.MText">编辑</button>
+                <button class="btn btn-primary edit-btn btn-xs" data-id="@item.ID">编辑</button>
             </td>
         </tr>
     }
 </table>
 
-<div class="modal fade" id="edit-tag">
+<div class="modal fade" id="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">编辑标签</h4>
             </div>
-            <div class="modal-body ">
-                <div class="row">
-                    <label class="col-sm-2">日文标签</label>
-                    <span class="col-sm-10 ptext"></span>
-                </div>
-                <div class="row">
-                    <label class="col-sm-2" style="top:5px;">中文标签</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control mtext" />
-                    </div>
-                </div>
+        <div class="bg-warning text-warning" style="display:none;text-align:center;line-height:2.4;"></div>
+        <div class="loading">
+            <div class="modal-body">
+                <p>读取中......</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">确定</button>
-            </div>
+        </div>
+        <div class="content">
+        </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -72,32 +66,51 @@
             $('.edit-btn').click(function () {
                 var t = $(this);
                 var id = t.data('id');
-                var ptext = t.data('ptext');
-                var mtext = t.data('mtext');
-                $('#edit-tag').modal('show');
-                //初始化窗口
-                var dialog = $('.modal-dialog');
-                dialog.find('.ptext').text(ptext);
-                dialog.find('.mtext').val(mtext);
-
-                var button = dialog.find('.btn.btn-primary');
-                //提交按钮
-                button.click(function () {
-                    var ntext = dialog.find('.mtext').val();
-                    $.post('/tag/edit', { id: id, mtext: ntext }, function (result) {
-                        if (result.Success) {
-                            //将原来的内容更新一遍
-                            t.data('mtext', ntext);
-                            $('td[data-id="' + id + '"]').text(ntext);
-                            button.unbind();
-                            $('#edit-tag').modal('hide');
-                        }
-                        else {
-                            alert(result.Message);
-                        }
-                    }, 'json')
-                })
+                ShowModal('/tag/edit/' + id);
             })
+
+            $('.add-btn').click(function () {
+                ShowModal('/tag/add');
+            });
+
+            function ShowModal(url)
+            {
+                var modal = $('#modal');
+                var loading = modal.find('.loading');
+                var content = modal.find('.content');
+                var warning = modal.find('.bg-warning');
+
+                loading.show();
+                content.hide();
+
+                content.load(url, function () {
+                    loading.hide();
+                    content.show();
+
+                    var form = content.find('form');
+                    form.submit(function () {
+                        var action = form.attr('action');
+                        var data = form.serialize();
+
+                        $.post(action, data, function (result) {
+                            if(result.Success==true)
+                            {
+                                location.reload();
+                            }
+                            else
+                            {
+                                warning.text(result.Message);
+                                warning.show();
+                            }
+                        }, 'json');
+
+                        return false;
+                    });
+                });
+
+                modal.modal('show');
+
+            }
         })
     </script>
 }
