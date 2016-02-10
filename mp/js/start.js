@@ -63,8 +63,8 @@ var mp;
                             text.text('');
                         else
                             text.text(count);
-                        btn.removeClass('praise-btn');
-                        btn.addClass('cancel-praise-btn');
+                        btn.removeClass('praise-btn').removeClass('btn-default');
+                        btn.addClass('cancel-praise-btn').addClass('btn-danger');
                     }
                     else {
                         mp.modal.ShowMessage(result.Message);
@@ -84,8 +84,8 @@ var mp;
                             text.text('');
                         else
                             text.text(count);
-                        btn.removeClass('cancel-praise-btn');
-                        btn.addClass('praise-btn');
+                        btn.removeClass('cancel-praise-btn').removeClass('btn-danger');
+                        btn.addClass('praise-btn').addClass('btn-default');
                     }
                     else {
                         mp.modal.ShowMessage(result.Message);

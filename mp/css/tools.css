@@ -227,13 +227,3 @@ textarea {
 .mp-image-container .next {
   right: 5px;
 }
-.cancel-praise-btn,
-.cancel-praise-btn:hover {
-  color: #a94442;
-}
-a.cancel-praise-btn:hover,
-a.cancel-praise-btn:hover:hover,
-a.cancel-praise-btn:focus,
-a.cancel-praise-btn:hover:focus {
-  color: #843534;
-}

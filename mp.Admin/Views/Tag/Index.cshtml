@@ -27,6 +27,7 @@
         <th>ID</th>
         <th>日文标签</th>
         <th>中文标签</th>
+        <th>引用数</th>
         <th>操作</th>
     </tr>
     @foreach (var item in Model)
@@ -35,6 +36,7 @@
             <td>@item.ID</td>
             <td>@item.PText</td>
             <td data-id="@item.ID">@item.MText</td>
+            <td>@item.CitationCount</td>
             <td>
                 <button class="btn btn-primary edit-btn btn-xs" data-id="@item.ID">编辑</button>
             </td>

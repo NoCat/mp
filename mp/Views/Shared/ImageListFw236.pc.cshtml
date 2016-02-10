@@ -26,9 +26,8 @@
                 <div class="pull-right">
                     @if (Security.IsLogin)
                     {
-                        <div class="btn btn-default btn-sm @(image.IsPraise?"cancel-praise-btn":"praise-btn")" data-id="@image.ID">
+                        <div class="btn btn-sm @(image.IsPraise?"cancel-praise-btn btn-danger":"praise-btn btn-default")" data-id="@image.ID">
                             <span class="glyphicon glyphicon-heart"></span>
-                            <span class="text">@(image.PraiseCount > 0 ? image.PraiseCount.ToString() : "")</span>
                         </div>
                     }
                     else

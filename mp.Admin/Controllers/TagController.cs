@@ -20,9 +20,9 @@ namespace mp.Admin.Controllers
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.Trim();
-                taglist = taglist.Where(t => t.PText.StartsWith(keyword));
+                taglist = taglist.Where(t => t.PText.Contains(keyword));
             }
-            return View(taglist.Take(20).ToList());
+            return View(taglist.OrderByDescending(t => t.ID).Take(20).ToList());
         }
 
         public ActionResult Edit(int id)
