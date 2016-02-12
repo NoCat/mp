@@ -10,8 +10,10 @@ namespace mp.BLL
     {
         public PickManager(MiaopassContext db, ManagerCollection collection) : base(db, collection) { }
 
-        public void Add(string from, string source, int packageId, string description)
+        public Pick Add(string from, string source, int packageId, string description)
         {
+            var pick = new Pick();
+
             var sourceCRC32 = (int)source.CRC32();
             var fromCRC32 = (int)from.CRC32();
 
@@ -21,33 +23,35 @@ namespace mp.BLL
 
             //根据sourceUrl查找下载列表
             var download = Collection.Downloads.CreateIfNotExist(new Download { FromUrlID = fromUrl.ID, SourceUrlID = sourceUrl.ID }, d => d.SourceUrlID == sourceUrl.ID);
+            //创建Image
+            var image = new Image
+            {
+                Description = description,
+                FileID = download.FileID,
+                PackageID = package.ID,
+                UserID = package.UserID,
+                FromUrlID = fromUrl.ID
+            };
+            Collection.Images.Add(image);
             //判断文件是否已经下载过
             if (download.FileID != 0)
             {
                 //文件已经下载过，直接添加到图包
-                Collection.Images.Add(new Image { Description = description, FileID = download.FileID, PackageID = package.ID, UserID = package.UserID, FromUrlID = fromUrl.ID });
+                pick.ImageID = image.ID;
             }
             else
             {
                 //文件未下载过，检查pick是否存在,不存在则添加      
-                if (Collection.Picks.Items.Where(p =>
-                    p.DownloadID == download.ID &&
-                    p.FromUrlID == fromUrl.ID &&
-                    p.PackageID == package.ID &&
-                    p.UserID == package.UserID &&
-                    p.Description == description)
-                    .Count() == 0)
-                {
-                    Collection.Picks.Add(new Pick
-                    {
-                        DownloadID = download.ID,
-                        FromUrlID = fromUrl.ID,
-                        PackageID = package.ID,
-                        UserID = package.UserID,
-                        Description = description
-                    });
-                }
+                pick.DownloadID = download.ID;
+                pick.FromUrlID = fromUrl.ID;
+                pick.PackageID = package.ID;
+                pick.UserID = package.UserID;
+                pick.Description = description;
+                pick.ImageID = image.ID;
+
+                Collection.Picks.Add(pick);
             }
+            return pick;
         }
     }
 }

@@ -96,6 +96,11 @@ namespace mp.Utility
                             var work = new PixivWork();
 
                             var href = "http://www.pixiv.net" + item.Attributes["href"].Value;
+
+                            var regex = new Regex(@"illust_id=(\d+)");
+                            var match = regex.Match(href);
+                            work.WorkID = Convert.ToInt32(match.Groups[1].Value);
+
                             work.From = href;
 
                             var workHtml = wc.Get(href);
@@ -142,14 +147,25 @@ namespace mp.Utility
                 {
                     foreach (var item in pixivworkList)
                     {
+                        var work = new AdminPixivWork();
+                        work.PixivWorkID = item.WorkID;
+                        work.Description = string.Format("[{0}]/[{1}]",item.Title,item.Username);
+                        work.ImageID
+
                         var mtextList = new List<string>();
                         item.Tags.ForEach(t =>
                         {
                             var tag = manager.AdminPixivTags.CreateIfNotExist(new AdminPixivTag { PText = t }, a => a.PText == t);
+                            tag.Weight = tag.Weight + 1;
                             tag.CitationCount++;
                             if (string.IsNullOrWhiteSpace(tag.MText) == false)
                                 mtextList.Add(tag.MText);
                             manager.AdminPixivTags.Update(tag);
+
+                            var workTag = new AdminPixivWorkTag();
+                            workTag.WorkID=work.PixivWorkID;
+                            workTag.TagID=tag.ID;
+                            manager
                         });
 
                         var strTag = "";
@@ -169,6 +185,7 @@ namespace mp.Utility
 
         class PixivWork
         {
+            public int WorkID { get; set; }
             public string From { get; set; }
             public string Source { get; set; }
             public List<string> Tags { get; set; }

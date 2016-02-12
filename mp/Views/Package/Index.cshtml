@@ -15,7 +15,7 @@
                 <div class="description package-description">@Html.MpDescription(packageInfo.Description)</div>
             </div>
             <div class="actions pull-right">
-                @if (packageInfo.User.ID == Security.User.ID)
+                @if (Security.IsLogin && packageInfo.User.ID == Security.User.ID)
                 {
                     <div class="btn btn-primary btn-sm package-edit-btn" data-id="@packageInfo.ID">编辑</div>
                 }
@@ -49,7 +49,7 @@
                         点击添加图片
                     </div>
                 </div>
-                <input type="file" class="upload-btn" multiple accept="image/jpeg,image/png,image/bmp" data-id="@packageInfo.ID"/>
+                <input type="file" class="upload-btn" multiple accept="image/jpeg,image/png,image/bmp" data-id="@packageInfo.ID" />
             </div>
         }
 

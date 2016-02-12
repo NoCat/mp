@@ -19,13 +19,28 @@ namespace mp.DAL
         virtual public File File { get; set; }
         public DateTime CreatedTime { get; set; }
         public int FromUrlID { get; set; }
+        virtual Url FromUrl { get; set; }
         public string Description { get; set; }
         public int PraiseCount { get; set; }
         public int ResaveCount { get; set; }
+        public float Weight { get; set; }
+        public ImageStates State { get; set; }
 
         public Image()
         {
             CreatedTime = DateTime.Now;
         }
+    }
+
+    public enum ImageStates : byte
+    {
+        /// <summary>
+        /// 已就绪
+        /// </summary>
+        Ready = 0,
+        /// <summary>
+        /// 采集中
+        /// </summary>
+        Picking = 1
     }
 }

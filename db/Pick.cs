@@ -17,5 +17,7 @@ namespace mp.DAL
         public int FromUrlID { get; set; }
         virtual public Url FromUrl { get; set; }
         public string Description { get; set; }
+        public int ImageID { get; set; }
+        virtual public Image Image { get; set; }
     }
 }

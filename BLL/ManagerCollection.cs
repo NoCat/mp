@@ -176,6 +176,17 @@ namespace mp.BLL
                 return resaveChains;
             }
         }
+
+        ManagerBase<AdminPixivWorkTag> adminPixivWorkTags;
+        ManagerBase<AdminPixivWorkTag> AdminPixivWorkTags
+        {
+            get
+            {
+                if (adminPixivWorkTags == null)
+                    adminPixivWorkTags = new ManagerBase<AdminPixivWorkTag>(db, this);
+                return adminPixivWorkTags;
+            }
+        }
         
         public ManagerCollection()
         {

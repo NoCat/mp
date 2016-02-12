@@ -17,10 +17,9 @@ namespace mp.Admin.Controllers
             return View();
         }
 
-        public ActionResult Create(int pixivUserId,int packageId)
-        {
-            var userPick = new AdminPixivPickUser { PackageID = packageId, PixivUserID = pixivUserId, LastPickTime = new DateTime(1999,1,1) };
-            Manager.AdminPixivPickUsers.Add(userPick);
+        public ActionResult Create(AdminPixivPickUser model)
+        {     
+            Manager.AdminPixivPickUsers.Add(model);
             return Redirect("~/pick");
         }
 
