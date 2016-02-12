@@ -148,24 +148,20 @@ namespace mp.Utility
                     foreach (var item in pixivworkList)
                     {
                         var work = new AdminPixivWork();
-                        work.PixivWorkID = item.WorkID;
                         work.Description = string.Format("[{0}]/[{1}]",item.Title,item.Username);
-                        work.ImageID
+                        manager.AdminPixivWorks.Add(work);
 
                         var mtextList = new List<string>();
                         item.Tags.ForEach(t =>
                         {
                             var tag = manager.AdminPixivTags.CreateIfNotExist(new AdminPixivTag { PText = t }, a => a.PText == t);
-                            tag.Weight = tag.Weight + 1;
-                            tag.CitationCount++;
                             if (string.IsNullOrWhiteSpace(tag.MText) == false)
                                 mtextList.Add(tag.MText);
-                            manager.AdminPixivTags.Update(tag);
 
                             var workTag = new AdminPixivWorkTag();
-                            workTag.WorkID=work.PixivWorkID;
+                            workTag.WorkID=work.ID;
                             workTag.TagID=tag.ID;
-                            manager
+                            manager.AdminPixivWorkTags.Add(workTag);
                         });
 
                         var strTag = "";
@@ -174,7 +170,9 @@ namespace mp.Utility
                             strTag += string.Format("#{0}#", t);
                         }
 
-                        manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}[{1}]/[{2}]", strTag, item.Title, item.Username));
+                        var pick= manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}{1}", strTag, work.Description));
+                        work.ImageID = pick.ImageID;
+                        manager.AdminPixivWorks.Update(work);
                     }
 
                     user.LastPickTime = now;

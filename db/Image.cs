@@ -19,7 +19,7 @@ namespace mp.DAL
         virtual public File File { get; set; }
         public DateTime CreatedTime { get; set; }
         public int FromUrlID { get; set; }
-        virtual Url FromUrl { get; set; }
+        virtual public Url FromUrl { get; set; }
         public string Description { get; set; }
         public int PraiseCount { get; set; }
         public int ResaveCount { get; set; }

@@ -28,7 +28,7 @@ namespace mp.BLL
             {
                 Description = description,
                 FileID = download.FileID,
-                PackageID = package.ID,
+                PackageID = package.ID,                
                 UserID = package.UserID,
                 FromUrlID = fromUrl.ID
             };
@@ -38,19 +38,21 @@ namespace mp.BLL
             {
                 //文件已经下载过，直接添加到图包
                 pick.ImageID = image.ID;
+
+                image.State = ImageStates.Ready;
             }
             else
             {
-                //文件未下载过，检查pick是否存在,不存在则添加      
+                //文件未下载过，添加pick
                 pick.DownloadID = download.ID;
-                pick.FromUrlID = fromUrl.ID;
-                pick.PackageID = package.ID;
-                pick.UserID = package.UserID;
-                pick.Description = description;
                 pick.ImageID = image.ID;
 
                 Collection.Picks.Add(pick);
+
+                image.State = ImageStates.Picking;
             }
+            Collection.Images.Add(image);
+
             return pick;
         }
     }

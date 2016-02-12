@@ -177,16 +177,28 @@ namespace mp.BLL
             }
         }
 
-        ManagerBase<AdminPixivWorkTag> adminPixivWorkTags;
-        ManagerBase<AdminPixivWorkTag> AdminPixivWorkTags
+        AdminPixivWorkTagManager adminPixivWorkTags;
+        public AdminPixivWorkTagManager AdminPixivWorkTags
         {
             get
             {
                 if (adminPixivWorkTags == null)
-                    adminPixivWorkTags = new ManagerBase<AdminPixivWorkTag>(db, this);
+                    adminPixivWorkTags =new AdminPixivWorkTagManager(db, this);
                 return adminPixivWorkTags;
             }
         }
+
+        ManagerBase<AdminPixivWork> adminPixivWorks;
+        public ManagerBase<AdminPixivWork> AdminPixivWorks
+        {
+            get
+            {
+                if (adminPixivWorks == null)
+                    adminPixivWorks = new ManagerBase<AdminPixivWork>(db, this);
+                return adminPixivWorks;
+            }
+        }
+
         
         public ManagerCollection()
         {

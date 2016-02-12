@@ -101,21 +101,15 @@ namespace mp.Utility
                     manager.Files.Update(file);
 
                     //完善对应的pick任务
-                    var picks = manager.Picks.Items.Where(i => i.DownloadID == download.ID);
-                    var imageList = new List<DAL.Image>();
-                    picks.ToList().ForEach(pick => imageList.Add(
-                        new mp.DAL.Image()
-                        {
-                            Description = pick.Description,
-                            FileID = download.FileID,
-                            FromUrlID = pick.FromUrlID,
-                            PackageID = pick.PackageID,
-                            UserID = pick.UserID
-                        }));
-
-
-                    imageList.ToList().ForEach(i => { manager.Images.Add(i); });
-                    picks.ToList().ForEach(p => { manager.Picks.Remove(p); });
+                    var picks = manager.Picks.Items.Where(i => i.DownloadID == download.ID).ToList() ;
+                    foreach (var item in picks)
+                    {
+                        var image = manager.Images.Find(item.ImageID);
+                        image.FileID = file.ID;
+                        image.State = ImageStates.Ready;
+                        manager.Images.Update(image);
+                    }
+                    manager.Picks.RemoveRange(picks);
                 });
             }
             catch { }

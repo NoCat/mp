@@ -13,6 +13,11 @@ namespace mp.BLL
 
         public override AdminPixivWorkTag Add(AdminPixivWorkTag entity, bool save = true)
         {
+            var tag = DB.AdminPixivTags.Find(entity.TagID);
+            tag.CitationCount++;
+            tag.Weight++;
+            Collection.AdminPixivTags.Update(tag);
+
             var wt = Items.Where(i => i.TagID == entity.TagID && i.WorkID == entity.WorkID).FirstOrDefault();
             if (wt != null)
                 return wt;
