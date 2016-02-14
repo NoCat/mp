@@ -30,7 +30,8 @@ namespace mp.BLL
                 FileID = download.FileID,
                 PackageID = package.ID,                
                 UserID = package.UserID,
-                FromUrlID = fromUrl.ID
+                FromUrlID = fromUrl.ID,
+                CreatedTime=DateTime.Now
             };
             Collection.Images.Add(image);
             //判断文件是否已经下载过
@@ -51,7 +52,7 @@ namespace mp.BLL
 
                 image.State = ImageStates.Picking;
             }
-            Collection.Images.Add(image);
+            Collection.Images.Update(image);
 
             return pick;
         }

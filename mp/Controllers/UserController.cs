@@ -35,7 +35,7 @@ namespace mp.Controllers
                 case UserSubPages.Images:
                     {
                         var list = new List<ImageInfo>();
-                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
                         {
                             list.Add(new ImageInfo(i));
                         });

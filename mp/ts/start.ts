@@ -205,10 +205,8 @@ module mp.start {
             var t = $(e.currentTarget);
             var packageid = t.data('id');
             modal.ShowPackage('/package/edit?id=' + packageid, '编辑图包',(result: AjaxResult) => {
-                $('.package-title').text(result.Data.Title);
-                $('.package-description').text(result.Data.Description);
-                modal.Close();
-            },() => { });
+                location.reload();
+            },null);
         })
     });
 }

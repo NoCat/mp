@@ -109,7 +109,8 @@ namespace mp.Utility
 
                             var publishDateTimeNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".work-info .meta") + "/li[1]");
                             var publishDateTime = Convert.ToDateTime(publishDateTimeNode.InnerText);
-                            if (publishDateTime < user.LastPickTime)
+                            work.PublishDate = publishDateTime;
+                            if (publishDateTime <= user.LastPickTime)
                             {
                                 isEnd = true;
                                 break;
@@ -143,12 +144,14 @@ namespace mp.Utility
                         break;
                 }
 
-                manager.Transaction(() =>
+                pixivworkList.Reverse();
+
+                foreach (var item in pixivworkList)
                 {
-                    foreach (var item in pixivworkList)
+                    manager.Transaction(() =>
                     {
                         var work = new AdminPixivWork();
-                        work.Description = string.Format("[{0}]/[{1}]",item.Title,item.Username);
+                        work.Description = string.Format("[{0}]/[{1}]", item.Title, item.Username);
                         manager.AdminPixivWorks.Add(work);
 
                         var mtextList = new List<string>();
@@ -159,8 +162,8 @@ namespace mp.Utility
                                 mtextList.Add(tag.MText);
 
                             var workTag = new AdminPixivWorkTag();
-                            workTag.WorkID=work.ID;
-                            workTag.TagID=tag.ID;
+                            workTag.WorkID = work.ID;
+                            workTag.TagID = tag.ID;
                             manager.AdminPixivWorkTags.Add(workTag);
                         });
 
@@ -170,14 +173,16 @@ namespace mp.Utility
                             strTag += string.Format("#{0}#", t);
                         }
 
-                        var pick= manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}{1}", strTag, work.Description));
+                        var pick = manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}{1}", strTag, work.Description));
                         work.ImageID = pick.ImageID;
                         manager.AdminPixivWorks.Update(work);
-                    }
 
-                    user.LastPickTime = now;
-                    manager.AdminPixivPickUsers.Update(user);
-                });
+                        user.LastPickTime =item.PublishDate ;
+                        manager.AdminPixivPickUsers.Update(user);
+                    });
+                }
+                user.LastPickTime = DateTime.Now;
+                manager.AdminPixivPickUsers.Update(user);
             }
         }
 
@@ -189,6 +194,7 @@ namespace mp.Utility
             public List<string> Tags { get; set; }
             public string Title { get; set; }
             public string Username { get; set; }
+            public DateTime PublishDate { get; set; }
 
             public PixivWork()
             {

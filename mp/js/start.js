@@ -167,11 +167,8 @@ var mp;
                 var t = $(e.currentTarget);
                 var packageid = t.data('id');
                 mp.modal.ShowPackage('/package/edit?id=' + packageid, '编辑图包', function (result) {
-                    $('.package-title').text(result.Data.Title);
-                    $('.package-description').text(result.Data.Description);
-                    mp.modal.Close();
-                }, function () {
-                });
+                    location.reload();
+                }, null);
             });
         });
     })(start = mp.start || (mp.start = {}));

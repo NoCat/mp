@@ -25,7 +25,7 @@ namespace mp.Controllers
                 max = int.MaxValue;
 
             var list = new List<ImageInfo>();
-            Manager.Images.Items.Where(i => i.PackageID == packageId && i.ID < max).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+            Manager.Images.Items.Where(i => i.PackageID == packageId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
             {
                 list.Add(new ImageInfo(i));
             });

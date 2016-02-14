@@ -12,6 +12,6 @@ namespace mp.DAL
         public string MText { get; set; }
         public bool IsSkip { get; set; }
         public int CitationCount { get; set; }
-        public float Weight { get; set; }
+        public int Weight { get; set; }
     }
 }

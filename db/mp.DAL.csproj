@@ -71,7 +71,6 @@
     <Compile Include="ActivityTypes.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Download.cs" />
-    <Compile Include="DownloadStates.cs" />
     <Compile Include="File.cs" />
     <Compile Include="Following.cs" />
     <Compile Include="FollowingTypes.cs" />

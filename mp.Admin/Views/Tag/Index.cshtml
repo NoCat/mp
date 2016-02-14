@@ -4,13 +4,29 @@
     Layout = "~/Views/Shared/dashboardMaster.cshtml";
     ViewBag.SubPage = "标签";
 }
+
+<style>
+    .toolbar-item{
+        float:left;
+        margin-right:8px;
+    }
+</style>
+
 <h2>标签编辑</h2>
 
 <div style="margin:10px auto;" class="clearfix">
-    <div class="pull-left">
+    <div class="toolbar-item">
+        <span>排序：</span>
+        <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-default">权重</button>
+            <button type="button" class="btn btn-default">ID</button>
+            <button type="button" class="btn btn-default">引用数</button>            
+        </div>
+    </div>
+    <div class="toolbar-item">
         <div class="btn btn-primary btn-sm add-btn">新增</div>
     </div>
-    <div class="pull-right">
+    <div class="toolbar-item">
         <form action="/tag">
             <div class="input-group input-group-sm">
                 <input type="text" name="keyword" class="form-control" value="@ViewBag.Keyword" placeholder="搜索...">
@@ -28,6 +44,7 @@
         <th>日文标签</th>
         <th>中文标签</th>
         <th>引用数</th>
+        <th>权重</th>
         <th>操作</th>
     </tr>
     @foreach (var item in Model)
@@ -37,6 +54,7 @@
             <td>@item.PText</td>
             <td data-id="@item.ID">@item.MText</td>
             <td>@item.CitationCount</td>
+            <td>@item.Weight</td>
             <td>
                 <button class="btn btn-primary edit-btn btn-xs" data-id="@item.ID">编辑</button>
             </td>

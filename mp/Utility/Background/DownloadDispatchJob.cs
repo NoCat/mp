@@ -33,7 +33,7 @@ namespace mp.Utility
                     continue;
                 }
 
-                var download = manager.Downloads.Items.Where(d => d.State == DownloadStates.NotBegin).OrderByDescending(d=>d.ID).FirstOrDefault();
+                var download = manager.Downloads.Items.Where(d => d.State == DownloadStates.NotBegin).FirstOrDefault();
                 if (download == null)
                 {
                     Thread.Sleep(200);

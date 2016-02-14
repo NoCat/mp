@@ -20,12 +20,21 @@ namespace mp.BLL
             DB.Transaction(() =>
             {
                 DB.Add(entity);
-                if (package.HasCover == false)
-                    package.CoverID = entity.ID;
-                package.LastModify = DateTime.Now;
-
-                DB.Update(package);
+                UpdatePackage(package, entity);
             });
+            return entity;
+        }
+
+        public override Image Update(Image entity, bool save = true)
+        {
+            var package = DB.Packages.Find(entity.PackageID);
+
+            DB.Transaction(() =>
+            {
+                DB.Update(entity);
+                UpdatePackage(package, entity);
+            });
+
             return entity;
         }
 
@@ -37,8 +46,8 @@ namespace mp.BLL
             {
                 //修改图包信息
                 if (package != null && package.CoverID == entity.ID)
-                {                    
-                    var coverId = DB.Images.Where(i => i.PackageID == package.ID && i.ID!=entity.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                {
+                    var coverId = DB.Images.Where(i => i.PackageID == package.ID && i.ID != entity.ID).OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                     package.CoverID = coverId;
                     package.HasCover = false;
 
@@ -82,6 +91,18 @@ namespace mp.BLL
                     package.CoverID = entities.Select(e => e.ID).Last();
                 DB.Update(package);
             });
+        }
+
+        void UpdatePackage(Package package, Image image)
+        {
+            if (image.State == ImageStates.Ready)
+            {
+                if (package.HasCover == false)
+                    package.CoverID = image.ID;
+                package.LastModify = DateTime.Now;
+
+                DB.Update(package);
+            }
         }
     }
 }
