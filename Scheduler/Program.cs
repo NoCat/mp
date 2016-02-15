@@ -37,13 +37,10 @@ namespace Scheduler
 
         static void CreateJob(Type jobType, IScheduleBuilder scheduleBuider, IScheduler scheduler)
         {
-            string jobName = jobType.Name;
             IJobDetail job = JobBuilder.Create(jobType)
-                .WithIdentity(jobName, "group1")
                 .Build();
 
             var trigger = TriggerBuilder.Create()
-                 .WithIdentity(jobName + "Trigger", "group1")
                  .StartNow();
 
             if (scheduleBuider != null)
