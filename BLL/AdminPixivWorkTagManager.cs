@@ -15,10 +15,14 @@ namespace mp.BLL
         {
             var tag = DB.AdminPixivTags.Find(entity.TagID);
             tag.CitationCount++;
-            tag.Weight+=10000;
+            tag.Weight += 10000;
             Collection.AdminPixivTags.Update(tag);
 
-            return CreateIfNotExist(entity, i => i.TagID == entity.TagID && i.WorkID == entity.WorkID, save);
+            var exist = DB.AdminPixivWorkTags.Where(i => i.TagID == entity.TagID && i.WorkID == entity.WorkID).FirstOrDefault();
+            if (exist != null)
+                return exist;
+
+            return DB.Add(entity, save);
         }
     }
 }
