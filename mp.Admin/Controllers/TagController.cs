@@ -13,16 +13,46 @@ namespace mp.Admin.Controllers
         //
         // GET: /Tag/
 
-        public ActionResult Index(string keyword)
+        public ActionResult Index(string keyword, string orderby = "weight", string filter = "no-edit")
         {
             ViewBag.Keyword = keyword;
+            ViewBag.OrderBy = orderby;
+            ViewBag.Filter = filter;
+
             IQueryable<AdminPixivTag> taglist = Manager.AdminPixivTags.Items;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.Trim();
                 taglist = taglist.Where(t => t.PText.Contains(keyword));
             }
-            return View(taglist.OrderByDescending(t => t.ID).Take(20).ToList());
+
+            switch (filter)
+            {
+                case "no-edit":
+                    taglist = taglist.Where(t => t.MText == null && t.IsSkip == false);
+                    break;
+                case "edited":
+                    taglist = taglist.Where(t => t.MText != null);
+                    break;
+                case "skip":
+                    taglist = taglist.Where(t => t.IsSkip == true);
+                    break;
+            }
+
+            switch (orderby)
+            {
+                case "weight":
+                    taglist = taglist.OrderByDescending(t => t.Weight);
+                    break;
+                case "count":
+                    taglist = taglist.OrderByDescending(t => t.CitationCount);
+                    break;
+                default:
+                    taglist = taglist.OrderByDescending(t => t.ID);
+                    break;
+            }
+
+            return View(taglist.Take(20).ToList());
         }
 
         public ActionResult Edit(int id)
@@ -36,21 +66,22 @@ namespace mp.Admin.Controllers
             return PartialView("modal", model);
         }
         [HttpPost]
-        public ActionResult Edit(int id, string mtext)
+        public ActionResult Edit(int id, string mtext, bool skip = false)
         {
             var result = new AjaxResult();
             var tag = Manager.AdminPixivTags.Find(id);
+            if (string.IsNullOrWhiteSpace(mtext) == false)
+                mtext = mtext.Trim();
+            else
+                mtext = null;
+
             tag.MText = mtext;
-            try
-            {
-                Manager.AdminPixivTags.Update(tag);
-            }
-            catch (Exception e)
-            {
-                result.Success = false;
-                result.Message = e.Message;
-                throw;
-            }
+            tag.IsSkip = skip;
+
+            Manager.AdminPixivTags.Update(tag);
+
+            result.Success = true;
+            result.Message = "ok";
 
             return JsonContent(result);
         }
@@ -58,7 +89,7 @@ namespace mp.Admin.Controllers
         public ActionResult Add()
         {
             var model = new AdminPixivTag();
-            return PartialView("modal",model);
+            return PartialView("modal", model);
         }
         [HttpPost]
         public ActionResult Add(string ptext = "", string mtext = "")

@@ -18,11 +18,7 @@ namespace mp.BLL
             tag.Weight+=10000;
             Collection.AdminPixivTags.Update(tag);
 
-            var wt = Items.Where(i => i.TagID == entity.TagID && i.WorkID == entity.WorkID).FirstOrDefault();
-            if (wt != null)
-                return wt;
-
-            return DB.Add(entity, save);
+            return CreateIfNotExist(entity, i => i.TagID == entity.TagID && i.WorkID == entity.WorkID, save);
         }
     }
 }

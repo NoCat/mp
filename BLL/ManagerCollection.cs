@@ -155,13 +155,13 @@ namespace mp.BLL
             }
         }
 
-        ManagerBase<AdminPixivTag> adminPixivTags;
-        public ManagerBase<AdminPixivTag> AdminPixivTags
+        AdminPixivTagManager adminPixivTags;
+        public AdminPixivTagManager AdminPixivTags
         {
             get
             {
                 if (adminPixivTags == null)
-                    adminPixivTags = new ManagerBase<AdminPixivTag>(db, this);
+                    adminPixivTags = new AdminPixivTagManager(db, this);
                 return adminPixivTags;
             }
         }
