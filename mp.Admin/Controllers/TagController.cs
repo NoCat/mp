@@ -80,6 +80,33 @@ namespace mp.Admin.Controllers
 
             Manager.AdminPixivTags.Update(tag);
 
+            if (tag.IsSkip == false)
+            {
+                var worktags = Manager.AdminPixivWorkTags.Items.Where(wt => wt.TagID == tag.ID).ToList();
+                foreach (var item in worktags)
+                {
+                    var image = item.Work.Image;
+                    if (image != null)
+                    {
+                        var tags = (from worktag in Manager.AdminPixivWorkTags.Items
+                                    join tag1 in Manager.AdminPixivTags.Items.Where(t => t.MText != null) on worktag.TagID equals tag1.ID
+                                    where worktag.WorkID == item.WorkID
+                                    select tag1.MText).Distinct().ToList();
+
+                        var description = "";
+                        foreach (var t in tags)
+                        {
+                            description += string.Format("#{0}#", t);
+                        }
+                        description += item.Work.Description;
+
+                        image.Description = description;
+                        Manager.Images.Update(image);
+                    }
+                }
+            }
+
+
             result.Success = true;
             result.Message = "ok";
 

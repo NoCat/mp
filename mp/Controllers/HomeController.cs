@@ -35,7 +35,7 @@ namespace mp.Controllers
                 .OrderByDescending(p => p.weight)
                 .ThenByDescending(p => p.p.ID)
                 .Select(p => p.p)
-                .Take(8)
+                .Take(6)
                 .ToList();
 
             packages.ForEach(p =>
