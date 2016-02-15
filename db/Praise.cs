@@ -12,5 +12,6 @@ namespace mp.DAL
         virtual public User User { get; set; }
         public int ImageID { get; set; }
         virtual public Image Image { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

@@ -83,7 +83,7 @@ namespace mp.Controllers
                 FileID = image.FileID
             };
             Manager.Images.Add(nImage);
-            Manager.ResaveChains.Add(new ResaveChain { Parent = image.ID, Child = nImage.ID });
+            Manager.Resaves.Add(new Resave { Parent = image.ID, Child = nImage.ID,CreateTime=DateTime.Now });
 
             return JsonContent(result);
         }
@@ -258,7 +258,7 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            praise = new Praise { ImageID = image.ID, UserID = Security.User.ID };
+            praise = new Praise { ImageID = image.ID, UserID = Security.User.ID,CreateTime=DateTime.Now };
             Manager.Praises.Add(praise);
 
             var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();
@@ -294,58 +294,5 @@ namespace mp.Controllers
             return JsonContent(result);
         }
         #endregion
-
-        ImageModalModel GetModalModel(int id, ModelTypes type)
-        {
-            var model = new ImageModalModel();
-
-            var fileId = 0;
-
-            switch (type)
-            {
-                case ModelTypes.Resave:
-                    {
-                        var image = Manager.Images.Find(id);
-                        if (image != null)
-                        {
-                            fileId = image.FileID;
-                            model.ID = image.ID;
-                            model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
-                            model.Description = image.Description;
-                        }
-                        break;
-                    }
-                case ModelTypes.Add:
-                    {
-                        var file = Manager.Files.Find(id);
-                        model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;                        
-                        break;
-                    }
-
-                case ModelTypes.Edit:
-                    {
-                        var image = Manager.Images.Find(id);
-                        model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
-                        model.Description = image.Description;
-                        model.PackageID = image.PackageID;
-                        break;
-                    }
-                default:
-                    break;
-            }
-
-            model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID)
-                .Select(p => new ImageModalModel.PackageListItem
-                {
-                    ID = p.ID,
-                    Title = p.Title,
-                    InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == fileId).Count() > 0
-                }).ToArray();
-
-            if(model.PackageID==0)
-                model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
-
-            return model;
-        }
     }
 }

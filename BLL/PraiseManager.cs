@@ -17,6 +17,7 @@ namespace mp.BLL
             DB.Transaction(() =>
             {
                 image.PraiseCount++;
+                image.Weight += 10000;
                 DB.Update(image);
                 DB.Add(entity);
             });
@@ -29,6 +30,7 @@ namespace mp.BLL
             DB.Transaction(() =>
             {
                 image.PraiseCount--;
+                image.Weight -= (int)(10000 * Math.Pow(0.9, (DateTime.Now - entity.CreateTime).Days));
                 DB.Update(image);
                 DB.Remove(entity);
             });

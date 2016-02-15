@@ -78,7 +78,7 @@
     <Compile Include="PickManager.cs" />
     <Compile Include="PraiseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResaveChainManager.cs" />
+    <Compile Include="ResaveManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

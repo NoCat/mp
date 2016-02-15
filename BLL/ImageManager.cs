@@ -60,11 +60,11 @@ namespace mp.BLL
                 DB.Database.ExecuteSqlCommand(sql1, entity.ID);
 
                 //所有父节点转存数减1
-                var sql2 = "update image set resavecount=resavecount-1 where id in (select parent from resavechain where child=?)";
+                var sql2 = "update image set resavecount=resavecount-1 where id in (select parent from resave where child=?)";
                 DB.Database.ExecuteSqlCommand(sql2, entity.ID);
 
                 //删除所有转存记录
-                var sql3 = "delete from resavechain where parent=? or child=?";
+                var sql3 = "delete from resave where parent=? or child=?";
                 DB.Database.ExecuteSqlCommand(sql3, entity.ID, entity.ID);
 
                 //删除实体

@@ -166,14 +166,14 @@ namespace mp.BLL
             }
         }
 
-        ResaveChainManager resaveChains;
-        public ResaveChainManager ResaveChains
+        ResaveManager resaves;
+        public ResaveManager Resaves
         {
             get
             {
-                if (resaveChains == null)
-                    resaveChains = new ResaveChainManager(db, this);
-                return resaveChains;
+                if (resaves == null)
+                    resaves = new ResaveManager(db, this);
+                return resaves;
             }
         }
 

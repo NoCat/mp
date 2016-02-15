@@ -5,11 +5,12 @@ using System.Text;
 
 namespace mp.DAL
 {
-    public class ResaveChain
+    public class Resave
     {
         public int ID { get; set; }
         public int Parent { get; set; }
         public int Child { get; set; }
         public int PathLength { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

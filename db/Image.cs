@@ -23,7 +23,7 @@ namespace mp.DAL
         public string Description { get; set; }
         public int PraiseCount { get; set; }
         public int ResaveCount { get; set; }
-        public float Weight { get; set; }
+        public int Weight { get; set; }
         public ImageStates State { get; set; }
 
         public Image()

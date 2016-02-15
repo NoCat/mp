@@ -24,11 +24,11 @@ namespace mp.BLL
                 DB.RemoveRange(praise,false);
 
                 //删除所有关于图包内图片的转存记录
-                var resaveChains= DB.ResaveChains.Where(c => images.Select(i => i.ID).Contains(c.Parent) || images.Select(i => i.ID).Contains(c.Child));
-                DB.RemoveRange(resaveChains,false);
+                var resaves= DB.Resaves.Where(c => images.Select(i => i.ID).Contains(c.Parent) || images.Select(i => i.ID).Contains(c.Child));
+                DB.RemoveRange(resaves,false);
 
                 //删除图包内的图片
-                DB.RemoveRange(images, false);
+                DB.RemoveRange(images, false);               
 
                 //删除图包
                 DB.Remove(entity,false);

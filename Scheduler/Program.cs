@@ -20,34 +20,36 @@ namespace Scheduler
 
                 scheduler.Start();
 
-                #region UpdatePixivTagWeight 更新pixiv标签权重
-                IJobDetail UpdatePixivTagWeightJob = JobBuilder.Create<UpdatePixivTagWeightJob>()
-                    .WithIdentity("UpdatePixivTagWeightJob", "group1")
-                    .Build();
-                ITrigger UpdatePixivTagWeightTrigger = TriggerBuilder.Create()
-                    .WithIdentity("UpdatePixivTagWeightJobTrigger", "group1")
-                    .StartNow()
-                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(0, 1))
-                    .Build();
-                scheduler.ScheduleJob(UpdatePixivTagWeightJob, UpdatePixivTagWeightTrigger);
-                #endregion
+                //更新pixivtag权重
+                CreateJob(typeof(UpdatePixivTagWeightJob), CronScheduleBuilder.DailyAtHourAndMinute(0, 2), scheduler);
 
-                #region GenerateSitemap 生成网站地图
-                IJobDetail GenerateSitemapJob = JobBuilder.Create<GenerateSitemapJob>()
-                    .WithIdentity("GenerateSitemapJob", "group1")
-                    .Build();
-                ITrigger GenerateSitemapTrigger = TriggerBuilder.Create()
-                    .WithIdentity("GenerateSitemapTrigger", "group1")
-                    .StartNow()
-                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(0, 30))
-                    .Build();
-                scheduler.ScheduleJob(GenerateSitemapJob, GenerateSitemapTrigger);
-                #endregion
+                //更新image权重
+                CreateJob(typeof(UpdateImageWeightJob), CronScheduleBuilder.DailyAtHourAndMinute(0, 4), scheduler);
+
+                // 生成sitemap
+                CreateJob(typeof(GenerateSitemapJob), CronScheduleBuilder.DailyAtHourAndMinute(0, 30), scheduler);
             }
             catch (SchedulerException se)
             {
                 Console.WriteLine(se);
             }
+        }
+
+        static void CreateJob(Type jobType, IScheduleBuilder scheduleBuider, IScheduler scheduler)
+        {
+            string jobName = jobType.Name;
+            IJobDetail job = JobBuilder.Create(jobType)
+                .WithIdentity(jobName, "group1")
+                .Build();
+
+            var trigger = TriggerBuilder.Create()
+                 .WithIdentity(jobName + "Trigger", "group1")
+                 .StartNow();
+
+            if (scheduleBuider != null)
+                trigger.WithSchedule(scheduleBuider);
+
+            scheduler.ScheduleJob(job, trigger.Build());
         }
     }
 }
