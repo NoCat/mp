@@ -33,7 +33,7 @@ namespace mp.Controllers
                         weight = Manager.Images.Items.Where(i => i.PackageID == p.ID).Select(i => i.Weight).Sum()
                     })
                 .OrderByDescending(p => p.weight)
-                .ThenByDescending(p => p.p.ID)
+                .ThenByDescending(p => p.p.LastModify)
                 .Select(p => p.p)
                 .Take(6)
                 .ToList();

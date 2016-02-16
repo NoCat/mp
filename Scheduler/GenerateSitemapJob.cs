@@ -27,7 +27,7 @@ namespace Scheduler
             while (true)
             {
                 var list = manager.Images.Items.Where(i => i.State == ImageStates.Ready).OrderBy(i => i.ID).Select(i => i.ID).Skip(page * max).Take(max).ToList();
-                using (var writer = System.IO.File.CreateText(string.Format(@"c:\test\sitemap_{0}.txt", page)))
+                using (var writer = System.IO.File.CreateText(string.Format(@"c:\mp\sitemap\sitemap_{0}.txt", page)))
                 {
                     foreach (var item in list)
                     {

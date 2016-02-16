@@ -43,10 +43,15 @@ namespace mp.BLL
                 images.ForEach(i => i.ResaveCount++);
                 DB.UpdateRange(images);
 
-                //被转存的图片权重更新
-                var parent = DB.Images.Find(entity.Parent);
-                parent.Weight += 10000;
-                DB.Update(parent);
+                //被转存的图片权重更新                
+                var child=DB.Images.Find(entity.Child);
+                var exist = DB.Images.Where(i => i.UserID == child.UserID && i.FileID == child.FileID).Count() > 0;
+                if (exist == false)
+                {
+                    var parent = DB.Images.Find(entity.Parent);
+                    parent.Weight += 10000;
+                    DB.Update(parent);
+                }
             });
 
             return entity;
