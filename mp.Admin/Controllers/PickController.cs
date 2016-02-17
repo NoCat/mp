@@ -18,8 +18,12 @@ namespace mp.Admin.Controllers
         }
 
         public ActionResult Create(AdminPixivPickUser model)
-        {     
-            Manager.AdminPixivPickUsers.Add(model);
+        {
+            var exist = Manager.AdminPixivPickUsers.Find(model.ID) != null;
+            if (exist == false)
+            {
+                Manager.AdminPixivPickUsers.Add(model);
+            }
             return Redirect("~/pick");
         }
 

@@ -17,6 +17,7 @@ namespace mp.Controllers
         {
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
+
             Manager.Images.Items
                 .Where(i => i.State == DAL.ImageStates.Ready)
                 .OrderByDescending(i => i.Weight)
