@@ -145,9 +145,6 @@
   border-radius: 16px;
   display: inline;
 }
-.float-left {
-  float: left;
-}
 .navbar .dropdown-menu .upload-btn {
   position: absolute;
   top: 0;
@@ -163,6 +160,9 @@
 .navbar .signup-btn {
   margin-left: 15px;
 }
-.navbar a:focus {
+.float-left {
+  float: left;
+}
+a:focus {
   outline: none;
 }

@@ -53,31 +53,34 @@
         float: left;
     }
 
-    #mp-user-menu{
-        .avt{
+    #mp-user-menu {
+        .avt {
             .size(32px,32px);
-            margin:(@height - 32)/2;
-            border-radius:16px;
+            margin: (@height - 32)/2;
+            border-radius: 16px;
         }
     }
 }
-    .navbar-default {
-        height: 46px;
-        background-color: white;
-        box-shadow: 0 0 1px 0 #aaa;
-    }
 
-    .navbar .navbar-form {
+.navbar-default {
+    height: 46px;
+    background-color: white;
+    box-shadow: 0 0 1px 0 #aaa;
+}
+
+.navbar {
+
+    .navbar-form {
         position: relative;
         top: 2px;
     }
 
-    .navbar .glyphicon-search {
+    .glyphicon-search {
         left: -25px;
         top: 3px;
     }
 
-    .navbar .avt {
+    .avt {
         float: left;
         margin-right: 5px;
         margin-top: -5px;
@@ -88,11 +91,7 @@
         display: inline;
     }
 
-    .float-left {
-        float: left;
-    }
-
-    .navbar .dropdown-menu .upload-btn {
+    .dropdown-menu .upload-btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -102,14 +101,19 @@
         cursor: pointer;
     }
 
-    .navbar input[type='text'] {
+    input[type='text'] {
         height: 30px;
     }
 
-    .navbar .signup-btn {
+    .signup-btn {
         margin-left: 15px;
     }
+}
 
-    .navbar a:focus {
-        outline: none;
-    }
+.float-left {
+    float: left;
+}
+
+a:focus {
+    outline: none;
+}
