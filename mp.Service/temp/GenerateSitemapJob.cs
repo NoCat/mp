@@ -11,7 +11,7 @@ using Quartz.Impl;
 using mp.DAL;
 using mp.BLL;
 
-namespace Scheduler
+namespace mp.Service
 {
     class GenerateSitemapJob : IJob
     {

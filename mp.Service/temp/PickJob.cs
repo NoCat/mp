@@ -1,71 +1,23 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using mp.BLL;
+using mp.DAL;
+using Quartz;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using mp.DAL;
-using HtmlAgilityPack;
+using System.Text;
 using System.Text.RegularExpressions;
-using mp.BLL;
+using System.Web;
 
-namespace mp.Utility
+namespace mp.Service
 {
-    public class PickJob : Job
+    class PickJob:IJob
     {
-        string SelectorToXPath(string selector)
-        {
-            var result = "";
-            //先按照空格分开
-            var regex = new Regex(@"\S+");
-            var matches = regex.Matches(selector);
-            foreach (Match match in matches)
-            {
-                var node = "";
-                //节点名，默认*
-                var nodeName = "*";
-                //筛选条件，默认无
-                var predicate = "";
-                //按照#，.（点号）分开
-                var subRegex = new Regex(@"([#\.\w])([^#\.\s])+");
-                var subMatches = subRegex.Matches(match.Value);
-                foreach (Match sm in subMatches)
-                {
-                    var value = sm.Value;
-                    if (value.StartsWith("#"))
-                    {
-                        predicate += string.Format("@id='{0}' and ", value.Substring(1));
-                    }
-                    else if (value.StartsWith("."))
-                    {
-                        predicate += string.Format("contains(@class,'{0}') and ", value.Substring(1));
-                    }
-                    else
-                    {
-                        nodeName = value;
-                    }
-                }
-                node = nodeName;
-                if (predicate != "")
-                {
-                    predicate = predicate.Substring(0, predicate.Length - 5);
-                    node += string.Format("[{0}]", predicate);
-                }
-                result += "//" + node;
-            }
-            return result;
-        }
-
-        public PickJob()
-        {
-            Interval = TimeSpan.FromHours(3);
-        }
-
-        protected override void ExcuteCore(object param)
+        public void Execute(IJobExecutionContext context)
         {
             var manager = new ManagerCollection();
             var wc = new XWebClient();
-            var now = DateTime.Now;
-            var time = now.AddDays(-2);
-            var list = manager.AdminPixivPickUsers.Items.Where(p => p.LastPickTime < time).ToList();
+            var list = manager.AdminPixivPickUsers.Items.ToList();
             if (list.Count == 0)
                 return;
 
@@ -176,13 +128,56 @@ namespace mp.Utility
                         work.ImageID = pick.ImageID;
                         manager.AdminPixivWorks.Update(work);
 
-                        user.LastPickTime =item.PublishDate ;
+                        user.LastPickTime = item.PublishDate;
                         manager.AdminPixivPickUsers.Update(user);
                     });
                 }
                 user.LastPickTime = DateTime.Now;
                 manager.AdminPixivPickUsers.Update(user);
             }
+        }
+
+        string SelectorToXPath(string selector)
+        {
+            var result = "";
+            //先按照空格分开
+            var regex = new Regex(@"\S+");
+            var matches = regex.Matches(selector);
+            foreach (Match match in matches)
+            {
+                var node = "";
+                //节点名，默认*
+                var nodeName = "*";
+                //筛选条件，默认无
+                var predicate = "";
+                //按照#，.（点号）分开
+                var subRegex = new Regex(@"([#\.\w])([^#\.\s])+");
+                var subMatches = subRegex.Matches(match.Value);
+                foreach (Match sm in subMatches)
+                {
+                    var value = sm.Value;
+                    if (value.StartsWith("#"))
+                    {
+                        predicate += string.Format("@id='{0}' and ", value.Substring(1));
+                    }
+                    else if (value.StartsWith("."))
+                    {
+                        predicate += string.Format("contains(@class,'{0}') and ", value.Substring(1));
+                    }
+                    else
+                    {
+                        nodeName = value;
+                    }
+                }
+                node = nodeName;
+                if (predicate != "")
+                {
+                    predicate = predicate.Substring(0, predicate.Length - 5);
+                    node += string.Format("[{0}]", predicate);
+                }
+                result += "//" + node;
+            }
+            return result;
         }
 
         class PixivWork
@@ -200,5 +195,6 @@ namespace mp.Utility
                 Tags = new List<string>();
             }
         }
+
     }
 }

@@ -13,7 +13,6 @@
     <tr>
         <th>P站用户ID</th>
         <th>图包ID</th>
-        <th>图包标题</th>
         <th>最后采集时间</th>
         <th>操作</th>
     </tr>
@@ -23,7 +22,6 @@
             <td>@item.PixivUserID</td>
             <td>@item.PackageID</td>
             <td>@item.LastPickTime.ToString("yyyy-MM-dd hh:mm")</td>
-            <td>@item.Package.Title</td>
             <td>
                 <a href="/pick/delete/@item.ID" class="btn btn-xs btn-danger confirm">
                     删除

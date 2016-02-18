@@ -44,6 +44,7 @@ namespace mp.Utility
                 download.State = DownloadStates.Processing;
                 manager.Downloads.Update(download);
                 var t = new Thread(new ParameterizedThreadStart(Download));
+
                 t.IsBackground = true;
                 t.Start(download);
             }
