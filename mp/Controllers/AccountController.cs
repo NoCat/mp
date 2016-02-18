@@ -85,7 +85,8 @@ namespace mp.Controllers
                 Email = email,
                 Password = password,
                 Salt = salt,
-                UseDefaultHead=true
+                UseDefaultHead=true,
+                CreateTime=DateTime.Now
             };
 
             Manager.Users.Add(user);
