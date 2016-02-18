@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.pc.cshtml";
+
+    ViewBag.Title = "最新_喵帕斯";
+    ViewBag.Keywords = "动漫 acg 图片 图包";
+    ViewBag.Description = "专注于动漫图片的收集和分享";
+}
+
+<div class="mp-container">
+    <div class="mp-piece">
+        <div class="header clearfix">
+            <h2>最新图片</h2>
+        </div>
+        <div class="waterfall-236 clearfix">
+            @Html.Partial("ImageListFw236.pc", (List<mp.Models.ImageInfo>)ViewBag.ImageList)
+        </div>
+    </div>
+</div>
+
+@RenderPage("~/Views/Shared/footer.pc.cshtml")
