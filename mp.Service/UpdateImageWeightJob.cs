@@ -1,21 +1,23 @@
-﻿using Quartz;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using mp.BLL;
-using mp.DAL;
+using Quartz;
 
-namespace Scheduler
+using mp.DAL;
+using mp.BLL;
+
+namespace mp.Service
 {
-    class UpdatePixivTagWeightJob:IJob
+    class UpdateImageWeightJob:IJob
     {
         public void Execute(IJobExecutionContext context)
         {
             var db = new MiaopassContext();
-            var sql = @"update adminpixivtag set weight=weight*0.9";
+
+            var sql = "update image set weight=weight*0.9";
             db.Database.ExecuteSqlCommand(sql);
         }
     }

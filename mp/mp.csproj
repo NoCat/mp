@@ -289,7 +289,6 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Package\Modal.cshtml" />
-    <Content Include="Views\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
