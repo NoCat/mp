@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using mp.Models;
+using mp.DAL;
 
 namespace mp.Controllers
 {
@@ -35,7 +36,7 @@ namespace mp.Controllers
                 case UserSubPages.Images:
                     {
                         var list = new List<ImageInfo>();
-                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max && i.State == DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
                         {
                             list.Add(new ImageInfo(i));
                         });
@@ -79,6 +80,54 @@ namespace mp.Controllers
                     }
             }
             return View("index.pc");
+        }
+
+        [MPAuthorize, HttpPost]
+        public ActionResult Follow(int userId)
+        {
+            var result = new AjaxResult();
+
+            if (userId == Security.User.ID)
+            {
+                result.Success = false;
+                result.Message = "不能关注自己";
+                return JsonContent(result);
+            }
+
+            var user = Manager.Users.Find(userId);
+            if (user == null)
+            {
+                result.Success = false;
+                result.Message = "关注用户不存在";
+                return JsonContent(result);
+            }
+
+            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Info == userId && f.Type == DAL.FollowingTypes.User).Count() > 0;
+            if (exist)
+            {
+                result.Success = false;
+                result.Message = "用户已经关注过";
+                return JsonContent(result);
+            }
+
+            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.User, Info = userId };
+            Manager.Followings.Add(follow);
+
+            return JsonContent(result);
+        }
+
+        [MPAuthorize, HttpPost]
+        public ActionResult CancelFollow(int userid)
+        {
+            var result = new AjaxResult();
+
+            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.User && f.Info == userid).FirstOrDefault();
+            if(follow!=null)
+            {
+                Manager.Followings.Remove(follow);
+            }
+
+            return JsonContent(result);
         }
     }
 

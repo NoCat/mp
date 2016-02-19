@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using mp.Models;
+using mp.DAL;
 
 namespace mp.Controllers
 {
@@ -146,5 +147,51 @@ namespace mp.Controllers
             return JsonContent(result);
         }
         #endregion
+
+        [MPAuthorize,HttpPost]
+        public ActionResult Follow(int packageId)
+        {
+            var result = new AjaxResult();
+
+            var package = Manager.Packages.Find(packageId);
+            if(package==null)
+            {
+                result.Success = false;
+                result.Message = "图包不存在";
+                return JsonContent(result);
+            }
+
+            if(package.UserID==Security.User.ID)
+            {
+                result.Success = false;
+                result.Message = "不能关注自己的图包";
+                return JsonContent(result);
+            }
+
+            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == DAL.FollowingTypes.Package && f.Info == packageId).Count() > 0;
+            if(exist)
+            {
+                result.Success = false;
+                result.Message = "已经关注了";
+                return JsonContent(result);
+            }
+
+            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.Package, Info = packageId };
+            Manager.Followings.Add(follow);
+
+            return JsonContent(result);
+        }
+
+        [MPAuthorize,HttpPost]
+        public ActionResult CancelFollow(int packageId)
+        {
+            var result = new AjaxResult();
+
+            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.Package && f.Info == packageId).FirstOrDefault();
+            if (follow != null)
+                Manager.Followings.Remove(follow);
+
+            return JsonContent(result);
+        }
     }
 }

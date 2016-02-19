@@ -16,8 +16,25 @@
                     <img class="media-object avt" src="@userInfo.BigHead" />
                 </div>
                 <div class="media-body">
-                    <div class="actions">
-                        <div class="btn btn-primary btn-sm">关注</div>
+                    <div class="actions pull-right">
+                        @if (Security.IsLogin)
+                        {
+                            if (userInfo.ID != Security.User.ID)
+                            {
+                                if (userInfo.IsFollowing)
+                                {
+                                    <div class="btn btn-primary btn-sm user-follow-btn" data-id="@userInfo.ID">关注</div>
+                                }
+                                else
+                                {
+                                    <div class="btn btn-default btn-sm user-cancel-follow-btn" data-id="@userInfo.ID">取消关注</div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <div class="btn btn-primary btn-sm login-btn">关注</div>
+                        }
                     </div>
                     <h3 class="media-heading">@userInfo.Name</h3>
                     <div class="description">@userInfo.Description</div>

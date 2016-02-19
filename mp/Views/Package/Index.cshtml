@@ -15,9 +15,23 @@
                 <div class="description package-description">@Html.MpDescription(packageInfo.Description)</div>
             </div>
             <div class="actions pull-right">
-                @if (Security.IsLogin && packageInfo.User.ID == Security.User.ID)
+                @if (Security.IsLogin)
                 {
-                    <div class="btn btn-primary btn-sm package-edit-btn" data-id="@packageInfo.ID">编辑</div>
+                    if (packageInfo.ID != Security.User.ID)
+                    {
+                        if (packageInfo.IsFollowing)
+                        {
+                            <div class="btn btn-primary btn-sm package-follow-btn" data-id="@packageInfo.ID">关注</div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-default btn-sm package-cancel-follow-btn" data-id="@packageInfo.ID">取消关注</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="btn btn-primary btn-sm package-edit-btn" data-id="@packageInfo.ID">编辑</div>
+                    }
                 }
                 else
                 {

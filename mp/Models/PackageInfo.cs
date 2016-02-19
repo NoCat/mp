@@ -24,6 +24,18 @@ namespace mp.Models
         public int ID { get; set; }
         public int UserID { get; set; }
 
+        public bool IsFollowing
+        {
+            get
+            {
+                if (Security.IsLogin == false)
+                    return false;
+
+                return DB.Followings.Items.Where(f => f.Type == FollowingTypes.Package && f.UserID == Security.User.ID && f.Info == ID).Count() > 0;
+            }
+        }
+
+
         int _imageCount = -1;
         public int ImageCount
         {
