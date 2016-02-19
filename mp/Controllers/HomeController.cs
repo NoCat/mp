@@ -31,7 +31,7 @@ namespace mp.Controllers
                 .Select(p => new
                     {
                         p,
-                        weight = Manager.Images.Items.Where(i => i.PackageID == p.ID).Select(i => i.Weight).Sum()
+                        weight = Manager.Images.Items.Where(i => i.PackageID == p.ID).Sum(i=>i.Weight)
                     })
                 .OrderByDescending(p => p.weight)
                 .ThenByDescending(p => p.p.LastModify)
@@ -49,7 +49,7 @@ namespace mp.Controllers
 
             return View("index.pc");
         }
-
+        
         public ActionResult Latest()
         {
             var imageList = new List<ImageInfo>();
