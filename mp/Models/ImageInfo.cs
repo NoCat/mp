@@ -7,7 +7,7 @@ using mp.BLL;
 using mp.Models;
 
 namespace mp.Models
-{   
+{
     public class ImageInfo
     {
         Image image;
@@ -21,10 +21,18 @@ namespace mp.Models
 
         public int ID { get; set; }
         public int PackageID { get; set; }
-        public DateTime CreatedTime { get; set; }        
+        public DateTime CreatedTime { get; set; }
         public int UserID { get; set; }
         public int PraiseCount { get; set; }
         public int ResaveCount { get; set; }
+        public int FromUrlID { get; set; }
+        public Url FromUrl
+        {
+            get
+            {
+                return image.FromUrl;
+            }
+        }
         public ImageInfo(Image image)
         {
             this.image = image;
@@ -35,6 +43,7 @@ namespace mp.Models
             UserID = image.UserID;
             PraiseCount = image.PraiseCount;
             ResaveCount = image.ResaveCount;
+            FromUrlID = image.FromUrlID;
         }
 
         UserInfo _user = null;
@@ -42,7 +51,7 @@ namespace mp.Models
         {
             get
             {
-                if (_user==null)
+                if (_user == null)
                 {
                     _user = new UserInfo(image.User);
                 }
@@ -55,7 +64,7 @@ namespace mp.Models
         {
             get
             {
-                if (_package==null)
+                if (_package == null)
                 {
                     _package = new PackageInfo(image.Package);
                 }
@@ -67,7 +76,7 @@ namespace mp.Models
         {
             get
             {
-                if(Security.IsLogin==false)
+                if (Security.IsLogin == false)
                     return false;
 
                 return DB.Praises.Items.Where(p => p.ImageID == ID && p.UserID == Security.User.ID).Count() > 0;

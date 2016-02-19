@@ -24,6 +24,17 @@ namespace mp.Models
         public int ID { get; set; }
         public string Description { get; set; }
 
+        public bool IsFollowing
+        {
+            get
+            {
+                if (Security.IsLogin == false)
+                    return false;
+
+                return Manager.Followings.Items.Where(f => f.Type == FollowingTypes.User && f.UserID == Security.User.ID && f.Info == ID).Count() > 0;
+            }
+        }
+
         int _packageCount = -1;
         public int PackageCount
         {

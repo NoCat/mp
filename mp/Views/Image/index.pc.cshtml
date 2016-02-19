@@ -51,7 +51,15 @@
                     <div class="image">
                         <img src="@imageInfo.ThumbFW658.Url" width="@imageInfo.ThumbFW658.Width" height="@imageInfo.ThumbFW658.Height" />
                     </div>
-                    <div class="bar-bottom"></div>
+                    <div class="bar-bottom clearfix">
+                        <div class="pull-left"></div>
+                        <div class="pull-right">
+                            @if (imageInfo.FromUrlID != 0)
+                            {
+                                <a class="btn btn-default btn-sm" href="@imageInfo.FromUrl.Text"><span class="glyphicon glyphicon-globe"></span>查看来源</a>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mp-panel panel">
