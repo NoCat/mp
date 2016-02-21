@@ -21,7 +21,7 @@ namespace mp
             routes.MapRoute(name: "image", url: "image/{id}/{action}", defaults: new { controller = "image", action = "index" }, constraints: new { id = @"\d+" });
             //用户页
             routes.MapRoute(name: "user", url: "user/{userId}/{subPage}/{max}", defaults: new { controller = "user", action = "index", max = 0 });
-            routes.MapRoute(name: "user-default", url: "user/{userId}/{action}", defaults: new { controller = "user", action = "index" });
+            routes.MapRoute(name: "user-default", url: "user/{userId}/{action}", defaults: new { controller = "user", action = "index" }, constraints: new { id = @"\d+" });
             //搜索页
             routes.MapRoute(name: "search", url: "search/{kw}/{max}", defaults: new { controller = "search",action = "index", kw = "", max = 0 });
 
