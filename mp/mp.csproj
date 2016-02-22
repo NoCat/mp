@@ -178,6 +178,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AjaxResult.cs" />
+    <Compile Include="Models\WaterfallItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Background\CleanExpiredFileJob.cs" />
     <Compile Include="Utility\Background\DownloadDispatchJob.cs" />

@@ -10,36 +10,36 @@ namespace mp.Controllers
 {
     public class UserController : ControllerBase
     {
-        public ActionResult Packages(int id=0,int max=0)
+        public ActionResult Packages(int id = 0, int max = 0)
         {
             return Show(UserSubPages.Packages, id, max);
         }
 
-        public ActionResult Images(int id=0,int max=0)
+        public ActionResult Images(int id = 0, int max = 0)
         {
             return Show(UserSubPages.Images, id, max);
         }
 
-        public ActionResult Praises(int id=0,int max=0)
+        public ActionResult Praises(int id = 0, int max = 0)
         {
             return Show(UserSubPages.Praises, id, max);
         }
 
-        public ActionResult Followers(int id=0,int max=0)
+        public ActionResult Followers(int id = 0, int max = 0)
         {
             return Show(UserSubPages.Followers, id, max);
         }
 
-        public ActionResult FollowingUsers(int id=0,int max=0)
+        public ActionResult FollowingUsers(int id = 0, int max = 0)
         {
             return Show(UserSubPages.FollowingUsers, id, max);
         }
 
-        public ActionResult FollowingPackages(int id=0,int max=0)
+        public ActionResult FollowingPackages(int id = 0, int max = 0)
         {
             return Show(UserSubPages.FollowingPackages, id, max);
         }
-        
+
         ActionResult Show(UserSubPages subPage, int userId = 0, int max = 0)
         {
             if (max == 0)
@@ -52,60 +52,90 @@ namespace mp.Controllers
                 ViewBag.UserInfo = new UserInfo(user);
                 return View("index.pc");
             }
+
+            var list = new List<WaterfallItem>();
             switch (subPage)
             {
                 case UserSubPages.Packages:
                     {
-                        var list = new List<PackageInfo>();
-                        Manager.Packages.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
-                        {
-                            list.Add(new PackageInfo(p));
-                        });
+                        Manager.Packages.Items
+                            .Where(p => p.UserID == userId && p.ID < max)
+                            .OrderByDescending(p => p.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(p =>
+                            {
+                                list.Add(new WaterfallItem { ID = p.ID, Item = new PackageInfo(p) });
+                            });
                         return PartialView("PackageList.pc", list);
                     }
                 case UserSubPages.Images:
                     {
-                        var list = new List<ImageInfo>();
-                        Manager.Images.Items.Where(i => i.UserID == userId && i.ID < max && i.State == DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
-                        {
-                            list.Add(new ImageInfo(i));
-                        });
+                        Manager.Images.Items
+                            .Where(i => i.UserID == userId && i.ID < max && i.State == DAL.ImageStates.Ready)
+                            .OrderByDescending(i => i.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(i =>
+                            {
+                                list.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
+                            });
                         return PartialView("ImageListFw236.pc", list);
                     }
                 case UserSubPages.Praises:
                     {
-                        var list = new List<ImageInfo>();
-                        Manager.Praises.Items.Where(p => p.UserID == userId && p.ID < max).OrderByDescending(p => p.ID).Take(20).ToList().ForEach(p =>
-                        {
-                            list.Add(new ImageInfo(p.Image));
-                        });
+                        Manager.Praises.Items
+                            .Include("Image")
+                            .Where(p => p.UserID == userId && p.ID < max)
+                            .OrderByDescending(p => p.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(p =>
+                            {
+                                list.Add(new WaterfallItem { ID = p.ID, Item = new ImageInfo(p.Image) });
+                            });
                         return PartialView("ImageListFw236.pc", list);
                     }
                 case UserSubPages.Followers:
                     {
-                        var list = new List<UserInfo>();
-                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
-                        {
-                            list.Add(new UserInfo(f.User));
-                        });
+                        Manager.Followings.Items
+                            .Include("User")
+                            .Where(f => f.Type == DAL.FollowingTypes.User && f.Info == userId && f.ID < max)
+                            .OrderByDescending(f => f.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(f =>
+                            {
+                                list.Add(new WaterfallItem { ID = f.ID, Item = new UserInfo(f.User) });
+                            });
                         return PartialView("UserList.pc", list);
                     }
                 case UserSubPages.FollowingUsers:
                     {
-                        var list = new List<UserInfo>();
-                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
-                        {
-                            list.Add(new UserInfo(f.User));
-                        });
+                        Manager.Followings.Items
+                            .Include("User")
+                            .Where(f => f.Type == DAL.FollowingTypes.User && f.UserID == userId && f.ID < max)
+                            .OrderByDescending(f => f.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(f =>
+                            {
+                                list.Add(new WaterfallItem { ID = f.ID, Item = new UserInfo(f.User) });
+                            });
                         return PartialView("UserList.pc", list);
                     }
                 case UserSubPages.FollowingPackages:
                     {
-                        var list = new List<PackageInfo>();
-                        Manager.Followings.Items.Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max).OrderByDescending(f => f.ID).Take(20).ToList().ForEach(f =>
-                        {
-                            list.Add(new PackageInfo(Manager.Packages.Find(f.Info)));
-                        });
+                        Manager.Followings.Items
+                            .Where(f => f.Type == DAL.FollowingTypes.Package && f.UserID == userId && f.ID < max)
+                            .OrderByDescending(f => f.ID)
+                            .Take(20)
+                            .ToList()
+                            .ForEach(f =>
+                            {
+                                var package = Manager.Packages.Find(f.Info);
+                                list.Add(new WaterfallItem { ID = f.ID, Item = new PackageInfo(package) });
+                            });
                         return PartialView("PackageList.pc", list);
                     }
             }
@@ -152,7 +182,7 @@ namespace mp.Controllers
             var result = new AjaxResult();
 
             var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.User && f.Info == id).FirstOrDefault();
-            if(follow!=null)
+            if (follow != null)
             {
                 Manager.Followings.Remove(follow);
             }

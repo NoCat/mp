@@ -18,11 +18,20 @@ namespace mp.Controllers
             var packageList = new List<PackageInfo>();
             var imageList = new List<ImageInfo>();
 
-            Manager.Images.Items
+            IEnumerable<int> candidate = Manager.Images.Items
                 .Where(i => i.State == DAL.ImageStates.Ready)
                 .OrderByDescending(i => i.Weight)
-                .ThenByDescending(i => i.ID)
-                .Take(40).ToList().ForEach(i =>
+                .ThenByDescending(i=>i.ID)
+                .Select(i => i.ID)
+                .Take(4000)
+                .ToArray();
+
+            var rand = new Random();
+            candidate = candidate.OrderBy(i => rand.Next()).Take(40);
+
+            Manager.Images.Items
+                .Where(i =>  candidate.Contains(i.ID))
+                .ToList().ForEach(i =>
                     {
                         imageList.Add(new ImageInfo(i));
                     });
