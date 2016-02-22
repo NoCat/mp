@@ -23,11 +23,11 @@
                             {
                                 if (userInfo.IsFollowing)
                                 {
-                                    <div class="btn btn-primary btn-sm user-follow-btn" data-id="@userInfo.ID">关注</div>
+                                    <div class="btn btn-default btn-sm user-cancel-follow-btn" data-id="@userInfo.ID">取消关注</div>
                                 }
                                 else
                                 {
-                                    <div class="btn btn-default btn-sm user-cancel-follow-btn" data-id="@userInfo.ID">取消关注</div>
+                                    <div class="btn btn-primary btn-sm user-follow-btn" data-id="@userInfo.ID">关注</div>
                                 }
                             }
                         }
@@ -46,7 +46,7 @@
             <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Images?"active":"")" href="/user/@userInfo.ID/images">@userInfo.ImageCount 图片</a>
             <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Praises?"active":"")" href="/user/@userInfo.ID/praises">@userInfo.PraiseCount 赞</a>
             <a class="item border-right @(subPage== mp.Controllers.UserSubPages.Followers?"active":"")" href="/user/@userInfo.ID/followers">@userInfo.FollowerCount 粉丝</a>
-            <a class="item border-right @(subPage == mp.Controllers.UserSubPages.FollowingPackages || subPage == mp.Controllers.UserSubPages.FollowingUsers ? "active" : "")" href="/user/@userInfo.ID/followingusers">@userInfo.FollowerCount 关注</a>
+            <a class="item border-right @(subPage == mp.Controllers.UserSubPages.FollowingPackages || subPage == mp.Controllers.UserSubPages.FollowingUsers ? "active" : "")" href="/user/@userInfo.ID/followingusers">@userInfo.FollowCount 关注</a>
         </div>
     </div>
 
@@ -58,8 +58,8 @@
         </div>
     }
 
-    <div class="waterfall-236" data-url="/user/@userInfo.ID/@subPage.ToString().ToLower()/">
-        @Html.Action("index", new { subPage = subPage, userId = userInfo.ID, max = int.MaxValue })
+    <div class="waterfall-236" data-url="/user/@userInfo.ID/@subPage.ToString().ToLower()">
+        @Html.Action(subPage.ToString(), new { subPage = subPage, userId = userInfo.ID, max = int.MaxValue })
     </div>
 
 </div>

@@ -123,6 +123,36 @@ var mp;
                 }, 'json');
                 return false;
             });
+            $(document).on('click', '.package-follow-btn', function (e) {
+                var btn = $(e.currentTarget);
+                var id = btn.data('id');
+                var url = '/package/' + id + '/follow';
+                $.post(url, function (result) {
+                    if (result.Success) {
+                        btn.removeClass('package-follow-btn').removeClass('btn-primary');
+                        btn.addClass('package-cancel-follow-btn').addClass('btn-default').text('取消关注');
+                    }
+                    else {
+                        mp.modal.ShowMessage(result.Message);
+                    }
+                }, 'json');
+                return false;
+            });
+            $(document).on('click', '.package-cancel-follow-btn', function (e) {
+                var btn = $(e.currentTarget);
+                var id = btn.data('id');
+                var url = '/package/' + id + '/cancelfollow';
+                $.post(url, function (result) {
+                    if (result.Success) {
+                        btn.removeClass('package-cancel-follow-btn').removeClass('btn-default');
+                        btn.addClass('package-follow-btn').addClass('btn-primary').text('关注');
+                    }
+                    else {
+                        mp.modal.ShowMessage(result.Message);
+                    }
+                }, 'json');
+                return false;
+            });
             $(document).on('click', '.navbar .tool-upload', function (e) {
                 var p = $(e.currentTarget).parents('.nav .dropdown.open');
                 p.removeClass("open");

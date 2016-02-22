@@ -48,7 +48,7 @@ module mp
                     return;
 
                 var max = waterfall.find('.waterfall-item:last').data('id');
-                url += max;
+                url +='?max='+ max;
                 $.get(url,(data) =>
                 {
                     var div = $('<div></div>');

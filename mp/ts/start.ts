@@ -178,6 +178,50 @@ module mp.start
             return false;
         });
 
+        $(document).on('click', '.package-follow-btn',(e) =>
+        {
+            var btn = $(e.currentTarget);
+            var id = btn.data('id');
+
+            var url = '/package/' + id + '/follow';
+            $.post(url,(result: AjaxResult) =>
+            {
+                if (result.Success)
+                {
+                    btn.removeClass('package-follow-btn').removeClass('btn-primary');
+                    btn.addClass('package-cancel-follow-btn').addClass('btn-default').text('取消关注');
+                }
+                else
+                {
+                    modal.ShowMessage(result.Message);
+                }
+            }, 'json');
+
+            return false;
+        });
+
+        $(document).on('click', '.package-cancel-follow-btn',(e) =>
+        {
+            var btn = $(e.currentTarget);
+            var id = btn.data('id');
+
+            var url = '/package/' + id + '/cancelfollow';
+            $.post(url,(result: AjaxResult) =>
+            {
+                if (result.Success)
+                {
+                    btn.removeClass('package-cancel-follow-btn').removeClass('btn-default');
+                    btn.addClass('package-follow-btn').addClass('btn-primary').text('关注');
+                }
+                else
+                {
+                    modal.ShowMessage(result.Message);
+                }
+            }, 'json');
+
+            return false;
+        });
+
 
         //点击上传按钮
         $(document).on('click', '.navbar .tool-upload',(e) =>

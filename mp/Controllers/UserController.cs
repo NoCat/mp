@@ -10,7 +10,37 @@ namespace mp.Controllers
 {
     public class UserController : ControllerBase
     {
-        public ActionResult Index(UserSubPages subPage = UserSubPages.Packages, int userId = 0, int max = 0)
+        public ActionResult Packages(int id=0,int max=0)
+        {
+            return Show(UserSubPages.Packages, id, max);
+        }
+
+        public ActionResult Images(int id=0,int max=0)
+        {
+            return Show(UserSubPages.Images, id, max);
+        }
+
+        public ActionResult Praises(int id=0,int max=0)
+        {
+            return Show(UserSubPages.Praises, id, max);
+        }
+
+        public ActionResult Followers(int id=0,int max=0)
+        {
+            return Show(UserSubPages.Followers, id, max);
+        }
+
+        public ActionResult FollowingUsers(int id=0,int max=0)
+        {
+            return Show(UserSubPages.FollowingUsers, id, max);
+        }
+
+        public ActionResult FollowingPackages(int id=0,int max=0)
+        {
+            return Show(UserSubPages.FollowingPackages, id, max);
+        }
+        
+        ActionResult Show(UserSubPages subPage, int userId = 0, int max = 0)
         {
             if (max == 0)
             {
@@ -83,18 +113,18 @@ namespace mp.Controllers
         }
 
         [MPAuthorize, HttpPost]
-        public ActionResult Follow(int userId)
+        public ActionResult Follow(int id)
         {
             var result = new AjaxResult();
 
-            if (userId == Security.User.ID)
+            if (id == Security.User.ID)
             {
                 result.Success = false;
                 result.Message = "不能关注自己";
                 return JsonContent(result);
             }
 
-            var user = Manager.Users.Find(userId);
+            var user = Manager.Users.Find(id);
             if (user == null)
             {
                 result.Success = false;
@@ -102,7 +132,7 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Info == userId && f.Type == DAL.FollowingTypes.User).Count() > 0;
+            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Info == id && f.Type == DAL.FollowingTypes.User).Count() > 0;
             if (exist)
             {
                 result.Success = false;
@@ -110,18 +140,18 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.User, Info = userId };
+            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.User, Info = id };
             Manager.Followings.Add(follow);
 
             return JsonContent(result);
         }
 
         [MPAuthorize, HttpPost]
-        public ActionResult CancelFollow(int userid)
+        public ActionResult CancelFollow(int id)
         {
             var result = new AjaxResult();
 
-            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.User && f.Info == userid).FirstOrDefault();
+            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.User && f.Info == id).FirstOrDefault();
             if(follow!=null)
             {
                 Manager.Followings.Remove(follow);
