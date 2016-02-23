@@ -25,10 +25,10 @@ namespace mp.Controllers
             if (max == 0)
                 max = int.MaxValue;
 
-            var list = new List<ImageInfo>();
+            var list = new List<WaterfallItem>();
             Manager.Images.Items.Where(i => i.PackageID == packageId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
             {
-                list.Add(new ImageInfo(i));
+                list.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
             });
 
             switch (thumb.ToLower())

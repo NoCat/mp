@@ -9,19 +9,22 @@
 <div class="mp-container">
     <div class="mp-piece">
         <div class="header clearfix">
-            <h2>最新图包</h2>
+            <h2>热门图包</h2>
         </div>
         <div class="display-row clearfix">
-            @Html.Partial("PackageList.pc", (List<mp.Models.PackageInfo>)ViewBag.PackageList)
+            @Html.Partial("PackageList.pc", (List<mp.Models.WaterfallItem>)ViewBag.PackageList)
         </div>
     </div>
     <div class="separator"></div>
     <div class="mp-piece">
         <div class="header clearfix">
-            <h2>最新图片</h2>
+            <h2>随便看看</h2>
         </div>
         <div class="waterfall-236 clearfix">
-            @Html.Partial("ImageListFw236.pc", (List<mp.Models.ImageInfo>)ViewBag.ImageList)
+            @Html.Partial("ImageListFw236.pc", (List<mp.Models.WaterfallItem>)ViewBag.ImageList)
+        </div>
+        <div style="text-align:center;">
+            <a href="/" class="btn btn-primary">换一批</a>
         </div>
     </div>
 </div>

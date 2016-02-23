@@ -15,8 +15,8 @@ namespace mp.Controllers
 
         public ActionResult Index()
         {
-            var packageList = new List<PackageInfo>();
-            var imageList = new List<ImageInfo>();
+            var packageList = new List<WaterfallItem>();
+            var imageList = new List<WaterfallItem>();
 
             IEnumerable<int> candidate = Manager.Images.Items
                 .Where(i => i.State == DAL.ImageStates.Ready)
@@ -33,7 +33,7 @@ namespace mp.Controllers
                 .Where(i =>  candidate.Contains(i.ID))
                 .ToList().ForEach(i =>
                     {
-                        imageList.Add(new ImageInfo(i));
+                        imageList.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
                     });
 
             var packages = Manager.Packages.Items
@@ -50,7 +50,7 @@ namespace mp.Controllers
 
             packages.ForEach(p =>
             {
-                packageList.Add(new PackageInfo(p));
+                packageList.Add(new WaterfallItem { ID = p.ID, Item = new PackageInfo(p) });
             });
 
             ViewBag.PackageList = packageList;
@@ -72,11 +72,6 @@ namespace mp.Controllers
 
             return View("Latest");
             
-        }
-
-        public ActionResult Test()
-        {
-            return View();
         }
     }
 }

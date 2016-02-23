@@ -1,8 +1,10 @@
-﻿@model IEnumerable<mp.Models.UserInfo>
+﻿@model IEnumerable<mp.Models.WaterfallItem>
 
-@foreach (var user in Model)
+@foreach (var item in Model)
 {
-    <div class="waterfall-item fw236" data-id="@user.ID">
+    var user = item.Item as mp.Models.UserInfo;
+    
+    <div class="waterfall-item fw236" data-id="@item.ID">
         <a class="avt">
             <img src="@user.BigHead" />
         </a>

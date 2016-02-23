@@ -1,8 +1,10 @@
-﻿@model IEnumerable<mp.Models.PackageInfo>
+﻿@model IEnumerable<mp.Models.WaterfallItem>
 
-@foreach (var packageInfo in Model)
+@foreach (var item in Model)
 {
-    <div class="waterfall-item fw236" data-id="@packageInfo.ID">
+    var packageInfo = item.Item as mp.Models.PackageInfo;
+    
+    <div class="waterfall-item fw236" data-id="@item.ID">
         <a href="@packageInfo.HomePage" class="img">
             <img width="236" height="236" src="@(packageInfo.Cover==null?"/images/image.png":packageInfo.Cover.ThumbSQ236.Url.ToString())" />
             <div class="cover"></div>

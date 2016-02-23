@@ -1,8 +1,10 @@
-﻿@model IEnumerable<mp.Models.ImageInfo>
+﻿@model IEnumerable<mp.Models.WaterfallItem>
 
-@foreach (var image in Model)
+@foreach (var item in Model)
 {
-    <div class="waterfall-item fw236" data-id="@image.ID">
+    var image = item.Item as mp.Models.ImageInfo;
+    
+    <div class="waterfall-item fw236" data-id="@item.ID">
         <a href="/image/@image.ID" class="img">
             <img width="@image.ThumbFW236.Width" height="@image.ThumbFW236.Height" src="@image.ThumbFW236.Url" />
             <div class="cover"></div>
