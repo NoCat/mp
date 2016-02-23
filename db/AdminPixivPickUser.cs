@@ -12,5 +12,6 @@ namespace mp.DAL
         public int PackageID { get; set; }
         public virtual Package Package { get; set; }
         public DateTime LastPickTime { get; set; }
+        public string PixivUserName { get; set; }
     }
 }
