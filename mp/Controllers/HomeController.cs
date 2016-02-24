@@ -48,22 +48,7 @@ namespace mp.Controllers
             ViewBag.ImageList = imageList;
 
             return View("index.pc");
-        }
-        
-        public ActionResult Latest()
-        {
-            var imageList = new List<ImageInfo>();
-
-            Manager.Images.Items.Where(i => i.State == DAL.ImageStates.Ready).Take(40).ToList().ForEach(i =>
-            {
-                imageList.Add(new ImageInfo(i));
-            });
-
-            ViewBag.ImageList = imageList;
-
-            return View("Latest");
-            
-        }
+        }       
 
         public ActionResult Test()
         {
