@@ -3,37 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using mp.BLL;
-using mp.Models;
 
 namespace mp.Controllers
 {
     public class NewController : ControllerBase
     {
-        //
-        // GET: /New/
-
-        public ActionResult Index()
+        public ActionResult Index(int max = 0)
         {
-            var imageList = new List<ImageInfo>();
+            if (max == 0)
+                return View();
 
-            Manager.Images.Items.Where(i => i.State == DAL.ImageStates.Ready).Take(40).OrderByDescending(i=>i.FileID).ToList().ForEach(i =>
-            {
-                imageList.Add(new ImageInfo(i));
-            });
+            var list = new List<mp.Models.WaterfallItem>();
 
-            ViewBag.ImageList = imageList;
+            Manager.Images.Items
+                .Where(i => i.State == DAL.ImageStates.Ready && i.ID < max)
+                .OrderByDescending(i => i.ID)
+                .Take(20)
+                .ToList()
+                .ForEach(i =>
+                {
+                    list.Add(new Models.WaterfallItem { ID = i.ID, Item = new mp.Models.ImageInfo(i) });
+                });
 
-            return View("index");
-        }
-
-        [HttpPost]
-        public ActionResult GetNew()
-        {
-            var ajaxResult = new AjaxResult();
-            var imageList = new List<ImageInfo>();
-
-            return;
+            return PartialView("ImageListFw236.pc", list);
         }
 
     }

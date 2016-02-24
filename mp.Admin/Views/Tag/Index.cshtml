@@ -6,9 +6,9 @@
 }
 
 <style>
-    .toolbar-item{
-        float:left;
-        margin-right:8px;
+    .toolbar-item {
+        float: left;
+        margin-right: 8px;
     }
 </style>
 
@@ -45,8 +45,9 @@
                     <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             </div>
+        </div>
     </form>
-    </div>
+</div>
 </div>
 
 <table class="table table-striped">
@@ -80,14 +81,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">编辑标签</h4>
             </div>
-        <div class="bg-warning text-warning" style="display:none;text-align:center;line-height:2.4;"></div>
-        <div class="loading">
-            <div class="modal-body">
-                <p>读取中......</p>
+            <div class="bg-warning text-warning" style="display:none;text-align:center;line-height:2.4;"></div>
+            <div class="content">
             </div>
-        </div>
-        <div class="content">
-        </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -126,18 +122,14 @@
                 ShowModal('/tag/add');
             });
 
-            function ShowModal(url)
-            {
+            function ShowModal(url) {
                 var modal = $('#modal');
-                var loading = modal.find('.loading');
                 var content = modal.find('.content');
                 var warning = modal.find('.bg-warning');
 
-                loading.show();
                 content.hide();
 
                 content.load(url, function () {
-                    loading.hide();
                     content.show();
 
                     var form = content.find('form');
@@ -146,12 +138,10 @@
                         var data = form.serialize();
 
                         $.post(action, data, function (result) {
-                            if(result.Success==true)
-                            {
+                            if (result.Success == true) {
                                 location.reload();
                             }
-                            else
-                            {
+                            else {
                                 warning.text(result.Message);
                                 warning.show();
                             }

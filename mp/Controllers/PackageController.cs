@@ -25,10 +25,10 @@ namespace mp.Controllers
             if (max == 0)
                 max = int.MaxValue;
 
-            var list = new List<ImageInfo>();
+            var list = new List<WaterfallItem>();
             Manager.Images.Items.Where(i => i.PackageID == packageId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
             {
-                list.Add(new ImageInfo(i));
+                list.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
             });
 
             switch (thumb.ToLower())
@@ -149,11 +149,11 @@ namespace mp.Controllers
         #endregion
 
         [MPAuthorize,HttpPost]
-        public ActionResult Follow(int packageId)
+        public ActionResult Follow(int id)
         {
             var result = new AjaxResult();
 
-            var package = Manager.Packages.Find(packageId);
+            var package = Manager.Packages.Find(id);
             if(package==null)
             {
                 result.Success = false;
@@ -168,7 +168,7 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == DAL.FollowingTypes.Package && f.Info == packageId).Count() > 0;
+            var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == DAL.FollowingTypes.Package && f.Info == id).Count() > 0;
             if(exist)
             {
                 result.Success = false;
@@ -176,18 +176,18 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.Package, Info = packageId };
+            var follow = new Following { UserID = Security.User.ID, Type = FollowingTypes.Package, Info = id };
             Manager.Followings.Add(follow);
 
             return JsonContent(result);
         }
 
         [MPAuthorize,HttpPost]
-        public ActionResult CancelFollow(int packageId)
+        public ActionResult CancelFollow(int id)
         {
             var result = new AjaxResult();
 
-            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.Package && f.Info == packageId).FirstOrDefault();
+            var follow = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == FollowingTypes.Package && f.Info == id).FirstOrDefault();
             if (follow != null)
                 Manager.Followings.Remove(follow);
 

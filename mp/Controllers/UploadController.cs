@@ -11,10 +11,6 @@ namespace mp.Controllers
 {
     public class UploadController:ControllerBase
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
         [HttpPost,MPAuthorize]
         public ActionResult Index(string name, int chunk, int chunks, HttpPostedFileBase data)
         {

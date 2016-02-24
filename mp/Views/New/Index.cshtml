@@ -11,12 +11,8 @@
         <div class="header clearfix">
             <h2>最新图片</h2>
         </div>
-        <div class="waterfall-236 clearfix">
-            @Html.Partial("ImageListFw236.pc", (List<mp.Models.ImageInfo>)ViewBag.ImageList)
+        <div class="waterfall-236" data-url="/new">
+            @Html.Action("index", new { max = Int32.MaxValue })
         </div>
     </div>
-    <div class="separator"></div>
-    <div class="mp-piece">查看更多</div>
 </div>
-
-@RenderPage("~/Views/Shared/footer.pc.cshtml")

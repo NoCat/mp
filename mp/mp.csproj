@@ -179,6 +179,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AjaxResult.cs" />
+    <Compile Include="Models\WaterfallItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Background\CleanExpiredFileJob.cs" />
     <Compile Include="Utility\Background\DownloadDispatchJob.cs" />
@@ -288,9 +289,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Package\Modal.cshtml" />
-    <Content Include="Views\Upload.cshtml" />
     <Content Include="Views\New\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

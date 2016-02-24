@@ -6,7 +6,7 @@
 
 <h2 class="page-header">采集管理</h2>
 <div class="placeholder clearfix">
-    <button class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#create"><span class="glyphicon glyphicon-plus"></span>新建采集</button>
+    <button class="btn btn-primary pull-right btn-sm" id="add-btn"><span class="glyphicon glyphicon-plus"></span>新建采集</button>
 </div>
 
 <table class="table table-table-striped">
@@ -23,6 +23,9 @@
             <td>@item.PackageID</td>
             <td>@item.LastPickTime.ToString("yyyy-MM-dd hh:mm")</td>
             <td>
+                <div class="btn btn-xs btn-primary edit-btn" data-id="@item.ID">
+                    编辑
+                </div>
                 <a href="/pick/delete/@item.ID" class="btn btn-xs btn-danger confirm">
                     删除
                 </a>
@@ -31,34 +34,65 @@
     }
 </table>
 
-<div class="modal fade" id="create">
+<div class="modal fade" id="modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" method="post" action="@Url.Action("create")">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">添加采集</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-xs-4">p站用户ID：</label>
-                        <div class="col-xs-8"><input type="text" name="pixivUserId" class="form-control" /></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-4">图包ID：</label>
-                        <div class="col-xs-8"><input type="text" name="packageId" class="form-control" /></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-4">最后采集时间：</label>
-                        <div class="col-xs-8"><input type="text" name="lastpicktime" class="form-control" value="1900/1/1" /></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary">确定</button>
-                </div>
-            </form>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑采集</h4>
+            </div>
+            <div class="bg-warning text-warning" style="display:none;text-align:center;line-height:2.4;"></div>
+            <div class="content"></div>
         </div>
     </div>
 </div>
 
+@section script{
+    <script type="text/javascript">
+        $(document).ready(function () {
 
+            $('.edit-btn').click(function () {
+                var t = $(this);
+                var id = t.data('id');
+                ShowModal('/pick/edit/' + id);
+            })
+
+            $('#add-btn').click(function () {
+                ShowModal('/pick/add');
+            });
+
+            function ShowModal(url) {
+                var modal = $('#modal');
+                var content = modal.find('.content');
+                var warning = modal.find('.bg-warning');
+
+                content.hide();
+
+                content.load(url, function () {
+                    content.show();
+
+                    var form = content.find('form');
+                    form.submit(function () {
+                        var action = form.attr('action');
+                        var data = form.serialize();
+
+                        $.post(action, data, function (result) {
+                            if (result.Success == true) {
+                                location.reload();
+                            }
+                            else {
+                                warning.text(result.Message);
+                                warning.show();
+                            }
+                        }, 'json');
+
+                        return false;
+                    });
+                });
+
+                modal.modal('show');
+
+            }
+        })
+    </script>
+}

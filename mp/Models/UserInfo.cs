@@ -81,12 +81,20 @@ namespace mp.Models
             }
         }
 
+        public int FollowCount
+        {
+            get
+            {
+                return Manager.Followings.Items.Where(f => f.UserID == _user.ID).Count();
+            }
+        }
+
         int _followerCount = -1;
         public int FollowerCount
         {
             get
             {
-                if(_followerCount==-1)
+                 if(_followerCount==-1)
                 {
                     _followerCount = Manager.Followings.Items.Where(f => f.Type == FollowingTypes.User && f.Info == _user.ID).Count();
                 }

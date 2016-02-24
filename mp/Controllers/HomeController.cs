@@ -15,16 +15,25 @@ namespace mp.Controllers
 
         public ActionResult Index()
         {
-            var packageList = new List<PackageInfo>();
-            var imageList = new List<ImageInfo>();
+            var packageList = new List<WaterfallItem>();
+            var imageList = new List<WaterfallItem>();
 
-            Manager.Images.Items
+            IEnumerable<int> candidate = Manager.Images.Items
                 .Where(i => i.State == DAL.ImageStates.Ready)
                 .OrderByDescending(i => i.Weight)
-                .ThenByDescending(i => i.ID)
-                .Take(40).ToList().ForEach(i =>
+                .ThenByDescending(i=>i.ID)
+                .Select(i => i.ID)
+                .Take(4000)
+                .ToArray();
+
+            var rand = new Random();
+            candidate = candidate.OrderBy(i => rand.Next()).Take(40);
+
+            Manager.Images.Items
+                .Where(i =>  candidate.Contains(i.ID))
+                .ToList().ForEach(i =>
                     {
-                        imageList.Add(new ImageInfo(i));
+                        imageList.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
                     });
 
             var packages = Manager.Packages.Items
@@ -41,18 +50,28 @@ namespace mp.Controllers
 
             packages.ForEach(p =>
             {
-                packageList.Add(new PackageInfo(p));
+                packageList.Add(new WaterfallItem { ID = p.ID, Item = new PackageInfo(p) });
             });
 
             ViewBag.PackageList = packageList;
             ViewBag.ImageList = imageList;
 
             return View("index.pc");
-        }       
-
-        public ActionResult Test()
+        }
+        
+        public ActionResult Latest()
         {
-            return View();
+            var imageList = new List<ImageInfo>();
+
+            Manager.Images.Items.Where(i => i.State == DAL.ImageStates.Ready).Take(40).ToList().ForEach(i =>
+            {
+                imageList.Add(new ImageInfo(i));
+            });
+
+            ViewBag.ImageList = imageList;
+
+            return View("Latest");
+            
         }
     }
 }

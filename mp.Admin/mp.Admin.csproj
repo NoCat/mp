@@ -230,6 +230,7 @@
     <Content Include="Views\Tag\Index.cshtml" />
     <Content Include="Views\Tag\Modal.cshtml" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
+    <Content Include="Views\Pick\Modal.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
