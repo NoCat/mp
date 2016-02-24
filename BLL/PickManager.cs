@@ -31,7 +31,8 @@ namespace mp.BLL
                 PackageID = package.ID,                
                 UserID = package.UserID,
                 FromUrlID = fromUrl.ID,
-                CreatedTime=DateTime.Now
+                CreatedTime=DateTime.Now,
+                State= ImageStates.Picking
             };
             Collection.Images.Add(image);
             //判断文件是否已经下载过

@@ -18,20 +18,18 @@ namespace mp.Controllers
             var packageList = new List<WaterfallItem>();
             var imageList = new List<WaterfallItem>();
 
-            IEnumerable<int> candidate = Manager.Images.Items
-                .Where(i => i.State == DAL.ImageStates.Ready)
-                .OrderByDescending(i => i.Weight)
-                .ThenByDescending(i=>i.ID)
-                .Select(i => i.ID)
-                .Take(100)
-                .ToArray();
-
             var rand = new Random();
-            candidate = candidate.OrderBy(i => rand.Next()).Take(40);
 
             Manager.Images.Items
-                .Where(i =>  candidate.Contains(i.ID))
-                .ToList().ForEach(i =>
+                .Where(i => i.State == DAL.ImageStates.Ready)
+                .OrderByDescending(i => i.Weight)
+                .ThenByDescending(i => i.ID)
+                .Take(100)
+                .ToList()
+                .OrderBy(i => rand.Next())
+                .Take(40)
+                .ToList()
+                .ForEach(i =>
                     {
                         imageList.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
                     });
@@ -40,7 +38,7 @@ namespace mp.Controllers
                 .Select(p => new
                     {
                         p,
-                        weight = Manager.Images.Items.Where(i => i.PackageID == p.ID).Sum(i=>i.Weight)
+                        weight = Manager.Images.Items.Where(i => i.PackageID == p.ID).Sum(i => i.Weight)
                     })
                 .OrderByDescending(p => p.weight)
                 .ThenByDescending(p => p.p.LastModify)
@@ -58,7 +56,7 @@ namespace mp.Controllers
 
             return View("index.pc");
         }
-        
+
         public ActionResult Latest()
         {
             var imageList = new List<ImageInfo>();
@@ -71,7 +69,7 @@ namespace mp.Controllers
             ViewBag.ImageList = imageList;
 
             return View("Latest");
-            
+
         }
     }
 }

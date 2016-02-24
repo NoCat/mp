@@ -22,7 +22,7 @@ namespace mp.Service
                 return;
 
             //登录逻辑
-            wc.Post("https://www.secure.pixiv.net/login.php", new { mode = "login", pixiv_id = "aabc_1123@qq.com", pass = "Horsea", skip = 1 });
+            wc.Post("https://www.secure.pixiv.net/login.php", new { mode = "login", pixiv_id = "305870697@qq.com", pass = "Horsea", skip = 1 });
 
             foreach (var user in list)
             {

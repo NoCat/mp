@@ -82,8 +82,8 @@ namespace mp.Admin.Controllers
 
             if (tag.IsSkip == false)
             {
-                var worktags = Manager.AdminPixivWorkTags.Items.Where(wt => wt.TagID == tag.ID).ToList();
-                foreach (var item in worktags)
+                var works = Manager.AdminPixivWorkTags.Items.Where(wt => wt.TagID == tag.ID).ToList();
+                foreach (var item in works)
                 {
                     var image = item.Work.Image;
                     if (image != null)

@@ -20,13 +20,15 @@ namespace mp.Controllers
             return View();
         }
 
-        public ActionResult Images(int packageId = 0, int max = 0, string thumb = "fw236")
+        public ActionResult Images(int id = 0, int max = 0, string thumb = "fw236")
         {
             if (max == 0)
                 max = int.MaxValue;
 
             var list = new List<WaterfallItem>();
-            Manager.Images.Items.Where(i => i.PackageID == packageId && i.ID < max && i.State== DAL.ImageStates.Ready).OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
+            Manager.Images.Items
+                .Where(i => i.PackageID == id && i.ID < max && i.State == DAL.ImageStates.Ready)
+                .OrderByDescending(i => i.ID).Take(20).ToList().ForEach(i =>
             {
                 list.Add(new WaterfallItem { ID = i.ID, Item = new ImageInfo(i) });
             });
@@ -85,10 +87,10 @@ namespace mp.Controllers
             };
             Manager.Packages.Add(package);
 
-            result.Data = new { id=package.ID,title=package.Title };
+            result.Data = new { id = package.ID, title = package.Title };
 
             return JsonContent(result);
-        } 
+        }
         #endregion
 
         #region 编辑
@@ -102,13 +104,13 @@ namespace mp.Controllers
 
             return PartialView("modal");
         }
-        [MPAuthorize,HttpPost]
-        public ActionResult Edit(int id,string title,string description)
+        [MPAuthorize, HttpPost]
+        public ActionResult Edit(int id, string title, string description)
         {
             var result = new AjaxResult();
 
             var package = Manager.Packages.Find(id);
-            if(package==null|| package.UserID!=Security.User.ID)
+            if (package == null || package.UserID != Security.User.ID)
             {
                 result.Success = false;
                 result.Message = "错误操作";
@@ -124,7 +126,7 @@ namespace mp.Controllers
                 title = title.Trim();
             }
 
-            if(title.Length==0)
+            if (title.Length == 0)
             {
                 result.Success = false;
                 result.Message = "图包标题不能为空";
@@ -132,7 +134,7 @@ namespace mp.Controllers
             }
 
             var exist = Manager.Packages.Items.Where(p => p.Title == title && p.UserID == Security.User.ID && p.ID != package.ID).Count() > 0;
-            if(exist)
+            if (exist)
             {
                 result.Success = false;
                 result.Message = "已经存在同名图包";
@@ -143,25 +145,25 @@ namespace mp.Controllers
             package.Description = description;
             Manager.Packages.Update(package);
 
-            result.Data=new {Title=title,Description=description};
+            result.Data = new { Title = title, Description = description };
             return JsonContent(result);
         }
         #endregion
 
-        [MPAuthorize,HttpPost]
+        [MPAuthorize, HttpPost]
         public ActionResult Follow(int id)
         {
             var result = new AjaxResult();
 
             var package = Manager.Packages.Find(id);
-            if(package==null)
+            if (package == null)
             {
                 result.Success = false;
                 result.Message = "图包不存在";
                 return JsonContent(result);
             }
 
-            if(package.UserID==Security.User.ID)
+            if (package.UserID == Security.User.ID)
             {
                 result.Success = false;
                 result.Message = "不能关注自己的图包";
@@ -169,7 +171,7 @@ namespace mp.Controllers
             }
 
             var exist = Manager.Followings.Items.Where(f => f.UserID == Security.User.ID && f.Type == DAL.FollowingTypes.Package && f.Info == id).Count() > 0;
-            if(exist)
+            if (exist)
             {
                 result.Success = false;
                 result.Message = "已经关注了";
@@ -182,7 +184,7 @@ namespace mp.Controllers
             return JsonContent(result);
         }
 
-        [MPAuthorize,HttpPost]
+        [MPAuthorize, HttpPost]
         public ActionResult CancelFollow(int id)
         {
             var result = new AjaxResult();
