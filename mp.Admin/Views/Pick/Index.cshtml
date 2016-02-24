@@ -12,7 +12,9 @@
 <table class="table table-table-striped">
     <tr>
         <th>P站用户ID</th>
+        <th>P站用户名</th>
         <th>图包ID</th>
+        <th>图包标题</th>
         <th>最后采集时间</th>
         <th>操作</th>
     </tr>
@@ -20,7 +22,9 @@
     {
         <tr>
             <td>@item.PixivUserID</td>
+            <td>@item.PixivUserName</td>
             <td>@item.PackageID</td>
+            <td>@(item.Package==null?"":item.Package.Title)</td>
             <td>@item.LastPickTime.ToString("yyyy-MM-dd hh:mm")</td>
             <td>
                 <div class="btn btn-xs btn-primary edit-btn" data-id="@item.ID">

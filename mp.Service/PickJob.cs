@@ -11,7 +11,7 @@ using System.Web;
 
 namespace mp.Service
 {
-    class PickJob:IJob
+    class PickJob : IJob
     {
         public void Execute(IJobExecutionContext context)
         {
@@ -76,9 +76,9 @@ namespace mp.Service
                             var source = sourceNode.Attributes["data-src"].Value;
                             work.Source = source;
 
-                            var usernameNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".user-link h1.user"));
-                            var username = usernameNode.InnerText;
-                            work.Username = username;
+                            //var usernameNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".user-link h1.user"));
+                            //var username = usernameNode.InnerText;
+                            //work.Username = username;
 
                             var titleNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".work-info .title"));
                             var title = titleNode.InnerText;
@@ -102,7 +102,8 @@ namespace mp.Service
                     manager.Transaction(() =>
                     {
                         var work = new AdminPixivWork();
-                        work.Description = string.Format("[{0}]/[{1}]", item.Title, item.Username);
+                        work.Description = item.Title;
+                        work.UserName = user.PixivUserName;
                         manager.AdminPixivWorks.Add(work);
 
                         var mtextList = new List<string>();
@@ -122,6 +123,10 @@ namespace mp.Service
                         foreach (var t in mtextList.Distinct())
                         {
                             strTag += string.Format("#{0}#", t);
+                        }
+                        if (string.IsNullOrWhiteSpace(user.PixivUserName) == false)
+                        {
+                            strTag += string.Format("#{0}#", user.PixivUserName);
                         }
 
                         var pick = manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}{1}", strTag, work.Description));

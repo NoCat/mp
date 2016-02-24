@@ -98,6 +98,11 @@ namespace mp.Admin.Controllers
                         {
                             description += string.Format("#{0}#", t);
                         }
+                        if (string.IsNullOrWhiteSpace(item.Work.UserName) == false)
+                        {
+                            description += string.Format("#{0}#", item.Work.UserName);
+                        }
+
                         description += item.Work.Description;
 
                         image.Description = description;

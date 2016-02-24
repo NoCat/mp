@@ -23,7 +23,7 @@ namespace mp.Controllers
                 .OrderByDescending(i => i.Weight)
                 .ThenByDescending(i=>i.ID)
                 .Select(i => i.ID)
-                .Take(4000)
+                .Take(100)
                 .ToArray();
 
             var rand = new Random();
