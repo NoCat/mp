@@ -140,6 +140,17 @@ namespace mp.Models
                 return _thumbFW78;
             }
         }
+
+        Thumb _thumbOrigin = null;
+        public Thumb ThumbOrigin
+        {
+            get
+            {
+                if (_thumbOrigin == null)
+                    _thumbOrigin = new Thumb(image);
+                return _thumbOrigin;
+            }
+        }
     }
 
     public class Thumb
@@ -153,6 +164,10 @@ namespace mp.Models
             Url = new Uri(Configs.ImageHost, string.Format("{0}_{1}{2}.jpg", img.File.MD5, type, size));
             Width = width;
             Height = height;
+        }
+        public Thumb (Image img)
+        {
+             Url = new Uri(Configs.ImageHost, string.Format("{0}.jpg", img.File.MD5));
         }
         public Uri Url { get; set; }
         public int Width { get; set; }
