@@ -17,7 +17,7 @@
             <div class="actions pull-right">
                 @if (Security.IsLogin)
                 {
-                    if (packageInfo.ID != Security.User.ID)
+                    if (packageInfo.UserID != Security.User.ID)
                     {
                         if (packageInfo.IsFollowing)
                         {
