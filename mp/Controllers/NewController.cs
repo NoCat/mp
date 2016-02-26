@@ -27,6 +27,5 @@ namespace mp.Controllers
 
             return PartialView("ImageListFw236.pc", list);
         }
-
     }
 }

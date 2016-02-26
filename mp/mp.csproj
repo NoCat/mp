@@ -161,6 +161,7 @@
     <Compile Include="App_Start\BackgrounWorkerConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\NewController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Models\ImageInfo.cs" />
     <Compile Include="Models\ImageModalModel.cs" />
@@ -291,6 +292,10 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Package\Modal.cshtml" />
     <Content Include="Views\New\Index.cshtml" />
+    <Content Include="Views\Setting\index.cshtml" />
+    <Content Include="Views\Setting\security.cshtml" />
+    <Content Include="Views\Setting\avt.cshtml" />
+    <Content Include="Views\Shared\UserSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

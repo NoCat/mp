@@ -1,9 +1,7 @@
 ﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="masonry.ts" />
-module mp
-{
-    export class client
-    {
+module mp {
+    export class client {
         static columnCount = 0;
         static onColumnCountChange: () => void;
     }
@@ -11,8 +9,7 @@ module mp
     var columnWidth = 248;
     var padding = 100;
 
-    $(function ()
-    {
+    $(function () {
         calculateWidth();
         $(window).resize(calculateWidth);
         $('.waterfall-236').masonry({
@@ -25,8 +22,7 @@ module mp
             itemSelector: '.waterfall-item'
         });
 
-        $(window).scroll((e) =>
-        {
+        $(window).scroll((e) => {
             var waterfall = $('.waterfall-236');
             if (waterfall.length == 0)
                 return;
@@ -39,8 +35,7 @@ module mp
             var bottom = w.scrollTop() + w.height();
 
             var moreTop = more.offset().top;
-            if (moreTop <= bottom)
-            {
+            if (moreTop <= bottom) {
                 waterfall.masonry('remove', more);
                 more.remove();
                 var url = waterfall.data('url');
@@ -48,9 +43,8 @@ module mp
                     return;
 
                 var max = waterfall.find('.waterfall-item:last').data('id');
-                url +='?max='+ max;
-                $.get(url,(data) =>
-                {
+                url += '?max=' + max;
+                $.get(url,(data) => {
                     var div = $('<div></div>');
                     div.append(data);
                     var children = div.children();
@@ -61,33 +55,27 @@ module mp
     });
 
 
-    function calculateWidth()
-    {
+    function calculateWidth() {
         var width = $(window).width();
         var container = $(".mp-container");
         var count = 0;
 
-        if (width > columnWidth * 6 + padding)
-        {
+        if (width > columnWidth * 6 + padding) {
             count = 6;
             container.css({ 'width': columnWidth * 6 });
         }
-        else if (width > columnWidth * 5 + padding)
-        {
+        else if (width > columnWidth * 5 + padding) {
             count = 5;
             container.css({ 'width': columnWidth * 5 });
         }
-        else
-        {
+        else {
             count = 4;
             container.css({ 'width': columnWidth * 4 });
         }
 
-        if (count != client.columnCount)
-        {
+        if (count != client.columnCount) {
             client.columnCount = count;
-            if (client.onColumnCountChange != null)
-            {
+            if (client.onColumnCountChange != null) {
                 client.onColumnCountChange();
             }
         }
