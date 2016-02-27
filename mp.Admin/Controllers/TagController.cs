@@ -8,6 +8,7 @@ using mp.Admin.Models;
 
 namespace mp.Admin.Controllers
 {
+    [MPAuthorize]
     public class TagController : ControllerBase
     {
         //
