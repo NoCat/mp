@@ -23,5 +23,6 @@ namespace mp.Controllers
             var str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             return Content(str, "application/json");
         }
+        
     }
 }

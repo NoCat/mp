@@ -13,14 +13,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="sidebar col-md-2 col-sm-3">
-                <ul class="nav nav-pills nav-stacked">
-                    <li @IsActive("基本信息")><a href="/setting">基本信息</a></li>
-                    <li @IsActive("头像设置")><a href="/setting/avt">头像设置</a></li>
-                    <li @IsActive("安全设置")><a href="/setting/security">安全设置</a></li>
-                </ul>
+                <div class="my-panel panel">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li @IsActive("基本信息")><a href="/setting">基本信息</a></li>
+                        <li @IsActive("头像设置")><a href="/setting/avt">头像设置</a></li>
+                        <li @IsActive("安全设置")><a href="/setting/secure">安全设置</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="content col-md-9 col-md-offset-1 col-sm-8 col-sm-offset-1 ">
-                @RenderBody()
+                <div class="my-panel panel">
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>
