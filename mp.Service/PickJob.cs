@@ -17,7 +17,7 @@ namespace mp.Service
         {
             var manager = new ManagerCollection();
             var wc = new XWebClient();
-            var list = manager.AdminPixivPickUsers.Items.ToList();
+            var list = manager.AdminPixivPickUsers.Items.Where(p=>p.ID==29).ToList();
             if (list.Count == 0)
                 return;
 
@@ -39,6 +39,9 @@ namespace mp.Service
                     doc.LoadHtml(html);
 
                     var workList = doc.DocumentNode.SelectNodes(SelectorToXPath(".work._work"));
+
+                    if (workList == null)
+                        break;
 
                     foreach (var item in workList)
                     {
@@ -73,6 +76,10 @@ namespace mp.Service
                             }
 
                             var sourceNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".original-image"));
+
+                            if (sourceNode == null)
+                                continue;
+
                             var source = sourceNode.Attributes["data-src"].Value;
                             work.Source = source;
 
