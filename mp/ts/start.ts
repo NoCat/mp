@@ -329,4 +329,13 @@ module mp.start
             }, null);
         })
     });
+
+    $(document).on('change', '.avt-upload-btn',(e) => {
+        var file = $(e.currentTarget).prop('files');
+        var up = new uploader.Uploader(file);
+        up.url = '/upload';
+        up.onDone = (data) => {
+            
+        }
+    })
 }
