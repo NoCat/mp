@@ -231,5 +231,12 @@ var mp;
                 }, null);
             });
         });
+        $(document).on('change', '.avt-upload-btn', function (e) {
+            var file = $(e.currentTarget).prop('files');
+            var up = new mp.uploader.Uploader(file);
+            up.url = '/upload';
+            up.onDone = function (data) {
+            };
+        });
     })(start = mp.start || (mp.start = {}));
 })(mp || (mp = {}));

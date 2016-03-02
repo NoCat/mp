@@ -296,6 +296,7 @@
     <Content Include="Views\Setting\security.cshtml" />
     <Content Include="Views\Setting\avt.cshtml" />
     <Content Include="Views\Shared\UserSetting.cshtml" />
+    <Content Include="Views\Setting\AvtCutModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -69,5 +69,10 @@ namespace mp.Controllers
             user.Password = (salt + nPassword1).MD5();
             return Redirect("/Setting/Secure");
         }
+
+        public ActionResult AvtCutModel(string id)
+        {
+            return PartialView("avtcutmodel");
+        }
     }
 }
