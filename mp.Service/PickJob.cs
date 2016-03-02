@@ -17,7 +17,7 @@ namespace mp.Service
         {
             var manager = new ManagerCollection();
             var wc = new XWebClient();
-            var list = manager.AdminPixivPickUsers.Items.Where(p=>p.ID==29).ToList();
+            var list = manager.AdminPixivPickUsers.Items.ToList();
             if (list.Count == 0)
                 return;
 
