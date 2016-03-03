@@ -4,7 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using mp.Models;
+using System.IO;
+using mp.BLL;
 using mp.DAL;
+
 
 namespace mp.Controllers
 {
@@ -70,9 +73,39 @@ namespace mp.Controllers
             return Redirect("/Setting/Secure");
         }
 
-        public ActionResult AvtCutModel(string id)
+        [HttpPost, MPAuthorize]
+        public ActionResult AvtUpload(string name, int chunk, int chunks, HttpPostedFileBase data)
         {
-            return PartialView("avtcutmodel");
+            var result = new AjaxResult();
+            var path = Server.MapPath("~/temp/");
+            using (var fs = System.IO.File.Create(path + name + "_" + chunk))
+            {
+                fs.Write(data.InputStream);
+            }
+
+            if (chunk == chunks - 1)
+            {
+                var mergePath = path + name;
+                using (var fs = System.IO.File.Create(mergePath))
+                {
+                    for (int i = 0; i < chunks; i++)
+                    {
+                        var chunkPath = path + name + "_" + i;
+                        using (var cf = System.IO.File.OpenRead(chunkPath))
+                        {
+                            fs.Write(cf);
+                        }
+                        System.IO.File.Delete(chunkPath);
+                    }
+                }
+                result.Data = path;
+            }            
+            return Json(result);
+        }
+
+        public ActionResult AvtCutModel(string src)
+        {
+            return PartialView("avtcutmodel", src);
         }
     }
 }

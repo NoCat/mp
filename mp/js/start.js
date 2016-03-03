@@ -233,10 +233,15 @@ var mp;
         });
         $(document).on('change', '.avt-upload-btn', function (e) {
             var file = $(e.currentTarget).prop('files');
-            var up = new mp.uploader.Uploader(file);
-            up.url = '/upload';
+            if (file.length == 0) {
+                return false;
+            }
+            var up = new mp.uploader.Uploader(file[0]);
+            up.url = '/Setting/AvtUpload';
             up.onDone = function (data) {
+                mp.modal.ShowAvtCut(data.Data);
             };
+            up.start();
         });
     })(start = mp.start || (mp.start = {}));
 })(mp || (mp = {}));

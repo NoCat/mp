@@ -332,10 +332,15 @@ module mp.start
 
     $(document).on('change', '.avt-upload-btn',(e) => {
         var file = $(e.currentTarget).prop('files');
-        var up = new uploader.Uploader(file);
-        up.url = '/upload';
-        up.onDone = (data) => {
-            
+        if (file.length == 0)
+        {
+            return false;
         }
+        var up = new uploader.Uploader(file[0]);
+        up.url = '/Setting/AvtUpload';
+        up.onDone = (data) => {
+            modal.ShowAvtCut(data.Data);
+        }
+        up.start();
     })
 }
