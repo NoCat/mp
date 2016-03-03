@@ -7,6 +7,7 @@ using mp.Models;
 using System.IO;
 using mp.BLL;
 using mp.DAL;
+using System.Drawing.Imaging;
 
 
 namespace mp.Controllers
@@ -97,8 +98,24 @@ namespace mp.Controllers
                         }
                         System.IO.File.Delete(chunkPath);
                     }
+                    fs.Position=0;
+                    //生成初始图像文件
+                    using (System.Drawing.Image bitmap = System.Drawing.Image.FromStream(fs))
+                    {
+                        if (bitmap.RawFormat.Equals(ImageFormat.Bmp)==false&&bitmap.RawFormat.Equals(ImageFormat.Png)==false&&bitmap.RawFormat.Equals(ImageFormat.Jpeg)==false)
+                        {
+                            result.Success = false;
+                            result.Message = "请上传图片文件";
+                            return Json(result);
+                        }
+                        fs.Position = 0;
+                        var originJpg = System.IO.File.Create(path+Security.User.ID + ".jpg");
+                        originJpg.Write(fs);
+                        originJpg.Close();
+                    }
                 }
-                result.Data = path;
+                 result.Data = "/temp/"+Security.User.ID+".jpg";
+                
             }            
             return Json(result);
         }

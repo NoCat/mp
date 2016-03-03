@@ -336,6 +336,7 @@ module mp.start
         {
             return false;
         }
+        var f = file[0].value;
         var up = new uploader.Uploader(file[0]);
         up.url = '/Setting/AvtUpload';
         up.onDone = (data) => {

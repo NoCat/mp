@@ -236,6 +236,7 @@ var mp;
             if (file.length == 0) {
                 return false;
             }
+            var f = file[0].value;
             var up = new mp.uploader.Uploader(file[0]);
             up.url = '/Setting/AvtUpload';
             up.onDone = function (data) {

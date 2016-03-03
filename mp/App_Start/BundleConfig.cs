@@ -19,7 +19,8 @@ namespace mp
                 "~/js/masonry.pkgd.min.js",
                 "~/js/select.js",
                 "~/js/modal.js",
-                "~/js/start.js"
+                "~/js/start.js",
+                "~/js/tools.js"
                 ));
 
             bundles.Add(new StyleBundle("~/css/mp.css").Include(
