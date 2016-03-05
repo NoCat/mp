@@ -236,11 +236,20 @@ var mp;
             if (file.length == 0) {
                 return false;
             }
-            var f = file[0].value;
             var up = new mp.uploader.Uploader(file[0]);
+            var content = $('.avt-content');
             up.url = '/Setting/AvtUpload';
+            var ratio;
             up.onDone = function (data) {
-                mp.modal.ShowAvtCut(data.Data);
+                content.load('/setting/avtcutmodel?src=' + data.Data, function () {
+                    var loading = content.find('.loading');
+                    loading.slideUp();
+                    var avtDialog = content.find('.avt-cut');
+                    avtDialog.slideDown();
+                    ratio = mp.tools.fixImgS(avtDialog.find('.origin'));
+                    var img = $('.origin').find('img');
+                    img.Jcrop();
+                });
             };
             up.start();
         });

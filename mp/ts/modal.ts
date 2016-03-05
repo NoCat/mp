@@ -47,8 +47,10 @@ module mp.modal {
             loading.slideUp();
             content.slideDown();
         }) 
-
         ShowModal(modal);
+
+        var container = modal.find('.origin');
+        tools.fixImgS(container);
     }
 
     export function ShowImage(url: string, title: string, onSuccess: () => void = null, onLoaded: () => void = null, onCancel: () => void = null) {

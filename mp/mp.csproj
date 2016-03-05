@@ -261,6 +261,7 @@
     <Content Include="js\client.js" />
     <Content Include="js\bootstrap-select-language-zh_cn.js" />
     <Content Include="js\home.js" />
+    <Content Include="js\jquery.Jcrop.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\masonry.js" />
     <Content Include="js\masonry.pkgd.min.js" />
@@ -415,6 +416,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
+    <TypeScriptCompile Include="ts\Jcrop.ts" />
     <TypeScriptCompile Include="ts\mp.ts" />
     <TypeScriptCompile Include="ts\select.ts" />
     <TypeScriptCompile Include="ts\masonry.ts" />

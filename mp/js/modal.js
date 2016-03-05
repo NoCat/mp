@@ -46,6 +46,8 @@ var mp;
                 content.slideDown();
             });
             ShowModal(modal);
+            var container = modal.find('.origin');
+            mp.tools.fixImgS(container);
         }
         _modal.ShowAvtCut = ShowAvtCut;
         function ShowImage(url, title, onSuccess, onLoaded, onCancel) {

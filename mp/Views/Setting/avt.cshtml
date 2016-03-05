@@ -2,8 +2,10 @@
     Layout = "~/Views/Shared/UserSetting.cshtml";
     ViewBag.Title = "头像设置";
 }
-<form class="form-horizontal" action="@Request.Url" method="post">
-    <input class="avt-upload-btn" type="file" />
-    <button type="submit" class="col-md-1 col-md-offset-2 btn btn-primary btn-sm">保存</button>
-</form>
-
+<script src="~/js/jquery.Jcrop.min.js"></script>
+<input class="avt-upload-btn" type="file" />
+<div class="avt-content">
+    <div class="loading">
+        上传中
+    </div>
+</div>

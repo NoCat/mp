@@ -1,14 +1,21 @@
 ﻿@model String
+<style>
+    .origin img{
+        position:relative;
+    }
+</style>
 <div class="row">
-    <div class="col-sm-7 ">
-        <img class="origin" src="@Model"/>
-    </div>
-    <div class="col-sm-4 col-sm-offset-1">
-        <div class="avt-md">
+    <div class="avt-cut">
+        <div class="origin col-md-5">
+            <img src="@Model" />
+        </div>
+        <div class="preview-md">
             <img />
         </div>
-        <div class="avt-sm">
+        <div class="preview-sm">
             <img />
         </div>
+        <button class="btn btn-primary">确定</button>
+        <button class="btn btn-default">取消</button>
     </div>
 </div>
