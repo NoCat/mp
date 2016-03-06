@@ -2,10 +2,41 @@
     Layout = "~/Views/Shared/UserSetting.cshtml";
     ViewBag.Title = "头像设置";
 }
+@model mp.Models.UserInfo
+<style>
+    .avt-current {
+        height: 120px;
+        width: 120px;
+        border-radius: 5px;
+    }
+    .avt-upload{
+        height:120px;
+        width:120px;
+        box-shadow: 0 0 1px #adadad;
+        border-radius:4px;
+        background-image:url('/images/avt.png');
+    }
+    .avt-upload .avt-upload-btn{
+        height:118px;
+        width:118px;
+        opacity:0;
+    }
+</style>
+<div class="row avt-content">
+        <span class="col-md-1">
+            <span>当前头像</span>
+        </span>
+        <div class="col-md-3">
+            <div class="avt-current text-center">
+                <img src="@Model.BigHead" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="avt-upload ">
+                <input class="avt-upload-btn" type="file" />
+            </div>            
+        </div>
 
-<input class="avt-upload-btn" type="file" />
-<div class="avt-content">
-    <div class="loading">
-        上传中
-    </div>
 </div>
+
+

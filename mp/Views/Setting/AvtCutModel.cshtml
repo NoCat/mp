@@ -5,6 +5,12 @@
     }
     .preview-md{
         overflow:hidden;
+        margin-top:100px;
+    }
+    .avt-btn{
+        margin-top:100px;
+        height:100px;
+        display:block;
     }
 </style>
 <div class="row">
@@ -18,8 +24,12 @@
             <div class="preview-md">
                 <img src="@Model" />
             </div>
+            <div class="avt-btn">
+                <button class="btn btn-primary btn-block submit">确定</button>
+                <button class="btn btn-default btn-block avt-close">取消</button>
+            </div>
         </div>
-        <button class="btn btn-primary avt-submit">确定</button>
-        <button class="btn btn-default">取消</button>
+       
+       
     </div>
 </div>

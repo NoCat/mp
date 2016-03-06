@@ -4,28 +4,33 @@
 
 $(document).ready(function () {
     $(document).on('change', '.avt-upload-btn', function (e) {
+        if ($('.avt-cut-model') != null) {
+            $('.avt-cut-model').remove();
+        }
         var file = $(e.currentTarget).prop('files');
         if (file.length == 0) {
             return false;
         }
         var up = new mp.uploader.Uploader(file[0]);
-        var content = $('.avt-content');
         up.url = '/Setting/AvtUpload';
         var ratio;
+
         up.onDone = function (data) {
             //头像上传完成
+            var p = $('.avt-content').parent().parent();
+            var acm = $('<div class="my-panel panel avt-cut-model"></div>');
+            p.append(acm);
+            var content = $('.avt-cut-model');
             content.load('/setting/avtcutmodel?src=' + data.Data, function () {
-                var loading = content.find('.loading');
-                loading.slideUp();
                 var avtDialog = content.find('.avt-cut');
-                avtDialog.slideDown();
-                var btn = content.find(".avt-submit");
-
+                var btn_submit = content.find(".avt-submit");
+                var btn_close = content.find('.avt-close');
                 ratio = mp.tools.fixImgS(avtDialog.find('.origin'), avtDialog.find('.avt-img'));
+
                 var pct = $('.preview-md');
-                pct.css('height', pct.width()+'px');
+                pct.css('height', pct.width() + 'px');
                 var img = $('.origin').find('img');
-                var boundx, boundy,cwidth,x,y;
+                var boundx, boundy, cwidth, x, y;
                 //初始化Jcrop
                 img.Jcrop({
                     allowResize: true,
@@ -56,16 +61,20 @@ $(document).ready(function () {
                         });
                     }
                 }
-                btn.click(function () {
+                btn_submit.click(function () {
                     var url = '/setting/avtsetting';
-                    $.post(url, {left:x,top:y,ratio:ratio,size:cwidth}, function (data) {
+                    $.post(url, { left: x, top: y, ratio: ratio, size: cwidth }, function (data) {
                         if (data.Success) {
                             location.reload();
                         }
-                    },'json')
+                    }, 'json')
+                })
+                btn_close.click(function () {
+                    content.fadeOut();
+                    content.remove();
                 })
             });
-        }        
+        }
 
         up.start();
     })

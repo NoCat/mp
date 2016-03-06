@@ -28,7 +28,8 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Avt()
         {
-            return View("avt");
+            var user = new UserInfo(User);
+            return View("avt",user);
         }
 
         [MPAuthorize]
