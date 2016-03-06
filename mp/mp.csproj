@@ -249,6 +249,7 @@
     <Content Include="css\footer.css" />
     <Content Include="css\head-panel.css" />
     <Content Include="css\header.css" />
+    <Content Include="css\jquery.Jcrop.min.css" />
     <Content Include="css\tools.css" />
     <Content Include="css\waterfall-item-236.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -261,6 +262,7 @@
     <Content Include="js\client.js" />
     <Content Include="js\bootstrap-select-language-zh_cn.js" />
     <Content Include="js\home.js" />
+    <Content Include="js\avtCut.js" />
     <Content Include="js\jquery.Jcrop.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\masonry.js" />
@@ -416,7 +418,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
-    <TypeScriptCompile Include="ts\Jcrop.ts" />
     <TypeScriptCompile Include="ts\mp.ts" />
     <TypeScriptCompile Include="ts\select.ts" />
     <TypeScriptCompile Include="ts\masonry.ts" />

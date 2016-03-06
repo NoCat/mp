@@ -21,7 +21,8 @@ namespace mp
                 "~/js/select.js",
                 "~/js/modal.js",
                 "~/js/start.js",
-                "~/js/tools.js"
+                "~/js/tools.js",
+                "~/js/avtCut.js"
                 ));
 
             bundles.Add(new StyleBundle("~/css/mp.css").Include(
@@ -32,7 +33,8 @@ namespace mp
                 "~/css/tools.css",
                 "~/css/waterfall-item-236.css",
                 "~/css/font-awesome.min.css",
-                "~/css/bootstrap-select.min.css"
+                "~/css/bootstrap-select.min.css",
+                "~/css/jquery.Jcrop.min.css"
                 ));
         }
     }

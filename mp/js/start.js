@@ -231,27 +231,5 @@ var mp;
                 }, null);
             });
         });
-        $(document).on('change', '.avt-upload-btn', function (e) {
-            var file = $(e.currentTarget).prop('files');
-            if (file.length == 0) {
-                return false;
-            }
-            var up = new mp.uploader.Uploader(file[0]);
-            var content = $('.avt-content');
-            up.url = '/Setting/AvtUpload';
-            var ratio;
-            up.onDone = function (data) {
-                content.load('/setting/avtcutmodel?src=' + data.Data, function () {
-                    var loading = content.find('.loading');
-                    loading.slideUp();
-                    var avtDialog = content.find('.avt-cut');
-                    avtDialog.slideDown();
-                    ratio = mp.tools.fixImgS(avtDialog.find('.origin'));
-                    var img = $('.origin').find('img');
-                    img.Jcrop();
-                });
-            };
-            up.start();
-        });
     })(start = mp.start || (mp.start = {}));
 })(mp || (mp = {}));

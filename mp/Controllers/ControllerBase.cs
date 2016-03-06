@@ -10,11 +10,19 @@ namespace mp.Controllers
 {
     public class ControllerBase : Controller
     {
-        public ManagerCollection Manager
+        protected ManagerCollection Manager
         {
             get
             {
                 return Security.Manager;
+            }
+        }
+
+        protected new mp.DAL.User User
+        {
+            get
+            {
+                return Security.User;
             }
         }
 

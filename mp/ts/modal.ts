@@ -34,24 +34,6 @@ module mp.modal {
     export function ShowProgress() {
         ShowModal($('#progress-modal'));
     }
-    export function ShowAvtCut(src: string) {
-        var modal = $('#avtCut-modal');
-
-        var loading = modal.find('.loading');
-        var content = modal.find('.content');
-
-        loading.show();
-        content.hide();
-        var url = '/setting/avtCutModel?src=' + src;
-        content.load(url,() => {
-            loading.slideUp();
-            content.slideDown();
-        }) 
-        ShowModal(modal);
-
-        var container = modal.find('.origin');
-        tools.fixImgS(container);
-    }
 
     export function ShowImage(url: string, title: string, onSuccess: () => void = null, onLoaded: () => void = null, onCancel: () => void = null) {
         var modal = $('#image-modal');

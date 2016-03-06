@@ -34,22 +34,6 @@ var mp;
             ShowModal($('#progress-modal'));
         }
         _modal.ShowProgress = ShowProgress;
-        function ShowAvtCut(src) {
-            var modal = $('#avtCut-modal');
-            var loading = modal.find('.loading');
-            var content = modal.find('.content');
-            loading.show();
-            content.hide();
-            var url = '/setting/avtCutModel?src=' + src;
-            content.load(url, function () {
-                loading.slideUp();
-                content.slideDown();
-            });
-            ShowModal(modal);
-            var container = modal.find('.origin');
-            mp.tools.fixImgS(container);
-        }
-        _modal.ShowAvtCut = ShowAvtCut;
         function ShowImage(url, title, onSuccess, onLoaded, onCancel) {
             if (onSuccess === void 0) { onSuccess = null; }
             if (onLoaded === void 0) { onLoaded = null; }

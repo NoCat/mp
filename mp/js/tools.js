@@ -2,9 +2,9 @@ var mp;
 (function (mp) {
     var tools;
     (function (tools) {
-        function fixImgS(container) {
-            var width = container.width();
-            var img = container.find("img");
+        function fixImgS(outer, container) {
+            var width = outer.width();
+            var img = outer.find("img");
             var ratio;
             var iwidth = img.prop('width');
             var iheight = img.prop('height');
@@ -17,7 +17,8 @@ var mp;
             iheight = iheight * ratio;
             iwidth = iwidth * ratio;
             img.css({ 'height': iheight + 'px', 'width': iwidth + 'px' });
-            img.css({ 'top': (width - iheight) / 2 + 'px', 'left': (width - iwidth) / 2 + 'px' });
+            container.css({ 'height': iheight + 'px', 'width': iwidth + 'px' });
+            container.css({ 'top': (width - iheight) / 2 + 'px', 'left': (width - iwidth) / 2 + 'px' });
             return ratio;
         }
         tools.fixImgS = fixImgS;

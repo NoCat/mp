@@ -1,21 +1,25 @@
 ﻿@model String
 <style>
-    .origin img{
-        position:relative;
+    .origin .avt-img {
+        position: relative;
+    }
+    .preview-md{
+        overflow:hidden;
     }
 </style>
 <div class="row">
     <div class="avt-cut">
-        <div class="origin col-md-5">
-            <img src="@Model" />
+        <div class="origin col-md-7 ">
+            <div class="avt-img">
+                <img src="@Model" />
+            </div>
         </div>
-        <div class="preview-md">
-            <img />
+        <div class="col-md-2 col-md-offset-1">
+            <div class="preview-md">
+                <img src="@Model" />
+            </div>
         </div>
-        <div class="preview-sm">
-            <img />
-        </div>
-        <button class="btn btn-primary">确定</button>
+        <button class="btn btn-primary avt-submit">确定</button>
         <button class="btn btn-default">取消</button>
     </div>
 </div>

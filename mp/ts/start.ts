@@ -1,6 +1,5 @@
 ﻿/// <reference path="mp.ts" />
 /// <reference path="modal.ts" />
-/// <reference path="jcrop.ts" />
 /// <reference path="uploader.ts" />
 
 module mp.start {
@@ -278,29 +277,4 @@ module mp.start {
             }, null);
         })
     });
-
-    $(document).on('change', '.avt-upload-btn',(e) => {
-        var file = $(e.currentTarget).prop('files');
-        if (file.length == 0) {
-            return false;
-        }
-        var up = new uploader.Uploader(file[0]);
-        var content = $('.avt-content');
-        up.url = '/Setting/AvtUpload';
-        var ratio;
-        up.onDone = (data) => {
-            content.load('/setting/avtcutmodel?src=' + data.Data,() => {
-                var loading = content.find('.loading');
-                loading.slideUp();
-                var avtDialog = content.find('.avt-cut');
-                avtDialog.slideDown();
-                ratio = tools.fixImgS(avtDialog.find('.origin'));
-
-                var img = $('.origin').find('img');
-                img.Jcrop();
-            });
-            
-        }
-        up.start();
-    })
 }

@@ -7,6 +7,7 @@ using mp.Models;
 using System.IO;
 using mp.BLL;
 using mp.DAL;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 
@@ -37,13 +38,13 @@ namespace mp.Controllers
         }
 
         [HttpPost, MPAuthorize]
-        public ActionResult index(string username,string description)
+        public ActionResult index(string username, string description)
         {
             var u = Manager.Users.Items.Where(i => i.Name == username.Trim());
-            if (u!=null)
+            if (u != null)
             {
-                var ajaxResult = new AjaxResult() { Success=false};
-                return  JsonContent(ajaxResult);
+                var ajaxResult = new AjaxResult() { Success = false };
+                return JsonContent(ajaxResult);
             }
             var user = Manager.Users.Items.Find(Security.User.ID);
             user.Name = username.Trim();
@@ -52,8 +53,8 @@ namespace mp.Controllers
             return Redirect("/Setting/");
         }
 
-        [HttpPost,MPAuthorize]
-        public ActionResult Secure(string oPassword,string nPassword1,string nPassword2)
+        [HttpPost, MPAuthorize]
+        public ActionResult Secure(string oPassword, string nPassword1, string nPassword2)
         {
             var user = Manager.Users.Items.Find(Security.User.ID);
             var salt = user.Salt;
@@ -62,11 +63,11 @@ namespace mp.Controllers
                 var result = new AjaxResult() { Success = false, Message = "原密码输入不正确" };
                 return JsonContent(result);
             }
-            if (nPassword1==null)
+            if (nPassword1 == null)
             {
                 return JsonContent(new AjaxResult() { Success = false, Message = "密码不能为空" });
             }
-            if (nPassword1!=nPassword2)
+            if (nPassword1 != nPassword2)
             {
                 return JsonContent(new AjaxResult() { Success = false, Message = "两次密码输入不正确" });
             }
@@ -98,31 +99,69 @@ namespace mp.Controllers
                         }
                         System.IO.File.Delete(chunkPath);
                     }
-                    fs.Position=0;
+                    fs.Position = 0;
                     //生成初始图像文件
                     using (System.Drawing.Image bitmap = System.Drawing.Image.FromStream(fs))
                     {
-                        if (bitmap.RawFormat.Equals(ImageFormat.Bmp)==false&&bitmap.RawFormat.Equals(ImageFormat.Png)==false&&bitmap.RawFormat.Equals(ImageFormat.Jpeg)==false)
+                        if (bitmap.RawFormat.Equals(ImageFormat.Bmp) == false && bitmap.RawFormat.Equals(ImageFormat.Png) == false && bitmap.RawFormat.Equals(ImageFormat.Jpeg) == false)
                         {
                             result.Success = false;
                             result.Message = "请上传图片文件";
                             return Json(result);
                         }
                         fs.Position = 0;
-                        var originJpg = System.IO.File.Create(path+Security.User.ID + ".jpg");
+                        var originJpg = System.IO.File.Create(path + Security.User.ID + ".jpg");
                         originJpg.Write(fs);
                         originJpg.Close();
                     }
                 }
-                 result.Data = "/temp/"+Security.User.ID+".jpg";
-                
-            }            
+                result.Data = "/temp/" + Security.User.ID + ".jpg";
+
+            }
             return Json(result);
         }
 
         public ActionResult AvtCutModel(string src)
         {
             return PartialView("avtcutmodel", src);
+        }
+        [HttpPost, MPAuthorize]
+        public ActionResult AvtSetting(int left, int top, double ratio, int size)
+        {
+            var result = new AjaxResult();
+             var path = Server.MapPath("~/temp/");
+             var id = User.ID;
+
+            if(System.IO.File.Exists(path + id + ".jpg")==false)
+            {
+                result.Success = false;
+
+                return JsonContent(result);
+            }
+           
+            
+            using (var fs = System.IO.File.OpenRead(path + id + ".jpg"))
+            {
+                var img = System.Drawing.Image.FromStream(fs);
+                left = (int)Math.Round(left / ratio);
+                top = (int)Math.Round(top / ratio);
+                size = (int)Math.Round(size / ratio);
+
+                System.Drawing.Image desc = new Bitmap(118, 118);
+                using (Graphics g = Graphics.FromImage(desc))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                    g.DrawImage(img, new Rectangle(0, 0, 118, 118), new Rectangle(left, top, size, size), GraphicsUnit.Pixel);
+                }
+                //上传头像到服务器
+                OssFile.Create("avt/" + id + "_big", desc.SaveAsJpeg());
+                OssFile.Create("avt/" + id, desc.FixWidth(32).SaveAsJpeg());
+                var u = Manager.Users.Find(id);
+                u.UseDefaultHead = false;
+                Manager.Users.Update(u);
+            }
+
+            return JsonContent(result);
         }
     }
 }
