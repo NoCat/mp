@@ -17,19 +17,17 @@
     <div class="avt-cut">
         <div class="origin col-md-7 ">
             <div class="avt-img">
-                <img src="@Model" />
+                <img src="@Model?r=@(new Random().Next())" />
             </div>
         </div>
         <div class="col-md-2 col-md-offset-1">
             <div class="preview-md">
-                <img src="@Model" />
+                <img id="avt-cut-img" src="@Model?r=@(new Random().Next())" />
             </div>
             <div class="avt-btn">
                 <button class="btn btn-primary btn-block submit">确定</button>
                 <button class="btn btn-default btn-block avt-close">取消</button>
             </div>
-        </div>
-       
-       
+        </div>    
     </div>
 </div>

@@ -124,6 +124,7 @@ namespace mp.Controllers
 
         public ActionResult AvtCutModel(string src)
         {
+            
             return PartialView("avtcutmodel", src);
         }
         [HttpPost, MPAuthorize]

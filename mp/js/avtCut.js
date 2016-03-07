@@ -17,31 +17,36 @@ $(document).ready(function () {
 
         up.onDone = function (data) {
             //头像上传完成
+            var filename=data.Data;
             var p = $('.avt-content').parent().parent();
             var acm = $('<div class="my-panel panel avt-cut-model"></div>');
             p.append(acm);
             var content = $('.avt-cut-model');
-            content.load('/setting/avtcutmodel?src=' + data.Data, function () {
+            content.load('/setting/avtcutmodel', { src: filename,r:Math.random() }, function () {
                 var avtDialog = content.find('.avt-cut');
-                var btn_submit = content.find(".avt-submit");
+                var btn_submit = content.find(".submit");
                 var btn_close = content.find('.avt-close');
-                ratio = mp.tools.fixImgS(avtDialog.find('.origin'), avtDialog.find('.avt-img'));
-
                 var pct = $('.preview-md');
                 pct.css('height', pct.width() + 'px');
-                var img = $('.origin').find('img');
+
                 var boundx, boundy, cwidth, x, y;
+                document.getElementById('avt-cut-img').onload = function () {
+                    ratio = mp.tools.fixImgS(avtDialog.find('.origin'), avtDialog.find('.avt-img'));
+                    var img = $('.origin').find('img');
+                    img.Jcrop({
+                        allowResize: true,
+                        aspectRatio: 1,
+                        onChange: updatePreview,
+                        onSelect: updatePreview
+                    }, function () {
+                        var bounds = this.getBounds();
+                        boundx = bounds[0];
+                        boundy = bounds[1];
+                    });
+                }
+
                 //初始化Jcrop
-                img.Jcrop({
-                    allowResize: true,
-                    aspectRatio: 1,
-                    onChange: updatePreview,
-                    onSelect: updatePreview
-                }, function () {
-                    var bounds = this.getBounds();
-                    boundx = bounds[0];
-                    boundy = bounds[1];
-                });
+
                 function updatePreview(c) {
                     preview($('.preview-md'), c);
                 }
@@ -63,7 +68,7 @@ $(document).ready(function () {
                 }
                 btn_submit.click(function () {
                     var url = '/setting/avtsetting';
-                    $.post(url, { left: x, top: y, ratio: ratio, size: cwidth }, function (data) {
+                    $.post(url, { left: x, top: y, ratio: ratio, size: cwidth}, function (data) {
                         if (data.Success) {
                             location.reload();
                         }
