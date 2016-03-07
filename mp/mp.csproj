@@ -427,6 +427,7 @@
     <TypeScriptCompile Include="ts\client.ts" />
     <TypeScriptCompile Include="ts\modal.ts" />
     <TypeScriptCompile Include="ts\start.ts" />
+    <TypeScriptCompile Include="ts\tools.ts" />
     <TypeScriptCompile Include="ts\uploader.ts" />
   </ItemGroup>
   <ItemGroup>

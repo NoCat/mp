@@ -4,6 +4,7 @@ var mp;
     (function (tools) {
         function fixImgS(outer, container) {
             var width = outer.width();
+            outer.css('height', width);
             var img = outer.find("img");
             var ratio;
             var iwidth = img.prop('width');
