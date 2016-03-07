@@ -17,12 +17,9 @@ namespace mp
                 "~/js/client.js",
                 "~/js/home.js",
                 "~/js/masonry.pkgd.min.js",
-                "~/js/jquery.Jcrop.min.js",
                 "~/js/select.js",
                 "~/js/modal.js",
-                "~/js/start.js",
-                "~/js/tools.js",
-                "~/js/avtCut.js"
+                "~/js/start.js"
                 ));
 
             bundles.Add(new StyleBundle("~/css/mp.css").Include(
