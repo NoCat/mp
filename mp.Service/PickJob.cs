@@ -127,7 +127,7 @@ namespace mp.Service
                         });
 
                         var strTag = "";
-                        foreach (var t in mtextList.Distinct())
+                        foreach (var t in mtextList.Distinct(StringComparer.OrdinalIgnoreCase))
                         {
                             strTag += string.Format("#{0}#", t);
                         }
