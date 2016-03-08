@@ -160,8 +160,27 @@ namespace mp.Admin.Controllers
             return JsonContent(result);
         }
 
-        public ActionResult Query(string keyword)
+        public ActionResult Detail(int id)
         {
+            var tag = Manager.AdminPixivTags.Find(id);
+            ViewBag.Tag = tag;
+
+            var relativeWorks = Manager.AdminPixivWorkTags.Items.Where(wt => wt.TagID == id);
+            var relativeTags = from wt in Manager.AdminPixivWorkTags.Items
+                               join wt0 in relativeWorks on wt.WorkID equals wt0.WorkID
+                               where wt.TagID!=id
+                               group wt by wt.TagID into g
+                               orderby g.Count() descending
+                               join t in Manager.AdminPixivTags.Items on g.Key equals t.ID
+                               where t.IsSkip == false
+                               select t;
+            ViewBag.RelativeTags = relativeTags.Take(10).ToList();
+
+            ViewBag.RelativeWorks = (from work in Manager.AdminPixivWorks.Items
+                                     join rw in relativeWorks on work.ID equals rw.WorkID
+                                     where work.ImageID > 0
+                                     orderby work.ID descending
+                                     select work).Take(20).ToList();
             return View();
         }
     }

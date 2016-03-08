@@ -61,8 +61,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.ID</td>
-            <td>@item.PText</td>
+            <td> @item.ID</td>
+            <td><a href="/tag/detail/@item.ID">@item.PText</a></td>
             <td data-id="@item.ID">@item.MText</td>
             <td>@item.CitationCount</td>
             <td>@item.Weight</td>

@@ -231,6 +231,7 @@
     <Content Include="Views\Tag\Modal.cshtml" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Views\Pick\Modal.cshtml" />
+    <Content Include="Views\Tag\Detail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -251,7 +252,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1624</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

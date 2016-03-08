@@ -1,0 +1,97 @@
+﻿@model List<mp.DAL.AdminPixivTag>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/dashboardMaster.cshtml";
+    ViewBag.SubPage = "标签";
+
+    var tag = ViewBag.Tag as mp.DAL.AdminPixivTag;
+    var works = ViewBag.RelativeWorks as IEnumerable<mp.DAL.AdminPixivWork>;
+    var tags = ViewBag.RelativeTags as IEnumerable<mp.DAL.AdminPixivTag>;
+}
+
+<h2>标签详情</h2>
+
+<div class="row">
+    <div class="col-lg-2">日文标签:@tag.PText</div>
+    <div class="col-lg-2">中文标签:@tag.MText</div>
+    <div class="col-lg-2"><div class="btn btn-primary btn-sm edit-btn">编辑</div></div>
+</div>
+
+<h3>相关标签</h3>
+<div>
+    @foreach (var item in tags)
+    {
+        <a class="label label-default" href="/tag/detail/@item.ID">@(string.IsNullOrWhiteSpace(item.MText) ? item.PText : item.MText)</a>
+    }
+</div>
+
+<h3>相关图片</h3>
+<div class="clearfix">
+    @foreach (var item in works)
+    {
+        if (item.Image.File == null)
+        {
+            continue;
+        }
+
+        <img src="http://img.miaopass.net/@(item.Image.File.MD5)_sq236.jpg" style="width:160px;height:160px;display:block;float:left; border:5px solid white; box-shadow:0 0 3px #666;margin-right:10px;margin-bottom:10px;" />
+    }
+</div>
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑标签</h4>
+            </div>
+            <div class="bg-warning text-warning" style="display:none;text-align:center;line-height:2.4;"></div>
+            <div class="content">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+@section script{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.edit-btn').click(function () {
+                ShowModal('/tag/edit/@tag.ID');
+            })
+
+            function ShowModal(url) {
+                var modal = $('#modal');
+                var content = modal.find('.content');
+                var warning = modal.find('.bg-warning');
+
+                content.hide();
+
+                content.load(url, function () {
+                    content.show();
+
+                    var form = content.find('form');
+                    form.submit(function () {
+                        var action = form.attr('action');
+                        var data = form.serialize();
+
+                        $.post(action, data, function (result) {
+                            if (result.Success == true) {
+                                location.reload();
+                            }
+                            else {
+                                warning.text(result.Message);
+                                warning.show();
+                            }
+                        }, 'json');
+
+                        return false;
+                    });
+                });
+
+                modal.modal('show');
+
+            }
+        })
+    </script>
+}
