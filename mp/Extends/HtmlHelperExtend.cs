@@ -15,7 +15,7 @@ static public class HtmlHelperExtend
             description = "";
         description = regex.Replace(description, (match) =>
         {
-            var str = string.Format("<a class=\"mp-search-link\" href=\"/search/{0}\">{1}</a>", HttpUtility.UrlEncode(match.Groups[1].Value), match.Value);
+            var str = string.Format("<a class=\"mp-search-link\" href=\"/search?kw={0}\">{1}</a>", HttpUtility.UrlEncode(match.Groups[1].Value), match.Value);
             return str;
         });
         return new MvcHtmlString(description);

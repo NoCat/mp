@@ -22,7 +22,7 @@ namespace mp
             //routes.MapRoute(name: "user", url: "user/{userId}/{subPage}/{max}", defaults: new { controller = "user", action = "index", max = 0 });
             routes.MapRoute(name: "user-default", url: "user/{id}/{action}", defaults: new { controller = "user", action = "packages" });
             //搜索页
-            routes.MapRoute(name: "search", url: "search/{kw}", defaults: new { controller = "search",action = "index", kw = "" });
+            routes.MapRoute(name: "search", url: "search/{kw}", defaults: new { controller = "search",action = "index" });
 
             //默认路由
             routes.MapRoute(name: "default", url: "{controller}/{action}", defaults: new { controller = "home", action = "index" });
