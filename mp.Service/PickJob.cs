@@ -34,7 +34,7 @@ namespace mp.Service
                 while (true)
                 {
                     var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.PixivUserID + "&p=" + page);
-                    //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + 163536 + "&p=" + page);
+                    //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=3402936");
                     var doc = new HtmlDocument();
                     doc.LoadHtml(html);
 
@@ -47,15 +47,14 @@ namespace mp.Service
                     {
                         try
                         {
-                            var work = new PixivWork();
 
                             var href = "http://www.pixiv.net" + item.Attributes["href"].Value;
+                            //var href = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id=55670407";
 
                             var regex = new Regex(@"illust_id=(\d+)");
                             var match = regex.Match(href);
-                            work.WorkID = Convert.ToInt32(match.Groups[1].Value);
 
-                            work.From = href;
+                            var workId = Convert.ToInt32(match.Groups[1].Value);
 
                             var workHtml = wc.Get(href);
                             var workDoc = new HtmlDocument();
@@ -63,35 +62,64 @@ namespace mp.Service
 
                             var publishDateTimeNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".work-info .meta") + "/li[1]");
                             var publishDateTime = Convert.ToDateTime(publishDateTimeNode.InnerText);
-                            work.PublishDate = publishDateTime;
+
                             if (publishDateTime <= user.LastPickTime)
                             {
                                 isEnd = true;
                                 break;
                             }
 
+                            var tags = new List<string>();
                             foreach (var tagNode in workDoc.DocumentNode.SelectNodes(SelectorToXPath(".tag .text")))
                             {
-                                work.Tags.Add(HttpUtility.HtmlDecode(tagNode.InnerText));
+                                tags.Add(HttpUtility.HtmlDecode(tagNode.InnerText));
                             }
-
-                            var sourceNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".original-image"));
-
-                            if (sourceNode == null)
-                                continue;
-
-                            var source = sourceNode.Attributes["data-src"].Value;
-                            work.Source = source;
-
-                            //var usernameNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".user-link h1.user"));
-                            //var username = usernameNode.InnerText;
-                            //work.Username = username;
 
                             var titleNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".work-info .title"));
                             var title = titleNode.InnerText;
-                            work.Title = title;
 
-                            pixivworkList.Add(work);
+                            var sourceNode = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath(".original-image"));
+
+                            if (sourceNode != null)
+                            {
+                                var source = sourceNode.Attributes["data-src"].Value;
+                                var work = new PixivWork();
+                                work.From = href;
+                                work.PublishDate = publishDateTime;
+                                work.Tags.AddRange(tags);
+                                work.Title = title;
+                                work.Source = source;
+
+                                pixivworkList.Add(work);
+                                continue;
+                            }
+
+                            var multiple = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath("._work.multiple"));
+
+                            if(multiple!=null)
+                            {
+                                var meta = workDoc.DocumentNode.SelectSingleNode(SelectorToXPath("ul.meta")).SelectSingleNode("li[2]");
+
+                                var count = Convert.ToInt32( Regex.Match(meta.InnerText, @"(\d+)P").Groups[1].Value);
+                                for (int i = 0; i < count; i++)
+                                {
+                                    var html3 = wc.Get(string.Format("http://www.pixiv.net/member_illust.php?mode=manga_big&illust_id={0}&page={1}",workId,i));
+                                    var doc3 = new HtmlDocument();
+                                    doc3.LoadHtml(html3);
+
+                                    var img = doc3.DocumentNode.SelectSingleNode(SelectorToXPath("img"));
+                                    var source = img.Attributes["src"].Value;
+
+                                    var work = new PixivWork();
+                                    work.From = href;
+                                    work.PublishDate = publishDateTime;
+                                    work.Tags.AddRange(tags);
+                                    work.Title = title;
+                                    work.Source = source;
+
+                                    pixivworkList.Add(work);
+                                }
+                            }
 
                         }
                         catch { }
