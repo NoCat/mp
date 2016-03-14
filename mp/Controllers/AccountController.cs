@@ -32,7 +32,7 @@ namespace mp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signup(string email="", string name="", string password1="", string password2="")
+        public ActionResult Signup(string email = "", string name = "", string password1 = "", string password2 = "")
         {
             var result = new AjaxResult();
 
@@ -43,7 +43,7 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            if(password1.Length==0)
+            if (password1.Length == 0)
             {
                 result.Success = false;
                 result.Message = "密码长度不能为0";
@@ -52,7 +52,7 @@ namespace mp.Controllers
 
             email = email.Trim();
             //电子邮箱正则验证
-            if(!System.Text.RegularExpressions.Regex.IsMatch(email, @"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"))
             {
                 result.Success = false;
                 result.Message = "请输入有效的邮箱地址";
@@ -85,7 +85,8 @@ namespace mp.Controllers
                 Email = email,
                 Password = password,
                 Salt = salt,
-                UseDefaultHead=true
+                UseDefaultHead = true,
+                CreateTime = DateTime.Now
             };
 
             Manager.Users.Add(user);

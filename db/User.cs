@@ -14,6 +14,7 @@ namespace mp.DAL
         public string Salt { get; set; }
         public string Email { get; set; }
         public bool UseDefaultHead { get; set; }
+        public DateTime CreateTime { get; set; }
         public string Description { get; set; }
     }
 }
