@@ -17,7 +17,7 @@ namespace mp.Service
             var now = DateTime.Now;
             foreach (FileInfo item in directory.GetFiles())
             {
-                if ((now - item.CreationTime).Hours > 4)
+                if ((now - item.CreationTime).TotalHours > 4)
                 {
                     File.Delete(item.FullName);
                 }
