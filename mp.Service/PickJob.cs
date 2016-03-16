@@ -18,7 +18,7 @@ namespace mp.Service
             var manager = new ManagerCollection();
             var wc = new XWebClient();
 
-            var list = manager.AdminPixivPickUsers.Items.ToList();
+            var list = manager.AdminPixivUsers.Items.Where(u=>u.State== AdminPixivUserStates.Pick).ToList();
             if (list.Count == 0)
                 return;
 
@@ -34,7 +34,7 @@ namespace mp.Service
                 var page = 1;
                 while (true)
                 {
-                    var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.PixivUserID + "&p=" + page);
+                    var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.UserID + "&p=" + page);
                     //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=3402936");
                     var doc = new HtmlDocument();
                     doc.LoadHtml(html);
@@ -139,7 +139,7 @@ namespace mp.Service
                     {
                         var work = new AdminPixivWork();
                         work.Description = item.Title;
-                        work.UserName = user.PixivUserName;
+                        work.UserName = user.UserName;
                         manager.AdminPixivWorks.Add(work);
 
                         var mtextList = new List<string>();
@@ -160,9 +160,9 @@ namespace mp.Service
                         {
                             strTag += string.Format("#{0}#", t);
                         }
-                        if (string.IsNullOrWhiteSpace(user.PixivUserName) == false)
+                        if (string.IsNullOrWhiteSpace(user.UserName) == false)
                         {
-                            strTag += string.Format("#{0}#", user.PixivUserName);
+                            strTag += string.Format("#{0}#", user.UserName);
                         }
 
                         var pick = manager.Picks.Add(item.From, item.Source, user.PackageID, string.Format("{0}{1}", strTag, work.Description));
@@ -170,7 +170,7 @@ namespace mp.Service
                         manager.AdminPixivWorks.Update(work);
 
                         user.LastPickTime = item.PublishDate;
-                        manager.AdminPixivPickUsers.Update(user);
+                        manager.AdminPixivUsers.Update(user);
                     });
                 }
             }

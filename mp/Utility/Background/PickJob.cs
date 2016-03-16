@@ -65,7 +65,7 @@ namespace mp.Utility
             var wc = new XWebClient();
             var now = DateTime.Now;
             var time = now.AddDays(-2);
-            var list = manager.AdminPixivPickUsers.Items.Where(p => p.LastPickTime < time).ToList();
+            var list = manager.AdminPixivUsers.Items.Where(p => p.LastPickTime < time).ToList();
             if (list.Count == 0)
                 return;
 
@@ -81,7 +81,7 @@ namespace mp.Utility
                 var page = 1;
                 while (true)
                 {
-                    var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.PixivUserID + "&p=" + page);
+                    var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + user.UserID + "&p=" + page);
                     //var html = wc.Get("http://www.pixiv.net/member_illust.php?type=illust&id=" + 163536 + "&p=" + page);
                     var doc = new HtmlDocument();
                     doc.LoadHtml(html);
@@ -177,11 +177,11 @@ namespace mp.Utility
                         manager.AdminPixivWorks.Update(work);
 
                         user.LastPickTime =item.PublishDate ;
-                        manager.AdminPixivPickUsers.Update(user);
+                        manager.AdminPixivUsers.Update(user);
                     });
                 }
                 user.LastPickTime = DateTime.Now;
-                manager.AdminPixivPickUsers.Update(user);
+                manager.AdminPixivUsers.Update(user);
             }
         }
 

@@ -21,8 +21,8 @@
     @foreach (mp.DAL.AdminPixivPickUser item in ViewBag.List)
     {
         <tr>
-            <td>@item.PixivUserID</td>
-            <td>@item.PixivUserName</td>
+            <td>@item.UserID</td>
+            <td>@item.UserName</td>
             <td>@item.PackageID</td>
             <td>@(item.Package==null?"":item.Package.Title)</td>
             <td>@item.LastPickTime.ToString("yyyy-MM-dd HH:mm")</td>

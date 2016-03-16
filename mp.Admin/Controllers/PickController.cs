@@ -13,29 +13,29 @@ namespace mp.Admin.Controllers
     {
         public ActionResult Index()
         {
-            var list = Manager.AdminPixivPickUsers.Items.OrderByDescending(p => p.ID).Take(40).ToList();
+            var list = Manager.AdminPixivUsers.Items.OrderByDescending(p => p.ID).Take(40).ToList();
             ViewBag.List = list;
             return View();
         }
 
         public ActionResult Add()
         {
-            var model = new mp.DAL.AdminPixivPickUser { LastPickTime = new DateTime(1990, 1, 1) };
+            var model = new mp.DAL.AdminPixivUser { LastPickTime = new DateTime(1990, 1, 1) };
             return PartialView("Modal", model);
         }
         [HttpPost]
-        public ActionResult Add(AdminPixivPickUser model)
+        public ActionResult Add(AdminPixivUser model)
         {
             var result = new AjaxResult();
-            if (string.IsNullOrWhiteSpace(model.PixivUserName))
+            if (string.IsNullOrWhiteSpace(model.UserName))
             {
                 result.Success = false;
                 result.Message = "p站用户名不能为空";
                 return JsonContent(result);
             }
-            model.PixivUserName = model.PixivUserName.Trim();
+            model.UserName = model.UserName.Trim();
 
-            var exist = Manager.AdminPixivPickUsers.Items.Where(u => u.PixivUserID == model.PixivUserID).Count() > 0;
+            var exist = Manager.AdminPixivUsers.Items.Where(u => u.UserID == model.UserID).Count() > 0;
             if (exist)
             {
                 result.Success = false;
@@ -43,37 +43,37 @@ namespace mp.Admin.Controllers
                 return JsonContent(result);
             }
 
-            Manager.AdminPixivPickUsers.Add(model);
+            Manager.AdminPixivUsers.Add(model);
             return JsonContent(result);
         }
 
         public ActionResult Edit(int id)
         {
             ViewBag.IsEdit = true;
-            var model = Manager.AdminPixivPickUsers.Find(id);
+            var model = Manager.AdminPixivUsers.Find(id);
             return PartialView("Modal", model);
         }
         [HttpPost]
-        public ActionResult Edit(AdminPixivPickUser model)
+        public ActionResult Edit(AdminPixivUser model)
         {
             var result = new AjaxResult();
 
-            if(string.IsNullOrWhiteSpace(model.PixivUserName))
+            if(string.IsNullOrWhiteSpace(model.UserName))
             {
                 result.Success = false;
                 result.Message = "p站用户名不能为空";
                 return JsonContent(result);
             }
 
-            model.PixivUserName = model.PixivUserName.Trim();
-            Manager.AdminPixivPickUsers.Update(model);
+            model.UserName = model.UserName.Trim();
+            Manager.AdminPixivUsers.Update(model);
             return JsonContent(result);
         }
 
         public ActionResult Delete(int id)
         {
-            var pick = Manager.AdminPixivPickUsers.Find(id);
-            Manager.AdminPixivPickUsers.Remove(pick);
+            var pick = Manager.AdminPixivUsers.Find(id);
+            Manager.AdminPixivUsers.Remove(pick);
             return Redirect("~/pick");
         }
     }

@@ -144,14 +144,14 @@ namespace mp.BLL
             }
         }
 
-        ManagerBase<AdminPixivPickUser> adminPixivPickUsers;
-        public ManagerBase<AdminPixivPickUser> AdminPixivPickUsers
+        ManagerBase<AdminPixivUser> adminPixivUsers;
+        public ManagerBase<AdminPixivUser> AdminPixivUsers
         {
             get
             {
-                if (adminPixivPickUsers == null)
-                    adminPixivPickUsers = new ManagerBase<AdminPixivPickUser>(db, this);
-                return adminPixivPickUsers;
+                if (adminPixivUsers == null)
+                    adminPixivUsers = new ManagerBase<AdminPixivUser>(db, this);
+                return adminPixivUsers;
             }
         }
 
