@@ -43,7 +43,7 @@ namespace mp.Service
             if (encoding == null)
                 encoding = Encoding.UTF8;
 
-            Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:41.0) Gecko/20100101 Firefox/41.0");
+            Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
 
             var values = new NameValueCollection();
             if (data != null)

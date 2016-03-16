@@ -17,12 +17,13 @@ namespace mp.Service
         {
             var manager = new ManagerCollection();
             var wc = new XWebClient();
+
             var list = manager.AdminPixivPickUsers.Items.ToList();
             if (list.Count == 0)
                 return;
 
             //登录逻辑
-            wc.Post("https://www.secure.pixiv.net/login.php", new { mode = "login", pixiv_id = "305870697@qq.com", pass = "Horsea", skip = 1 });
+            var loginstr = wc.Post("https://www.pixiv.net/login.php", new { mode = "login", pixiv_id = "305870697@qq.com", pass = "Horsea", skip = 1 });
 
             foreach (var user in list)
             {
@@ -172,8 +173,6 @@ namespace mp.Service
                         manager.AdminPixivPickUsers.Update(user);
                     });
                 }
-                user.LastPickTime = DateTime.Now;
-                manager.AdminPixivPickUsers.Update(user);
             }
         }
 
