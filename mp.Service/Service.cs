@@ -37,6 +37,9 @@ namespace mp.Service
             CreateJob(typeof(PickJob), CronScheduleBuilder.DailyAtHourAndMinute(3, 0));
             //CreateJob(typeof(PickJob));
 
+            //获取每日top50相关信息
+            CreateJob(typeof(GetPixivTop50Job));
+
             // 生成sitemap,每日0时30分执行
             CreateJob(typeof(GenerateSitemapJob), CronScheduleBuilder.DailyAtHourAndMinute(0, 30));
             return true;

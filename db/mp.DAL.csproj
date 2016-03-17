@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminPixivPickUser.cs" />
+    <Compile Include="AdminPixivUser.cs" />
     <Compile Include="AdminPixivTag.cs" />
     <Compile Include="AdminPixivWork.cs" />
     <Compile Include="AdminPixivWorkTag.cs" />

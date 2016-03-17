@@ -14,6 +14,7 @@ namespace mp.DAL
         public DateTime LastPickTime { get; set; }
         public string UserName { get; set; }
         public AdminPixivUserStates State { get; set; }
+        public int RankCount { get; set; }
     }
 
     public enum AdminPixivUserStates:byte

@@ -4,9 +4,38 @@
     ViewBag.SubPage = "采集";
 }
 
+<style>
+    .toolbar-item {
+        float: left;
+        margin-right: 8px;
+    }
+</style>
+
 <h2 class="page-header">采集管理</h2>
-<div class="placeholder clearfix">
-    <button class="btn btn-primary pull-right btn-sm" id="add-btn"><span class="glyphicon glyphicon-plus"></span>新建采集</button>
+<div style="margin:10px auto;" class="clearfix">
+    <form action="/pick">
+        <div class="toolbar-item">
+            <input name="filter" type="hidden" value="@ViewBag.Filter" />
+            <span>筛选：</span>
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-default" data-value="wait">待处理</button>
+                <button type="button" class="btn btn-default" data-value="skip">已跳过</button>
+                <button type="button" class="btn btn-default" data-value="pick">采集中</button>
+                <button type="button" class="btn btn-default" data-value="all">全部</button>
+            </div>
+        </div>
+        <div class="toolbar-item">
+            <div class="btn btn-primary btn-sm add-btn" id="add-btn">新增</div>
+        </div>
+        <div class="toolbar-item">
+            <div class="input-group input-group-sm">
+                <input type="text" name="keyword" class="form-control" value="@ViewBag.Keyword" placeholder="搜索...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+    </form>
 </div>
 
 <table class="table table-table-striped">
@@ -18,7 +47,7 @@
         <th>最后采集时间</th>
         <th>操作</th>
     </tr>
-    @foreach (mp.DAL.AdminPixivPickUser item in ViewBag.List)
+    @foreach (mp.DAL.AdminPixivUser item in ViewBag.List)
     {
         <tr>
             <td>@item.UserID</td>

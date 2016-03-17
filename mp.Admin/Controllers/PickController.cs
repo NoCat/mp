@@ -11,7 +11,7 @@ namespace mp.Admin.Controllers
     [MPAuthorize]
     public class PickController : ControllerBase
     {
-        public ActionResult Index()
+        public ActionResult Index(string filter,string keyword)
         {
             var list = Manager.AdminPixivUsers.Items.OrderByDescending(p => p.ID).Take(40).ToList();
             ViewBag.List = list;

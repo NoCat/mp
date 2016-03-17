@@ -28,7 +28,7 @@ namespace mp.DAL
         public DbSet<Config> Configs { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<AdminSubAccount> AdminSubAccounts { get; set; }
-        public DbSet<AdminPixivUser> AdminPixivPickUsers { get; set; }
+        public DbSet<AdminPixivUser> AdminPixivUsers { get; set; }
         public DbSet<AdminPixivTag> AdminPixivTags { get; set; }
         public DbSet<AdminPixivWork> AdminPixivWorks { get; set; }
         public DbSet<AdminPixivWorkTag> AdminPixivWorkTags { get; set; }
