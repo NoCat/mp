@@ -11,10 +11,27 @@ namespace mp.Admin.Controllers
     [MPAuthorize]
     public class PickController : ControllerBase
     {
-        public ActionResult Index(string filter,string keyword)
+        public ActionResult Index(string keyword,string filter="wait")
         {
-            var list = Manager.AdminPixivUsers.Items.OrderByDescending(p => p.ID).Take(40).ToList();
+            var result = Manager.AdminPixivUsers.Items.AsQueryable();
+            switch (filter)
+            {
+                case "wait":
+                    result = result.Where(u => u.State == AdminPixivUserStates.Wait);
+                    break;
+                case "skip":
+                    result = result.Where(u => u.State == AdminPixivUserStates.Skip);
+                    break;
+                case "pick":
+                    result = result.Where(u => u.State == AdminPixivUserStates.Pick);
+                    break;
+                default:
+                    break;
+            }
+
+            var list = result.OrderByDescending(p => p.RankCount).Take(40).ToList();
             ViewBag.List = list;
+            ViewBag.Filter = filter;
             return View();
         }
 

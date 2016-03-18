@@ -42,6 +42,7 @@
     <tr>
         <th>P站用户ID</th>
         <th>P站用户名</th>
+        <th>排名分</th>
         <th>图包ID</th>
         <th>图包标题</th>
         <th>最后采集时间</th>
@@ -50,8 +51,9 @@
     @foreach (mp.DAL.AdminPixivUser item in ViewBag.List)
     {
         <tr>
-            <td>@item.UserID</td>
+            <td><a target="_blank" href="http://www.pixiv.net/member_illust.php?id=@item.UserID">@item.UserID</a></td>
             <td>@item.UserName</td>
+            <td>@item.RankCount</td>
             <td>@item.PackageID</td>
             <td>@(item.Package==null?"":item.Package.Title)</td>
             <td>@item.LastPickTime.ToString("yyyy-MM-dd HH:mm")</td>
@@ -83,6 +85,27 @@
 @section script{
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.toolbar-item input[type="hidden"]').each(function () {
+                var input = $(this);
+                var val = input.val();
+
+                var toolbarItem = input.parents('.toolbar-item');
+                var btn = toolbarItem.find('.btn-group .btn[data-value="' + val + '"]');
+                btn.removeClass('btn-default');
+                btn.addClass('btn-primary');
+            });
+
+            $(document).on('click', '.toolbar-item .btn-group .btn-default', function () {
+                var btn = $(this);
+                var val = btn.data('value');
+
+                var toolbarItem = btn.parents('.toolbar-item');
+                var input = toolbarItem.find('input[type="hidden"]');
+
+                input.val(val);
+
+                var form = btn.parents('form').submit();
+            });
 
             $('.edit-btn').click(function () {
                 var t = $(this);

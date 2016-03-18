@@ -1,24 +1,25 @@
-﻿@model mp.DAL.AdminPixivPickUser
+﻿@model mp.DAL.AdminPixivUser
 
 <form class="form-horizontal" action="@Request.RawUrl">
     <div class="modal-body">
         <div class="form-group">
+            <input type="hidden" name="rankcount" value="@Model.RankCount" />
             <label class="col-sm-4">p站用户ID：</label>
             <div class="col-sm-8">
                 @if (ViewBag.IsEdit == true)
                 {
-                    <input type="hidden" name="pixivUserId" value="@Model.PixivUserID" />
-                    <p class="form-control-static">@Model.PixivUserID</p>
+                    <input type="hidden" name="UserId" value="@Model.UserID" />
+                    <p class="form-control-static">@Model.UserID</p>
                 }
                 else
                 {
-                    <input type="text" name="pixivUserId" class="form-control" value="@Model.PixivUserID" />
+                    <input type="text" name="UserId" class="form-control" value="@Model.UserID" />
                 }
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4">p站用户名：</label>
-            <div class="col-sm-8"><input type="text" name="pixivusername" class="form-control" value="@Model.PixivUserName" /></div>
+            <div class="col-sm-8"><input type="text" name="username" class="form-control" value="@Model.UserName" /></div>
         </div>
         <div class="form-group">
             <label class="col-sm-4">图包ID：</label>
@@ -28,10 +29,26 @@
             <label class="col-sm-4">最后采集时间：</label>
             <div class="col-sm-8"><input type="text" name="lastpicktime" class="form-control" value="@Model.LastPickTime.ToString()" /></div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-4">状态：</label>
+            <div class="col-sm-8">
+                <label>
+                    <input type="radio" name="state" value="wait" @(Model.State == mp.DAL.AdminPixivUserStates.Wait ? "checked=\"checked\"" : "") />
+                    等待
+                </label>
+                <label>
+                    <input type="radio" name="state" value="pick" @(Model.State == mp.DAL.AdminPixivUserStates.Pick ? "checked=\"checked\"" : "") />
+                    采集
+                </label>
+                <label>
+                    <input type="radio" name="state" value="skip" @(Model.State == mp.DAL.AdminPixivUserStates.Skip ? "checked=\"checked\"" : "") />
+                    跳过
+                </label>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         <button class="btn btn-primary">确定</button>
     </div>
 </form>
-
