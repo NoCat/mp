@@ -15,7 +15,6 @@ namespace mp.BLL
         {
             var tag = DB.AdminPixivTags.Find(entity.TagID);
             tag.CitationCount++;
-            tag.Weight += 10000;
             Collection.AdminPixivTags.Update(tag);
 
             var exist = DB.AdminPixivWorkTags.Where(i => i.TagID == entity.TagID && i.WorkID == entity.WorkID).FirstOrDefault();
