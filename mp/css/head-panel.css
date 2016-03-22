@@ -133,3 +133,9 @@
   box-shadow: 0 0 1px 0 #777777;
   margin-right: 5px;
 }
+.package-description {
+  margin: 5px;
+}
+.package-description .label {
+  margin: 0 3px;
+}
