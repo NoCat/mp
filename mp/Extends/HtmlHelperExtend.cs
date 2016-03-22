@@ -23,7 +23,7 @@ static public class HtmlHelperExtend
         var regex2 = new Regex(@"(http|https):\/\/[A-Za-z0-9_\-_]+(\.[A-Za-z0-9_\-_]+)+([A-Za-z0-9_\-\.,@?^=%&amp;:/~\+#]*[A-Za-z0-9_\-\@?^=%&amp;/~\+#])?");
         description = regex2.Replace(description, (match) =>
         {
-            var str = string.Format("<a class=\"label label-default\" href=\"{0}\">网页链接 &gt;</a>", match.Value);
+            var str = string.Format("<a class=\"label label-default\" href=\"{0}\" target=\"_blank\">网页链接 &gt;</a>", match.Value);
             return str;
         });
         return new MvcHtmlString(description);
