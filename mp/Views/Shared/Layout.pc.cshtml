@@ -7,6 +7,15 @@
 }
 
 @section script{
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?13a775525a0bf1757731f56e85a82930";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     @System.Web.Optimization.Scripts.Render("~/js/mp.js")
     @RenderSection("script", false)
 }
@@ -21,7 +30,7 @@
                 <h4 class="modal-title">登录</h4>
             </div>
             <div class="bg-warning text-center text-warning"></div>
-            <div class="modal-body">                
+            <div class="modal-body">
                 <form>
                     <div class="form-group">
                         <input class="form-control" name="email" type="text" placeholder="邮箱" />
@@ -75,7 +84,7 @@
 
     </div>
 
-    <div id="signup-modal" class="modal-dialog modal-sm" >
+    <div id="signup-modal" class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
