@@ -3,8 +3,8 @@
 @line-height-small-compute: floor(@font-size-small*@line-height-small);
 @line-height-large-compute: floor(@font-size-large*@line-height-large);
 
-body{
-    font-family:'Microsoft YaHei',Arial, Helvetica, sans-serif
+body {
+    font-family: 'Microsoft YaHei',Arial, Helvetica, sans-serif;
 }
 
 .inline-block {
@@ -17,9 +17,9 @@ body{
     overflow: hidden;
 }
 
-textarea{
-    resize:none;
-    overflow-y:auto;
+textarea {
+    resize: none;
+    overflow-y: auto;
 }
 /*#region bsSelect样式 */
 .btn-group.select {
@@ -29,8 +29,8 @@ textarea{
         width: 100%;
     }
 
-    .dropdown-menu>li>a{
-        cursor:pointer;
+    .dropdown-menu > li > a {
+        cursor: pointer;
         .text-ellipsis;
     }
 
@@ -114,29 +114,8 @@ textarea{
 }
 
 .mp-image-container {
-    width: 1020px;
+    width: 744px;
     margin: 15px auto;
-
-    .left {
-        float: left;
-        width: 705px;
-    }
-
-    .right {
-        float: right;
-        width: 295px;
-        margin-left: 20px;
-    }
-
-    .scroller {
-        height: 500px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-
-        .waterfall-76 {
-            min-height: 520px;
-        }
-    }
 
     .image {
         margin: 15px 0;
@@ -189,5 +168,27 @@ textarea{
     .next {
         right: 5px;
     }
-}
 
+    .praise {
+        border-top: 1px solid #ddd;
+        margin: 15px -15px 0;
+        padding: 15px 15px 0;
+
+        h4 {
+            margin-top: 0px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .praise-user{
+            display:block;
+            float:left;
+            margin:0 5px 5px 0;
+
+            img{
+                width:50px;
+                height:50px;
+            }
+        }
+    }
+}

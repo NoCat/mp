@@ -10,88 +10,108 @@
 }
 
 <div class="mp-image-container">
-    <div class="clearfix">
-        <div class="left">
-            <div class="mp-panel panel">
-                <div class="panel-body">
-                    <div class="bar-top clearfix">
-                        <div class="pull-left">
-                            @if (Security.IsLogin)
+    <div class="mp-panel panel">
+        <div class="panel-body">
+            <div class="bar-top clearfix">
+                <div class="pull-left">
+                    @if (Security.IsLogin)
                             {
-                                <div class="btn btn-primary btn-sm resave-btn" data-id="@imageInfo.ID">转存</div>
+                            <div class="btn btn-primary btn-sm resave-btn" data-id="@imageInfo.ID">转存</div>
                                 if (imageInfo.IsPraise)
                                 {
-                                    <div class="btn btn-default btn-sm cancel-praise-btn" data-id="@imageInfo.ID">
-                                        <span class="glyphicon glyphicon-heart"></span>
-                                    </div>
+                            <div class="btn btn-default btn-sm cancel-praise-btn" data-id="@imageInfo.ID">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </div>
                                 }
                                 else
                                 {
-                                    <div class="btn btn-default btn-sm praise-btn" data-id="@imageInfo.ID">
-                                        <span class="glyphicon glyphicon-heart"></span>
-                                    </div>
+                            <div class="btn btn-default btn-sm praise-btn" data-id="@imageInfo.ID">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </div>
                                 }
                             }
                             else
                             {
-                                <div class="btn btn-primary btn-sm login-btn">转存</div>
-                                <div class="btn btn-default btn-sm login-btn">
-                                    <span class="glyphicon glyphicon-heart"></span>
-                                </div>
+                            <div class="btn btn-primary btn-sm login-btn">转存</div>
+                            <div class="btn btn-default btn-sm login-btn">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </div>
                             }
-                        </div>
-                        <div class="pull-right">
-                            @if (Security.IsLogin == true && imageInfo.UserID == Security.User.ID)
+                </div>
+                <div class="pull-right">
+                    @if (Security.IsLogin == true && imageInfo.UserID == Security.User.ID)
                             {
-                                <div class="btn btn-default btn-sm image-edit-btn" data-id="@imageInfo.ID">编辑</div>
-                                <div class="btn btn-danger btn-sm image-delete-btn" data-id="@imageInfo.ID">删除</div>
+                            <div class="btn btn-default btn-sm image-edit-btn" data-id="@imageInfo.ID">编辑</div>
+                            <div class="btn btn-danger btn-sm image-delete-btn" data-id="@imageInfo.ID">删除</div>
                             }
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src="@imageInfo.ThumbFW658.Url"/>
-                    </div>
-                    <div class="bar-bottom clearfix">
-                        <div class="pull-left"></div>
-                        <div class="pull-right">
-                            <a class="btn btn-default btn-sm" target="_blank" href="@imageInfo.ThumbOrigin.Url"><span class=" glyphicon glyphicon-zoom-in"></span> 查看大图</a>
-                            @if (imageInfo.FromUrlID != 0)
-                            {
-                                <a class="btn btn-default btn-sm" target="_blank" href="@imageInfo.FromUrl.Text"><span class="glyphicon glyphicon-globe"></span> 查看来源</a>
-                            }
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="mp-panel panel">
-                <div class="panel-body">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="@imageInfo.User.HomePage">
-                                <img class="media-object" src="@imageInfo.User.Head" />
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="@imageInfo.User.HomePage" class="media-heading">@imageInfo.User.Name</a>
-                            <div>收集于 @imageInfo.CreatedTime.ToString("yyyy年MM月dd日 HH:mm")</div>
-                        </div>
-                    </div>
-                    <div class="description">@Html.MpDescription(imageInfo.Description)</div>
-                </div>
+            <div class="image">
+                <img src="@imageInfo.ThumbFW658.Url" />
             </div>
-        </div>
-        <div class="right">
-            <div class="mp-panel panel">
-                <div class="panel-body">
-                    <div class="scroller">
-                        <div class="waterfall-78">
-                            @Html.Action("Images", "Package", new { Id = imageInfo.PackageID, max = int.MaxValue, thumb = "fw78" })
-                        </div>
-                    </div>
+            <div class="bar-bottom clearfix">
+                <div class="pull-left"></div>
+                <div class="pull-right">
+                    <a class="btn btn-default btn-sm" target="_blank" href="@imageInfo.ThumbOrigin.Url"><span class=" glyphicon glyphicon-zoom-in"></span> 查看大图</a>
+                    @if (imageInfo.FromUrlID != 0)
+                            {
+                            <a class="btn btn-default btn-sm" target="_blank" href="@imageInfo.FromUrl.Text"><span class="glyphicon glyphicon-globe"></span> 查看来源</a>
+                            }
                 </div>
             </div>
         </div>
     </div>
+    <div class="mp-panel panel">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-left">
+                    <a href="@imageInfo.User.HomePage">
+                        <img class="media-object" src="@imageInfo.User.Head" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div>
+                        <a href="@imageInfo.User.HomePage" class="media-heading">@imageInfo.User.Name</a>
+                        在
+                        @imageInfo.CreatedTime.ToString("yyyy年MM月dd日 HH:mm")
+                    </div>
+                    <div>
+                        收集到
+                        <a href="@imageInfo.Package.HomePage">@imageInfo.Package.Title</a>
+                    </div>
+                </div>
+            </div>
+            <div class="description">@Html.MpDescription(imageInfo.Description)</div>
+            @if (imageInfo.PraiseCount != 0)
+                    {
+                    <div class="praise">
+                        <h4>TA赞了这张图片</h4>
+                        <div class="clearfix">
+                            @foreach (var item in @ViewBag.PraiseUsers)
+                                {
+                                    var user = new mp.Models.UserInfo(item);
+                                <a class="praise-user" href="@user.HomePage" title="@user.Name">
+                                    <img src="@user.Head" />
+                                </a>
+                                }
+                        </div>
+                    </div>
+                    }
+        </div>
+    </div>
+    @if (ViewBag.RelatePackages.Count != 0)
+    {
+        var packages = ((IEnumerable<mp.DAL.Package>)ViewBag.RelatePackages).Select(p => new mp.Models.WaterfallItem { ID = p.ID, Item = new mp.Models.PackageInfo(p) });
+        <div class="mp-piece">
+            <div class="header">
+                <h2>该图片还在以下图包</h2>
+            </div>
+            <div class="waterfall">
+                @Html.Partial("packagelist.pc", packages)
+            </div>
+        </div>
+
+    }
     @if (prev != null)
     {
         <a href="/image/@prev" class="prev">

@@ -27,6 +27,20 @@ namespace mp.Controllers
             if (prev != 0)
                 ViewBag.Prev = prev;
 
+            var praiseUsers = from user in Manager.Users.Items
+                              join praise in Manager.Praises.Items on user.ID equals praise.UserID
+                              where praise.ImageID == image.ID
+                              select user;
+
+            ViewBag.PraiseUsers = praiseUsers.ToList();
+
+            var relatePackages = from package in Manager.Packages.Items
+                                 join image0 in Manager.Images.Items on package.ID equals image0.PackageID
+                                 where image0.FileID == image.FileID && package.ID!=image.PackageID
+                                 select package;
+
+            ViewBag.RelatePackages = relatePackages.OrderByDescending(p=>p.ID).Take(4).ToList();
+
             return View("Index.pc");
         }
 
@@ -34,19 +48,19 @@ namespace mp.Controllers
         [MPAuthorize]
         public ActionResult Resave(int id)
         {
-            var model=new ImageModalModel();
+            var model = new ImageModalModel();
             var image = Manager.Images.Find(id);
             if (image != null)
             {
                 model.ID = image.ID;
                 model.ImagePath = new ImageInfo(image).ThumbFW236.Url;
                 model.Description = image.Description;
-                model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p=>p.ID)
+                model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID)
                         .Select(p => new ImageModalModel.PackageListItem
                         {
                             ID = p.ID,
                             Title = p.Title,
-                            InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID ==image.FileID).Count() > 0
+                            InPackage = Manager.Images.Items.Where(i => i.PackageID == p.ID && i.FileID == image.FileID).Count() > 0
                         }).ToArray();
                 model.PackageID = model.PackageList.Select(p => p.ID).FirstOrDefault();
             }
@@ -83,7 +97,7 @@ namespace mp.Controllers
                 FileID = image.FileID
             };
             Manager.Images.Add(nImage);
-            Manager.Resaves.Add(new Resave { Parent = image.ID, Child = nImage.ID,CreateTime=DateTime.Now });
+            Manager.Resaves.Add(new Resave { Parent = image.ID, Child = nImage.ID, CreateTime = DateTime.Now });
 
             return JsonContent(result);
         }
@@ -136,7 +150,7 @@ namespace mp.Controllers
             image.PackageID = package.ID;
             image.Description = model.Description;
 
-            Manager.Images.Update(image);    
+            Manager.Images.Update(image);
             return JsonContent(result);
         }
         #endregion
@@ -171,7 +185,7 @@ namespace mp.Controllers
             var model = new ImageModalModel();
             var file = Manager.Files.Find(id);
             if (file != null)
-            {                
+            {
                 model.ImagePath = new ImageInfo(new Image { File = file }).ThumbFW236.Url;
                 model.PackageList = Manager.Packages.Items.Where(p => p.UserID == Security.User.ID).OrderByDescending(p => p.ID)
                     .Select(p => new ImageModalModel.PackageListItem
@@ -258,7 +272,7 @@ namespace mp.Controllers
                 return JsonContent(result);
             }
 
-            praise = new Praise { ImageID = image.ID, UserID = Security.User.ID,CreateTime=DateTime.Now };
+            praise = new Praise { ImageID = image.ID, UserID = Security.User.ID, CreateTime = DateTime.Now };
             Manager.Praises.Add(praise);
 
             var count = Manager.Praises.Items.Where(p => p.ImageID == image.ID).Count();

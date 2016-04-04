@@ -161,25 +161,8 @@ textarea {
   margin: 5px 0;
 }
 .mp-image-container {
-  width: 1020px;
+  width: 744px;
   margin: 15px auto;
-}
-.mp-image-container .left {
-  float: left;
-  width: 705px;
-}
-.mp-image-container .right {
-  float: right;
-  width: 295px;
-  margin-left: 20px;
-}
-.mp-image-container .scroller {
-  height: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-.mp-image-container .scroller .waterfall-76 {
-  min-height: 520px;
 }
 .mp-image-container .image {
   margin: 15px 0;
@@ -226,4 +209,23 @@ textarea {
 }
 .mp-image-container .next {
   right: 5px;
+}
+.mp-image-container .praise {
+  border-top: 1px solid #ddd;
+  margin: 15px -15px 0;
+  padding: 15px 15px 0;
+}
+.mp-image-container .praise h4 {
+  margin-top: 0px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.mp-image-container .praise .praise-user {
+  display: block;
+  float: left;
+  margin: 0 5px 5px 0;
+}
+.mp-image-container .praise .praise-user img {
+  width: 50px;
+  height: 50px;
 }
