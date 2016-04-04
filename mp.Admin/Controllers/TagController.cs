@@ -24,7 +24,7 @@ namespace mp.Admin.Controllers
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.Trim();
-                taglist = taglist.Where(t => t.PText.Contains(keyword));
+                taglist = taglist.Where(t => t.PText.Contains(keyword) || t.MText.Contains(keyword));
             }
 
             switch (filter)

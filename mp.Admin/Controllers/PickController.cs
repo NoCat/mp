@@ -14,6 +14,13 @@ namespace mp.Admin.Controllers
         public ActionResult Index(string keyword,string filter="wait")
         {
             var result = Manager.AdminPixivUsers.Items.AsQueryable();
+
+            if(string.IsNullOrWhiteSpace(keyword)==false)
+            {
+                keyword = keyword.Trim();
+                result = result.Where(u => u.UserName.Contains(keyword));
+            }
+
             switch (filter)
             {
                 case "wait":
@@ -30,6 +37,7 @@ namespace mp.Admin.Controllers
             }
 
             var list = result.OrderByDescending(p => p.RankCount).Take(40).ToList();
+            ViewBag.Keyword = keyword;
             ViewBag.List = list;
             ViewBag.Filter = filter;
             return View();
