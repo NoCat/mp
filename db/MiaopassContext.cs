@@ -33,6 +33,7 @@ namespace mp.DAL
         public DbSet<AdminPixivWork> AdminPixivWorks { get; set; }
         public DbSet<AdminPixivWorkTag> AdminPixivWorkTags { get; set; }
         public DbSet<Resave> Resaves { get; set; }
+        public DbSet<PasswordReset> PasswordResets { get; set; }
 
         public MiaopassContext() : base("name=db") { }
 

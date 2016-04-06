@@ -199,6 +199,16 @@ namespace mp.BLL
             }
         }
 
+        ManagerBase<PasswordReset> passwordResets;
+        public ManagerBase<PasswordReset> PasswordResets
+        {
+            get
+            {
+                if (passwordResets == null)
+                    passwordResets = new ManagerBase<PasswordReset>(db, this);
+                return passwordResets;
+            }
+        }
         
         public ManagerCollection()
         {

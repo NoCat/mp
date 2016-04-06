@@ -94,6 +94,59 @@ namespace mp.Controllers
             return JsonContent(result);
         }
 
+        [HttpPost]
+        public ActionResult SendResetMail(string email)
+        {
+            return View();
+        }
+
+        public ActionResult ResetPassword(string token)
+        {
+            var reset = Manager.PasswordResets.Items.Where(s => s.Token == token && s.ExpireTime>DateTime.Now).FirstOrDefault();
+            if (reset == null)
+                return Redirect("~/");
+
+            ViewBag.Email = reset.User.Email;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(string token, string pw1,string pw2)
+        {
+            var result = new AjaxResult();
+
+            if(string.IsNullOrEmpty(pw1))
+            {
+                result.Success = false;
+                result.Message = "密码不能为空";
+                return JsonContent(result);
+            }
+
+            if(pw1!=pw2)
+            {
+                result.Success = false;
+                result.Message = "两次输入密码不一致";
+                return JsonContent(result);
+            }
+
+            var reset = Manager.PasswordResets.Items.Where(s => s.Token == token && s.ExpireTime > DateTime.Now).FirstOrDefault();
+            if(result==null)
+            {
+                result.Success = false;
+                result.Message = "token不存在或过期";
+                return JsonContent(result);
+            }
+
+            var salt = Guid.NewGuid().ToByteArray().ToHexString();
+            var password = (pw1 + salt).MD5();
+
+            reset.User.Password = password;
+            reset.User.Salt = salt;
+            Manager.Users.Update(reset.User);
+
+            return JsonContent(result);
+        }
+
         public ActionResult Logout()
         {
             Security.Logout();
