@@ -10,8 +10,13 @@ namespace mp.Controllers
     public class SearchController : ControllerBase
     {
 
-        public ActionResult Index(string kw, int max = 0)
+        public ActionResult Index(string kw="", int max = 0)
         {
+            if(kw=="")
+            {
+                return Redirect("~/");
+            }
+
             if (max == 0)
             {
                 ViewBag.Keyword = kw;
