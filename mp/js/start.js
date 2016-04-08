@@ -11,14 +11,15 @@ var mp;
                 mp.modal.ShowSignup();
                 return false;
             });
+            $('#reset-password').click(function () {
+                mp.modal.ShowResetPassword();
+            });
             $(document).on('click', '.resave-btn', function (e) {
                 var btn = $(e.currentTarget);
                 var id = btn.data('id');
                 var url = '/image/' + id + '/resave';
                 mp.modal.ShowImage(url, '转存', function () {
-                    mp.modal.ShowMessage('转存成功', '提示', function () {
-                        mp.modal.Close();
-                    });
+                    mp.modal.ShowMessage('转存成功', '提示', function () { mp.modal.Close(); });
                 });
                 return false;
             });
@@ -42,9 +43,7 @@ var mp;
                             location.href = result.Data.url;
                         }
                         else {
-                            mp.modal.ShowMessage(result.Message, '提示', function () {
-                                mp.modal.Close();
-                            });
+                            mp.modal.ShowMessage(result.Message, '提示', function () { mp.modal.Close(); });
                         }
                     }, 'json');
                 };
@@ -190,10 +189,7 @@ var mp;
                     var onSuccess = function () {
                         var packageid = $('#image-modal form').find('input[name="packageid"]').val();
                         var url = '/package?id=' + packageid;
-                        mp.modal.ShowMessage("创建成功", "提示", function () {
-                            mp.modal.Close();
-                            location.replace(url);
-                        });
+                        mp.modal.ShowMessage("创建成功", "提示", function () { mp.modal.Close(); location.replace(url); });
                     };
                     var onLoaded = function () {
                         var form = $('#image-modal form');

@@ -1,7 +1,7 @@
 var mp;
 (function (mp) {
     var uploader;
-    (function (_uploader) {
+    (function (uploader_1) {
         var Uploader = (function () {
             function Uploader(file) {
                 this.onProgress = null;
@@ -76,8 +76,8 @@ var mp;
                 xhr.send(data);
             };
             return Uploader;
-        })();
-        _uploader.Uploader = Uploader;
+        }());
+        uploader_1.Uploader = Uploader;
         var BatchUploader = (function () {
             function BatchUploader() {
                 this.totalSize = 0;
@@ -134,7 +134,7 @@ var mp;
                 this._stop = true;
             };
             return BatchUploader;
-        })();
-        _uploader.BatchUploader = BatchUploader;
+        }());
+        uploader_1.BatchUploader = BatchUploader;
     })(uploader = mp.uploader || (mp.uploader = {}));
 })(mp || (mp = {}));

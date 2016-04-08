@@ -188,6 +188,7 @@
     <Compile Include="Utility\Background\Worker.cs" />
     <Compile Include="Utility\Background\Job.cs" />
     <Compile Include="Utility\Configs.cs" />
+    <Compile Include="Utility\EmailHelper.cs" />
     <Compile Include="Utility\MPAuthorize.cs" />
     <Compile Include="Utility\Security.cs" />
     <Compile Include="Utility\Tools.cs" />
@@ -285,6 +286,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="template\resetpassword.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -14,6 +14,11 @@ module mp.start {
             return false;
         });
 
+        $('#reset-password').click(() =>
+        {
+            modal.ShowResetPassword();
+        });
+
         $(document).on('click', '.resave-btn',(e) => {
             var btn = $(e.currentTarget);
             var id = btn.data('id');

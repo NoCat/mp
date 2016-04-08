@@ -97,6 +97,17 @@ namespace mp.Controllers
         [HttpPost]
         public ActionResult SendResetMail(string email)
         {
+            var result=new AjaxResult();
+            var emailExist = Manager.Users.Items.Where(u => u.Email == email).Count() > 0;
+            if(emailExist==false)
+            {
+                result.Success = false;
+                result.Message = "邮箱地址不存在,请确认后重新输入";
+                return JsonContent(result);
+            }
+
+
+
             return View();
         }
 

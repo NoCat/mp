@@ -1,7 +1,9 @@
+/// <reference path="mp.ts" />
+/// <reference path="select.ts" />
 var mp;
 (function (mp) {
     var modal;
-    (function (modal_1) {
+    (function (_modal) {
         var prev = [];
         function ShowMessage(msg, title, OnOK) {
             if (title === void 0) { title = '提示'; }
@@ -21,19 +23,19 @@ var mp;
             });
             ShowModal(modal);
         }
-        modal_1.ShowMessage = ShowMessage;
+        _modal.ShowMessage = ShowMessage;
         function ShowLogin() {
             ShowModal($('#login-modal'));
         }
-        modal_1.ShowLogin = ShowLogin;
+        _modal.ShowLogin = ShowLogin;
         function ShowSignup() {
             ShowModal($('#signup-modal'));
         }
-        modal_1.ShowSignup = ShowSignup;
+        _modal.ShowSignup = ShowSignup;
         function ShowProgress() {
             ShowModal($('#progress-modal'));
         }
-        modal_1.ShowProgress = ShowProgress;
+        _modal.ShowProgress = ShowProgress;
         function ShowImage(url, title, onSuccess, onLoaded, onCancel) {
             if (onSuccess === void 0) { onSuccess = null; }
             if (onLoaded === void 0) { onLoaded = null; }
@@ -66,7 +68,9 @@ var mp;
                             var warning = content.find('.bg-warning');
                             warning.text(result.Message);
                             warning.slideDown();
-                            setTimeout(function () { warning.slideUp(); }, 2000);
+                            setTimeout(function () {
+                                warning.slideUp();
+                            }, 2000);
                         }
                     }, 'json');
                     return false;
@@ -97,7 +101,7 @@ var mp;
             });
             ShowModal(modal);
         }
-        modal_1.ShowImage = ShowImage;
+        _modal.ShowImage = ShowImage;
         function ShowPackage(url, title, onSuccess, onCancel) {
             if (onSuccess === void 0) { onSuccess = null; }
             if (onCancel === void 0) { onCancel = null; }
@@ -125,7 +129,9 @@ var mp;
                             var warning = content.find('.bg-warning');
                             warning.text(result.Message);
                             warning.slideDown();
-                            setTimeout(function () { warning.slideUp(); }, 2000);
+                            setTimeout(function () {
+                                warning.slideUp();
+                            }, 2000);
                         }
                     }, 'json');
                     return false;
@@ -142,7 +148,7 @@ var mp;
             });
             ShowModal(modal);
         }
-        modal_1.ShowPackage = ShowPackage;
+        _modal.ShowPackage = ShowPackage;
         function ShowConfirm(msg, title, OnOK, OnCancel) {
             if (OnOK === void 0) { OnOK = null; }
             if (OnCancel === void 0) { OnCancel = null; }
@@ -171,11 +177,7 @@ var mp;
             });
             ShowModal(modal);
         }
-        modal_1.ShowConfirm = ShowConfirm;
-        function ShowResetPassword() {
-            ShowModal($('#reset-password-modal'));
-        }
-        modal_1.ShowResetPassword = ShowResetPassword;
+        _modal.ShowConfirm = ShowConfirm;
         function Rollback() {
             if (prev.length == 0)
                 Close();
@@ -201,12 +203,14 @@ var mp;
         function Close() {
             $('#modal').modal('hide');
         }
-        modal_1.Close = Close;
+        _modal.Close = Close;
         $('#modal').on('hidden.bs.modal', function () {
             $('#modal .modal-dialog').removeAttr('style');
             prev = [];
         });
+        //定义对话框按钮行为
         $(function () {
+            //登录对话框--表单提交
             $(document).on('submit', '#login-modal form', function (e) {
                 var form = $(e.target);
                 var data = form.serialize();
@@ -217,26 +221,34 @@ var mp;
                     else {
                         var warning = $('#login-modal .bg-warning');
                         warning.text(result.Message).slideDown();
-                        setTimeout(function () { warning.slideUp(); }, 2000);
+                        setTimeout(function () {
+                            warning.slideUp();
+                        }, 2000);
                     }
                 }, 'json');
                 return false;
             });
+            //注册对话框--表单提交
             $(document).on('submit', '#signup-modal form', function (e) {
                 var form = $(e.target);
                 var data = form.serialize();
                 $.post('/account/signup', data, function (result) {
                     if (result.Success) {
-                        ShowMessage('注册成功', '提示', function () { ShowLogin(); });
+                        ShowMessage('注册成功', '提示', function () {
+                            ShowLogin();
+                        });
                     }
                     else {
                         var warning = $('#signup-modal .bg-warning');
                         warning.text(result.Message).slideDown();
-                        setTimeout(function () { warning.slideUp(); }, 2000);
+                        setTimeout(function () {
+                            warning.slideUp();
+                        }, 2000);
                     }
                 }, 'json');
                 return false;
             });
+            //图片对话框相关
             $(document).on('click', '#image-modal .select .dropdown-menu li a', function (e) {
                 var modal = $('#image-modal');
                 var option = $(e.target);
@@ -259,24 +271,7 @@ var mp;
                 input.val(value);
                 current.text(option.text());
             });
-            $(document).on('submit', '#reset-password-modal form', function (e) {
-                var form = $(e.target);
-                var data = form.serialize();
-                var ok = form.find('.ok');
-                ok.attr('disabled', 'disabled');
-                $.post('/account/sendresetmail', data, function (result) {
-                    if (result.Success == true) {
-                        ShowMessage(result.Message, '邮件发送成功', function () { Close(); });
-                    }
-                    else {
-                        var warning = $('#signup-modal .bg-warning');
-                        warning.text(result.Message).slideDown();
-                        setTimeout(function () { warning.slideUp(); }, 2000);
-                    }
-                    ok.removeAttr('disabled');
-                });
-                return false;
-            });
         });
     })(modal = mp.modal || (mp.modal = {}));
 })(mp || (mp = {}));
+//# sourceMappingURL=modal.js.map

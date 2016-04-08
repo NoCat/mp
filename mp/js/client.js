@@ -5,7 +5,7 @@ var mp;
         }
         client.columnCount = 0;
         return client;
-    })();
+    }());
     mp.client = client;
     var columnWidth = 248;
     var padding = 100;
