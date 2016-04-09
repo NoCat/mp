@@ -172,10 +172,10 @@ var mp;
             ShowModal(modal);
         }
         modal_1.ShowConfirm = ShowConfirm;
-        function ShowResetPassword() {
-            ShowModal($('#reset-password-modal'));
+        function ShowSendEmail() {
+            ShowModal($('#send-email-modal'));
         }
-        modal_1.ShowResetPassword = ShowResetPassword;
+        modal_1.ShowSendEmail = ShowSendEmail;
         function Rollback() {
             if (prev.length == 0)
                 Close();
@@ -259,7 +259,7 @@ var mp;
                 input.val(value);
                 current.text(option.text());
             });
-            $(document).on('submit', '#reset-password-modal form', function (e) {
+            $(document).on('submit', '#send-email-modal form', function (e) {
                 var form = $(e.target);
                 var data = form.serialize();
                 var ok = form.find('.ok');
@@ -269,7 +269,25 @@ var mp;
                         ShowMessage(result.Message, '邮件发送成功', function () { Close(); });
                     }
                     else {
-                        var warning = $('#signup-modal .bg-warning');
+                        var warning = form.find('.bg-warning');
+                        warning.text(result.Message).slideDown();
+                        setTimeout(function () { warning.slideUp(); }, 2000);
+                    }
+                    ok.removeAttr('disabled');
+                });
+                return false;
+            });
+            $(document).on('submit', '#reset-password-modal form', function (e) {
+                var form = $(e.target);
+                var data = form.serialize();
+                var ok = form.find('.ok');
+                ok.attr('disabled', 'disabled');
+                $.post('', data, function (result) {
+                    if (result.Success == true) {
+                        ShowMessage('密码重置成功', '提示', function () { location.href = '/'; });
+                    }
+                    else {
+                        var warning = form.find('.bg-warning');
                         warning.text(result.Message).slideDown();
                         setTimeout(function () { warning.slideUp(); }, 2000);
                     }

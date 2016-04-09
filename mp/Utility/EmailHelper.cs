@@ -21,7 +21,7 @@ using System.Web;
             mailObj.Subject = title;    //主题
             mailObj.Body = body;    //正文
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.qq.com";         //smtp服务器名称
+            smtp.Host = "smtp.exmail.qq.com";         //smtp服务器名称
             smtp.UseDefaultCredentials = true;
             smtp.EnableSsl = true;
             smtp.Credentials = new NetworkCredential(account, password);  //发送人的登录名和密码

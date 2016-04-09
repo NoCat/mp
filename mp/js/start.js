@@ -11,8 +11,9 @@ var mp;
                 mp.modal.ShowSignup();
                 return false;
             });
-            $('#reset-password').click(function () {
-                mp.modal.ShowResetPassword();
+            $(document).on('click', '.send-email-btn', function () {
+                mp.modal.ShowSendEmail();
+                return false;
             });
             $(document).on('click', '.resave-btn', function (e) {
                 var btn = $(e.currentTarget);

@@ -14,9 +14,10 @@ module mp.start {
             return false;
         });
 
-        $('#reset-password').click(() =>
+        $(document).on('click', '.send-email-btn', () =>
         {
-            modal.ShowResetPassword();
+            modal.ShowSendEmail();
+            return false;
         });
 
         $(document).on('click', '.resave-btn',(e) => {

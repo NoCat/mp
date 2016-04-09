@@ -42,7 +42,7 @@
                         <label>
                             <input name="remember" type="checkbox" checked="checked" value="true"> 记住我
                         </label>
-                        <a id="reset-password" href="javascript:;" style="display:block; float:right;margin-right:10px;">忘记密码»</a>
+                        <a class="send-email-btn" href="javascript:;" style="display:block; float:right;margin-right:10px;">忘记密码»</a>
                     </div>
                     <button class="btn btn-primary btn-block">登录</button>
                 </form>
@@ -53,14 +53,14 @@
         </div>
     </div>
 
-    <div id="reset-password-modal" class="modal-dialog modal-sm">
+    <div id="send-email-modal" class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">找回密码</h4>
-            </div>
-            <div class="bg-warning text-center text-warning"></div>
             <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">找回密码</h4>
+                </div>
+                <div class="bg-warning text-center text-warning"></div>
                 <div class="modal-body">
                     <div class="form-group">
                         <input class="form-control" name="email" type="text" placeholder="请输入注册邮箱" />

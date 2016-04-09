@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using System.IO;
+
 using mp.DAL;
 
 namespace mp.Controllers
@@ -98,24 +100,40 @@ namespace mp.Controllers
         public ActionResult SendResetMail(string email)
         {
             var result=new AjaxResult();
-            var emailExist = Manager.Users.Items.Where(u => u.Email == email).Count() > 0;
-            if(emailExist==false)
+            var user = Manager.Users.Items.Where(u => u.Email == email).FirstOrDefault();
+            if(user==null)
             {
                 result.Success = false;
                 result.Message = "邮箱地址不存在,请确认后重新输入";
                 return JsonContent(result);
             }
 
+            var reset = Manager.PasswordResets.Items.Where(r => r.UserID == user.ID && r.ExpireTime>DateTime.Now).FirstOrDefault();
+            if (reset == null)
+            {
+                var token = Guid.NewGuid().ToByteArray().ToHexString();
+                reset = new PasswordReset { UserID = user.ID, Token = token, ExpireTime = DateTime.Now.AddDays(1) };
+                Manager.PasswordResets.Add(reset);
+            }
 
+            var url = string.Format("{0}account/resetpassword?token={1}",Tools.Host, reset.Token);
 
-            return View();
+            
+
+            var body = System.IO.File.ReadAllText("~/template/resetpassword.html".MapPath());
+            body = string.Format(body, user.Email,url);
+
+            EmailHelper.Send(user.Email, "[喵帕斯]重置密码", body);
+
+            result.Message = string.Format("重置密码邮件已发送,请查收",user.Email);
+            return JsonContent(result);
         }
 
         public ActionResult ResetPassword(string token)
         {
             var reset = Manager.PasswordResets.Items.Where(s => s.Token == token && s.ExpireTime>DateTime.Now).FirstOrDefault();
             if (reset == null)
-                return Redirect("~/");
+                return HttpNotFound() ;
 
             ViewBag.Email = reset.User.Email;
 
@@ -141,7 +159,7 @@ namespace mp.Controllers
             }
 
             var reset = Manager.PasswordResets.Items.Where(s => s.Token == token && s.ExpireTime > DateTime.Now).FirstOrDefault();
-            if(result==null)
+            if (reset == null)
             {
                 result.Success = false;
                 result.Message = "token不存在或过期";
@@ -153,7 +171,11 @@ namespace mp.Controllers
 
             reset.User.Password = password;
             reset.User.Salt = salt;
+
+            Security.Login(reset.User.ID, true);
+
             Manager.Users.Update(reset.User);
+            Manager.PasswordResets.Remove(reset);            
 
             return JsonContent(result);
         }

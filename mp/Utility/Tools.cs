@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 static public class Tools
 {
     static public string ImageHost = System.Configuration.ConfigurationManager.AppSettings["ImageHost"];
+    static public string Host = System.Configuration.ConfigurationManager.AppSettings["Host"];
     public static byte[] Md5(string str)
     {
         var buffer = Encoding.UTF8.GetBytes(str);

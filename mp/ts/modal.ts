@@ -227,9 +227,9 @@ module mp.modal
 
     }
 
-    export function ShowResetPassword()
+    export function ShowSendEmail()
     {
-        ShowModal($('#reset-password-modal'));
+        ShowModal($('#send-email-modal'));
     }
 
     function Rollback()
@@ -353,8 +353,8 @@ module mp.modal
             current.text(option.text());
         });
 
-        //重置密码对话框
-        $(document).on('submit', '#reset-password-modal form', (e) =>
+        //发送邮件对话框
+        $(document).on('submit', '#send-email-modal form', (e) =>
         {
             var form = $(e.target);
             var data = form.serialize();
@@ -370,7 +370,33 @@ module mp.modal
                 }
                 else
                 {
-                    var warning = $('#signup-modal .bg-warning');
+                    var warning = form.find('.bg-warning');
+                    warning.text(result.Message).slideDown();
+                    setTimeout(() => { warning.slideUp(); }, 2000);
+                }
+                ok.removeAttr('disabled');
+            });
+            return false;
+        });
+
+        //重置密码对话框
+        $(document).on('submit', '#reset-password-modal form', (e) =>
+        {
+            var form = $(e.target);
+            var data = form.serialize();
+
+            var ok = form.find('.ok');
+            ok.attr('disabled', 'disabled');
+
+            $.post('', data, (result: AjaxResult) =>
+            {
+                if (result.Success == true)
+                {
+                    ShowMessage('密码重置成功', '提示', () => { location.href = '/'; });
+                }
+                else
+                {
+                    var warning = form.find('.bg-warning');
                     warning.text(result.Message).slideDown();
                     setTimeout(() => { warning.slideUp(); }, 2000);
                 }

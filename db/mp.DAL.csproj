@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountReset.cs" />
+    <Compile Include="PasswordReset.cs" />
     <Compile Include="AdminPixivUser.cs" />
     <Compile Include="AdminPixivTag.cs" />
     <Compile Include="AdminPixivWork.cs" />
